@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "name": "Vocab",
+  "version": "0.1.0",
+  "description": "translate hightlighted text and keep the translation in a memo book",
+  "author": "Lu",
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
+  "background": {
+    "persistent": true,
+    "page": "background/background.html"
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "contextMenus"
+  ],
+  "browser_action": {
+    "default_title": "Vocab",
+    "default_popup": "popover/popover.html"
+  },
+  "content_security_policy": "script-src 'self';object-src 'self';"
+}
