@@ -1,6 +1,9 @@
 const translateAPI = new TranslateAPI()
   , CONTEXT_TRANSLATE_ID = 'CONTEXT_TRANSLATE_ID';
 
+let contextMenuTabId
+  , contextMenuFrameId;
+
 const addVocabularyToStorage = (translateRes) => {
   const {originalText, translatedText} = translateRes;
   chrome.storage.local.set({[originalText]: {
@@ -12,9 +15,13 @@ const addVocabularyToStorage = (translateRes) => {
 }
 
 const sendMessageToCurrentTab = (type, data) => {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {type, data});
-  });
+  if (typeof contextMenuTabId === 'undefined') {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {type, data});
+    });
+  } else {
+    chrome.tabs.sendMessage(contextMenuTabId, {type, data}, {frameId: contextMenuFrameId});
+  }
 }
 
 const sendTranslationToTab = (translateRes) => {
@@ -23,6 +30,7 @@ const sendTranslationToTab = (translateRes) => {
 
 
 const onTranslateClick = async (info, tab) => {
+  console.log(26, tab);
   let q = info.selectionText;
   if (q) {
     q = q.trim().toLowerCase();
@@ -54,6 +62,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     case 'addToVocab': {
       addVocabularyToStorage(data);
       sendResponse('added');
+      break;
+    }
+    case 'onContextMenuShow': {
+      contextMenuFrameId = sender.frameId;
+      contextMenuTabId = sender.tab.id;
+      sendResponse('frameId recorded');
       break;
     }
     default:

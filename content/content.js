@@ -1,10 +1,16 @@
 let contextClientX
-  , contextClientY;
+  , contextClientY
+  , translateE
+  , translateResult;
+
+const modalUri = chrome.extension.getURL('content/translate-modal.html');
+const modalUriParsed = new URL(modalUri);
 
 document.addEventListener('contextmenu', (evt) => {
   contextClientX = evt.clientX;
   contextClientY = evt.clientY;
-  getContainer();
+  cleanTranslate();
+  sendMessage('onContextMenuShow', {}, () => {});
 }, true);
 
 document.addEventListener('click', () => {
@@ -20,6 +26,34 @@ const sendMessage = (type, data, callback) => {
 }
 
 const TRANSLATE_ID = '13eaeb3e-aeb5-11ea-b3de-0242ac130004';
+const TRANSLATE_IFRAME_ID = `${TRANSLATE_ID}-iframe`;
+
+window.addEventListener('message', (evt) => {
+  if (evt.origin != modalUriParsed.origin || !translateE || !evt.data) {
+    return;
+  }
+  switch (evt.data.type) {
+    case `${TRANSLATE_IFRAME_ID}-getTranslation`: {
+      translateE.contentWindow.postMessage({
+        type: `${TRANSLATE_IFRAME_ID}-sendTranslation`,
+        data: translateResult
+      }, '*')
+      break;
+    }
+    case `${TRANSLATE_IFRAME_ID}-setWith`: {
+      const translationWidth = evt.data.data ? evt.data.data : 60;
+      translateE.width = translationWidth + 50;
+      setDomStyles(translateE, 'opacity', '1');
+      break;
+    }
+    case `${TRANSLATE_IFRAME_ID}-add-btn-clicked`: {
+      addToVocabulary(translateResult);
+      break;
+    }
+    default:
+      break;
+  }
+}, false);
 
 const getContainer = () => {
   let containerE = document.getElementById(`${TRANSLATE_ID}-vocab-container`);
@@ -48,13 +82,13 @@ const addToVocabulary = (translate) => {
 const showTranslate = (translate) => {
   const containerE = getContainer();
   const {x: containerX, y: containerY} = containerE.getBoundingClientRect();
-  const translateE = document.createElement('iframe');
+  translateE = document.createElement('iframe');
   const offSetContainerX = contextClientX - containerX;
   const offSetContainerY = contextClientY - containerY;
   translateE.id = `${TRANSLATE_ID}-vocab-translate`;
   translateE.width = 100;
   translateE.height =40;
-  translateE.src = 'about:blank';
+  translateE.src = modalUri;
   setDomStyles(translateE, 'margin', '0px');
   setDomStyles(translateE, 'padding', '0px');
   setDomStyles(translateE, 'position', 'absolute');
@@ -65,64 +99,19 @@ const showTranslate = (translate) => {
   setDomStyles(translateE, 'box-shadow', '3px 3px 3px #e0e0e0');
   setDomStyles(translateE, 'color', 'black');
   setDomStyles(translateE, 'z-index', '2147483647');
-  
-  
-  const translateContent = document.createElement('span');
-  translateContent.textContent = translate.translatedText;
-  translateContent.title = translate.translatedText;
-  setDomStyles(translateContent, 'margin', '0px 0px 0px 6px');
-  setDomStyles(translateContent, 'padding', '0px',);
-  setDomStyles(translateContent, 'font-size', '16px');
-  setDomStyles(translateContent, 'font-weight', '600');
-  setDomStyles(translateContent, 'line-height', '40px');
-  setDomStyles(translateContent, 'vertical-align', 'middle');
-  setDomStyles(translateContent, 'user-select', 'none');
-  setDomStyles(translateContent, 'white-space', 'nowrap');
-
-  const addBtn = document.createElement('button');
-  addBtn.textContent = '+';
-  addBtn.title = 'Add to vocabulary';
-
-  const addBtnClickHandler = (evt) => {
-    addBtn.removeEventListener('click', addBtnClickHandler);
-    addToVocabulary(translate);
-  }
-  addBtn.addEventListener('click', addBtnClickHandler, true);
-  setDomStyles(addBtn, 'width', '20px' );
-  setDomStyles(addBtn, 'height', '20px' );
-  setDomStyles(addBtn, 'margin', '0px 6px 0px 6px' );
-  setDomStyles(addBtn, 'padding', '0px' );
-  setDomStyles(addBtn, 'border', '1px #e0e0e0 solid' );
-  setDomStyles(addBtn, 'border-radius', '10px' );
-  setDomStyles(addBtn, 'background', 'rgba(127, 219, 255, 1)' );
-  setDomStyles(addBtn, 'color', '#101010' );
-  setDomStyles(addBtn, 'font-size', '16px' );
-  setDomStyles(addBtn, 'font-weight', '600' );
-  setDomStyles(addBtn, 'line-height', '0px' );
-  setDomStyles(addBtn, 'vertical-align', 'middle' );
-  setDomStyles(addBtn, 'outline', '0' );
-  setDomStyles(addBtn, 'cursor', 'pointer');
+  setDomStyles(translateE, 'opacity', '0');
 
   setDomStyles(translateE, 'left', `${offSetContainerX}px`);
   setDomStyles(translateE, 'top', `${offSetContainerY-60}px`);
+
   containerE.append(translateE);
-
-  const iframeDoc = translateE.contentWindow.document;
-  setDomStyles(iframeDoc.body, 'overflow', 'hidden');
-  setDomStyles(iframeDoc.body, 'margin', '0px');
-  setDomStyles(iframeDoc.body, 'padding', '0px');
-  iframeDoc.body.append(translateContent)
-  iframeDoc.body.append(addBtn);
-  translateE.width = translateContent.offsetWidth+40;
 }
 
-window.document.addEventListener('iframeClicked', handleEvent, false)
-function handleEvent(e) {
-  console.log('parent', e) // outputs: {foo: 'bar'}
-}
 const cleanTranslate = () => {
   const containerE = getContainer();
-  containerE.textContent = '';
+  while (containerE.firstChild) {
+    containerE.removeChild(containerE.lastChild);
+  }
 }
 
 chrome.runtime.onMessage.addListener((request, sender) => {
@@ -132,7 +121,8 @@ chrome.runtime.onMessage.addListener((request, sender) => {
   }
   switch (type) {
     case 'getTranslate': {
-      showTranslate(data);
+      translateResult = data;
+      showTranslate(translateResult);
       break;
     }
     case 'translateError': {

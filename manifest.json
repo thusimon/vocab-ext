@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Vocab",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "translate hightlighted text and keep the translation in a memo book",
   "author": "Lu",
   "icons": {
@@ -25,6 +25,10 @@
       "run_at": "document_idle",
       "all_frames": true
     }
+  ],
+  "web_accessible_resources": [
+    "content/translate-modal.html",
+    "content/translate-modal.css"
   ],
   "browser_action": {
     "default_title": "Vocab",

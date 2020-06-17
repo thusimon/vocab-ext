@@ -1,0 +1,33 @@
+body {
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+}
+
+body > span {
+  margin: 0px 0px 0px 6px;
+  padding: 0px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 40px;
+  vertical-align: middle;
+  user-select: none;
+  white-space: nowrap;
+}
+
+body > button {
+  width: 20px;
+  height: 20px;
+  margin: 0px 6px 0px 6px;
+  padding: 0px;
+  border: 1px #e0e0e0 solid;
+  border-radius: 10px;
+  background: rgba(127, 219, 255, 1);
+  color: #101010;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 0px;
+  vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
