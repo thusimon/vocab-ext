@@ -1,17 +1,21 @@
-const translateAPI = new TranslateAPI()
-  , CONTEXT_TRANSLATE_ID = 'CONTEXT_TRANSLATE_ID';
+const translateAPI = new TranslateAPI();
 
 let contextMenuTabId
   , contextMenuFrameId;
 
-const addVocabularyToStorage = (translateRes) => {
+const addVocabularyToStorage = async (translateRes) => {
   const {originalText, translatedText} = translateRes;
-  chrome.storage.local.set({[originalText]: {
+  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+  const {SOURCE_LANG, TARGET_LANG} = settings;
+  const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
+  const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
+  const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
+  vocabsWithSetting[originalText] = {
     translation: translatedText,
     createdTime: Date.now()
-  }}, function() {
-    console.log(`vocabulary ${originalText}: ${translatedText}`);
-  });
+  }
+  vocabs[vocabTranslateArea] = vocabsWithSetting;
+  await storageSetP(STORAGE_AREA.VOCAB, vocabs);
 }
 
 const sendMessageToCurrentTab = (type, data) => {
@@ -30,13 +34,14 @@ const sendTranslationToTab = (translateRes) => {
 
 
 const onTranslateClick = async (info, tab) => {
-  console.log(26, tab);
+  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+  const {SOURCE_LANG, TARGET_LANG} = settings;
   let q = info.selectionText;
   if (q) {
     q = q.trim().toLowerCase();
     q = encodeURIComponent(q);
     try {
-      const translateRes = await translateAPI.translateFree(q, 'en', 'zh', 'text');
+      const translateRes = await translateAPI.translateFree(q, SOURCE_LANG, TARGET_LANG, 'text');
       sendMessageToCurrentTab('getTranslate', translateRes);
     } catch (e) {
       console.log(`Error: ${e.message}`);
@@ -46,7 +51,7 @@ const onTranslateClick = async (info, tab) => {
 }
 
 chrome.contextMenus.create({
-  id: CONTEXT_TRANSLATE_ID,
+  id: CONTEXTMENU_TRANSLATE_ID,
   title: 'Translate the selected text',
   contexts: ['selection'],
   onclick : onTranslateClick

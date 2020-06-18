@@ -9,15 +9,23 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col" id="src-lang"></th>
-            <th scope="col" id="tar-lang"></th>
-            <th scope="col">CreatedAt</th>
-            <th scope="col">Operations</th>
+            <th scope="col" width="25%">Option</th>
+            <th scope="col" width="75%">Settings</th>
           </tr>
         </thead>
-        <tbody id="vocab-tbody"></tbody>
+        <tbody id="vocab-tbody">
+          <tr>
+            <td>Source Language</td>
+            <td id="source-language"></td>
+          </tr>
+          <tr>
+            <td>Target Language</td>
+            <td id="target-language"></td>
+          </tr>
+        </tbody>
       </table>
+      <hr>
+      <button id="save-setting-btn">Save</button>
     </div>
     <script src="../../common/constants.js"></script>
     <script src="../../common/utils.js"></script>

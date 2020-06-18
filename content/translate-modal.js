@@ -1,5 +1,3 @@
-const TRANSLATE_IFRAME_ID = '13eaeb3e-aeb5-11ea-b3de-0242ac130004-iframe';
-
 window.addEventListener('DOMContentLoaded', (event) => {
   const translatedContentE = document.getElementById('translate-content');
   window.addEventListener('message', (evt) => {
@@ -7,13 +5,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
       return;
     }
     switch (evt.data.type) {
-      case `${TRANSLATE_IFRAME_ID}-sendTranslation`: {
+      case FRAME_EVENT_TYPE.SEND_TRANSLATION: {
         translatedText = evt.data.data.translatedText;
         translatedContentE.textContent = translatedText;
         translatedContentE.title = translatedText;
         const translationWidth = translatedContentE.offsetWidth;
         window.parent.postMessage({
-          type: `${TRANSLATE_IFRAME_ID}-setWith`,
+          type: FRAME_EVENT_TYPE.SET_WIDTH,
           data: translationWidth
         }, '*');
         break;
@@ -23,13 +21,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
   }, false);
   window.parent.postMessage({
-    type: `${TRANSLATE_IFRAME_ID}-getTranslation`
+    type: FRAME_EVENT_TYPE.GET_TRANSLATION
   }, '*');
 
   const addBtn = document.getElementById('add-vocab-button');
   addBtn.addEventListener('click', () => {
     window.parent.postMessage({
-      type: `${TRANSLATE_IFRAME_ID}-add-btn-clicked`
+      type: FRAME_EVENT_TYPE.CLICK_ADD_BTN
     }, '*');
   });
 });

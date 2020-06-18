@@ -25,28 +25,25 @@ const sendMessage = (type, data, callback) => {
   });
 }
 
-const TRANSLATE_ID = '13eaeb3e-aeb5-11ea-b3de-0242ac130004';
-const TRANSLATE_IFRAME_ID = `${TRANSLATE_ID}-iframe`;
-
 window.addEventListener('message', (evt) => {
   if (evt.origin != modalUriParsed.origin || !translateE || !evt.data) {
     return;
   }
   switch (evt.data.type) {
-    case `${TRANSLATE_IFRAME_ID}-getTranslation`: {
+    case FRAME_EVENT_TYPE.GET_TRANSLATION: {
       translateE.contentWindow.postMessage({
-        type: `${TRANSLATE_IFRAME_ID}-sendTranslation`,
+        type: FRAME_EVENT_TYPE.SEND_TRANSLATION,
         data: translateResult
       }, '*')
       break;
     }
-    case `${TRANSLATE_IFRAME_ID}-setWith`: {
+    case FRAME_EVENT_TYPE.SET_WIDTH: {
       const translationWidth = evt.data.data ? evt.data.data : 60;
       translateE.width = translationWidth + 50;
       setDomStyles(translateE, 'opacity', '1');
       break;
     }
-    case `${TRANSLATE_IFRAME_ID}-add-btn-clicked`: {
+    case FRAME_EVENT_TYPE.CLICK_ADD_BTN: {
       addToVocabulary(translateResult);
       break;
     }
@@ -56,12 +53,12 @@ window.addEventListener('message', (evt) => {
 }, false);
 
 const getContainer = () => {
-  let containerE = document.getElementById(`${TRANSLATE_ID}-vocab-container`);
+  let containerE = document.getElementById(DOM_ID.CONTAINER);
   if (containerE) {
     return containerE
   }
   containerE = document.createElement('div');
-  containerE.id = `${TRANSLATE_ID}-vocab-container`;
+  containerE.id = DOM_ID.CONTAINER;
   setDomStyles(containerE, 'width', '0px');
   setDomStyles(containerE, 'height', '0px');
   setDomStyles(containerE, 'position', 'relative');
@@ -85,7 +82,7 @@ const showTranslate = (translate) => {
   translateE = document.createElement('iframe');
   const offSetContainerX = contextClientX - containerX;
   const offSetContainerY = contextClientY - containerY;
-  translateE.id = `${TRANSLATE_ID}-vocab-translate`;
+  translateE.id = DOM_ID.IFRAME;
   translateE.width = 100;
   translateE.height =40;
   translateE.src = modalUri;

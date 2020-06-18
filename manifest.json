@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Vocab",
-  "version": "0.2.2",
-  "description": "translate hightlighted text and keep the translation in a memo book",
+  "version": "0.3.0",
+  "description": "translate hightlighted text and put the translation in a glossary book",
   "author": "Lu",
   "icons": {
     "16": "assets/icons/icon-16.png",
@@ -21,7 +21,10 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content/content.js"],
+      "js": [
+        "common/constants.js",
+        "content/content.js"
+      ],
       "run_at": "document_idle",
       "all_frames": true
     }
