@@ -1,4 +1,19 @@
 body {
   width: 250px;
   height: 100px;
+  background-color: whitesmoke;
+  margin: 0px 5px;
+  padding: 0px;
+}
+
+h2 {
+  margin: 4px;
+}
+
+#view-vocab {
+  width: 150px; 
+}
+
+#settings {
+  width: 75px;
 }

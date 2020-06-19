@@ -6,6 +6,12 @@
   </head>
   <body>
     <div class="container-fluid" id="vocab-container">
+      <div id="toaster"></div>
+      <header id="control-btns-header">
+        <button id="export-vocab">Export</button>
+        <button id="import-vocab">Import</button>
+        <button id="save-vocab">Save</button>
+      </header>
       <table class="table">
         <thead>
           <tr>
@@ -19,6 +25,7 @@
         <tbody id="vocab-tbody"></tbody>
       </table>
     </div>
+    <input type="file" id="import-file" accept=".json"></input>
     <script src="../../common/constants.js"></script>
     <script src="../../common/utils.js"></script>
     <script src="main.js"></script>

@@ -15,3 +15,55 @@ th, td {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+
+#control-btns-header {
+  margin: 10px 0px 10px 0px;
+}
+
+#save-vocab {
+  float: right;
+}
+
+#input-file {
+  display: none;
+}
+
+#toaster {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: antiquewhite;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid #f0f0f0;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 30px;
+  font-size: 17px;
+  box-shadow: 3px 3px 3px #e0e0e0;
+}
+
+#toaster.info {
+  color: darkgreen;
+}
+
+#toaster.error {
+  color: crimson;
+}
+
+#toaster.show {
+  visibility: visible;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+  from {top: 0px; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {top: 30px; opacity: 1;}
+  to {top: 0px; opacity: 0;}
+}
