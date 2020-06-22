@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Vocab",
-  "version": "0.4.0",
+  "version": "0.6.0",
   "description": "translate hightlighted text and put the translation in a glossary book",
   "author": "Lu",
   "icons": {

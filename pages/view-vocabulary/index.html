@@ -6,13 +6,29 @@
   </head>
   <body>
     <div class="container-fluid" id="vocab-container">
-      <div id="toaster"></div>
+      <div id="toaster">
+        <div id="toaster-msg"></div>
+        <div id="toaster-buttons">
+          <button id="toaster-ok">OK</button>
+          <button id="toaster-cancel">Cancel</button>
+        </div>
+      </div>
       <header id="control-btns-header">
-        <button id="export-vocab">Export</button>
-        <button id="import-vocab">Import</button>
-        <button id="save-vocab">Save</button>
+        <button id="export-vocab" title="export all the vocabularies as a json file">Export</button>
+        <button id="import-vocab" title="import and update vocabularies from a json file">Import</button>
+        <button id="read-vocab" title="Read all the vocabularies one by one">Read</button>
+        <button id="pause-read-vocab" title="Pause/Resume the reading">Pause</button>
+        <button id="save-vocab" title="Save the modifications">Save</button>
+        <button id="reset-vocab" title="Reset the modifications">Reset</button>
       </header>
-      <table class="table">
+      <table class="table" id="vocab-table">
+        <colgroup>
+          <col span="1" style="width: 5%;">
+          <col span="1" style="width: 30%;">
+          <col span="1" style="width: 30%;">
+          <col span="1" style="width: 19%;">
+          <col span="1" style="width: 16%;">
+        </colgroup>
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -25,7 +41,7 @@
         <tbody id="vocab-tbody"></tbody>
       </table>
     </div>
-    <input type="file" id="import-file" accept=".json"></input>
+    <input type="file" id="import-file" class="no-display" accept=".json"></input>
     <script src="../../common/constants.js"></script>
     <script src="../../common/utils.js"></script>
     <script src="main.js"></script>

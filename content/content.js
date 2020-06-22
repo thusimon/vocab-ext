@@ -18,6 +18,9 @@ document.addEventListener('click', () => {
 }, true);
 
 const sendMessage = (type, data, callback) => {
+  if (!chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
+    return;
+  }
   chrome.runtime.sendMessage({ type, data }, (resp) => {
     if (callback) {
       callback(resp);

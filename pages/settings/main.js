@@ -1,3 +1,4 @@
+let isModified = false;
 const createComboBox = (id, options, defaultValue) => {
   const listE = document.createElement('select');
   listE.id = id;
@@ -29,7 +30,22 @@ window.addEventListener('DOMContentLoaded', async () => {
     const SOURCE_LANG = sourceLangOpts.value;
     const TARGET_LANG = targetLangOpts.value;
     await storageSetP(STORAGE_AREA.SETTINGS, {SOURCE_LANG, TARGET_LANG});
-  })
+    isModified = false;
+    window.close();
+  });
+
+  sourceLangOpts.addEventListener('change', () => {
+    isModified = true;
+  });
+  targetLangOpts.addEventListener('change', () => {
+    isModified = true;
+  });
 
 });
 
+window.addEventListener('beforeunload', (evt) => {
+  if (isModified) {
+    evt.preventDefault();
+    evt.returnValue = '';
+  }
+});

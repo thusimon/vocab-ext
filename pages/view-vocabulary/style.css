@@ -1,6 +1,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 18px;
 }
 
 table, th, td {
@@ -8,54 +9,110 @@ table, th, td {
 }
 
 th, td {
-  padding: 10px;
+  padding: 0px 10px;
+  margin: 0px;
+  height: 40px;
   text-align: left;
+  position: relative;
+}
+
+td input {
+  height: 40px;
+  width: 100%;
+  padding: 0px 5px;
+  font-size: 18px;
+  border: none;
+}
+
+td button {
+  margin: 0px 5px;
+}
+
+.translate-table-cell {
+  padding: 0px;
 }
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 
+tr:nth-child(even) input {
+  background-color: #f2f2f2;
+}
+
+tr td:nth-child(5), th:nth-child(5) {
+  text-align: center;
+} 
+
+tr.strikeout td:before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-bottom: 1px solid #111;
+  width: 100%;
+}
+
+.input-disable {
+  pointer-events: none !important;
+}
+
+.input-enable {
+  background-color: beige !important;
+}
+
 #control-btns-header {
   margin: 10px 0px 10px 0px;
 }
 
-#save-vocab {
+#save-vocab, #reset-vocab {
   float: right;
 }
 
-#input-file {
+.no-display {
   display: none;
 }
 
+.opacity-full {
+  opacity: 1;
+}
+
 #toaster {
-  visibility: hidden;
+  opacity: 0;
   min-width: 250px;
   margin-left: -125px;
-  background-color: antiquewhite;
+  background-color: aliceblue;
   text-align: center;
   border-radius: 3px;
   border: 1px solid #f0f0f0;
-  padding: 16px;
+  padding: 8px;
   position: fixed;
   z-index: 1;
   left: 50%;
   top: 30px;
-  font-size: 17px;
+  font-size: 18px;
   box-shadow: 3px 3px 3px #e0e0e0;
 }
 
-#toaster.info {
+#toaster-msg.info {
   color: darkgreen;
 }
 
-#toaster.error {
+#toaster-msg.error {
   color: crimson;
+}
+
+#toaster-buttons {
+  margin: 8px 0px 0px 0px;
 }
 
 #toaster.show {
   visibility: visible;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s forwards;
+}
+
+#toaster.hide {
+  animation: fadeout 0.5s forwards;
 }
 
 @keyframes fadein {
