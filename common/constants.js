@@ -10,7 +10,8 @@ const STORAGE_AREA = {
 
 const DEFAULT_SETTING = {
   SOURCE_LANG: 'en',
-  TARGET_LANG: 'zh'
+  TARGET_LANG: 'zh',
+  ENABLE_API: false
 };
 
 const DOM_ID = {

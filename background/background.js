@@ -28,20 +28,15 @@ const sendMessageToCurrentTab = (type, data) => {
   }
 }
 
-const sendTranslationToTab = (translateRes) => {
-  sendMessageToCurrentTab('getTranslate', translateRes);
-}
-
-
 const onTranslateClick = async (info, tab) => {
   const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-  const {SOURCE_LANG, TARGET_LANG} = settings;
+  const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings;
   let q = info.selectionText;
   if (q) {
     q = q.trim().toLowerCase();
-    q = encodeURIComponent(q);
     try {
-      const translateRes = await translateAPI.translateFree(q, SOURCE_LANG, TARGET_LANG, 'text');
+      const translateRes = ENABLE_API ? await translateAPI.translate(q, SOURCE_LANG, TARGET_LANG, 'text') :
+        await translateAPI.translateFree(encodeURIComponent(q), SOURCE_LANG, TARGET_LANG, 'text')
       sendMessageToCurrentTab('getTranslate', translateRes);
     } catch (e) {
       console.log(`Error: ${e.message}`);
@@ -59,7 +54,6 @@ chrome.contextMenus.create({
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   const {type, data} = request;
-  console.log(data)
   if (!type) {
     return;
   }

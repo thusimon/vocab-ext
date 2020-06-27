@@ -4,8 +4,8 @@ body {
   padding: 0px;
 }
 
-body > span {
-  margin: 0px 0px 0px 6px;
+body span {
+  margin: 0px 6px;
   padding: 0px;
   font-size: 16px;
   font-weight: 600;
@@ -15,14 +15,19 @@ body > span {
   white-space: nowrap;
 }
 
-body > button {
+.error {
+  background-color: lightpink;
+  text-align: center;
+}
+
+body button {
   width: 20px;
   height: 20px;
-  margin: 0px 6px 0px 6px;
+  margin: 0px 3px;
   padding: 0px;
   border: 1px #e0e0e0 solid;
   border-radius: 10px;
-  background: rgba(127, 219, 255, 1);
+  background-color: lightblue;
   color: #101010;
   font-size: 16px;
   font-weight: 600;
@@ -30,4 +35,16 @@ body > button {
   vertical-align: middle;
   outline: 0;
   cursor: pointer;
+}
+
+body button:hover {
+  background-color: lightcyan;
+}
+
+#read-vocab-button {
+  font-size: 10px;
+}
+
+.hide {
+  display: none;
 }

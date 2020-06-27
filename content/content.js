@@ -42,7 +42,9 @@ window.addEventListener('message', (evt) => {
     }
     case FRAME_EVENT_TYPE.SET_WIDTH: {
       const translationWidth = evt.data.data ? evt.data.data : 60;
-      translateE.width = translationWidth + 50;
+      translateE.width = translationWidth + 75;
+      setDomStyles(translateE, 'width', translationWidth + 75 + 'px');
+      setDomStyles(translateE, 'max-width', translationWidth + 75 + 'px');
       setDomStyles(translateE, 'opacity', '1');
       break;
     }
@@ -104,6 +106,11 @@ const showTranslate = (translate) => {
   setDomStyles(translateE, 'left', `${offSetContainerX}px`);
   setDomStyles(translateE, 'top', `${offSetContainerY-60}px`);
 
+  setDomStyles(translateE, 'width', '100px');
+  setDomStyles(translateE, 'max-width', '100px');
+  setDomStyles(translateE, 'height', '40px');
+  setDomStyles(translateE, 'max-height', '40px');
+
   containerE.append(translateE);
 }
 
@@ -126,6 +133,10 @@ chrome.runtime.onMessage.addListener((request, sender) => {
       break;
     }
     case 'translateError': {
+      translateResult = {
+        err: data
+      }
+      showTranslate(translateResult);
       break;
     }
     default:

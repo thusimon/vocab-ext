@@ -1,13 +1,23 @@
 class TranslateAPI {
   constructor() {
-    this.API_KEY = '<replace-api-key-later>'
-    this.reqUriBase = 'https://translation.googleapis.com/language/translate/v2'
-    this.reqUriFreeBase = 'https://translate.googleapis.com/translate_a/single?client=gtx'
+    this.API_KEY = '<replace-api-key-later>';
+    this.reqUriBase = 'https://translation.googleapis.com/language/translate/v2';
+    this.reqUriFreeBase = 'https://translate.googleapis.com/translate_a/single?client=gtx';
   }
   async translate(q, source, target, format) {
-    const reqUri = `${this.reqUriBase}?source=${source}&target=${target}&key=${this.API_KEY}&format=${format}&q=${q}`;
-    const fetchResp = await fetch(reqUri);
+    const fetchResp = await fetch(`${this.reqUriBase}?key=${this.API_KEY}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        q,
+        target,
+        source,
+        format
+      })
+    });
     const dataRaw = await fetchResp.json();
+    if (fetchResp.status != 200) {
+      throw new Error(dataRaw.error.message);
+    }
     const {data: {translations: [{translatedText}]}} = dataRaw;
     return {
       translatedText,
