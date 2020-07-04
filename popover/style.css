@@ -9,12 +9,9 @@ body {
 
 h2 {
   margin: 4px;
+  font-size: 20px;
 }
 
-#view-vocab {
-  width: 150px; 
-}
-
-#settings {
-  width: 75px;
+button {
+  padding: 0px 12px;
 }
