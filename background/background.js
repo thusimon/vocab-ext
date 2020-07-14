@@ -45,6 +45,25 @@ const onTranslateClick = async (info, tab) => {
   }  
 }
 
+let tkk;
+let translateWebAppClientEnabled = true;
+const getGoogleTranslateTKK = async () => {
+  try {
+    const fetchRes = await fetch('https://translate.google.com/');
+    if (fetchRes.ok) {
+      const resp = await fetchRes.text();
+      const tkkMatch = resp.match(/tkk:['"]([0-9.]+)['"]/)
+      if (tkkMatch) {
+        tkk = tkkMatch[1];
+        translateWebAppClientEnabled = true;
+      }
+    }
+    throw 'can not get tkk'
+  } catch (e) {
+    translateWebAppClientEnabled = false;
+  }
+}
+
 chrome.contextMenus.create({
   id: CONTEXTMENU_TRANSLATE_ID,
   title: 'Translate the selected text',
