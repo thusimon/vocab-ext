@@ -40,11 +40,20 @@ window.addEventListener('message', (evt) => {
       }, '*')
       break;
     }
-    case FRAME_EVENT_TYPE.SET_WIDTH: {
-      const translationWidth = evt.data.data ? evt.data.data : 60;
-      translateE.width = translationWidth + 75;
-      setDomStyles(translateE, 'width', translationWidth + 75 + 'px');
-      setDomStyles(translateE, 'max-width', translationWidth + 75 + 'px');
+    case FRAME_EVENT_TYPE.SET_SIZE: {
+      const containerE = getContainer();
+      const {x: containerX, y: containerY} = containerE.getBoundingClientRect();
+      const offSetContainerX = contextClientX - containerX;
+      const offSetContainerY = contextClientY - containerY;
+      const translationWidth = evt.data.data ? evt.data.data.width : 60;
+      const translationHeight = evt.data.data ? evt.data.data.height : 40;
+      translateE.width = translationWidth;
+      //TODO the height is not accurate, give it more buffer
+      translateE.height = translationHeight + 30;
+      setDomStyles(translateE, 'width', translationWidth + 'px');
+      setDomStyles(translateE, 'height', translationHeight + 30 + 'px');
+      setDomStyles(translateE, 'left', `${offSetContainerX}px`);
+      setDomStyles(translateE, 'top', `${offSetContainerY-translationHeight-50}px`);
       setDomStyles(translateE, 'opacity', '1');
       break;
     }
@@ -83,13 +92,10 @@ const addToVocabulary = (translate) => {
 
 const showTranslate = (translate) => {
   const containerE = getContainer();
-  const {x: containerX, y: containerY} = containerE.getBoundingClientRect();
   translateE = document.createElement('iframe');
-  const offSetContainerX = contextClientX - containerX;
-  const offSetContainerY = contextClientY - containerY;
   translateE.id = DOM_ID.IFRAME;
-  translateE.width = 100;
-  translateE.height =40;
+  //translateE.width = 100;
+  //translateE.height =40;
   translateE.src = modalUri;
   setDomStyles(translateE, 'margin', '0px');
   setDomStyles(translateE, 'padding', '0px');
@@ -102,14 +108,7 @@ const showTranslate = (translate) => {
   setDomStyles(translateE, 'color', 'black');
   setDomStyles(translateE, 'z-index', '2147483647');
   setDomStyles(translateE, 'opacity', '0');
-
-  setDomStyles(translateE, 'left', `${offSetContainerX}px`);
-  setDomStyles(translateE, 'top', `${offSetContainerY-60}px`);
-
-  setDomStyles(translateE, 'width', '100px');
-  setDomStyles(translateE, 'max-width', '100px');
-  setDomStyles(translateE, 'height', '40px');
-  setDomStyles(translateE, 'max-height', '40px');
+  setDomStyles(translateE, 'max-width', '600px');
 
   containerE.append(translateE);
 }

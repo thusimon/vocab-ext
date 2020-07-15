@@ -6,8 +6,18 @@
     <script src="translate-modal.js"></script>
   </head>
   <body>
-    <span id="translate-content"></span>
-    <button id="add-vocab-button" title="Add to vocabulary">+</button>
-    <button id="read-vocab-button" title="Read vocabulary">&#x1F509;</button>
+    <div id="translate-container">
+      <div id="translate-content">
+        <div id="sentence"></div>
+        <div id="dict" class="hide"></div>
+        <div id="synsets" class="hide"></div>
+        <div id="examples" class="hide"></div>
+      </div>
+      <hr/>
+      <div id="translate-button-group">
+        <button id="add-vocab-button" title="Add to vocabulary">+</button>
+        <button id="read-vocab-button" title="Read vocabulary">&#x1F509;</button>
+      </div>
+    </div>
   </body>
 </html>

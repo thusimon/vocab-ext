@@ -108,8 +108,14 @@ class TranslateAPI {
     const reqUri = `${this.reqUriFreeBase}&sl=${source}&tl=${target}&q=${q}`;
     const fetchResp = await fetch(reqUri);
     const dataRaw = await fetchResp.json();
+    console.log(dataRaw);
     const {sentences, dict, confidence, synsets, examples} = dataRaw
-    const [{trans, orig}, {translit, src_translit}] = sentences;
+    const {trans, orig} = sentences[0];
+    let translit, src_translit;
+    if (sentences[1]) {
+      translit = sentences[1].translit;
+      src_translit = sentences[1].src_translit;
+    }
     let dictResult = [];
     if (dict) {
       dict.forEach(d=>{

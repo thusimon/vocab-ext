@@ -4,15 +4,32 @@ body {
   padding: 0px;
 }
 
-body span {
+#translate-container {
+  margin: 4px;
+}
+
+#translate-content {
   margin: 0px 6px;
   padding: 0px;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
-  line-height: 40px;
+  line-height: 20px;
   vertical-align: middle;
   user-select: none;
-  white-space: nowrap;
+}
+
+#sentence {
+  font-size: 16px;
+  max-width: 600px;
+  white-space: normal;
+}
+
+#dict {
+  
+}
+
+#examples {
+  font-weight: 400;
 }
 
 .error {
@@ -39,6 +56,11 @@ body button {
 
 body button:hover {
   background-color: lightcyan;
+}
+
+#translate-button-group {
+  margin: 5px;
+  text-align: right;
 }
 
 #read-vocab-button {

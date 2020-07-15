@@ -21,7 +21,7 @@ const DOM_ID = {
 const FRAME_EVENT_TYPE = {
   GET_TRANSLATION: `${TRANSLATE_IFRAME_ID}-getTranslation`,
   SEND_TRANSLATION: `${TRANSLATE_IFRAME_ID}-sendTranslation`,
-  SET_WIDTH: `${TRANSLATE_IFRAME_ID}-setWith`,
+  SET_SIZE: `${TRANSLATE_IFRAME_ID}-setSize`,
   CLICK_ADD_BTN: `${TRANSLATE_IFRAME_ID}-clickAddBtn`
 };
 
