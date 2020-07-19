@@ -49,16 +49,20 @@ window.addEventListener('message', (evt) => {
       const translationHeight = evt.data.data ? evt.data.data.height : 40;
       translateE.width = translationWidth;
       //TODO the height is not accurate, give it more buffer
-      translateE.height = translationHeight + 30;
+      translateE.height = translationHeight + 10;
       setDomStyles(translateE, 'width', translationWidth + 'px');
-      setDomStyles(translateE, 'height', translationHeight + 30 + 'px');
+      setDomStyles(translateE, 'height', translationHeight + 10 + 'px');
       setDomStyles(translateE, 'left', `${offSetContainerX}px`);
-      setDomStyles(translateE, 'top', `${offSetContainerY-translationHeight-50}px`);
+      setDomStyles(translateE, 'top', `${offSetContainerY-translationHeight-30}px`);
       setDomStyles(translateE, 'opacity', '1');
       break;
     }
     case FRAME_EVENT_TYPE.CLICK_ADD_BTN: {
       addToVocabulary(translateResult);
+      break;
+    }
+    case FRAME_EVENT_TYPE.CLOSE_MODAL: {
+      cleanTranslate();
       break;
     }
     default:
@@ -102,7 +106,7 @@ const showTranslate = (translate) => {
   setDomStyles(translateE, 'position', 'absolute');
   setDomStyles(translateE, 'background', 'rgba(242, 242, 242, 1)');
   setDomStyles(translateE, 'border', '1px #e0e0e0 solid');
-  setDomStyles(translateE, 'border-radius', '4px');
+  setDomStyles(translateE, 'border-radius', '5px');
   setDomStyles(translateE, 'position', 'absolute');
   setDomStyles(translateE, 'box-shadow', '3px 3px 3px #e0e0e0');
   setDomStyles(translateE, 'color', 'black');

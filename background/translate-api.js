@@ -108,7 +108,6 @@ class TranslateAPI {
     const reqUri = `${this.reqUriFreeBase}&sl=${source}&tl=${target}&q=${q}`;
     const fetchResp = await fetch(reqUri);
     const dataRaw = await fetchResp.json();
-    console.log(dataRaw);
     const {sentences, dict, confidence, synsets, examples} = dataRaw
     const {trans, orig} = sentences[0];
     let translit, src_translit;
