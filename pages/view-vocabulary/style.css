@@ -1,5 +1,34 @@
-button {
-  width: 70px;
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#vocab-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+#control-btns-header {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-btn-group {
+  margin: 0px 15px
+}
+.btn-header {
+  width: 40px;
+  height: 60px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.btn-header:active .svg-path {
+  fill: #FEFEFE;
+}
+
+.btn-header:hover {
+  transform: scale(1.3);
 }
 
 table {
@@ -44,9 +73,17 @@ tr:nth-child(even) input {
   background-color: #f2f2f2;
 }
 
-tr td:nth-child(5), th:nth-child(5) {
-  text-align: center;
-} 
+tr {
+  cursor: pointer;
+}
+
+tbody tr.selected {
+  background-color: #d8f3dc;
+}
+
+tbody tr input.selected {
+  background-color: #d8f3dc;
+}
 
 tr.strikeout td:before {
   content: " ";
@@ -62,19 +99,37 @@ tr.strikeout td:before {
 }
 
 .input-enable {
-  background-color: beige !important;
+  background-color: #d8f3dc !important;
 }
 
 #control-btns-header {
-  margin: 10px 0px 10px 0px;
+  margin: 0px;
+  padding: 0px;
+  background-color: #004AAD;
 }
 
-#save-vocab, #reset-vocab {
-  float: right;
+.vh-sep {
+  margin: 0px 10px;
+  border-left: 2px solid #F0F0F0;
+  height: 35px;
+  display: inline-block;
+}
+
+.header-count {
+  margin: 0px 15px;
+  line-height: 60px;
+  font-size: 24px;
+  color: #F0F0F0;
 }
 
 .no-display {
   display: none;
+}
+
+.main {
+  margin: 5px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .opacity-full {
@@ -84,18 +139,23 @@ tr.strikeout td:before {
 #toaster {
   opacity: 0;
   min-width: 250px;
-  margin-left: -125px;
-  background-color: aliceblue;
+  margin: 0px;
+  background-color: #fcf6bd;
   text-align: center;
   border-radius: 3px;
   border: 1px solid #f0f0f0;
   padding: 8px;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  left: 50%;
-  top: 30px;
+  width: 20%;
+  left: 40%;
+  top: 40%;
   font-size: 18px;
   box-shadow: 3px 3px 3px #e0e0e0;
+}
+
+#toaster button {
+  width: 70px;
 }
 
 #toaster-msg.info {
@@ -121,10 +181,10 @@ tr.strikeout td:before {
 
 @keyframes fadein {
   from {top: 0px; opacity: 0;}
-  to {top: 30px; opacity: 1;}
+  to {top: 10%; opacity: 1;}
 }
 
 @keyframes fadeout {
-  from {top: 30px; opacity: 1;}
+  from {top: 10%; opacity: 1;}
   to {top: 0px; opacity: 0;}
 }

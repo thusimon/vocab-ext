@@ -4,7 +4,7 @@ let contextMenuTabId
   , contextMenuFrameId;
 
 const addVocabularyToStorage = async (translateRes) => {
-  const {originalText, translatedText} = translateRes;
+  const {originalText, translatedText, dictResult} = translateRes;
   const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
   const {SOURCE_LANG, TARGET_LANG} = settings;
   const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
@@ -12,6 +12,7 @@ const addVocabularyToStorage = async (translateRes) => {
   const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
   vocabsWithSetting[originalText] = {
     translation: translatedText,
+    dict: dictResult,
     createdTime: Date.now()
   }
   vocabs[vocabTranslateArea] = vocabsWithSetting;

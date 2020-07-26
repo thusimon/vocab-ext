@@ -16,7 +16,7 @@ table td {
 #translate-header {
   width: 100%;
   height: 16px;
-  background: #2699FB;
+  background: #004AAD;
 }
 
 #close-btn {
@@ -95,7 +95,7 @@ button {
 }
 
 button svg:hover {
-  stroke: #46B9FB;
+  stroke: #2699FB;
 }
 #translate-button-group {
   margin: 10px 5px;

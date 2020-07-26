@@ -5,41 +5,82 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="container-fluid" id="vocab-container">
+    <div class="container-rigid" id="vocab-container">
       <div id="toaster">
         <div id="toaster-msg"></div>
         <div id="toaster-buttons">
-          <button id="toaster-ok">OK</button>
-          <button id="toaster-cancel">Cancel</button>
+          <button id="toaster-ok" class="btn-primary">OK</button>
+          <button id="toaster-cancel" class="btn-primary">Cancel</button>
         </div>
       </div>
       <header id="control-btns-header">
-        <button id="export-vocab" title="export all the vocabularies as a json file">Export</button>
-        <button id="import-vocab" title="import and update vocabularies from a json file">Import</button>
-        <button id="read-vocab" title="Read all the vocabularies one by one">Read</button>
-        <button id="pause-read-vocab" title="Pause/Resume the reading">Pause</button>
-        <button id="save-vocab" title="Save the modifications">Save</button>
-        <button id="reset-vocab" title="Reset the modifications">Reset</button>
+        <div class="header-btn-group">
+          <button class="btn-svg btn-header" id="export-vocab" title="export all the vocabularies as a json file">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path class="svg-path" d="M13 5v6h1.17L12 13.17 9.83 11H11V5h2m2-2H9v6H5l7 7 7-7h-4V3zm4 15H5v2h14v-2z" fill="#F0F0F0"/>
+            </svg>
+          </button>
+          <button class="btn-svg btn-header" id="import-vocab" title="import and update vocabularies from a json file">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path class="svg-path" d="M5 4h14v2H5zm0 10h4v6h6v-6h4l-7-7-7 7zm8-2v6h-2v-6H9.83L12 9.83 14.17 12H13z" fill="#F0F0F0"/>
+            </svg>
+          </button>
+          <div class="vh-sep"></div>
+          <button class="btn-svg btn-header" id="edit-vocab" title="Edit the selected vocabulary">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path class="svg-path" d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z" fill="#F0F0F0"/>
+            </svg>
+          </button>
+          <button class="btn-svg btn-header" id="delete-vocab" title="Delete the selected vocabulary">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path class="svg-path" d="M14.12 10.47L12 12.59l-2.13-2.12-1.41 1.41L10.59 14l-2.12 2.12 1.41 1.41L12 15.41l2.12 2.12 1.41-1.41L13.41 14l2.12-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9z" fill="#F0F0F0"/>
+            </svg>
+          </button>
+          <button class="btn-svg btn-header" id="save-vocab" title="Save the modifications">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0V0z" fill="none"/>
+              <path class="svg-path" d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm2 16H5V5h11.17L19 7.83V19zm-7-7c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3zM6 6h9v4H6z" fill="#F0F0F0"/>
+            </svg>
+          </button>
+          <div class="vh-sep"></div>
+          <button class="btn-svg btn-header" id="read-vocab" title="Read all the vocabularies one by one">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path class="svg-path" d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="#F0F0F0"/>
+            </svg>
+          </button>
+          <button class="btn-svg btn-header no-display" id="pause-read-vocab" title="Pause the reading">
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 24 24">
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path class="svg-path" d="M9 16h2V8H9v8zm3-14C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-4h2V8h-2v8z" fill="#F0F0F0"/>
+            </svg>
+          </button>
+        </div>
+        <div class="header-count">
+          Total: <span id="total-vocab-count"></span>
+        </div>
       </header>
-      <table class="table" id="vocab-table">
-        <colgroup>
-          <col span="1" style="width: 5%;">
-          <col span="1" style="width: 30%;">
-          <col span="1" style="width: 30%;">
-          <col span="1" style="width: 19%;">
-          <col span="1" style="width: 16%;">
-        </colgroup>
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col" id="src-lang"></th>
-            <th scope="col" id="tar-lang"></th>
-            <th scope="col">CreatedAt</th>
-            <th scope="col">Operations</th>
-          </tr>
-        </thead>
-        <tbody id="vocab-tbody"></tbody>
-      </table>
+      <div class="main">
+        <table class="table" id="vocab-table">
+          <colgroup>
+            <col span="1" style="width: 40%;">
+            <col span="1" style="width: 40%;">
+            <col span="1" style="width: 20%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col" id="src-lang"></th>
+              <th scope="col" id="tar-lang"></th>
+              <th scope="col">CreatedAt</th>
+            </tr>
+          </thead>
+          <tbody id="vocab-tbody"></tbody>
+        </table>
+      </div>
     </div>
     <input type="file" id="import-file" class="no-display" accept=".json"></input>
     <script src="../../common/constants.js"></script>
