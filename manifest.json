@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Vocab",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "translate hightlighted text and put the translation in a glossary book.",
   "author": "Lu",
   "icons": {
@@ -23,6 +23,7 @@
       "matches": ["<all_urls>"],
       "js": [
         "common/constants.js",
+        "common/utils.js",
         "content/content.js"
       ],
       "run_at": "document_idle",
@@ -31,7 +32,9 @@
   ],
   "web_accessible_resources": [
     "content/translate-modal.html",
-    "content/translate-modal.css"
+    "content/translate-modal.css",
+    "content/card-modal.html",
+    "content/card-modal.css"
   ],
   "browser_action": {
     "default_title": "Vocab",

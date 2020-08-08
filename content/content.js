@@ -1,10 +1,15 @@
+(async () => {
 let contextClientX
   , contextClientY
   , translateE
-  , translateResult;
+  , translateResult
+  , cardE
+  , cardData
+  , cardPositionTimer;
 
-const modalUri = chrome.extension.getURL('content/translate-modal.html');
-const modalUriParsed = new URL(modalUri);
+const modalTranslateUri = chrome.extension.getURL('content/translate-modal.html');
+const modalCardUri = chrome.extension.getURL('content/card-modal.html');
+const modalTranslateUriParsed = new URL(modalTranslateUri);
 
 document.addEventListener('contextmenu', (evt) => {
   contextClientX = evt.clientX;
@@ -29,7 +34,7 @@ const sendMessage = (type, data, callback) => {
 }
 
 window.addEventListener('message', (evt) => {
-  if (evt.origin != modalUriParsed.origin || !translateE || !evt.data) {
+  if (evt.origin != modalTranslateUriParsed.origin || (!translateE && !cardE) || !evt.data) {
     return;
   }
   switch (evt.data.type) {
@@ -40,7 +45,14 @@ window.addEventListener('message', (evt) => {
       }, '*')
       break;
     }
-    case FRAME_EVENT_TYPE.SET_SIZE: {
+    case FRAME_EVENT_TYPE.GET_CARD: {
+      cardE.contentWindow.postMessage({
+        type: FRAME_EVENT_TYPE.SEND_CARD,
+        data: cardData
+      }, '*');
+      break;
+    }
+    case FRAME_EVENT_TYPE.SET_TRANSLATION_SIZE: {
       const containerE = getContainer();
       const {x: containerX, y: containerY} = containerE.getBoundingClientRect();
       const offSetContainerX = contextClientX - containerX;
@@ -57,12 +69,27 @@ window.addEventListener('message', (evt) => {
       setDomStyles(translateE, 'opacity', '1');
       break;
     }
+    case FRAME_EVENT_TYPE.SET_CARD_SIZE: {
+      const translationWidth = evt.data.data ? evt.data.data.width : 60;
+      const translationHeight = evt.data.data ? evt.data.data.height : 40;
+      cardE.width = translationWidth;
+      //TODO the height is not accurate, give it more buffer
+      cardE.height = translationHeight + 10;
+      setDomStyles(cardE, 'width', translationWidth + 'px');
+      setDomStyles(cardE, 'height', translationHeight + 10 + 'px');
+      setDomStyles(cardE, 'opacity', '0.95');
+      break;
+    }
     case FRAME_EVENT_TYPE.CLICK_ADD_BTN: {
       addToVocabulary(translateResult);
       break;
     }
-    case FRAME_EVENT_TYPE.CLOSE_MODAL: {
+    case FRAME_EVENT_TYPE.CLOSE_TRANSLATE_MODAL: {
       cleanTranslate();
+      break;
+    }
+    case FRAME_EVENT_TYPE.CLOSE_CARD_MODAL: {
+      cleanCard();
       break;
     }
     default:
@@ -97,10 +124,10 @@ const addToVocabulary = (translate) => {
 const showTranslate = (translate) => {
   const containerE = getContainer();
   translateE = document.createElement('iframe');
-  translateE.id = DOM_ID.IFRAME;
+  translateE.id = DOM_ID.TRANSLATE_IFRAME;
   //translateE.width = 100;
   //translateE.height =40;
-  translateE.src = modalUri;
+  translateE.src = modalTranslateUri;
   setDomStyles(translateE, 'margin', '0px');
   setDomStyles(translateE, 'padding', '0px');
   setDomStyles(translateE, 'position', 'absolute');
@@ -119,8 +146,70 @@ const showTranslate = (translate) => {
 
 const cleanTranslate = () => {
   const containerE = getContainer();
-  while (containerE.firstChild) {
-    containerE.removeChild(containerE.lastChild);
+  const translatesE = containerE.querySelectorAll(`#${DOM_ID.TRANSLATE_IFRAME}`);
+  translatesE.forEach(translateE => {
+    translateE.remove();
+  });
+}
+
+const cleanCard = () => {
+  const containerE = getContainer();
+  const cardsE = containerE.querySelectorAll(`#${DOM_ID.CARD_IFRAME}`);
+  cardsE.forEach(card => {
+    card.remove();
+  });
+  if (cardPositionTimer) {
+    clearInterval(cardPositionTimer);
+  }
+}
+
+const positionCard = (toTopFixed, toLeftFixed) => {
+  if (!cardE) {
+    return;
+  }
+  const containerE = getContainer();
+  const containerRect = containerE.getBoundingClientRect();
+  setDomStyles(cardE, 'top', `-${Math.round(containerRect.top) - toTopFixed}px`);
+  setDomStyles(cardE, 'left', `${toLeftFixed}px`);
+}
+
+const showCard = (cardTime) => {
+  const containerE = getContainer();
+  cardE = document.createElement('iframe');
+  cardE.id = DOM_ID.CARD_IFRAME;
+  cardE.src = modalCardUri;
+
+  setDomStyles(cardE, 'margin', '0px');
+  setDomStyles(cardE, 'padding', '0px');
+  setDomStyles(cardE, 'position', 'absolute');
+  setDomStyles(cardE, 'background', 'rgba(242, 242, 242, 1)');
+  setDomStyles(cardE, 'border', '1px #e0e0e0 solid');
+  setDomStyles(cardE, 'border-radius', '5px');
+  setDomStyles(cardE, 'position', 'absolute');
+  setDomStyles(cardE, 'box-shadow', '3px 3px 3px #e0e0e0');
+  setDomStyles(cardE, 'color', 'black');
+  setDomStyles(cardE, 'z-index', '2147483647');
+  setDomStyles(cardE, 'opacity', '0');
+  setDomStyles(cardE, 'max-width', '600px');
+
+  // compute the position, the card is now at fixed position
+  // TODO allow user to drag the card
+  const toTopFixed = 20;
+  const toLeftFixed = 20;
+
+  containerE.append(cardE);
+
+  cardPositionTimer = setInterval(() => {
+    positionCard(toTopFixed, toLeftFixed);
+  }, 200);
+
+  if (cardTime > 0) {
+    setTimeout(() => {
+      cleanCard();
+      if (cardPositionTimer) {
+        clearInterval(cardPositionTimer);
+      }
+    }, cardTime*1000);
   }
 }
 
@@ -146,3 +235,20 @@ chrome.runtime.onMessage.addListener((request, sender) => {
       break;
   }
 });
+
+let {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+if (ENABLE_CARD && window.self === window.top) {
+  vocabs = await storageGetP(STORAGE_AREA.VOCAB);
+  const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
+  const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
+  // randomly select a vocab
+  const vocabsKey = Object.keys(vocabsWithSetting);
+  if (vocabsKey.length > 0) {
+    const idx = Math.round(Math.random() * (vocabsKey.length -1));
+    const key = vocabsKey[idx];
+    cardData = {...{original: key}, ...vocabsWithSetting[key]}
+    showCard(parseInt(CARD_TIME));
+  }
+}
+
+})();

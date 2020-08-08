@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         const containerWidth = translatedContainerE.offsetWidth;
         const containerHeight = translatedContainerE.offsetHeight;
         window.parent.postMessage({
-          type: FRAME_EVENT_TYPE.SET_SIZE,
+          type: FRAME_EVENT_TYPE.SET_TRANSLATION_SIZE,
           data: {
             width: containerWidth,
             height: containerHeight
@@ -120,7 +120,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
   closeBtn.addEventListener('click', () => {
     window.parent.postMessage({
-      type: FRAME_EVENT_TYPE.CLOSE_MODAL
+      type: FRAME_EVENT_TYPE.CLOSE_TRANSLATE_MODAL
     }, '*');
   });
 });

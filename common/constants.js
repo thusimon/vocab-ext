@@ -1,6 +1,6 @@
 const CONTEXTMENU_TRANSLATE_ID = 'CONTEXTMENU_TRANSLATE_ID'
 
-const TRANSLATE_ID = '13eaeb3e-aeb5-11ea-b3de-0242ac130004';
+const TRANSLATE_ID = 'ea13eb3e-aeb5-11ea-b3de-0242ac130004';
 const TRANSLATE_IFRAME_ID = `${TRANSLATE_ID}-iframe`;
 
 const STORAGE_AREA = {
@@ -11,19 +11,26 @@ const STORAGE_AREA = {
 const DEFAULT_SETTING = {
   SOURCE_LANG: 'en',
   TARGET_LANG: 'zh',
-  ENABLE_API: false
+  ENABLE_API: false,
+  ENABLE_CARD: false,
+  CARD_TIME: 5
 };
 
 const DOM_ID = {
   CONTAINER: `${TRANSLATE_ID}-vocab-container`,
-  IFRAME: `${TRANSLATE_ID}-vocab-translate`
+  TRANSLATE_IFRAME: `${TRANSLATE_ID}-vocab-translate`,
+  CARD_IFRAME: `${TRANSLATE_ID}-vocab-card`
 };
 const FRAME_EVENT_TYPE = {
-  GET_TRANSLATION: `${TRANSLATE_IFRAME_ID}-getTranslation`,
-  SEND_TRANSLATION: `${TRANSLATE_IFRAME_ID}-sendTranslation`,
-  SET_SIZE: `${TRANSLATE_IFRAME_ID}-setSize`,
-  CLICK_ADD_BTN: `${TRANSLATE_IFRAME_ID}-clickAddBtn`,
-  CLOSE_MODAL: `${TRANSLATE_IFRAME_ID}-clickCloseBtn`
+  GET_TRANSLATION: `${DOM_ID.TRANSLATE_IFRAME}-getTranslation`,
+  GET_CARD: `${DOM_ID.CARD_IFRAME}-getCard`,
+  SEND_TRANSLATION: `${DOM_ID.TRANSLATE_IFRAME}-sendTranslation`,
+  SEND_CARD: `${DOM_ID.CARD_IFRAME}-sendCard`,
+  SET_TRANSLATION_SIZE: `${DOM_ID.TRANSLATE_IFRAME}-setSize`,
+  SET_CARD_SIZE: `${DOM_ID.CARD_IFRAME}-setSize`,
+  CLICK_ADD_BTN: `${DOM_ID.TRANSLATE_IFRAME}-clickAddBtn`,
+  CLOSE_TRANSLATE_MODAL: `${DOM_ID.TRANSLATE_IFRAME}-clickCloseBtn`,
+  CLOSE_CARD_MODAL: `${DOM_ID.CARD_IFRAME}-clickCloseBtn`
 };
 
 const I18Ns = {

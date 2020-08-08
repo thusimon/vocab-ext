@@ -1,11 +1,14 @@
 const storageGetP = (key, defaultValue) => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(key, (value) => {
+      let storageValue;
       if (!value || !value[key]) {
-        resolve(defaultValue);
+        storageValue = {};
       } else {
-        resolve(value[key]);
+        storageValue = value[key];
       }
+      storageValue = Object.assign({}, defaultValue, storageValue);
+      resolve(storageValue);
     });
   });
 }
