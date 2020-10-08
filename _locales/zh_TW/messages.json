@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "右鍵翻譯選中的文本, 並將翻譯結果添加到生詞本", 
+    "description":"右鍵翻譯選中的文本, 並將翻譯結果添加到生詞本"
+  }
+}

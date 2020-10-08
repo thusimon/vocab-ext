@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "translate hightlighted text and put the translation in a glossary book.", 
+    "description":"translate hightlighted text and put the translation in a glossary book."
+  }
+}
