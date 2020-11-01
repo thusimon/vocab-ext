@@ -2,6 +2,7 @@ const CONTEXTMENU_TRANSLATE_ID = 'CONTEXTMENU_TRANSLATE_ID'
 
 const TRANSLATE_ID = 'ea13eb3e-aeb5-11ea-b3de-0242ac130004';
 const TRANSLATE_IFRAME_ID = `${TRANSLATE_ID}-iframe`;
+const CARD_CSS_CHECK_TIMEOUT = 10000; // 10 seconds to get the triggering card element
 
 const STORAGE_AREA = {
   VOCAB: 'VOCAB',
@@ -13,7 +14,8 @@ const DEFAULT_SETTING = {
   TARGET_LANG: 'zh',
   ENABLE_API: false,
   ENABLE_CARD: false,
-  CARD_TIME: 5
+  CARD_TIME: 5,
+  CARD_TRIGGER_CSS: ''
 };
 
 const DOM_ID = {

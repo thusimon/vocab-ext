@@ -21,9 +21,10 @@ window.addEventListener('DOMContentLoaded', async () => {
   const enableAPIE = document.getElementById('advanced-api-chkbox');
   const enableCardE = document.getElementById('glossary-card-chkbox');
   const cardTimeE = document.getElementById('glossary-card-time-select');
+  const cardTriggerE = document.getElementById('element-trigger-cards-input');
   const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
   console.log(settings);
-  const {SOURCE_LANG, TARGET_LANG, ENABLE_API, ENABLE_CARD, CARD_TIME} = settings;
+  const {SOURCE_LANG, TARGET_LANG, ENABLE_API, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = settings;
   const sourceLangOpts = createComboBox('source-lang-opt', I18Ns, SOURCE_LANG);
   const targetLangOpts = createComboBox('target-lang-opt', I18Ns, TARGET_LANG);
   sourceLangE.append(sourceLangOpts);
@@ -31,6 +32,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   enableAPIE.checked = ENABLE_API;
   enableCardE.checked = ENABLE_CARD;
   cardTimeE.value = CARD_TIME;
+  cardTriggerE.value = CARD_TRIGGER_CSS;
 
   const saveBtnE = document.getElementById('save-setting-btn');
   saveBtnE.addEventListener('click', async () => {
@@ -39,7 +41,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     const ENABLE_API = enableAPIE.checked;
     const ENABLE_CARD = enableCardE.checked;
     const CARD_TIME = cardTimeE.value;
-    await storageSetP(STORAGE_AREA.SETTINGS, {SOURCE_LANG, TARGET_LANG, ENABLE_API, ENABLE_CARD, CARD_TIME});
+    const CARD_TRIGGER_CSS = cardTriggerE.value;
+    await storageSetP(STORAGE_AREA.SETTINGS, {SOURCE_LANG, TARGET_LANG, ENABLE_API, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS});
     isModified = false;
     window.close();
   });

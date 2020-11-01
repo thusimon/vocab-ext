@@ -174,6 +174,10 @@ const positionCard = (toTopFixed, toLeftFixed) => {
 }
 
 const showCard = (cardTime) => {
+  const currentCard = document.getElementById(DOM_ID.CARD_IFRAME);
+  if (currentCard) {
+    return;
+  }
   const containerE = getContainer();
   cardE = document.createElement('iframe');
   cardE.id = DOM_ID.CARD_IFRAME;
@@ -213,6 +217,35 @@ const showCard = (cardTime) => {
   }
 }
 
+const showCardRandom = (vocabsWithSetting, cardTime) => {
+  // randomly select a vocab
+  const vocabsKey = Object.keys(vocabsWithSetting);
+  if (vocabsKey.length > 0) {
+    const idx = Math.round(Math.random() * (vocabsKey.length -1));
+    const key = vocabsKey[idx];
+    cardData = {...{original: key}, ...vocabsWithSetting[key]}
+    showCard(cardTime);
+  }
+}
+
+const getCardTriggerElem = async (cardCss) => {
+  const timeOutToGetElem = (currentTime, resolve, reject) => {
+    let cardElem = document.querySelector(cardCss);
+    if (cardElem) {
+      resolve(cardElem);
+    } else if (Date.now() < currentTime + CARD_CSS_CHECK_TIMEOUT) {
+      setTimeout(() => {
+        timeOutToGetElem = (currentTime, resolve, reject);
+      }, 1000);
+    } else {
+      reject(`no element ${cardCss} after ${CARD_CSS_CHECK_TIMEOUT} ms`)
+    }
+  }
+  return new Promise((resolve, reject) => {
+    timeOutToGetElem(cardCss, resolve, reject);
+  })
+}
+
 chrome.runtime.onMessage.addListener((request, sender) => {
   const {type, data} = request;
   if (!type) {
@@ -236,18 +269,25 @@ chrome.runtime.onMessage.addListener((request, sender) => {
   }
 });
 
-let {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+let {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 if (ENABLE_CARD && window.self === window.top) {
   vocabs = await storageGetP(STORAGE_AREA.VOCAB);
   const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
   const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
-  // randomly select a vocab
-  const vocabsKey = Object.keys(vocabsWithSetting);
-  if (vocabsKey.length > 0) {
-    const idx = Math.round(Math.random() * (vocabsKey.length -1));
-    const key = vocabsKey[idx];
-    cardData = {...{original: key}, ...vocabsWithSetting[key]}
-    showCard(parseInt(CARD_TIME));
+  const cardTimeInt = parseInt(CARD_TIME);
+  
+  showCardRandom(vocabsWithSetting, cardTimeInt);
+
+  if (CARD_TRIGGER_CSS) {
+    getCardTriggerElem(CARD_TRIGGER_CSS)
+    .then((cardTriggerElem) => {
+      cardTriggerElem.addEventListener('click', () => {
+        showCardRandom(vocabsWithSetting, cardTimeInt);
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 }
 
