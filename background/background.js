@@ -29,21 +29,26 @@ const sendMessageToCurrentTab = (type, data) => {
   }
 }
 
-const onTranslateClick = async (info, tab) => {
+const translateInternal = async (text) => {
   const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
   const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings;
+  const translateRes = ENABLE_API ? await translateAPI.translate(text, SOURCE_LANG, TARGET_LANG, 'text') :
+        await translateAPI.translateFree(encodeURIComponent(text), SOURCE_LANG, TARGET_LANG, 'text');
+  return translateRes;
+}
+
+const onTranslateClick = async (info, tab) => {
   let q = info.selectionText;
   if (q) {
     q = q.trim().toLowerCase();
     try {
-      const translateRes = ENABLE_API ? await translateAPI.translate(q, SOURCE_LANG, TARGET_LANG, 'text') :
-        await translateAPI.translateFree(encodeURIComponent(q), SOURCE_LANG, TARGET_LANG, 'text')
+      const translateRes = await translateInternal(q);
       sendMessageToCurrentTab('getTranslate', translateRes);
     } catch (e) {
       console.log(`Error: ${e.message}`);
       sendMessageToCurrentTab('translateError', e.message);
     }
-  }  
+  }
 }
 
 let tkk;
@@ -92,4 +97,73 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     default:
       break;
   }
+});
+
+const searchWaitingSuggest = 'Translating, please stand by...';
+const searchStartSuggest = 'Type the vocabulary you want to translate';
+
+const setDefaultSuggestion = (msg) => {
+  chrome.omnibox.setDefaultSuggestion({
+    description: msg
+  });
+}
+
+setDefaultSuggestion(searchStartSuggest);
+
+chrome.omnibox.onInputStarted.addListener(() => {
+  setDefaultSuggestion(searchStartSuggest);
+});
+
+let timerId;
+
+const debounceFunction = (func, delay) => {
+  clearTimeout(timerId);
+  timerId = setTimeout(func, delay);
+}
+
+chrome.omnibox.onInputChanged.addListener((input, suggest) => {
+  let content, description;
+  if (!input) {
+    setDefaultSuggestion(searchStartSuggest);
+    return;
+  }
+  setDefaultSuggestion(searchWaitingSuggest);
+  debounceFunction(async () => {
+    if (input && input.trim()) {
+      const text = input.trim();
+      try {
+        const translateRes = await translateInternal(text);
+        const {translatedText, dictResult} = translateRes;
+        description = `<match>${input}</match>: <match>${translatedText}</match>`;
+        let dictText = '';
+        if (dictResult && dictResult.length > 0) {
+          dictText = dictResult.reduce((accumulator, currentValue) => {
+            const {pos, terms} = currentValue;
+            let oneDictText = '';
+            if (pos && terms) {
+              oneDictText += `<dim>${pos}</dim>: ${terms.join(', ')}; `;
+            }
+            return accumulator + oneDictText;
+          }, ' | ');
+        }
+        description += dictText;
+        content = description;
+        setDefaultSuggestion(searchStartSuggest);
+        suggest([{
+          content,
+          description
+        }]);
+      } catch (e) {
+        const errMsg = `Error: ${e.message}`;
+        setDefaultSuggestion(searchStartSuggest);
+        suggest([{
+          content: errMsg,
+          description: errMsg
+        }]);
+      }
+    }
+  }, 500);
+});
+
+chrome.omnibox.onInputEntered.addListener((url, disposition) => {
 });
