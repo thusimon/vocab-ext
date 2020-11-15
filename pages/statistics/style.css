@@ -1,0 +1,22 @@
+#statistics-charts{
+  text-align: center;
+}
+
+#statistics-controller {
+  text-align: right;
+  margin: 50px;
+  padding: 0px 50px;
+  display: none;
+}
+
+#data-source-select {
+  font-size: 24px;
+}
+
+.y-dash-area {
+  fill: none;
+  stroke: #dcdcdc;
+  stroke-dasharray: 4px 4px;
+  shape-rendering: crispEdges;
+  stroke-width: 1px;
+}

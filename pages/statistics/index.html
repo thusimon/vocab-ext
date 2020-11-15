@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Settings</title>
+    <link rel="stylesheet" href="../../common/styles/common.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container-fluid" id="statistics-container">
+      <div id="statistics-controller">
+        <select id="data-source-select">
+          <option value="week" id="data-source-option-week" selected>This Week</option>
+          <option value="month" id="data-source-option-month">This Month</option>
+          <option value="quarter" id="data-source-option-quarter">This Quarter</option>
+          <option value="year" id="data-source-option-year">This Year</option>
+          <option value="all" id="data-source-option-all">All data</option>
+        </select>
+      </div>
+      <div id="statistics-charts"></div>
+    </div>
+    <script src="../../common/lib/d3.v6.min.js"></script>
+    <script src="../../common/constants.js"></script>
+    <script src="../../common/utils.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>

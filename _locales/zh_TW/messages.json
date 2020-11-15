@@ -6,5 +6,29 @@
   "appDesc": {
     "message": "右鍵翻譯選中的文本, 並將翻譯結果添加到生詞本", 
     "description":"右鍵翻譯選中的文本, 並將翻譯結果添加到生詞本"
+  },
+  "stat_vocab_add_header": {
+    "message": "新增詞匯的統計圖", 
+    "description":"新增詞匯的統計圖"
+  },
+  "this_week": {
+    "message": "本周", 
+    "description":"本周"
+  },
+  "this_month": {
+    "message": "本月", 
+    "description":"本月"
+  },
+  "this_quarter": {
+    "message": "本季度", 
+    "description":"本季度"
+  },
+  "this_year": {
+    "message": "今年", 
+    "description":"今年"
+  },
+  "all_data": {
+    "message": "全體數據", 
+    "description":"全體數據"
   }
 }

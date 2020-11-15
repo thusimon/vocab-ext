@@ -29,10 +29,14 @@ h2 {
   margin: 0px 8px
 }
 
+.settings {
+  margin: 0px 5px;
+}
+
 .btn-settings {
   width: 20px;
   height: 20px;
-  margin: 9px;
+  margin: 9px 4px;
   transition: transform 0.5s ease-in-out;
 }
 
