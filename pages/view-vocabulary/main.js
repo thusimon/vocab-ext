@@ -27,7 +27,7 @@ const mainAsync = async () => {
   const synth = window.speechSynthesis;
 
   const createTableRow = (original, vocabularyItem, idx) => {
-    const {translation, createdTime} = vocabularyItem;
+    const {translation, createdTime, dict} = vocabularyItem;
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
     const td3 = document.createElement('td');
@@ -40,6 +40,14 @@ const mainAsync = async () => {
     td2.append(translateInput);
     translateInput.value = translation;
     
+    if (dict && dict.length > 0) {
+      const details = dict.reduce((prev, current) => {
+        const currentDetail = `${current.pos}:${current.terms.join(',')}`;
+        return prev ? `${prev}|${currentDetail}` : currentDetail;
+      }, '');
+      td2.title = details;
+    }
+
     td3.textContent = new Date(createdTime).toLocaleString('en-US', {hour12: false});
 
     const tr = document.createElement('tr');
