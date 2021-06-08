@@ -1,7 +1,7 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "author": "Lu",
@@ -11,36 +11,39 @@
     "128": "assets/icons/icon-128.png"
   },
   "background": {
-    "persistent": true,
-    "page": "background/background.html"
+    "service_worker": "service-worker.js"
   },
   "permissions": [
+    "webNavigation",
+    "scripting",
     "storage",
     "unlimitedStorage",
     "contextMenus"
   ],
+  "host_permissions": [ "<all_urls>" ],
   "omnibox": { "keyword" : "vb" },
-  "content_scripts": [
+  "web_accessible_resources": [
     {
-      "matches": ["<all_urls>"],
-      "js": [
-        "common/constants.js",
-        "common/utils.js",
-        "content/content.js"
+      "resources": [
+        "content/translate-modal.html",
+        "content/translate-modal.css",
+        "content/card-modal.html",
+        "content/card-modal.css"
       ],
-      "run_at": "document_idle",
-      "all_frames": true
+      "matches": [],
+      "extension_ids": []
     }
   ],
-  "web_accessible_resources": [
-    "content/translate-modal.html",
-    "content/translate-modal.css",
-    "content/card-modal.html",
-    "content/card-modal.css"
-  ],
-  "browser_action": {
+  "action": {
     "default_title": "Vocab",
-    "default_popup": "popover/popover.html"
+    "default_popup": "popover/popover.html",
+    "default_icon": {
+      "16": "assets/icons/icon-16.png",
+      "48": "assets/icons/icon-48.png",
+      "128": "assets/icons/icon-128.png"
+    }
   },
-  "content_security_policy": "script-src 'self';object-src 'self';"
+  "content_security_policy": {
+    "extension_pages": "script-src 'self';object-src 'self';"
+  }
 }

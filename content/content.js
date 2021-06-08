@@ -1,3 +1,5 @@
+importScripts('../common/constants.js', '../common/utils.js');
+
 (async () => {
 let contextClientX
   , contextClientY
@@ -7,8 +9,8 @@ let contextClientX
   , cardData
   , cardPositionTimer;
 
-const modalTranslateUri = chrome.extension.getURL('content/translate-modal.html');
-const modalCardUri = chrome.extension.getURL('content/card-modal.html');
+const modalTranslateUri = chrome.runtime.getURL('content/translate-modal.html');
+const modalCardUri = chrome.runtime.getURL('content/card-modal.html');
 const modalTranslateUriParsed = new URL(modalTranslateUri);
 
 document.addEventListener('contextmenu', (evt) => {
