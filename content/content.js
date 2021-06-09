@@ -1,5 +1,3 @@
-importScripts('../common/constants.js', '../common/utils.js');
-
 (async () => {
 let contextClientX
   , contextClientY
@@ -17,7 +15,6 @@ document.addEventListener('contextmenu', (evt) => {
   contextClientX = evt.clientX;
   contextClientY = evt.clientY;
   cleanTranslate();
-  sendMessage('onContextMenuShow', {}, () => {});
 }, true);
 
 document.addEventListener('click', () => {
@@ -36,7 +33,9 @@ const sendMessage = (type, data, callback) => {
 }
 
 window.addEventListener('message', (evt) => {
-  if (evt.origin != modalTranslateUriParsed.origin || (!translateE && !cardE) || !evt.data) {
+  if (evt.origin != modalTranslateUriParsed.origin
+    || ((!translateE || !translateE.contentWindow) && (!cardE || !cardE.contentWindow))
+    || !evt.data) {
     return;
   }
   switch (evt.data.type) {
@@ -237,14 +236,14 @@ const getCardTriggerElem = async (cardCss) => {
       resolve(cardElem);
     } else if (Date.now() < currentTime + CARD_CSS_CHECK_TIMEOUT) {
       setTimeout(() => {
-        timeOutToGetElem = (currentTime, resolve, reject);
+        timeOutToGetElem(currentTime, resolve, reject);
       }, 1000);
     } else {
       reject(`no element ${cardCss} after ${CARD_CSS_CHECK_TIMEOUT} ms`)
     }
   }
   return new Promise((resolve, reject) => {
-    timeOutToGetElem(cardCss, resolve, reject);
+    timeOutToGetElem(Date.now(), resolve, reject);
   })
 }
 

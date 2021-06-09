@@ -1,6 +1,6 @@
 importScripts('common/constants.js', 'common/utils.js', 'background/translate-api.js');
 
-
+// TODO manifest V3 only support service worker in the root directory
 const translateAPI = new TranslateAPI();
 
 let contextMenu = null
@@ -41,6 +41,22 @@ const onTranslateClick = async (info, tab) => {
   }
 }
 
+const addVocabularyToStorage = async (translateRes) => {
+  const {originalText, translatedText, dictResult} = translateRes;
+  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+  const {SOURCE_LANG, TARGET_LANG} = settings;
+  const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
+  const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
+  const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
+  vocabsWithSetting[originalText] = {
+    translation: translatedText,
+    dict: dictResult,
+    createdTime: Date.now()
+  }
+  vocabs[vocabTranslateArea] = vocabsWithSetting;
+  await storageSetP(STORAGE_AREA.VOCAB, vocabs);
+}
+
 chrome.contextMenus.onClicked.addListener(onTranslateClick)
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
@@ -60,12 +76,44 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
-  console.log('onDOMContentLoaded', details)
-  const injectRest = await chrome.scripting.executeScript(
-    {
-      target: {tabId: details.tabId},
-      files: [ 'content/content.js' ]
+  const injectionCheck = await chrome.scripting.executeScript({
+    target: {tabId: details.tabId},
+    function: () => {
+      // check if constants.js has been injected
+      const checkResult = {
+        constants: false,
+        utils: false
+      }
+      if (typeof CONTEXTMENU_TRANSLATE_ID === 'string') {
+        checkResult.constants = true;
+      }
+      // check if utils.js has been injected
+      if (typeof storageGetP === 'function') {
+        checkResult.utils = true;
+      }
+      return checkResult;
     }
-  );
-  console.log(injectRest)
+  });
+  const topDocInjectionCheck = injectionCheck[0]
+  if (!topDocInjectionCheck) {
+    console.log('no injection check on top document, something wrong');
+    return;
+  }
+  const topDocInjectionCheckRes = topDocInjectionCheck.result;
+  if (!topDocInjectionCheckRes.constants) {
+    await chrome.scripting.executeScript({
+      target: {tabId: details.tabId},
+      files: [ 'common/constants.js' ]
+    });
+  }
+  if (!topDocInjectionCheckRes.utils) {
+    await chrome.scripting.executeScript({
+      target: {tabId: details.tabId},
+      files: [ 'common/utils.js' ]
+    });
+  }
+  await chrome.scripting.executeScript({
+    target: {tabId: details.tabId},
+    files: [ 'content/content.js' ]
+  });
 })

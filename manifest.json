@@ -30,8 +30,7 @@
         "content/card-modal.html",
         "content/card-modal.css"
       ],
-      "matches": [],
-      "extension_ids": []
+      "matches": [ "<all_urls>" ]
     }
   ],
   "action": {
