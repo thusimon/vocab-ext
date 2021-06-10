@@ -76,44 +76,55 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 });
 
 chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
-  const injectionCheck = await chrome.scripting.executeScript({
-    target: {tabId: details.tabId},
-    function: () => {
-      // check if constants.js has been injected
-      const checkResult = {
-        constants: false,
-        utils: false
+  const frameIds = [details.frameId];
+  let injectionCheck;
+  try {
+    injectionCheck = await chrome.scripting.executeScript({
+      target: {tabId: details.tabId, frameIds: frameIds},
+      function: () => {
+        // check if constants.js has been injected
+        const checkResult = {
+          constants: false,
+          utils: false
+        }
+        if (typeof CONTEXTMENU_TRANSLATE_ID === 'string') {
+          checkResult.constants = true;
+        }
+        // check if utils.js has been injected
+        if (typeof storageGetP === 'function') {
+          checkResult.utils = true;
+        }
+        return checkResult;
       }
-      if (typeof CONTEXTMENU_TRANSLATE_ID === 'string') {
-        checkResult.constants = true;
-      }
-      // check if utils.js has been injected
-      if (typeof storageGetP === 'function') {
-        checkResult.utils = true;
-      }
-      return checkResult;
-    }
-  });
+    });
+  } catch(e) {
+    console.log(`Error: ${e}, skip injecting everything`);
+    return;
+  }
   const topDocInjectionCheck = injectionCheck[0]
   if (!topDocInjectionCheck) {
     console.log('no injection check on top document, something wrong');
     return;
   }
   const topDocInjectionCheckRes = topDocInjectionCheck.result;
-  if (!topDocInjectionCheckRes.constants) {
+  try {
+    if (!topDocInjectionCheckRes.constants) {
+      await chrome.scripting.executeScript({
+        target: {tabId: details.tabId, frameIds: frameIds},
+        files: [ 'common/constants.js' ]
+      });
+    }
+    if (!topDocInjectionCheckRes.utils) {
+      await chrome.scripting.executeScript({
+        target: {tabId: details.tabId, frameIds: frameIds},
+        files: [ 'common/utils.js' ]
+      });
+    }
     await chrome.scripting.executeScript({
-      target: {tabId: details.tabId},
-      files: [ 'common/constants.js' ]
+      target: {tabId: details.tabId, frameIds: frameIds},
+      files: [ 'content/content.js' ]
     });
+  } catch(e) {
+    console.log(`Error: ${e}, something is wrong, failed to inject content scripts`);
   }
-  if (!topDocInjectionCheckRes.utils) {
-    await chrome.scripting.executeScript({
-      target: {tabId: details.tabId},
-      files: [ 'common/utils.js' ]
-    });
-  }
-  await chrome.scripting.executeScript({
-    target: {tabId: details.tabId},
-    files: [ 'content/content.js' ]
-  });
 })
