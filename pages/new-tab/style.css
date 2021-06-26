@@ -7,8 +7,27 @@
   align-items: center;
 }
 
-#no-vocab {
+#vocab-display, #no-vocab {
   width: 80vw;
+  display: none;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 4rem;
+  font-size: 1.5rem;
+}
+
+#total-count {
+  float: right;
+  margin: 20px;
+}
+
+#button-container {
+  text-align: center;
+  margin: 40px;
 }
 
 #refresh-btn {
@@ -20,4 +39,19 @@
   cursor: pointer;
   transform: rotate(180deg);
   transition: all 0.2s ease-in-out 0.2s;
+}
+
+#vocab-original{
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.dict-type {
+  font-size: 2rem;
+  margin: 20px 20px 20px 0px;
+}
+
+.dict-content {
+  font-size: 2rem;
+  margin: 20px 40px 20px 0px;
 }
