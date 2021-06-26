@@ -22,6 +22,9 @@
   ],
   "host_permissions": [ "<all_urls>" ],
   "omnibox": { "keyword" : "vb" },
+  "chrome_url_overrides" : {
+    "newtab": "pages/new-tab/new-tab.html"
+  },
   "web_accessible_resources": [
     {
       "resources": [

@@ -1,0 +1,23 @@
+#refresher-container {
+  width: calc(100vw - 20px);
+  height: calc(100vh - 20px);
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#no-vocab {
+  width: 80vw;
+}
+
+#refresh-btn {
+  width: 8rem;
+  height: 2.5rem;
+}
+
+#refresh-svg-container:hover {
+  cursor: pointer;
+  transform: rotate(180deg);
+  transition: all 0.2s ease-in-out 0.2s;
+}
