@@ -41,9 +41,30 @@
   transition: all 0.2s ease-in-out 0.2s;
 }
 
+#vocab-original-container {
+  display: flex;
+  justify-content: left;
+  align-items: baseline;
+}
 #vocab-original{
   font-size: 4rem;
   font-weight: 500;
+}
+
+#read-vocab-button {
+  width: 2rem;
+  height: 2rem;
+  margin: 0px 12px;
+  padding: 0px;
+  border: none;
+  border-radius: 10px;
+  vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
+
+button svg:hover {
+  stroke: #2699FB;
 }
 
 .dict-type {

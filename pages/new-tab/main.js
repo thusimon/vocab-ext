@@ -4,12 +4,12 @@ const vocabDisplayE = document.getElementById('vocab-display')
   , originalVocabE = document.getElementById('vocab-original')
   , dictE = document.getElementById('dict')
   , translationE = document.getElementById('translation')
-  , totalCountE = document.getElementById('total-count');
+  , totalCountE = document.getElementById('total-count')
+  , readBtnE = document.getElementById('read-vocab-button');
 
-const getVocabs = async () => {
-  const {SOURCE_LANG, TARGET_LANG} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+const getVocabs = async (sourceLang, targetLang) => {
   const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
-  const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
+  const vocabTranslateArea = `${sourceLang}-${targetLang}`;
   return vocabs[vocabTranslateArea] || {};
 }
 
@@ -24,11 +24,12 @@ const getRandomVocabulary = (vocabsWithSetting) => {
   return null;
 }
 
-refreshBtnE.addEventListener('click', async () => {
-  const vocabs = await getVocabs()
-  const randomVocab = getRandomVocabulary(vocabs);
-  constructNewTabVocab(randomVocab);
-});
+const readOneVocab = (vocab, lang) => {
+  const utter = new SpeechSynthesisUtterance(vocab.original);
+  utter.lang = lang;
+  const synth = window.speechSynthesis;
+  synth.speak(utter);
+}
 
 const constructNewTabVocab = (vocab) => {
   const {dict, original, translation} = vocab;
@@ -53,9 +54,25 @@ const constructNewTabVocab = (vocab) => {
   }
 }
 
+let sourceLang, targetLang, randomVocab;
+
+refreshBtnE.addEventListener('click', async () => {
+  const vocabs = await getVocabs(sourceLang, targetLang)
+  randomVocab = getRandomVocabulary(vocabs);
+  constructNewTabVocab(randomVocab);
+});
+
+readBtnE.addEventListener('click', () => {
+  readOneVocab(randomVocab, sourceLang);
+});
+
 (async () => {
-  const vocabs = await getVocabs()
-  const randomVocab = getRandomVocabulary(vocabs);
+  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+  sourceLang = settings.SOURCE_LANG;
+  targetLang = settings.TARGET_LANG;
+
+  const vocabs = await getVocabs(sourceLang, targetLang);
+  randomVocab = getRandomVocabulary(vocabs);
   if (randomVocab) {
     vocabDisplayE.style.display = 'block';
     vocabWelcomeE.style.display = 'none';
