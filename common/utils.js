@@ -20,3 +20,9 @@ const storageSetP = (key, value) => {
     });
   });
 }
+
+const removeAllChildNodes = (parent) => {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}

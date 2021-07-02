@@ -2,6 +2,7 @@ let originalText
   , translatedText
 
 const processDictResult = (dictContainerE, dictE, dicts) => {
+  removeAllChildNodes(dictE);
   if (dicts && dicts.length > 0) {
     dictContainerE.classList.remove('hide');
     dicts.forEach(dict => {
@@ -34,6 +35,7 @@ const processSynsets = (synsetsContainerE, synsetsE, synsets) => {
 }
 
 const processExamples = (exampleContainerE, examplesE, examples) => {
+  removeAllChildNodes(examplesE);
   if (examples && examples.length > 0) {
     exampleContainerE.classList.remove('hide');
     // take only the first two

@@ -23,20 +23,27 @@ const translateInternal = async (text) => {
   return translateRes;
 }
 
-const sendMessageToCurrentTab = (tabId, type, data) => {
-  chrome.tabs.sendMessage(tabId, {type, data});
+const sendMessageToCurrentTab = (tabId, frameId, type, data) => {
+  const options = {};
+  if (Number.isInteger(frameId)) {
+    options.frameId = frameId;
+  } else {
+    options.frameId = 0;
+  }
+  chrome.tabs.sendMessage(tabId, {type, data}, options);
 }
 
 const onTranslateClick = async (info, tab) => {
+  contextMenuFrameId = info.frameId;
   let q = info.selectionText;
   if (q) {
     q = q.trim().toLowerCase();
     try {
       const translateRes = await translateInternal(q);
-      sendMessageToCurrentTab(tab.id, 'getTranslate', translateRes);
+      sendMessageToCurrentTab(tab.id, contextMenuFrameId, 'getTranslate', translateRes);
     } catch (e) {
       console.log(`Error: ${e.message}`);
-      sendMessageToCurrentTab('translateError', e.message);
+      sendMessageToCurrentTab(tab.id, contextMenuFrameId, 'translateError', e.message);
     }
   }
 }

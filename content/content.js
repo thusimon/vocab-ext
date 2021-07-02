@@ -110,7 +110,17 @@ const getContainer = () => {
   setDomStyles(containerE, 'position', 'relative');
   document.body.append(containerE);
   return containerE;
-}
+};
+
+const getIframe = () => {
+  let iframeE = document.getElementById(DOM_ID.TRANSLATE_IFRAME);
+  if (!iframeE) {
+    iframeE = document.createElement('iframe');
+  }
+  iframeE.id = DOM_ID.TRANSLATE_IFRAME;
+  iframeE.src = modalTranslateUri;
+  return iframeE;
+};
 
 const setDomStyles = (elem, prop, value) => {
   elem.style.setProperty(prop, value, 'important');
@@ -124,11 +134,9 @@ const addToVocabulary = (translate) => {
 
 const showTranslate = (translate) => {
   const containerE = getContainer();
-  translateE = document.createElement('iframe');
-  translateE.id = DOM_ID.TRANSLATE_IFRAME;
+  translateE = getIframe();
   //translateE.width = 100;
   //translateE.height =40;
-  translateE.src = modalTranslateUri;
   setDomStyles(translateE, 'margin', '0px');
   setDomStyles(translateE, 'padding', '0px');
   setDomStyles(translateE, 'position', 'absolute');
