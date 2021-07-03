@@ -1,6 +1,6 @@
 class TranslateAPI {
   constructor() {
-    this.API_KEY = '<replace-api-key-later>';
+    this.API_KEY = 'API-KEY-TO-REPLACE';
     this.reqUriBase = 'https://translation.googleapis.com/language/translate/v2';
     /**
      * query parameters: dt

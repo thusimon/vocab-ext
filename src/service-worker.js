@@ -86,6 +86,6 @@ chrome.webNavigation.onDOMContentLoaded.addListener((details) => {
   const frameIds = [details.frameId];
   chrome.scripting.executeScript({
     target: {tabId: details.tabId, frameIds: frameIds},
-    files: [ 'content/content-final.js' ]
+    files: [ 'content/content.js' ]
   });
 });
