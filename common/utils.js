@@ -11,7 +11,7 @@ const storageGetP = (key, defaultValue) => {
       resolve(storageValue);
     });
   });
-}
+};
 
 const storageSetP = (key, value) => {
   return new Promise((resolve, reject) => {
@@ -19,10 +19,10 @@ const storageSetP = (key, value) => {
       resolve();
     });
   });
-}
+};
 
 const removeAllChildNodes = (parent) => {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
-}
+};

@@ -1,4 +1,4 @@
-const CONTEXTMENU_TRANSLATE_ID = 'CONTEXTMENU_TRANSLATE_ID'
+const CONTEXTMENU_TRANSLATE_ID = 'CONTEXTMENU_TRANSLATE_ID';
 
 const TRANSLATE_ID = 'ea13eb3e-aeb5-11ea-b3de-0242ac130004';
 const TRANSLATE_IFRAME_ID = `${TRANSLATE_ID}-iframe`;
@@ -23,6 +23,7 @@ const DOM_ID = {
   TRANSLATE_IFRAME: `${TRANSLATE_ID}-vocab-translate`,
   CARD_IFRAME: `${TRANSLATE_ID}-vocab-card`
 };
+
 const FRAME_EVENT_TYPE = {
   GET_TRANSLATION: `${DOM_ID.TRANSLATE_IFRAME}-getTranslation`,
   GET_CARD: `${DOM_ID.CARD_IFRAME}-getCard`,
@@ -105,4 +106,4 @@ const I18Ns = {
   ['zh-tw']: {
     name: '\u4e2d\u6587\u53f0\u7063'
   }
-}
+};

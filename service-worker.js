@@ -82,56 +82,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
+chrome.webNavigation.onDOMContentLoaded.addListener((details) => {
   const frameIds = [details.frameId];
-  let injectionCheck;
-  try {
-    injectionCheck = await chrome.scripting.executeScript({
-      target: {tabId: details.tabId, frameIds: frameIds},
-      function: () => {
-        // check if constants.js has been injected
-        const checkResult = {
-          constants: false,
-          utils: false
-        }
-        if (typeof CONTEXTMENU_TRANSLATE_ID === 'string') {
-          checkResult.constants = true;
-        }
-        // check if utils.js has been injected
-        if (typeof storageGetP === 'function') {
-          checkResult.utils = true;
-        }
-        return checkResult;
-      }
-    });
-  } catch(e) {
-    console.log(`Error: ${e}, skip injecting everything`);
-    return;
-  }
-  const topDocInjectionCheck = injectionCheck[0]
-  if (!topDocInjectionCheck) {
-    console.log('no injection check on top document, something wrong');
-    return;
-  }
-  const topDocInjectionCheckRes = topDocInjectionCheck.result;
-  try {
-    if (!topDocInjectionCheckRes.constants) {
-      await chrome.scripting.executeScript({
-        target: {tabId: details.tabId, frameIds: frameIds},
-        files: [ 'common/constants.js' ]
-      });
-    }
-    if (!topDocInjectionCheckRes.utils) {
-      await chrome.scripting.executeScript({
-        target: {tabId: details.tabId, frameIds: frameIds},
-        files: [ 'common/utils.js' ]
-      });
-    }
-    await chrome.scripting.executeScript({
-      target: {tabId: details.tabId, frameIds: frameIds},
-      files: [ 'content/content.js' ]
-    });
-  } catch(e) {
-    console.log(`Error: ${e}, something is wrong, failed to inject content scripts`);
-  }
-})
+  chrome.scripting.executeScript({
+    target: {tabId: details.tabId, frameIds: frameIds},
+    files: [ 'content/content-final.js' ]
+  });
+});
