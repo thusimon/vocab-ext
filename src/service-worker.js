@@ -30,7 +30,16 @@ const sendMessageToCurrentTab = (tabId, frameId, type, data) => {
   } else {
     options.frameId = 0;
   }
-  chrome.tabs.sendMessage(tabId, {type, data}, options);
+  if (tabId > -1) {
+    chrome.tabs.sendMessage(tabId, {type, data}, options);
+  } else {
+    chrome.tabs.query(
+      {currentWindow: true, active : true},
+      tabs => {
+        chrome.tabs.sendMessage(tabs[0].id, {type, data}, options);
+      }
+    )
+  }
 }
 
 const onTranslateClick = async (info, tab) => {
