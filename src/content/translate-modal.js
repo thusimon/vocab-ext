@@ -40,12 +40,13 @@ const processExamples = (exampleContainerE, examplesE, examples) => {
     exampleContainerE.classList.remove('hide');
     // take only the first two
     const lessExamples = examples.slice(0, 2);
+    const domParser = new DOMParser();
     lessExamples.forEach((example, idx) => {
       const exampleEntry = document.createElement('div');
       exampleEntry.classList.add('example-entry');
       const exampleText = example.text || '';
-      const exampleEntryFragment = document.createRange().createContextualFragment(`<span>${idx+1}. ${exampleText}</span>`);
-      exampleEntry.append(exampleEntryFragment);
+      const exampleTextParsed = domParser.parseFromString(`<span>${idx+1}. ${exampleText}</span>`, 'text/html');
+      exampleEntry.append(exampleTextParsed.body.firstElementChild);
       examplesE.appendChild(exampleEntry);
     });
   }
