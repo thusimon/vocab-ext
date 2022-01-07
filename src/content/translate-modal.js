@@ -44,7 +44,8 @@ const processExamples = (exampleContainerE, examplesE, examples) => {
       const exampleEntry = document.createElement('div');
       exampleEntry.classList.add('example-entry');
       const exampleText = example.text || '';
-      exampleEntry.innerHTML = `${idx+1}. ${exampleText}`;
+      const exampleEntryFragment = document.createRange().createContextualFragment(`<span>${idx+1}. ${exampleText}</span>`);
+      exampleEntry.append(exampleEntryFragment);
       examplesE.appendChild(exampleEntry);
     });
   }
