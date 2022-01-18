@@ -10,12 +10,6 @@ const itemExists = async (src) => {
   }
 }
 
-const deleteIfExist = async (src) => {
-  if(await itemExists(src)) {
-    await fsp.unlink(src);
-  }
-};
-
 const copyFiles = async (src, dest, excludes = []) => {
   const stats = await fsp.stat(src)
   const isDirectory = stats.isDirectory();
@@ -45,7 +39,7 @@ const copyFiles = async (src, dest, excludes = []) => {
   const buildPath = path.join(dir, '../build');
   const buildExtPath = path.join(buildPath, 'vocab-ext');
   const zipExtPath = path.join(buildPath, 'vocab-ext.zip');
-  await deleteIfExist(buildPath);
+  await fsp.rm(buildPath, { recursive: true });
   await fsp.mkdir(buildPath);
 
   // copy the existing files:
