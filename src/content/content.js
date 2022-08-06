@@ -298,3 +298,59 @@ if (ENABLE_CARD && window.self === window.top) {
     });
   }
 }
+
+class TranslateModal extends HTMLElement {
+  constructor() {
+    // Always call super first in constructor
+    super();
+
+    // Create a shadow root
+    const shadow = this.attachShadow({mode: 'open'});
+
+    // Create spans
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('class', 'wrapper');
+
+    const main = document.createElement('div');
+    main.setAttribute('class', 'main');
+
+    // Take attribute content and put it inside the info span
+    const text = this.getAttribute('data-text');
+    main.textContent = text;
+
+    // Create some CSS to apply to the shadow dom
+    const style = document.createElement('style');
+    console.log(style.isConnected);
+
+    style.textContent = `
+      .wrapper {
+        position: relative;
+      }
+      .main {
+        font-size: 0.8rem;
+        width: 200px;
+        display: inline-block;
+        border: 1px solid black;
+        padding: 10px;
+        background: white;
+        border-radius: 10px;
+        transition: 0.6s all;
+        z-index: 3;
+      }
+    `;
+
+    // Attach the created elements to the shadow dom
+    shadow.appendChild(style);
+    console.log(style.isConnected);
+    shadow.appendChild(wrapper);
+    wrapper.appendChild(main);
+  }
+}
+
+// Define the new element
+window.customElements.define('translate-modal', TranslateModal);
+
+var translateModal = document.createElement('translate-modal');
+translateModal.setAttribute('data-text', 'Hello translate modal');
+
+document.body.prepend(translateModal);
