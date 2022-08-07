@@ -21,7 +21,8 @@ const DEFAULT_SETTING = {
 const DOM_ID = {
   CONTAINER: `${TRANSLATE_ID}-vocab-container`,
   TRANSLATE_IFRAME: `${TRANSLATE_ID}-vocab-translate`,
-  CARD_IFRAME: `${TRANSLATE_ID}-vocab-card`
+  CARD_IFRAME: `${TRANSLATE_ID}-vocab-card`,
+  TRANSLATE_MODAL: `${TRANSLATE_ID}-vocab-translate`
 };
 
 const FRAME_EVENT_TYPE = {

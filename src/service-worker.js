@@ -93,12 +93,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
 chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
   const frameIds = [details.frameId];
-  const polyfillRes = await chrome.scripting.executeScript({
+  // run custom elements polyfill
+  await chrome.scripting.executeScript({
     target: {tabId: details.tabId, frameIds: frameIds},
-    files: [ 'content/custom-elements-1.5.0.min.js' ]
-  })
-  console.log(polyfillRes)
-  chrome.scripting.executeScript({
+    files: [ 'common/lib/custom-elements-1.5.0.min.js' ]
+  });
+  await chrome.scripting.executeScript({
     target: {tabId: details.tabId, frameIds: frameIds},
     files: [ 'content/content.js' ]
   });
