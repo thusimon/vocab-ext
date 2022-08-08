@@ -14,11 +14,11 @@ const modalTranslateUriParsed = new URL(modalTranslateUri);
 document.addEventListener('contextmenu', (evt) => {
   contextClientX = evt.clientX;
   contextClientY = evt.clientY;
-  cleanTranslate();
+  //cleanTranslate();
 }, true);
 
 document.addEventListener('click', () => {
-  cleanTranslate();
+  //cleanTranslate();
 }, true);
 
 const sendMessage = (type, data, callback) => {
@@ -86,7 +86,7 @@ window.addEventListener('message', (evt) => {
       break;
     }
     case FRAME_EVENT_TYPE.CLOSE_TRANSLATE_MODAL: {
-      cleanTranslate();
+      //cleanTranslate();
       break;
     }
     case FRAME_EVENT_TYPE.CLOSE_CARD_MODAL: {
@@ -141,27 +141,37 @@ const addToVocabulary = (translate) => {
   });
 }
 
-const showTranslate = (translate) => {
+const initTranslate = () => {
   const containerE = getContainer();
-  //translateE = getIframe();
-  translateE = getTranslateModal();
-  //translateE.width = 100;
-  //translateE.height =40;
-  //setDomStyles(translateE, 'margin', '0px');
-  //setDomStyles(translateE, 'padding', '0px');
+  const translateE = getTranslateModal();
   setDomStyles(translateE, 'position', 'absolute');
-  //setDomStyles(translateE, 'background', 'rgba(242, 242, 242, 1)');
-  //setDomStyles(translateE, 'border', '1px #e0e0e0 solid');
-  //setDomStyles(translateE, 'border-radius', '5px');
-  //setDomStyles(translateE, 'box-shadow', '3px 3px 3px #e0e0e0');
-  //setDomStyles(translateE, 'color', 'black');
   setDomStyles(translateE, 'z-index', '2147483647');
-  //setDomStyles(translateE, 'opacity', '0');
-  //setDomStyles(translateE, 'max-width', '600px');
-  setDomStyles(translateE, 'top', '-500px');
-  setDomStyles(translateE, 'left', '500px');
+  setDomStyles(translateE, 'opacity', '0');
+  setDomStyles(translateE, 'top', '0px');
+  setDomStyles(translateE, 'left', '0px');
+  setDomStyles(translateE, 'transition-property', 'opacity, top');
+  setDomStyles(translateE, 'transition-duration', '0.5s');
+  setDomStyles(translateE, 'transition-timing-function', 'ease-in-out');
+  setDomStyles(translateE, 'display', 'none');
 
   containerE.append(translateE);
+  return translateE;
+}
+
+const showTranslate = (content) => {
+  const translateE = getTranslateModal();
+  if (!translateE) {
+    return;
+  }
+  const containerE = getContainer();
+  const {x: containerX, y: containerY} = containerE.getBoundingClientRect();
+  const offSetContainerX = contextClientX - containerX;
+  const offSetContainerY = contextClientY - containerY;
+  const translationHeight = content.height;
+  setDomStyles(translateE, 'left', `${offSetContainerX}px`);
+  setDomStyles(translateE, 'top', `${offSetContainerY - translationHeight - 20}px`);
+  setDomStyles(translateE, 'opacity', '1');
+  translateE.show(true);
 }
 
 const cleanTranslate = () => {
@@ -274,14 +284,14 @@ chrome.runtime.onMessage.addListener((request, sender) => {
   switch (type) {
     case 'getTranslate': {
       translateResult = data;
-      showTranslate(translateResult);
+      showTranslate({height: 78});
       break;
     }
     case 'translateError': {
       translateResult = {
         err: data
       }
-      showTranslate(translateResult);
+      initTranslate(translateResult);
       break;
     }
     default:
@@ -312,235 +322,299 @@ if (ENABLE_CARD && window.self === window.top) {
 }
 
 class TranslateModal extends HTMLElement {
-  constructor() {
-    super();
-    const shadow = this.attachShadow({mode: 'open'});
-    shadow.innerHTML = `
-    <style>
-      body {
-        overflow: hidden;
-        margin: 0px;
-        padding: 0px;
-      }
-      
-      table td {
-        vertical-align: top;
-      }
-      #translate-container {
-        margin: 0px;
-        padding: 0px;
-        width: 200px;
-        background: rgba(242, 242, 242, 1);
-        border: 1px #e0e0e0 solid;
-        border-radius: 5px;
-        box-shadow: 3px 3px 3px #e0e0e0;
-        color: black;
-      }
-      
-      #translate-header {
-        width: 100%;
-        height: 16px;
-        background: #004AAD;
-      }
-      
-      #close-btn {
-        margin: 0px 2px;
-        float: right;
-      }
-      
-      #close-btn > svg {
-        fill: #F0F0F0;
-      }
-      
-      #close-btn:hover {
-        cursor: pointer;
-      }
-      
-      #close-btn:hover > svg {
-        fill: #FEFEFE
-      }
-      
-      #translate-content {
-        margin: 0px 6px;
-        padding: 0px;
-        font-size: 12px;
-        vertical-align: middle;
-        user-select: none;
-      }
-      
-      .translation-svg-icon {
-        margin: 4px 0px 0px 0px;
-      }
-      
-      .translate-entry {
-        margin:4px 0px;
-      }
-      
-      .translate-seperate-line {
-        border-bottom: 1px solid #707070;
-        width: 100%;
-        margin: 2px 0px;
-      }
-      
-      #sentence {
-        font-size: 16px;
-        max-width: 600px;
-        white-space: normal;
-        font-weight: 600;
-      }
-      
-      #dict {
-        font-size: 12px;
-        font-weight: 600;
-      }
-      
-      #examples {
-        font-size: 12px;
-        font-weight: 400;
-      }
-      
-      .error {
-        background-color: lightpink;
-        text-align: center;
-      }
-      
-      button {
-        width: 20px;
-        height: 20px;
-        margin: 0px 8px;
-        padding: 0px;
-        border: none;
-        border-radius: 10px;
-        vertical-align: middle;
-        outline: 0;
-        cursor: pointer;
-      }
-      
-      button svg:hover {
-        stroke: #2699FB;
-      }
-      #translate-button-group {
-        margin: 10px 5px;
-        text-align: right;
-      }
-      
-      .hide {
-        display: none;
-      }
-    </style>
-    <div id="translate-container">
-      <div id="translate-header">
-        <span id="close-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14">
-            <path d="M0 0h24v24H0z" fill="none"/>
-            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-          </svg>
-        </span>
-      </div>
-      <div id="translate-content">
-        <div id="sentence-container" class="translate-entry">
-          <table>
-            <tbody>
-              <tr>
-                <td title="Translation">
-                  <div class="translation-svg-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 20 15">
-                      <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                          <g id="Rounded" transform="translate(-272.000000, -2062.000000)">
-                              <g id="Editor" transform="translate(100.000000, 1960.000000)">
-                                  <g id="Round--Editor--text--fields" transform="translate(170.000000, 98.000000)">
-                                      <g>
-                                          <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
-                                          <path d="M2.5,5.5 C2.5,6.33 3.17,7 4,7 L7.5,7 L7.5,17.5 C7.5,18.33 8.17,19 9,19 C9.83,19 10.5,18.33 10.5,17.5 L10.5,7 L14,7 C14.83,7 15.5,6.33 15.5,5.5 C15.5,4.67 14.83,4 14,4 L4,4 C3.17,4 2.5,4.67 2.5,5.5 Z M20,9 L14,9 C13.17,9 12.5,9.67 12.5,10.5 C12.5,11.33 13.17,12 14,12 L15.5,12 L15.5,17.5 C15.5,18.33 16.17,19 17,19 C17.83,19 18.5,18.33 18.5,17.5 L18.5,12 L20,12 C20.83,12 21.5,11.33 21.5,10.5 C21.5,9.67 20.83,9 20,9 Z" id="translate-icon-color" fill="#004AAD"></path>
-                                      </g>
+  static styleText = `
+  #translate-container {
+    overflow: hidden;
+    margin: 0px;
+    padding: 0px;
+    width: 200px;
+    background: rgba(242, 242, 242, 1);
+    border: 1px #e0e0e0 solid;
+    border-radius: 5px;
+    box-shadow: 3px 3px 3px #e0e0e0;
+    color: black;
+    overflow: hidden;
+  }
+  
+  #translate-header {
+    width: 100%;
+    height: 16px;
+    background: #004AAD;
+    cursor: all-scroll;
+  }
+  
+  #close-btn {
+    margin: 0px 2px;
+    float: right;
+  }
+  
+  #close-btn > svg {
+    fill: #F0F0F0;
+  }
+  
+  #close-btn:hover {
+    cursor: pointer;
+  }
+  
+  #close-btn:hover > svg {
+    fill: #FEFEFE
+  }
+  
+  #translate-content {
+    margin: 0px 6px;
+    padding: 0px;
+    font-size: 12px;
+    vertical-align: middle;
+    user-select: none;
+  }
+
+  .translate-loading {
+    text-align: center;
+  }
+
+  .loading-content {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 10px 10px 10px 20px;
+  }
+  
+  .translation-svg-icon {
+    margin: 4px 0px 0px 0px;
+  }
+  
+  .translate-entry {
+    margin:4px 0px;
+  }
+  
+  .translate-seperate-line {
+    border-bottom: 1px solid #707070;
+    width: 100%;
+    margin: 2px 0px;
+  }
+  
+  #sentence {
+    font-size: 16px;
+    max-width: 600px;
+    white-space: normal;
+    font-weight: 600;
+  }
+  
+  #dict {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  #examples {
+    font-size: 12px;
+    font-weight: 400;
+  }
+  
+  .error {
+    background-color: lightpink;
+    text-align: center;
+  }
+  
+  button {
+    width: 20px;
+    height: 20px;
+    margin: 0px 8px;
+    padding: 0px;
+    border: none;
+    border-radius: 10px;
+    vertical-align: middle;
+    outline: 0;
+    cursor: pointer;
+  }
+  
+  button svg:hover {
+    stroke: #2699FB;
+  }
+  #translate-button-group {
+    margin: 10px 5px;
+    text-align: right;
+  }
+  
+  .hide {
+    display: none;
+  }
+  `;
+  static headerTemplate = `
+  <span id="close-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14">
+      <path d="M0 0h24v24H0z" fill="none"/>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+    </svg>
+  </span>
+  `;
+  static contentTemplate = `
+  <div id="translate-content">
+    <div id="sentence-container" class="translate-entry">
+      <table>
+        <tbody>
+          <tr>
+            <td title="Translation">
+              <div class="translation-svg-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 20 15">
+                  <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Rounded" transform="translate(-272.000000, -2062.000000)">
+                          <g id="Editor" transform="translate(100.000000, 1960.000000)">
+                              <g id="Round--Editor--text--fields" transform="translate(170.000000, 98.000000)">
+                                  <g>
+                                      <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                                      <path d="M2.5,5.5 C2.5,6.33 3.17,7 4,7 L7.5,7 L7.5,17.5 C7.5,18.33 8.17,19 9,19 C9.83,19 10.5,18.33 10.5,17.5 L10.5,7 L14,7 C14.83,7 15.5,6.33 15.5,5.5 C15.5,4.67 14.83,4 14,4 L4,4 C3.17,4 2.5,4.67 2.5,5.5 Z M20,9 L14,9 C13.17,9 12.5,9.67 12.5,10.5 C12.5,11.33 13.17,12 14,12 L15.5,12 L15.5,17.5 C15.5,18.33 16.17,19 17,19 C17.83,19 18.5,18.33 18.5,17.5 L18.5,12 L20,12 C20.83,12 21.5,11.33 21.5,10.5 C21.5,9.67 20.83,9 20,9 Z" id="translate-icon-color" fill="#004AAD"></path>
                                   </g>
                               </g>
                           </g>
                       </g>
-                    </svg>
-                  </div>
-                </td>
-                <td>
-                  <div id="sentence"></div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="translate-seperate-line"></div>
-        </div>
-        <div id="dict-container" class="translate-entry hide">
-          <table>
-            <tbody>
-              <tr>
-                <td title="Dictionary">
-                  <div class="translation-svg-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3">
-                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                    </svg>
-                  </div>
-                </td>
-                <td>
-                  <div id="dict"></div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="translate-seperate-line"></div>
-        </div>
-        <div id="synsets-container" class="translate-entry hide">
-          <div id="synsets"></div>
-        </div>
-        <div id="examples-container" class="translate-entry hide">
-          <table>
-            <tbody>
-              <tr>
-                <td title="Examples">
-                  <div class="translation-svg-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="8" y1="6" x2="21" y2="6"></line>
-                      <line x1="8" y1="12" x2="21" y2="12"></line>
-                      <line x1="8" y1="18" x2="21" y2="18"></line>
-                      <line x1="3" y1="6" x2="3" y2="6"></line>
-                      <line x1="3" y1="12" x2="3" y2="12"></line>
-                      <line x1="3" y1="18" x2="3" y2="18"></line>
-                    </svg>
-                  </div>
-                </td>
-                <td>
-                  <div id="examples"></div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="translate-seperate-line"></div>
-        </div>
-      </div>
-      <div id="translate-button-group">
-        <button id="read-vocab-button" title="Read vocabulary">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke-width="3" stroke="#004AAD">
-            <polyline points="10,21 3,21 3,11 10,11 " />
-            <polyline points="10,11 20,3.8 20,28.2 10,21 "/>
-            <g>
-              <path d="M26.4,22c1.6-1.5,2.6-3.6,2.6-6c0-2.4-1-4.5-2.6-6"/>
-            </g>
-            <g>
-              <path d="M24,18.6c0.7-0.7,1.2-1.6,1.2-2.6s-0.4-2-1.2-2.6"/>
-            </g>
-          </svg>
-        </button>
-        <button id="add-vocab-button" title="Add to vocabulary">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="#004AAD">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="16"></line>
-            <line x1="8" y1="12" x2="16" y2="12"></line>
-          </svg>
-        </button>
-      </div>
+                  </g>
+                </svg>
+              </div>
+            </td>
+            <td>
+              <div id="sentence"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="translate-seperate-line"></div>
     </div>
-    `;
+    <div id="dict-container" class="translate-entry hide">
+      <table>
+        <tbody>
+          <tr>
+            <td title="Dictionary">
+              <div class="translation-svg-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </div>
+            </td>
+            <td>
+              <div id="dict"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="translate-seperate-line"></div>
+    </div>
+    <div id="synsets-container" class="translate-entry hide">
+      <div id="synsets"></div>
+    </div>
+    <div id="examples-container" class="translate-entry hide">
+      <table>
+        <tbody>
+          <tr>
+            <td title="Examples">
+              <div class="translation-svg-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3" y2="6"></line>
+                  <line x1="3" y1="12" x2="3" y2="12"></line>
+                  <line x1="3" y1="18" x2="3" y2="18"></line>
+                </svg>
+              </div>
+            </td>
+            <td>
+              <div id="examples"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="translate-seperate-line"></div>
+    </div>
+  </div>
+  <div id="translate-button-group">
+    <button id="read-vocab-button" title="Read vocabulary">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke-width="3" stroke="#004AAD">
+        <polyline points="10,21 3,21 3,11 10,11 " />
+        <polyline points="10,11 20,3.8 20,28.2 10,21 "/>
+        <g>
+          <path d="M26.4,22c1.6-1.5,2.6-3.6,2.6-6c0-2.4-1-4.5-2.6-6"/>
+        </g>
+        <g>
+          <path d="M24,18.6c0.7-0.7,1.2-1.6,1.2-2.6s-0.4-2-1.2-2.6"/>
+        </g>
+      </svg>
+    </button>
+    <button id="add-vocab-button" title="Add to vocabulary">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke="#004AAD">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="16"></line>
+        <line x1="8" y1="12" x2="16" y2="12"></line>
+      </svg>
+    </button>
+  </div>
+  `;
+  static loadingTemplate = `
+  <div class="loading-content">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+      <path d="M10 50A40 40 0 0 0 90 50A40 45 0 0 1 10 50" fill="#004aad" stroke="none">
+        <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 52.5;360 50 52.5"></animateTransform>
+      </path>
+    </svg>
+  </div>
+  `;
+  constructor() {
+    super();
+    const shadow = this.attachShadow({mode: 'open'});
+    const style = document.createElement('style');
+    style.append(document.createTextNode(TranslateModal.styleText));
+    this.container = document.createElement('div');
+    this.container.id = 'translate-container';
+    this.header = document.createElement('div');
+    this.header.id = 'translate-header';
+    this.header.innerHTML = TranslateModal.headerTemplate;
+    this.content = document.createElement('div');
+    this.content.id = 'translate-content';
+    this.container.append(this.header, this.content);
+
+    shadow.append(style, this.container);
+    this.addEventListener('transitionend', this.transitionHandler);
   }
+
+  connectedCallback() {
+    this.setLoadingView();
+    const headerCloseBtn = this.shadowRoot.querySelector('#close-btn');
+    headerCloseBtn.addEventListener('click', () => {
+      console.log('clicked close')
+      this.hide(true);
+    });
+  }
+
+  setLoadingView() {
+    this.content.classList.remove('translate-loading');
+    this.content.classList.add('translate-loading');
+    this.content.innerHTML = TranslateModal.loadingTemplate;
+  }
+
+  show(transient) {
+    if(transient) {
+      this.style.opacity = 1;
+    }
+    this.style.display = 'block';
+  }
+
+  hide(transient) {
+    if (transient) {
+      this.style.opacity = 0;
+    }
+  }
+
+  transitionHandler(e) {
+    console.log(e);
+    if (e.propertyName === 'opacity' && this.style.opacity ==='0') {
+      this.style.display = 'none';
+    }
+  }
+
 }
 
 // Define the new element
 window.customElements.define('translate-modal', TranslateModal);
+
+const vocabContainer = getContainer();
+translateE = initTranslate();
