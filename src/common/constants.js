@@ -37,6 +37,12 @@ const FRAME_EVENT_TYPE = {
   CLOSE_CARD_MODAL: `${DOM_ID.CARD_IFRAME}-clickCloseBtn`
 };
 
+const RUNTIME_EVENT_TYPE = {
+  SHOW_TRANSLATION: 'showTranslation',
+  GET_TRANSLATION: 'getTranslation',
+  ERROR_TRANSLATION: 'errorTranslation'
+};
+
 const I18Ns = {
   ar: {
     name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629'

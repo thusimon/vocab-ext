@@ -26,3 +26,7 @@ const removeAllChildNodes = (parent) => {
     parent.removeChild(parent.firstChild);
   }
 };
+
+const getTranslateUri = (base, params) => {
+  return `${base}?${new URLSearchParams(params)}`;
+};

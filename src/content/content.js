@@ -1,6 +1,5 @@
 let contextClientX
   , contextClientY
-  , translateE
   , translateResult
   , cardE
   , cardData
@@ -144,34 +143,22 @@ const addToVocabulary = (translate) => {
 const initTranslate = () => {
   const containerE = getContainer();
   const translateE = getTranslateModal();
-  setDomStyles(translateE, 'position', 'absolute');
-  setDomStyles(translateE, 'z-index', '2147483647');
-  setDomStyles(translateE, 'opacity', '0');
-  setDomStyles(translateE, 'top', '0px');
-  setDomStyles(translateE, 'left', '0px');
-  setDomStyles(translateE, 'transition-property', 'opacity, top');
-  setDomStyles(translateE, 'transition-duration', '0.5s');
-  setDomStyles(translateE, 'transition-timing-function', 'ease-in-out');
-  setDomStyles(translateE, 'display', 'none');
-
   containerE.append(translateE);
   return translateE;
 }
 
-const showTranslate = (content) => {
+const showTranslate = ({type, data}) => {
   const translateE = getTranslateModal();
   if (!translateE) {
     return;
   }
   const containerE = getContainer();
   const {x: containerX, y: containerY} = containerE.getBoundingClientRect();
-  const offSetContainerX = contextClientX - containerX;
-  const offSetContainerY = contextClientY - containerY;
-  const translationHeight = content.height;
-  setDomStyles(translateE, 'left', `${offSetContainerX}px`);
-  setDomStyles(translateE, 'top', `${offSetContainerY - translationHeight - 20}px`);
-  setDomStyles(translateE, 'opacity', '1');
-  translateE.show(true);
+  const offSet = {
+    offSetContainerX: contextClientX - containerX,
+    offSetContainerY: contextClientY - containerY
+  }
+  translateE.show(type, data, offSet);
 }
 
 const cleanTranslate = () => {
@@ -282,16 +269,17 @@ chrome.runtime.onMessage.addListener((request, sender) => {
     return;
   }
   switch (type) {
-    case 'getTranslate': {
-      translateResult = data;
-      showTranslate({height: 78});
+    case RUNTIME_EVENT_TYPE.SHOW_TRANSLATION: {
+      showTranslate({ type, data });
       break;
     }
-    case 'translateError': {
-      translateResult = {
-        err: data
-      }
-      initTranslate(translateResult);
+    case RUNTIME_EVENT_TYPE.GET_TRANSLATION: {
+      translateResult = data;
+      showTranslate({ type, data });
+      break;
+    }
+    case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
+      showTranslate({ type, data });
       break;
     }
     default:
@@ -327,13 +315,13 @@ class TranslateModal extends HTMLElement {
     overflow: hidden;
     margin: 0px;
     padding: 0px;
-    width: 200px;
+    width: 300px;
     background: rgba(242, 242, 242, 1);
     border: 1px #e0e0e0 solid;
     border-radius: 5px;
     box-shadow: 3px 3px 3px #e0e0e0;
     color: black;
-    overflow: hidden;
+    line-height: 1;
   }
   
   #translate-header {
@@ -344,7 +332,7 @@ class TranslateModal extends HTMLElement {
   }
   
   #close-btn {
-    margin: 0px 2px;
+    margin: 1px 2px;
     float: right;
   }
   
@@ -372,7 +360,7 @@ class TranslateModal extends HTMLElement {
     text-align: center;
   }
 
-  .loading-content {
+  .loading-spinner {
     width: 40px;
     height: 40px;
     display: inline-block;
@@ -447,85 +435,83 @@ class TranslateModal extends HTMLElement {
     </svg>
   </span>
   `;
-  static contentTemplate = `
-  <div id="translate-content">
-    <div id="sentence-container" class="translate-entry">
-      <table>
-        <tbody>
-          <tr>
-            <td title="Translation">
-              <div class="translation-svg-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 20 15">
-                  <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g id="Rounded" transform="translate(-272.000000, -2062.000000)">
-                          <g id="Editor" transform="translate(100.000000, 1960.000000)">
-                              <g id="Round--Editor--text--fields" transform="translate(170.000000, 98.000000)">
-                                  <g>
-                                      <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
-                                      <path d="M2.5,5.5 C2.5,6.33 3.17,7 4,7 L7.5,7 L7.5,17.5 C7.5,18.33 8.17,19 9,19 C9.83,19 10.5,18.33 10.5,17.5 L10.5,7 L14,7 C14.83,7 15.5,6.33 15.5,5.5 C15.5,4.67 14.83,4 14,4 L4,4 C3.17,4 2.5,4.67 2.5,5.5 Z M20,9 L14,9 C13.17,9 12.5,9.67 12.5,10.5 C12.5,11.33 13.17,12 14,12 L15.5,12 L15.5,17.5 C15.5,18.33 16.17,19 17,19 C17.83,19 18.5,18.33 18.5,17.5 L18.5,12 L20,12 C20.83,12 21.5,11.33 21.5,10.5 C21.5,9.67 20.83,9 20,9 Z" id="translate-icon-color" fill="#004AAD"></path>
-                                  </g>
-                              </g>
-                          </g>
-                      </g>
-                  </g>
-                </svg>
-              </div>
-            </td>
-            <td>
-              <div id="sentence"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="translate-seperate-line"></div>
-    </div>
-    <div id="dict-container" class="translate-entry hide">
-      <table>
-        <tbody>
-          <tr>
-            <td title="Dictionary">
-              <div class="translation-svg-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-                </svg>
-              </div>
-            </td>
-            <td>
-              <div id="dict"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="translate-seperate-line"></div>
-    </div>
-    <div id="synsets-container" class="translate-entry hide">
-      <div id="synsets"></div>
-    </div>
-    <div id="examples-container" class="translate-entry hide">
-      <table>
-        <tbody>
-          <tr>
-            <td title="Examples">
-              <div class="translation-svg-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="8" y1="6" x2="21" y2="6"></line>
-                  <line x1="8" y1="12" x2="21" y2="12"></line>
-                  <line x1="8" y1="18" x2="21" y2="18"></line>
-                  <line x1="3" y1="6" x2="3" y2="6"></line>
-                  <line x1="3" y1="12" x2="3" y2="12"></line>
-                  <line x1="3" y1="18" x2="3" y2="18"></line>
-                </svg>
-              </div>
-            </td>
-            <td>
-              <div id="examples"></div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="translate-seperate-line"></div>
-    </div>
+  static translateTemplate = `
+  <div id="sentence-container" class="translate-entry">
+    <table>
+      <tbody>
+        <tr>
+          <td title="Translation">
+            <div class="translation-svg-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 20 15">
+                <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                    <g id="Rounded" transform="translate(-272.000000, -2062.000000)">
+                        <g id="Editor" transform="translate(100.000000, 1960.000000)">
+                            <g id="Round--Editor--text--fields" transform="translate(170.000000, 98.000000)">
+                                <g>
+                                    <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                                    <path d="M2.5,5.5 C2.5,6.33 3.17,7 4,7 L7.5,7 L7.5,17.5 C7.5,18.33 8.17,19 9,19 C9.83,19 10.5,18.33 10.5,17.5 L10.5,7 L14,7 C14.83,7 15.5,6.33 15.5,5.5 C15.5,4.67 14.83,4 14,4 L4,4 C3.17,4 2.5,4.67 2.5,5.5 Z M20,9 L14,9 C13.17,9 12.5,9.67 12.5,10.5 C12.5,11.33 13.17,12 14,12 L15.5,12 L15.5,17.5 C15.5,18.33 16.17,19 17,19 C17.83,19 18.5,18.33 18.5,17.5 L18.5,12 L20,12 C20.83,12 21.5,11.33 21.5,10.5 C21.5,9.67 20.83,9 20,9 Z" id="translate-icon-color" fill="#004AAD"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+              </svg>
+            </div>
+          </td>
+          <td>
+            <div id="sentence"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="translate-seperate-line"></div>
+  </div>
+  <div id="dict-container" class="translate-entry hide">
+    <table>
+      <tbody>
+        <tr>
+          <td title="Dictionary">
+            <div class="translation-svg-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+          </td>
+          <td>
+            <div id="dict"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="translate-seperate-line"></div>
+  </div>
+  <div id="synsets-container" class="translate-entry hide">
+    <div id="synsets"></div>
+  </div>
+  <div id="examples-container" class="translate-entry hide">
+    <table>
+      <tbody>
+        <tr>
+          <td title="Examples">
+            <div class="translation-svg-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3" y2="6"></line>
+                <line x1="3" y1="12" x2="3" y2="12"></line>
+                <line x1="3" y1="18" x2="3" y2="18"></line>
+              </svg>
+            </div>
+          </td>
+          <td>
+            <div id="examples"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="translate-seperate-line"></div>
   </div>
   <div id="translate-button-group">
     <button id="read-vocab-button" title="Read vocabulary">
@@ -550,7 +536,7 @@ class TranslateModal extends HTMLElement {
   </div>
   `;
   static loadingTemplate = `
-  <div class="loading-content">
+  <div class="loading-spinner">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
       <path d="M10 50A40 40 0 0 0 90 50A40 45 0 0 1 10 50" fill="#004aad" stroke="none">
         <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 52.5;360 50 52.5"></animateTransform>
@@ -558,6 +544,16 @@ class TranslateModal extends HTMLElement {
     </svg>
   </div>
   `;
+  static errorTemplate = `
+  <div>
+    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 50 50">
+      <circle style="fill:#D75A4A;" cx="25" cy="25" r="25"/>
+      <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" points="16,34 25,25 34,16 "/>
+      <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" points="16,16 25,25 34,34 "/>
+    </svg>
+  </div>
+  `;
+  static modalBottomMargin = 20;
   constructor() {
     super();
     const shadow = this.attachShadow({mode: 'open'});
@@ -570,6 +566,24 @@ class TranslateModal extends HTMLElement {
     this.header.innerHTML = TranslateModal.headerTemplate;
     this.content = document.createElement('div');
     this.content.id = 'translate-content';
+
+    this.loadingView = document.createElement('div');
+    this.loadingView.className = 'translate-loading';
+    this.loadingView.innerHTML = TranslateModal.loadingTemplate;
+    this.loadingView.style.display = 'none';
+    
+    this.translateView = document.createElement('div');
+    this.translateView.className = 'translate-data';
+    this.translateView.innerHTML = TranslateModal.translateTemplate;
+    this.translateView.style.display = 'none';
+
+    this.errorView = document.createElement('div');
+    this.errorView.className = 'translate-error';
+    this.errorView.innerHTML = TranslateModal.errorTemplate;
+    this.errorView.style.display = 'none';
+
+    this.content.append(this.loadingView, this.translateView, this.errorView);
+
     this.container.append(this.header, this.content);
 
     shadow.append(style, this.container);
@@ -577,35 +591,165 @@ class TranslateModal extends HTMLElement {
   }
 
   connectedCallback() {
+    /**
+     * setting all='initial' is important, shadowDom encapsulate the styling
+     * it does not leak OUT the styling
+     * however, for those inheritable styling, if not specified by shadowDom,
+     * the outside style may leak IN 
+     **/
+    this.style.all = 'initial';
+    setDomStyles(this, 'position', 'absolute');
+    setDomStyles(this, 'z-index', '2147483647');
+    setDomStyles(this, 'opacity', '0');
+    setDomStyles(this, 'top', '0px');
+    setDomStyles(this, 'left', '0px');
+    setDomStyles(this, 'transition-property', 'opacity, top');
+    setDomStyles(this, 'transition-duration', '0.5s');
+    setDomStyles(this, 'transition-timing-function', 'ease-in-out');
+    setDomStyles(this, 'display', 'none');
     this.setLoadingView();
-    const headerCloseBtn = this.shadowRoot.querySelector('#close-btn');
-    headerCloseBtn.addEventListener('click', () => {
-      console.log('clicked close')
-      this.hide(true);
+    const closeBtn = this.shadowRoot.querySelector('#close-btn');
+    closeBtn.addEventListener('click', () => {
+      this.hide();
+    });
+    const addVocabBtn = this.shadowRoot.querySelector('#add-vocab-button');
+    addVocabBtn.addEventListener('click', () => {
+      console.log('clicked add vocab', translateResult);
     });
   }
 
   setLoadingView() {
-    this.content.classList.remove('translate-loading');
-    this.content.classList.add('translate-loading');
-    this.content.innerHTML = TranslateModal.loadingTemplate;
+    this.loadingView.style.display = 'block';
+    this.translateView.style.display = 'none';
+    this.errorView.style.display = 'none';
+    return {
+      width: 202,
+      height: 78
+    };
   }
 
-  show(transient) {
-    if(transient) {
-      this.style.opacity = 1;
+  setTranslateView(data) {
+    this.loadingView.style.display = 'none';
+    this.translateView.style.display = 'block';
+    this.errorView.style.display = 'none';
+    const sentenceE = this.shadowRoot.getElementById('sentence');
+    const dictCE = this.shadowRoot.getElementById('dict-container');
+    const dictE = this.shadowRoot.getElementById('dict');
+    const synsetsCE = this.shadowRoot.getElementById('synsets-container');
+    const synsetsE = this.shadowRoot.getElementById('synsets');
+    const exampleCE = this.shadowRoot.getElementById('examples-container');
+    const examplesE = this.shadowRoot.getElementById('examples');
+    const addBtn = this.shadowRoot.getElementById('add-vocab-button');
+    const readBtn = this.shadowRoot.getElementById('read-vocab-button');
+    const closeBtn = this.shadowRoot.getElementById('close-btn');
+
+    this.translatedText = data.translatedText;
+    this.originalText = data.originalText;
+    sentenceE.textContent = this.translatedText;
+    this.processDictResult(dictCE, dictE, data.dictResult);
+    //this.processSynsets(synsetsCE, synsetsE, data.synsets);
+    this.processExamples(exampleCE, examplesE, data.exampleRes);
+    return {
+      width: this.container.offsetWidth,
+      height: this.container.offsetHeight
+    };
+  }
+
+  setErrorView() {
+    this.loadingView.style.display = 'none';
+    this.translateView.style.display = 'none';
+    this.errorView.style.display = 'block';
+    return {
+      width: 202,
+      height: 78
+    };
+  }
+
+  setPosition(offSetX, offSetY) {
+    setDomStyles(this, 'left', `${offSetX}px`);
+    setDomStyles(this, 'top', `${offSetY}px`);
+  }
+
+  processDictResult(dictContainerE, dictE, dicts) {
+    removeAllChildNodes(dictE);
+    if (dicts && dicts.length > 0) {
+      dictContainerE.classList.remove('hide');
+      dicts.forEach(dict => {
+        const dictEntry = document.createElement('div');
+        dictEntry.classList.add('dict-entry')
+        const pos = dict.pos;
+        const terms = (dict.terms || []).join(', ')
+        dictEntry.textContent = `[${pos}]: ${terms}`;
+        dictE.appendChild(dictEntry);
+      });
     }
+  }
+
+  processSynsets(synsetsContainerE, synsetsE, synsets) {
+    if (synsets && synsets.length > 0) {
+      synsetsContainerE.classList.remove('hide');
+      synsets.forEach(synset => {
+        const synsetEntry = document.createElement('div');
+        synsetEntry.classList.add('synset-entry')
+        const pos = synset.pos;
+        const entry = synset.entry
+        if (entry && entry.length > 0){
+          // here only get the first one
+          const synonym = (entry[0].synonym || []).join(', ')
+          synsetEntry.textContent = `[${pos}]: ${synonym}`;
+          synsetsE.appendChild(synsetEntry);
+        }
+      })
+    }
+  }
+
+  processExamples(exampleContainerE, examplesE, examples) {
+    removeAllChildNodes(examplesE);
+    if (examples && examples.length > 0) {
+      exampleContainerE.classList.remove('hide');
+      // take only the first two
+      const lessExamples = examples.slice(0, 2);
+      const domParser = new DOMParser();
+      lessExamples.forEach((example, idx) => {
+        const exampleEntry = document.createElement('div');
+        exampleEntry.classList.add('example-entry');
+        const exampleText = example.text || '';
+        const exampleTextParsed = domParser.parseFromString(`<span>${idx+1}. ${exampleText}</span>`, 'text/html');
+        exampleEntry.append(exampleTextParsed.body.firstElementChild);
+        examplesE.appendChild(exampleEntry);
+      });
+    }
+  }
+
+  show(type, data, offSet) {
+    this.style.opacity = 1;
     this.style.display = 'block';
+    switch (type) {
+      case RUNTIME_EVENT_TYPE.SHOW_TRANSLATION: {
+        const viewSize = this.setLoadingView();
+        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
+        break;
+      }
+      case RUNTIME_EVENT_TYPE.GET_TRANSLATION: {
+        const viewSize = this.setTranslateView(data);
+        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
+        break;
+      }
+      case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
+        const viewSize = this.setErrorView(data);
+        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
+        break;
+      }
+      default:
+        break;
+    }
   }
 
-  hide(transient) {
-    if (transient) {
-      this.style.opacity = 0;
-    }
+  hide() {
+    this.style.opacity = 0;
   }
 
   transitionHandler(e) {
-    console.log(e);
     if (e.propertyName === 'opacity' && this.style.opacity ==='0') {
       this.style.display = 'none';
     }
@@ -617,4 +761,4 @@ class TranslateModal extends HTMLElement {
 window.customElements.define('translate-modal', TranslateModal);
 
 const vocabContainer = getContainer();
-translateE = initTranslate();
+const translateE = initTranslate();

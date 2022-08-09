@@ -85,7 +85,10 @@ class TranslateAPI {
   }
   
   async translate(q, source, target, format) {
-    const fetchResp = await fetch(`${this.reqUriBase}?key=${this.API_KEY}`, {
+    const reqUrl = getTranslateUri(this.reqUriBase, {
+      key: this.API_KEY
+    });
+    const fetchResp = await fetch(reqUrl, {
       method: 'POST',
       body: JSON.stringify({
         q,

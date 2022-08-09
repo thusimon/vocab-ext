@@ -15,15 +15,13 @@ if (!contextMenu) {
   });
 }
 
-const translateInternal = async (text) => {
-  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-  const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings;
-  const translateRes = ENABLE_API ? await translateAPI.translate(text, SOURCE_LANG, TARGET_LANG, 'text') :
-        await translateAPI.translateFree(encodeURIComponent(text), SOURCE_LANG, TARGET_LANG, 'text');
+const translateInternal = async (text, sourceLang, targetLang, enableAPI) => {
+  const translateRes = enableAPI ? await translateAPI.translate(text, sourceLang, targetLang, 'text') :
+        await translateAPI.translateFree(encodeURIComponent(text), sourceLang, targetLang, 'text');
   return translateRes;
 }
 
-const sendMessageToCurrentTab = (tabId, frameId, type, data) => {
+const sendMessageToCurrentTab = async (tabId, frameId, type, data) => {
   const options = {};
   if (Number.isInteger(frameId)) {
     options.frameId = frameId;
@@ -31,14 +29,12 @@ const sendMessageToCurrentTab = (tabId, frameId, type, data) => {
     options.frameId = 0;
   }
   if (tabId > -1) {
-    chrome.tabs.sendMessage(tabId, {type, data}, options);
+    return await chrome.tabs.sendMessage(tabId, {type, data}, options);
   } else {
-    chrome.tabs.query(
-      {currentWindow: true, active : true},
-      tabs => {
-        chrome.tabs.sendMessage(tabs[0].id, {type, data}, options);
-      }
-    )
+    const tabs = await chrome.tabs.query({ currentWindow: true, active : true});
+    if (tabs && tabs[0]) {
+      return await chrome.tabs.sendMessage(tabs[0].id, {type, data}, options);
+    }
   }
 }
 
@@ -47,12 +43,23 @@ const onTranslateClick = async (info, tab) => {
   let q = info.selectionText;
   if (q) {
     q = q.trim().toLowerCase();
+    const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+    const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings;
     try {
-      const translateRes = await translateInternal(q);
-      sendMessageToCurrentTab(tab.id, contextMenuFrameId, 'getTranslate', translateRes);
+      await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.SHOW_TRANSLATION);
+      translateRes = await translateInternal(q, SOURCE_LANG, TARGET_LANG, ENABLE_API);
+      await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.GET_TRANSLATION, translateRes);
     } catch (e) {
       console.log(`Error: ${e.message}`);
-      sendMessageToCurrentTab(tab.id, contextMenuFrameId, 'translateError', e.message);
+      const translateUrl = getTranslateUri('https://translate.google.com/', {
+        sl: SOURCE_LANG,
+        tl: TARGET_LANG,
+        text: q
+      });
+      await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.ERROR_TRANSLATION, {
+        errMsg: e.message,
+        url: translateUrl
+      });
     }
   }
 }
