@@ -6,7 +6,8 @@ const createComboBox = (id, options, defaultValue) => {
     const optionE = document.createElement('option');
     const option = options[key];
     optionE.value = key;
-    optionE.textContent = `${option.name}(${key})`;
+    const keyValue = LangCodeMapping[key] ? LangCodeMapping[key] : key;
+    optionE.textContent = `${option.name}(${keyValue})`;
     if (defaultValue === key) {
       optionE.selected = 'selected';
     }

@@ -83,7 +83,7 @@ class TranslateAPI {
   
     return normalizedResult.toString() + "." + (normalizedResult ^ tkkIndex)
   }
-  
+
   async translate(q, source, target, format) {
     const reqUrl = getTranslateUri(this.reqUriBase, {
       key: this.API_KEY

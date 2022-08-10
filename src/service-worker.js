@@ -52,8 +52,8 @@ const onTranslateClick = async (info, tab) => {
     } catch (e) {
       console.log(`Error: ${e.message}`);
       const translateUrl = getTranslateUri('https://translate.google.com/', {
-        sl: SOURCE_LANG,
-        tl: TARGET_LANG,
+        sl: LangCodeMapping[SOURCE_LANG] ? LangCodeMapping[SOURCE_LANG] : SOURCE_LANG,
+        tl: LangCodeMapping[TARGET_LANG] ? LangCodeMapping[TARGET_LANG] : TARGET_LANG,
         text: q
       });
       await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.ERROR_TRANSLATION, {

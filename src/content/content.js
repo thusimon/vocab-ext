@@ -10,25 +10,24 @@ const modalCardUri = chrome.runtime.getURL('content/card-modal.html');
 const modalTranslateUriParsed = new URL(modalTranslateUri);
 
 
-document.addEventListener('contextmenu', (evt) => {
+document.addEventListener('contextmenu', evt => {
   contextClientX = evt.clientX;
   contextClientY = evt.clientY;
-  //cleanTranslate();
+  cleanTranslate();
 }, true);
 
 document.addEventListener('click', () => {
-  //cleanTranslate();
-}, true);
+  cleanTranslate();
+}, false);
 
-const sendMessage = (type, data, callback) => {
+const sendMessage = async (type, data, callback) => {
   if (!chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
     return;
   }
-  chrome.runtime.sendMessage({ type, data }, (resp) => {
-    if (callback) {
-      callback(resp);
-    }
-  });
+  const resp = await chrome.runtime.sendMessage({ type, data });
+  if (callback) {
+    return callback(resp);
+  }
 }
 
 window.addEventListener('message', (evt) => {
@@ -134,10 +133,8 @@ const setDomStyles = (elem, prop, value) => {
   elem.style.setProperty(prop, value, 'important');
 }
 
-const addToVocabulary = (translate) => {
-  sendMessage('addToVocab', translate, () => {
-    cleanTranslate();
-  });
+const addToVocabulary = async (translate) => {
+  await sendMessage('addToVocab', translate, cleanTranslate);
 }
 
 const initTranslate = () => {
@@ -163,10 +160,10 @@ const showTranslate = ({type, data}) => {
 
 const cleanTranslate = () => {
   const containerE = getContainer();
-  const translatesE = containerE.querySelectorAll(`#${DOM_ID.TRANSLATE_IFRAME}`);
-  translatesE.forEach(translateE => {
-    translateE.remove();
-  });
+  const translateE = containerE.querySelector(`#${DOM_ID.TRANSLATE_MODAL}`);
+  if (translateE) {
+    translateE.hide();
+  }
 }
 
 const cleanCard = () => {
@@ -360,15 +357,44 @@ class TranslateModal extends HTMLElement {
     text-align: center;
   }
 
+  .translate-error {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .loading-spinner {
     width: 40px;
     height: 40px;
     display: inline-block;
     margin: 10px 10px 10px 20px;
   }
-  
-  .translation-svg-icon {
-    margin: 4px 0px 0px 0px;
+
+  .error-image {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    margin: 10px 10px 10px 20px;
+  }
+
+  .error-message {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .error-message a {
+    font-size: 20px;
+  }
+
+  .error-instruction {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 10px;
+  }
+
+  .td-icon {
+    vertical-align: text-top;
   }
   
   .translate-entry {
@@ -440,7 +466,7 @@ class TranslateModal extends HTMLElement {
     <table>
       <tbody>
         <tr>
-          <td title="Translation">
+          <td title="Translation" class="td-icon">
             <div class="translation-svg-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 20 15">
                 <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -470,7 +496,7 @@ class TranslateModal extends HTMLElement {
     <table>
       <tbody>
         <tr>
-          <td title="Dictionary">
+          <td title="Dictionary" class="td-icon">
             <div class="translation-svg-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
@@ -493,7 +519,7 @@ class TranslateModal extends HTMLElement {
     <table>
       <tbody>
         <tr>
-          <td title="Examples">
+          <td title="Examples" class="td-icon">
             <div class="translation-svg-icon">
               <svg xmlns="http://www.w3.org/2000/svg" width="14px" height="14px" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="8" y1="6" x2="21" y2="6"></line>
@@ -545,12 +571,29 @@ class TranslateModal extends HTMLElement {
   </div>
   `;
   static errorTemplate = `
-  <div>
+  <div class="error-image">
     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 50 50">
       <circle style="fill:#D75A4A;" cx="25" cy="25" r="25"/>
       <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" points="16,34 25,25 34,16 "/>
       <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" points="16,16 25,25 34,34 "/>
     </svg>
+  </div>
+  <div class="error-message">
+    <a id="translation-link" target="_blank">Google Translate</a>
+    <div class="error-instruction">
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 203.079 203.079">
+        <path d="M192.231,104.082V102c0-12.407-10.094-22.5-22.5-22.5c-2.802,0-5.484,0.519-7.961,1.459
+          C159.665,70.722,150.583,63,139.731,63c-2.947,0-5.76,0.575-8.341,1.61C128.667,55.162,119.624,48,109.231,48
+          c-2.798,0-5.496,0.541-8,1.516V22.5c0-12.407-10.094-22.5-22.5-22.5s-22.5,10.093-22.5,22.5v66.259
+          c-3.938-5.029-8.673-9.412-14.169-11.671c-6.133-2.52-12.587-2.219-18.667,0.872c-11.182,5.686-15.792,19.389-10.277,30.548
+          l27.95,56.563c0.79,1.552,19.731,38.008,54.023,38.008h40c31.54,0,57.199-25.794,57.199-57.506l-0.031-41.491H192.231z
+            M135.092,188.079h-40c-24.702,0-40.091-28.738-40.646-29.796l-27.88-56.42c-1.924-3.893-0.33-8.519,3.629-10.532
+          c2.182-1.11,4.081-1.223,6.158-0.372c8.281,3.395,16.41,19.756,19.586,29.265l2.41,7.259l12.883-4.559V22.5
+          c0-4.136,3.364-7.5,7.5-7.5s7.5,3.364,7.5,7.5V109h0.136h14.864h0.136V71c0-4.187,3.748-8,7.864-8c4.262,0,8,3.505,8,7.5v15v26h15
+          v-26c0-4.136,3.364-7.5,7.5-7.5s7.5,3.364,7.5,7.5V102v16.5h15V102c0-4.136,3.364-7.5,7.5-7.5s7.5,3.364,7.5,7.5v10.727h0.035
+          l0.025,32.852C177.291,169.014,158.36,188.079,135.092,188.079z"/>
+      </svg>
+    </div>
   </div>
   `;
   static modalBottomMargin = 20;
@@ -609,12 +652,33 @@ class TranslateModal extends HTMLElement {
     setDomStyles(this, 'display', 'none');
     this.setLoadingView();
     const closeBtn = this.shadowRoot.querySelector('#close-btn');
-    closeBtn.addEventListener('click', () => {
+    closeBtn.addEventListener('click', evt => {
+      evt.stopPropagation();
       this.hide();
     });
     const addVocabBtn = this.shadowRoot.querySelector('#add-vocab-button');
-    addVocabBtn.addEventListener('click', () => {
-      console.log('clicked add vocab', translateResult);
+    addVocabBtn.addEventListener('click', async evt => {
+      evt.stopPropagation();
+      if (translateResult) {
+        await addToVocabulary(translateResult);
+      }
+    });
+    const readVocabBtn = this.shadowRoot.querySelector('#read-vocab-button');
+    readVocabBtn.addEventListener('click', async evt => {
+      evt.stopPropagation();
+      const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+      const synthesis = window.speechSynthesis;
+      if (!translateResult || !translateResult.originalText || synthesis.speaking) {
+        return;
+      }
+      const utterOriginal = new SpeechSynthesisUtterance(translateResult.originalText);
+      utterOriginal.lang = settings.SOURCE_LANG;
+      synthesis.speak(utterOriginal);
+    });
+    const header = this.shadowRoot.querySelector('#translate-header');
+    header.addEventListener('click', evt => {
+      evt.stopPropagation();
+      console.log('clicked header');
     });
   }
 
@@ -635,13 +699,10 @@ class TranslateModal extends HTMLElement {
     const sentenceE = this.shadowRoot.getElementById('sentence');
     const dictCE = this.shadowRoot.getElementById('dict-container');
     const dictE = this.shadowRoot.getElementById('dict');
-    const synsetsCE = this.shadowRoot.getElementById('synsets-container');
-    const synsetsE = this.shadowRoot.getElementById('synsets');
+    //const synsetsCE = this.shadowRoot.getElementById('synsets-container');
+    //const synsetsE = this.shadowRoot.getElementById('synsets');
     const exampleCE = this.shadowRoot.getElementById('examples-container');
     const examplesE = this.shadowRoot.getElementById('examples');
-    const addBtn = this.shadowRoot.getElementById('add-vocab-button');
-    const readBtn = this.shadowRoot.getElementById('read-vocab-button');
-    const closeBtn = this.shadowRoot.getElementById('close-btn');
 
     this.translatedText = data.translatedText;
     this.originalText = data.originalText;
@@ -655,10 +716,16 @@ class TranslateModal extends HTMLElement {
     };
   }
 
-  setErrorView() {
+  setErrorView(data) {
+    console.log(data);
+    const url = data.url;
     this.loadingView.style.display = 'none';
     this.translateView.style.display = 'none';
-    this.errorView.style.display = 'block';
+    this.errorView.style.display = 'flex';
+    const instructionLink = this.shadowRoot.getElementById('translation-link');
+    if (instructionLink) {
+      instructionLink.href = url;
+    }
     return {
       width: 202,
       height: 78
@@ -673,7 +740,7 @@ class TranslateModal extends HTMLElement {
   processDictResult(dictContainerE, dictE, dicts) {
     removeAllChildNodes(dictE);
     if (dicts && dicts.length > 0) {
-      dictContainerE.classList.remove('hide');
+      dictContainerE.className = 'translate-entry';
       dicts.forEach(dict => {
         const dictEntry = document.createElement('div');
         dictEntry.classList.add('dict-entry')
@@ -682,12 +749,15 @@ class TranslateModal extends HTMLElement {
         dictEntry.textContent = `[${pos}]: ${terms}`;
         dictE.appendChild(dictEntry);
       });
+    } else {
+      dictContainerE.className = 'translate-entry hide';
     }
   }
 
   processSynsets(synsetsContainerE, synsetsE, synsets) {
+    removeAllChildNodes(synsetsE);
     if (synsets && synsets.length > 0) {
-      synsetsContainerE.classList.remove('hide');
+      synsetsContainerE.className = 'translate-entry';
       synsets.forEach(synset => {
         const synsetEntry = document.createElement('div');
         synsetEntry.classList.add('synset-entry')
@@ -700,13 +770,15 @@ class TranslateModal extends HTMLElement {
           synsetsE.appendChild(synsetEntry);
         }
       })
+    } else {
+      synsetsContainerE.className = 'translate-entry hide';
     }
   }
 
   processExamples(exampleContainerE, examplesE, examples) {
     removeAllChildNodes(examplesE);
     if (examples && examples.length > 0) {
-      exampleContainerE.classList.remove('hide');
+      exampleContainerE.className = 'translate-entry';
       // take only the first two
       const lessExamples = examples.slice(0, 2);
       const domParser = new DOMParser();
@@ -718,6 +790,8 @@ class TranslateModal extends HTMLElement {
         exampleEntry.append(exampleTextParsed.body.firstElementChild);
         examplesE.appendChild(exampleEntry);
       });
+    } else {
+      exampleContainerE.className = 'translate-entry hide';
     }
   }
 

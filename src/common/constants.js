@@ -114,3 +114,8 @@ const I18Ns = {
     name: '\u4e2d\u6587\u53f0\u7063'
   }
 };
+
+const LangCodeMapping = {
+  zh: 'zh-CN',
+  ['zh-tw']: 'zh-TW'
+};
