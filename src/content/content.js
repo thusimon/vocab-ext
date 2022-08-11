@@ -325,7 +325,14 @@ class TranslateModal extends HTMLElement {
     width: 100%;
     height: 16px;
     background: #004AAD;
-    cursor: all-scroll;
+  }
+
+  .grab {
+    cursor: grab;
+  }
+
+  .grabbing {
+    cursor: grabbing;
   }
   
   #close-btn {
@@ -606,7 +613,9 @@ class TranslateModal extends HTMLElement {
     this.container.id = 'translate-container';
     this.header = document.createElement('div');
     this.header.id = 'translate-header';
+    this.header.draggable = true;
     this.header.innerHTML = TranslateModal.headerTemplate;
+    this.header.classList.toggle('grab', true);
     this.content = document.createElement('div');
     this.content.id = 'translate-content';
 
@@ -646,7 +655,7 @@ class TranslateModal extends HTMLElement {
     setDomStyles(this, 'opacity', '0');
     setDomStyles(this, 'top', '0px');
     setDomStyles(this, 'left', '0px');
-    setDomStyles(this, 'transition-property', 'opacity, top');
+    setDomStyles(this, 'transition-property', 'opacity, top, left');
     setDomStyles(this, 'transition-duration', '0.5s');
     setDomStyles(this, 'transition-timing-function', 'ease-in-out');
     setDomStyles(this, 'display', 'none');
@@ -678,7 +687,49 @@ class TranslateModal extends HTMLElement {
     const header = this.shadowRoot.querySelector('#translate-header');
     header.addEventListener('click', evt => {
       evt.stopPropagation();
-      console.log('clicked header');
+    });
+
+    header.addEventListener("drag", evt => {
+      if (this.startDragPoint) {
+        const newOffSetX = this.leftOffSet + evt.x - this.startDragPoint.x;
+        const newOffSetY = this.topOffSet + evt.y - this.startDragPoint.y;
+        this.setPosition(newOffSetX, newOffSetY, true);
+      }
+      evt.preventDefault()
+    });
+
+    header.addEventListener("dragstart", evt => {
+      this.startDragPoint = {x: evt.x, y: evt.y};
+      header.classList.toggle('grabbing', true);
+      header.classList.toggle('grab', false);
+    });
+
+    header.addEventListener("dragend", evt => {
+      header.classList.toggle('grabbing', false);
+      header.classList.toggle('grab', true);
+      if (this.startDragPoint) {
+        const newOffSetX = this.leftOffSet + evt.x - this.startDragPoint.x;
+        const newOffSetY = this.topOffSet + evt.y - this.startDragPoint.y;
+        this.setPosition(newOffSetX, newOffSetY);
+        this.startDragPoint = null;
+      }
+    });
+
+    /* events fired on the drop targets */
+    header.addEventListener("dragover", evt => {
+      evt.preventDefault()
+    });
+
+    header.addEventListener("dragenter", evt => {
+      evt.preventDefault();
+    });
+
+    header.addEventListener("dragleave", evt => {
+      evt.preventDefault();
+    });
+
+    header.addEventListener("drop", evt => {
+      evt.preventDefault();
     });
   }
 
@@ -732,7 +783,11 @@ class TranslateModal extends HTMLElement {
     };
   }
 
-  setPosition(offSetX, offSetY) {
+  setPosition(offSetX, offSetY, isTempPosition) {
+    if (!isTempPosition) {
+      this.leftOffSet = offSetX;
+      this.topOffSet = offSetY;
+    }
     setDomStyles(this, 'left', `${offSetX}px`);
     setDomStyles(this, 'top', `${offSetY}px`);
   }
