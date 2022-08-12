@@ -369,6 +369,16 @@ class TranslateModal extends HTMLElement {
     justify-content: space-between;
   }
 
+  .translate-action-success {
+    display: flex;
+    justify-content: center;
+  }
+
+  .translate-action-success svg {
+    width: 40px;
+    height: 100%;
+  }
+
   .loading-spinner {
     width: 40px;
     height: 40px;
@@ -577,9 +587,14 @@ class TranslateModal extends HTMLElement {
     </svg>
   </div>
   `;
+  static successTemplate = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118 118">
+    <path fill="#004aad" d="M58.86,0c9.13,0,17.77,2.08,25.49,5.79c-3.16,2.5-6.09,4.9-8.82,7.21c-5.2-1.89-10.81-2.92-16.66-2.92 c-13.47,0-25.67,5.46-34.49,14.29c-8.83,8.83-14.29,21.02-14.29,34.49c0,13.47,5.46,25.66,14.29,34.49 c8.83,8.83,21.02,14.29,34.49,14.29s25.67-5.46,34.49-14.29c8.83-8.83,14.29-21.02,14.29-34.49c0-3.2-0.31-6.34-0.9-9.37 c2.53-3.3,5.12-6.59,7.77-9.85c2.08,6.02,3.21,12.49,3.21,19.22c0,16.25-6.59,30.97-17.24,41.62 c-10.65,10.65-25.37,17.24-41.62,17.24c-16.25,0-30.97-6.59-41.62-17.24C6.59,89.83,0,75.11,0,58.86 c0-16.25,6.59-30.97,17.24-41.62S42.61,0,58.86,0L58.86,0z M31.44,49.19L45.8,49l1.07,0.28c2.9,1.67,5.63,3.58,8.18,5.74 c1.84,1.56,3.6,3.26,5.27,5.1c5.15-8.29,10.64-15.9,16.44-22.9c6.35-7.67,13.09-14.63,20.17-20.98l1.4-0.54H114l-3.16,3.51 C101.13,30,92.32,41.15,84.36,52.65C76.4,64.16,69.28,76.04,62.95,88.27l-1.97,3.8l-1.81-3.87c-3.34-7.17-7.34-13.75-12.11-19.63 c-4.77-5.88-10.32-11.1-16.79-15.54L31.44,49.19L31.44,49.19z"/>
+  </svg>
+  `;
   static errorTemplate = `
   <div class="error-image">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 50 50">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
       <circle style="fill:#D75A4A;" cx="25" cy="25" r="25"/>
       <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" points="16,34 25,25 34,16 "/>
       <polyline style="fill:none;stroke:#FFFFFF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;" points="16,16 25,25 34,34 "/>
@@ -588,7 +603,7 @@ class TranslateModal extends HTMLElement {
   <div class="error-message">
     <a id="translation-link" target="_blank">Google Translate</a>
     <div class="error-instruction">
-      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 203.079 203.079">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 203.079 203.079">
         <path d="M192.231,104.082V102c0-12.407-10.094-22.5-22.5-22.5c-2.802,0-5.484,0.519-7.961,1.459
           C159.665,70.722,150.583,63,139.731,63c-2.947,0-5.76,0.575-8.341,1.61C128.667,55.162,119.624,48,109.231,48
           c-2.798,0-5.496,0.541-8,1.516V22.5c0-12.407-10.094-22.5-22.5-22.5s-22.5,10.093-22.5,22.5v66.259
@@ -634,7 +649,12 @@ class TranslateModal extends HTMLElement {
     this.errorView.innerHTML = TranslateModal.errorTemplate;
     this.errorView.style.display = 'none';
 
-    this.content.append(this.loadingView, this.translateView, this.errorView);
+    this.successView = document.createElement('div');
+    this.successView.className = 'translate-action-success';
+    this.successView.innerHTML = TranslateModal.successTemplate;
+    this.successView.style.display = 'none';
+
+    this.content.append(this.loadingView, this.translateView, this.errorView, this.successView);
 
     this.container.append(this.header, this.content);
 
@@ -669,7 +689,11 @@ class TranslateModal extends HTMLElement {
     addVocabBtn.addEventListener('click', async evt => {
       evt.stopPropagation();
       if (translateResult) {
-        await addToVocabulary(translateResult);
+        await sendMessage('addToVocab', translateResult);
+        this.setSuccessView();
+        setTimeout(() => {
+          this.hide();
+        }, 500);
       }
     });
     const readVocabBtn = this.shadowRoot.querySelector('#read-vocab-button');
@@ -737,6 +761,7 @@ class TranslateModal extends HTMLElement {
     this.loadingView.style.display = 'block';
     this.translateView.style.display = 'none';
     this.errorView.style.display = 'none';
+    this.successView.style.display = 'none';
     return {
       width: 202,
       height: 78
@@ -747,6 +772,7 @@ class TranslateModal extends HTMLElement {
     this.loadingView.style.display = 'none';
     this.translateView.style.display = 'block';
     this.errorView.style.display = 'none';
+    this.successView.style.display = 'none';
     const sentenceE = this.shadowRoot.getElementById('sentence');
     const dictCE = this.shadowRoot.getElementById('dict-container');
     const dictE = this.shadowRoot.getElementById('dict');
@@ -759,20 +785,24 @@ class TranslateModal extends HTMLElement {
     this.originalText = data.originalText;
     sentenceE.textContent = this.translatedText;
     this.processDictResult(dictCE, dictE, data.dictResult);
-    //this.processSynsets(synsetsCE, synsetsE, data.synsets);
+    // this.processSynsets(synsetsCE, synsetsE, data.synsets);
     this.processExamples(exampleCE, examplesE, data.exampleRes);
+    // set the success action height
+    const containerWidth = this.container.offsetWidth;
+    const containerHeight = this.container.offsetHeight;
+    this.successView.style.height = `${containerHeight - 18}px`;
     return {
-      width: this.container.offsetWidth,
-      height: this.container.offsetHeight
+      width: containerWidth,
+      height: containerHeight
     };
   }
 
   setErrorView(data) {
-    console.log(data);
     const url = data.url;
     this.loadingView.style.display = 'none';
     this.translateView.style.display = 'none';
     this.errorView.style.display = 'flex';
+    this.successView.style.display = 'none';
     const instructionLink = this.shadowRoot.getElementById('translation-link');
     if (instructionLink) {
       instructionLink.href = url;
@@ -780,6 +810,17 @@ class TranslateModal extends HTMLElement {
     return {
       width: 202,
       height: 78
+    };
+  }
+
+  setSuccessView() {
+    this.loadingView.style.display = 'none';
+    this.translateView.style.display = 'none';
+    this.errorView.style.display = 'none';
+    this.successView.style.display = 'flex';
+    return {
+      width: this.container.offsetWidth,
+      height:this.container.offsetHeight
     };
   }
 
