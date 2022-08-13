@@ -693,7 +693,7 @@ class TranslateModal extends HTMLElement {
         this.setSuccessView();
         setTimeout(() => {
           this.hide();
-        }, 500);
+        }, 400);
       }
     });
     const readVocabBtn = this.shadowRoot.querySelector('#read-vocab-button');
