@@ -343,7 +343,7 @@ const mainAsync = async () => {
   window.addEventListener('beforeunload', (evt) => {
     if (isModified) {
       evt.preventDefault();
-      evt.returnValue = '';
+      evt.returnValue = 'Are you sure to leave without saving?';
     }
   })
 

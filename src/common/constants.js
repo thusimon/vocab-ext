@@ -38,9 +38,10 @@ const FRAME_EVENT_TYPE = {
 };
 
 const RUNTIME_EVENT_TYPE = {
-  SHOW_TRANSLATION: 'showTranslation',
+  LOAD_TRANSLATION: 'loadTranslation',
   GET_TRANSLATION: 'getTranslation',
-  ERROR_TRANSLATION: 'errorTranslation'
+  ERROR_TRANSLATION: 'errorTranslation',
+  CARD_TRANSLATION: 'cardTranslation'
 };
 
 const I18Ns = {

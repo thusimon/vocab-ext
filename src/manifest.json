@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "2.4.1",
+  "version": "3.0.0",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "author": "Lu",
@@ -25,17 +25,6 @@
   "chrome_url_overrides" : {
     "newtab": "pages/new-tab/new-tab.html"
   },
-  "web_accessible_resources": [
-    {
-      "resources": [
-        "content/translate-modal.html",
-        "content/translate-modal.css",
-        "content/card-modal.html",
-        "content/card-modal.css"
-      ],
-      "matches": [ "<all_urls>" ]
-    }
-  ],
   "action": {
     "default_title": "Vocab",
     "default_popup": "popover/popover.html",

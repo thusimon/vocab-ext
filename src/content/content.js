@@ -1,14 +1,6 @@
-let contextClientX
-  , contextClientY
-  , translateResult
-  , cardE
-  , cardData
-  , cardPositionTimer;
-
-const modalTranslateUri = chrome.runtime.getURL('content/translate-modal.html');
-const modalCardUri = chrome.runtime.getURL('content/card-modal.html');
-const modalTranslateUriParsed = new URL(modalTranslateUri);
-
+let contextClientX;
+let contextClientY;
+let cardClearTimer;
 
 document.addEventListener('contextmenu', evt => {
   contextClientX = evt.clientX;
@@ -30,72 +22,6 @@ const sendMessage = async (type, data, callback) => {
   }
 }
 
-window.addEventListener('message', (evt) => {
-  if (evt.origin != modalTranslateUriParsed.origin
-    || ((!translateE || !translateE.contentWindow) && (!cardE || !cardE.contentWindow))
-    || !evt.data) {
-    return;
-  }
-  switch (evt.data.type) {
-    case FRAME_EVENT_TYPE.GET_TRANSLATION: {
-      translateE.contentWindow.postMessage({
-        type: FRAME_EVENT_TYPE.SEND_TRANSLATION,
-        data: translateResult
-      }, '*')
-      break;
-    }
-    case FRAME_EVENT_TYPE.GET_CARD: {
-      cardE.contentWindow.postMessage({
-        type: FRAME_EVENT_TYPE.SEND_CARD,
-        data: cardData
-      }, '*');
-      break;
-    }
-    case FRAME_EVENT_TYPE.SET_TRANSLATION_SIZE: {
-      const containerE = getContainer();
-      const {x: containerX, y: containerY} = containerE.getBoundingClientRect();
-      const offSetContainerX = contextClientX - containerX;
-      const offSetContainerY = contextClientY - containerY;
-      const translationWidth = evt.data.data ? evt.data.data.width : 60;
-      const translationHeight = evt.data.data ? evt.data.data.height : 40;
-      translateE.width = translationWidth;
-      //TODO the height is not accurate, give it more buffer
-      translateE.height = translationHeight + 10;
-      setDomStyles(translateE, 'width', translationWidth + 'px');
-      setDomStyles(translateE, 'height', translationHeight + 10 + 'px');
-      setDomStyles(translateE, 'left', `${offSetContainerX}px`);
-      setDomStyles(translateE, 'top', `${offSetContainerY-translationHeight-30}px`);
-      setDomStyles(translateE, 'opacity', '1');
-      break;
-    }
-    case FRAME_EVENT_TYPE.SET_CARD_SIZE: {
-      const translationWidth = evt.data.data ? evt.data.data.width : 60;
-      const translationHeight = evt.data.data ? evt.data.data.height : 40;
-      cardE.width = translationWidth;
-      //TODO the height is not accurate, give it more buffer
-      cardE.height = translationHeight + 10;
-      setDomStyles(cardE, 'width', translationWidth + 'px');
-      setDomStyles(cardE, 'height', translationHeight + 10 + 'px');
-      setDomStyles(cardE, 'opacity', '0.95');
-      break;
-    }
-    case FRAME_EVENT_TYPE.CLICK_ADD_BTN: {
-      addToVocabulary(translateResult);
-      break;
-    }
-    case FRAME_EVENT_TYPE.CLOSE_TRANSLATE_MODAL: {
-      //cleanTranslate();
-      break;
-    }
-    case FRAME_EVENT_TYPE.CLOSE_CARD_MODAL: {
-      cleanCard();
-      break;
-    }
-    default:
-      break;
-  }
-}, false);
-
 const getContainer = () => {
   let containerE = document.getElementById(DOM_ID.CONTAINER);
   if (containerE) {
@@ -110,16 +36,6 @@ const getContainer = () => {
   return containerE;
 };
 
-const getIframe = () => {
-  let iframeE = document.getElementById(DOM_ID.TRANSLATE_IFRAME);
-  if (!iframeE) {
-    iframeE = document.createElement('iframe');
-  }
-  iframeE.id = DOM_ID.TRANSLATE_IFRAME;
-  iframeE.src = modalTranslateUri;
-  return iframeE;
-};
-
 const getTranslateModal = () => {
   let translateModal = document.getElementById(DOM_ID.TRANSLATE_MODAL);
   if (!translateModal) {
@@ -131,10 +47,6 @@ const getTranslateModal = () => {
 
 const setDomStyles = (elem, prop, value) => {
   elem.style.setProperty(prop, value, 'important');
-}
-
-const addToVocabulary = async (translate) => {
-  await sendMessage('addToVocab', translate, cleanTranslate);
 }
 
 const initTranslate = () => {
@@ -166,67 +78,20 @@ const cleanTranslate = () => {
   }
 }
 
-const cleanCard = () => {
+const showCard = (cardData, cardTime) => {
   const containerE = getContainer();
-  const cardsE = containerE.querySelectorAll(`#${DOM_ID.CARD_IFRAME}`);
-  cardsE.forEach(card => {
-    card.remove();
-  });
-  if (cardPositionTimer) {
-    clearInterval(cardPositionTimer);
-  }
-}
-
-const positionCard = (toTopFixed, toLeftFixed) => {
-  if (!cardE) {
+  const translateE = getTranslateModal();
+  if (!containerE || !translateE) {
     return;
   }
-  const containerE = getContainer();
-  const containerRect = containerE.getBoundingClientRect();
-  setDomStyles(cardE, 'top', `-${Math.round(containerRect.top) - toTopFixed}px`);
-  setDomStyles(cardE, 'left', `${toLeftFixed}px`);
-}
-
-const showCard = (cardTime) => {
-  const currentCard = document.getElementById(DOM_ID.CARD_IFRAME);
-  if (currentCard) {
-    return;
+  if (cardClearTimer) {
+    clearTimeout(cardClearTimer);
   }
-  const containerE = getContainer();
-  cardE = document.createElement('iframe');
-  cardE.id = DOM_ID.CARD_IFRAME;
-  cardE.src = modalCardUri;
-
-  setDomStyles(cardE, 'margin', '0px');
-  setDomStyles(cardE, 'padding', '0px');
-  setDomStyles(cardE, 'position', 'absolute');
-  setDomStyles(cardE, 'background', 'rgba(242, 242, 242, 1)');
-  setDomStyles(cardE, 'border', '1px #e0e0e0 solid');
-  setDomStyles(cardE, 'border-radius', '5px');
-  setDomStyles(cardE, 'position', 'absolute');
-  setDomStyles(cardE, 'box-shadow', '3px 3px 3px #e0e0e0');
-  setDomStyles(cardE, 'color', 'black');
-  setDomStyles(cardE, 'z-index', '2147483647');
-  setDomStyles(cardE, 'opacity', '0');
-  setDomStyles(cardE, 'max-width', '600px');
-
-  // compute the position, the card is now at fixed position
-  // TODO allow user to drag the card
-  const toTopFixed = 20;
-  const toLeftFixed = 20;
-
-  containerE.append(cardE);
-
-  cardPositionTimer = setInterval(() => {
-    positionCard(toTopFixed, toLeftFixed);
-  }, 200);
+  translateE.show(RUNTIME_EVENT_TYPE.CARD_TRANSLATION, cardData);
 
   if (cardTime > 0) {
-    setTimeout(() => {
-      cleanCard();
-      if (cardPositionTimer) {
-        clearInterval(cardPositionTimer);
-      }
+    cardClearTimer = setTimeout(() => {
+      cleanTranslate();
     }, cardTime*1000);
   }
 }
@@ -234,17 +99,23 @@ const showCard = (cardTime) => {
 const showCardRandom = (vocabsWithSetting, cardTime) => {
   // randomly select a vocab
   const vocabsKey = Object.keys(vocabsWithSetting);
-  if (vocabsKey.length > 0) {
-    const idx = Math.round(Math.random() * (vocabsKey.length -1));
-    const key = vocabsKey[idx];
-    cardData = {...{original: key}, ...vocabsWithSetting[key]}
-    showCard(cardTime);
+  if (vocabsKey.length < 1) {
+    return;
   }
+  const idx = Math.round(Math.random() * (vocabsKey.length -1));
+  const key = vocabsKey[idx];
+  const translateResult = vocabsWithSetting[key]; 
+  const cardData = {
+    originalText: key,
+    translatedText: translateResult.translation,
+    dictResult: translateResult.dict
+  };
+  showCard(cardData, cardTime);
 }
 
 const getCardTriggerElem = async (cardCss) => {
   const timeOutToGetElem = (currentTime, resolve, reject) => {
-    let cardElem = document.querySelector(cardCss);
+    const cardElem = document.querySelector(cardCss);
     if (cardElem) {
       resolve(cardElem);
     } else if (Date.now() < currentTime + CARD_CSS_CHECK_TIMEOUT) {
@@ -260,22 +131,16 @@ const getCardTriggerElem = async (cardCss) => {
   })
 }
 
-chrome.runtime.onMessage.addListener((request, sender) => {
+chrome.runtime.onMessage.addListener(request => {
   const {type, data} = request;
   if (!type) {
     return;
   }
   switch (type) {
-    case RUNTIME_EVENT_TYPE.SHOW_TRANSLATION: {
-      showTranslate({ type, data });
-      break;
-    }
-    case RUNTIME_EVENT_TYPE.GET_TRANSLATION: {
-      translateResult = data;
-      showTranslate({ type, data });
-      break;
-    }
+    case RUNTIME_EVENT_TYPE.LOAD_TRANSLATION:
+    case RUNTIME_EVENT_TYPE.GET_TRANSLATION:
     case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
+      translateResult = data;
       showTranslate({ type, data });
       break;
     }
@@ -283,28 +148,6 @@ chrome.runtime.onMessage.addListener((request, sender) => {
       break;
   }
 });
-
-let {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-if (ENABLE_CARD && window.self === window.top) {
-  vocabs = await storageGetP(STORAGE_AREA.VOCAB);
-  const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
-  const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
-  const cardTimeInt = parseInt(CARD_TIME);
-  
-  showCardRandom(vocabsWithSetting, cardTimeInt);
-
-  if (CARD_TRIGGER_CSS) {
-    getCardTriggerElem(CARD_TRIGGER_CSS)
-    .then((cardTriggerElem) => {
-      cardTriggerElem.addEventListener('click', () => {
-        showCardRandom(vocabsWithSetting, cardTimeInt);
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-}
 
 class TranslateModal extends HTMLElement {
   static styleText = `
@@ -403,6 +246,10 @@ class TranslateModal extends HTMLElement {
     font-size: 20px;
   }
 
+  .error-message svg {
+    transform: rotate(90deg) scale(1, -1);
+  }
+
   .error-instruction {
     width: 16px;
     height: 16px;
@@ -429,16 +276,26 @@ class TranslateModal extends HTMLElement {
     max-width: 600px;
     white-space: normal;
     font-weight: 600;
+    user-select: text;
   }
   
   #dict {
     font-size: 12px;
     font-weight: 600;
   }
+
+  .dict-entry {
+    user-select: text;
+    line-height: 1.2;
+  }
   
   #examples {
     font-size: 12px;
     font-weight: 400;
+  }
+
+  .example-entry {
+    user-select: text;
   }
   
   .error {
@@ -688,32 +545,33 @@ class TranslateModal extends HTMLElement {
     const addVocabBtn = this.shadowRoot.querySelector('#add-vocab-button');
     addVocabBtn.addEventListener('click', async evt => {
       evt.stopPropagation();
-      if (translateResult) {
-        await sendMessage('addToVocab', translateResult);
-        this.setSuccessView();
-        setTimeout(() => {
-          this.hide();
-        }, 400);
+      if (!this.translateResult) {
+        return;
       }
+      await sendMessage('addToVocab', this.translateResult);
+      this.setSuccessView();
+      setTimeout(() => {
+        this.hide();
+      }, 500);
     });
     const readVocabBtn = this.shadowRoot.querySelector('#read-vocab-button');
     readVocabBtn.addEventListener('click', async evt => {
       evt.stopPropagation();
       const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
       const synthesis = window.speechSynthesis;
-      if (!translateResult || !translateResult.originalText || synthesis.speaking) {
+      if (!this.translateResult || !this.translateResult.originalText || synthesis.speaking) {
         return;
       }
-      const utterOriginal = new SpeechSynthesisUtterance(translateResult.originalText);
+      const utterOriginal = new SpeechSynthesisUtterance(this.translateResult.originalText);
       utterOriginal.lang = settings.SOURCE_LANG;
       synthesis.speak(utterOriginal);
     });
-    const header = this.shadowRoot.querySelector('#translate-header');
-    header.addEventListener('click', evt => {
+
+    this.header.addEventListener('click', evt => {
       evt.stopPropagation();
     });
 
-    header.addEventListener("drag", evt => {
+    this.header.addEventListener('drag', evt => {
       if (this.startDragPoint) {
         const newOffSetX = this.leftOffSet + evt.x - this.startDragPoint.x;
         const newOffSetY = this.topOffSet + evt.y - this.startDragPoint.y;
@@ -722,15 +580,19 @@ class TranslateModal extends HTMLElement {
       evt.preventDefault()
     });
 
-    header.addEventListener("dragstart", evt => {
-      this.startDragPoint = {x: evt.x, y: evt.y};
-      header.classList.toggle('grabbing', true);
-      header.classList.toggle('grab', false);
+    this.content.addEventListener('click', evt => {
+      evt.stopPropagation();
     });
 
-    header.addEventListener("dragend", evt => {
-      header.classList.toggle('grabbing', false);
-      header.classList.toggle('grab', true);
+    this.header.addEventListener('dragstart', evt => {
+      this.startDragPoint = {x: evt.x, y: evt.y};
+      this.header.classList.toggle('grabbing', true);
+      this.header.classList.toggle('grab', false);
+    });
+
+    this.header.addEventListener('dragend', evt => {
+      this.header.classList.toggle('grabbing', false);
+      this.header.classList.toggle('grab', true);
       if (this.startDragPoint) {
         const newOffSetX = this.leftOffSet + evt.x - this.startDragPoint.x;
         const newOffSetY = this.topOffSet + evt.y - this.startDragPoint.y;
@@ -740,19 +602,19 @@ class TranslateModal extends HTMLElement {
     });
 
     /* events fired on the drop targets */
-    header.addEventListener("dragover", evt => {
+    this.header.addEventListener('dragover', evt => {
       evt.preventDefault()
     });
 
-    header.addEventListener("dragenter", evt => {
+    this.header.addEventListener('dragenter', evt => {
       evt.preventDefault();
     });
 
-    header.addEventListener("dragleave", evt => {
+    this.header.addEventListener('dragleave', evt => {
       evt.preventDefault();
     });
 
-    header.addEventListener("drop", evt => {
+    this.header.addEventListener('drop', evt => {
       evt.preventDefault();
     });
   }
@@ -768,7 +630,7 @@ class TranslateModal extends HTMLElement {
     };
   }
 
-  setTranslateView(data) {
+  setTranslateView(data, isCardView) {
     this.loadingView.style.display = 'none';
     this.translateView.style.display = 'block';
     this.errorView.style.display = 'none';
@@ -780,16 +642,23 @@ class TranslateModal extends HTMLElement {
     //const synsetsE = this.shadowRoot.getElementById('synsets');
     const exampleCE = this.shadowRoot.getElementById('examples-container');
     const examplesE = this.shadowRoot.getElementById('examples');
+    const addVocabBtn = this.shadowRoot.getElementById('add-vocab-button');
 
-    this.translatedText = data.translatedText;
-    this.originalText = data.originalText;
-    sentenceE.textContent = this.translatedText;
+    this.translateResult = data;
+    const translatedText = isCardView ? `${data.originalText}: ${data.translatedText}` : data.translatedText;
+    sentenceE.textContent = translatedText;
     this.processDictResult(dictCE, dictE, data.dictResult);
     // this.processSynsets(synsetsCE, synsetsE, data.synsets);
     this.processExamples(exampleCE, examplesE, data.exampleRes);
     // set the success action height
     const containerWidth = this.container.offsetWidth;
     const containerHeight = this.container.offsetHeight;
+
+    if (isCardView) {
+      addVocabBtn.style.display = 'none';
+    } else {
+      addVocabBtn.style.display = 'inline-block';
+    }
     this.successView.style.height = `${containerHeight - 18}px`;
     return {
       width: containerWidth,
@@ -892,20 +761,35 @@ class TranslateModal extends HTMLElement {
   }
 
   show(type, data, offSet) {
-    this.style.opacity = 1;
-    this.style.display = 'block';
     switch (type) {
-      case RUNTIME_EVENT_TYPE.SHOW_TRANSLATION: {
+      case RUNTIME_EVENT_TYPE.LOAD_TRANSLATION: {
+        this.style.opacity = 1;
+        this.style.display = 'block';
+        this.style.position = 'absolute';
         const viewSize = this.setLoadingView();
         this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
         break;
       }
       case RUNTIME_EVENT_TYPE.GET_TRANSLATION: {
-        const viewSize = this.setTranslateView(data);
+        this.style.opacity = 1;
+        this.style.display = 'block';
+        this.style.position = 'absolute';
+        const viewSize = this.setTranslateView(data, false);
         this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
         break;
       }
+      case RUNTIME_EVENT_TYPE.CARD_TRANSLATION: {
+        this.style.opacity = 0.9;
+        this.style.display = 'block';
+        this.style.position = 'fixed';
+        this.setTranslateView(data, true);
+        this.setPosition(20, 20);
+        break;
+      }
       case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
+        this.style.opacity = 1;
+        this.style.display = 'block';
+        this.style.position = 'absolute';
         const viewSize = this.setErrorView(data);
         this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
         break;
@@ -932,3 +816,27 @@ window.customElements.define('translate-modal', TranslateModal);
 
 const vocabContainer = getContainer();
 const translateE = initTranslate();
+
+const {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+if (ENABLE_CARD && window.self === window.top) {
+  vocabs = await storageGetP(STORAGE_AREA.VOCAB);
+  const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
+  const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
+  const cardTimeInt = parseInt(CARD_TIME);
+  
+  showCardRandom(vocabsWithSetting, cardTimeInt);
+
+  if (!CARD_TRIGGER_CSS) {
+    return;
+  }
+  
+  getCardTriggerElem(CARD_TRIGGER_CSS)
+  .then((cardTriggerElem) => {
+    cardTriggerElem.addEventListener('click', () => {
+      showCardRandom(vocabsWithSetting, cardTimeInt);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}

@@ -3,9 +3,8 @@ importScripts('common/constants.js', 'common/utils.js', 'background/translate-ap
 // TODO manifest V3 only support service worker in the root directory
 const translateAPI = new TranslateAPI();
 
-let contextMenu = null
-  , contextMenuTabId
-  , contextMenuFrameId;
+let contextMenu = null;
+let contextMenuFrameId;
 
 if (!contextMenu) {
   contextMenu = chrome.contextMenus.create({
@@ -16,8 +15,9 @@ if (!contextMenu) {
 }
 
 const translateInternal = async (text, sourceLang, targetLang, enableAPI) => {
-  const translateRes = enableAPI ? await translateAPI.translate(text, sourceLang, targetLang, 'text') :
-        await translateAPI.translateFree(encodeURIComponent(text), sourceLang, targetLang, 'text');
+  const translateRes = enableAPI
+    ? await translateAPI.translate(text, sourceLang, targetLang, 'text')
+    : await translateAPI.translateFree(encodeURIComponent(text), sourceLang, targetLang, 'text');
   return translateRes;
 }
 
@@ -46,7 +46,7 @@ const onTranslateClick = async (info, tab) => {
     const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
     const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings;
     try {
-      await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.SHOW_TRANSLATION);
+      await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.LOAD_TRANSLATION);
       translateRes = await translateInternal(q, SOURCE_LANG, TARGET_LANG, ENABLE_API);
       await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.GET_TRANSLATION, translateRes);
     } catch (e) {
