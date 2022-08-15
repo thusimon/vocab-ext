@@ -532,10 +532,26 @@ class TranslateModal extends HTMLElement {
     setDomStyles(this, 'opacity', '0');
     setDomStyles(this, 'top', '0px');
     setDomStyles(this, 'left', '0px');
-    setDomStyles(this, 'transition-property', 'opacity, top, left');
+    setDomStyles(this, 'transition-property', 'top, left');
     setDomStyles(this, 'transition-duration', '0.5s');
     setDomStyles(this, 'transition-timing-function', 'ease-in-out');
     setDomStyles(this, 'display', 'none');
+    // animate the opacity
+    this.animate([
+      { opacity: 0 },
+      { opacity: 1 }
+    ], {
+      duration: 500,
+      iterations: 1
+    });
+    this.animate([
+      { opacity: 1 },
+      { opacity: 0 }
+    ], {
+      duration: 500,
+      iterations: 1
+    });
+
     this.setLoadingView();
     const closeBtn = this.shadowRoot.querySelector('#close-btn');
     closeBtn.addEventListener('click', evt => {
@@ -797,6 +813,8 @@ class TranslateModal extends HTMLElement {
       default:
         break;
     }
+
+    //this.style.opacity = opacity;
   }
 
   hide() {
