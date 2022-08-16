@@ -516,7 +516,6 @@ class TranslateModal extends HTMLElement {
     this.container.append(this.header, this.content);
 
     shadow.append(style, this.container);
-    this.addEventListener('transitionend', this.transitionHandler);
   }
 
   connectedCallback() {
@@ -529,29 +528,14 @@ class TranslateModal extends HTMLElement {
     this.style.all = 'initial';
     setDomStyles(this, 'position', 'absolute');
     setDomStyles(this, 'z-index', '2147483647');
-    setDomStyles(this, 'opacity', '0');
     setDomStyles(this, 'top', '0px');
     setDomStyles(this, 'left', '0px');
     setDomStyles(this, 'transition-property', 'top, left');
     setDomStyles(this, 'transition-duration', '0.5s');
     setDomStyles(this, 'transition-timing-function', 'ease-in-out');
     setDomStyles(this, 'display', 'none');
-    // animate the opacity
-    this.animate([
-      { opacity: 0 },
-      { opacity: 1 }
-    ], {
-      duration: 500,
-      iterations: 1
-    });
-    this.animate([
-      { opacity: 1 },
-      { opacity: 0 }
-    ], {
-      duration: 500,
-      iterations: 1
-    });
 
+    this.showAnimate = false;
     this.setLoadingView();
     const closeBtn = this.shadowRoot.querySelector('#close-btn');
     closeBtn.addEventListener('click', evt => {
@@ -779,15 +763,16 @@ class TranslateModal extends HTMLElement {
   show(type, data, offSet) {
     switch (type) {
       case RUNTIME_EVENT_TYPE.LOAD_TRANSLATION: {
-        this.style.opacity = 1;
+        this.opacity = 1;
         this.style.display = 'block';
         this.style.position = 'absolute';
+        this.animateShow(100);
         const viewSize = this.setLoadingView();
         this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
         break;
       }
       case RUNTIME_EVENT_TYPE.GET_TRANSLATION: {
-        this.style.opacity = 1;
+        this.opacity = 1;
         this.style.display = 'block';
         this.style.position = 'absolute';
         const viewSize = this.setTranslateView(data, false);
@@ -795,15 +780,16 @@ class TranslateModal extends HTMLElement {
         break;
       }
       case RUNTIME_EVENT_TYPE.CARD_TRANSLATION: {
-        this.style.opacity = 0.9;
+        this.opacity = 0.9;
         this.style.display = 'block';
         this.style.position = 'fixed';
+        this.animateShow(400);
         this.setTranslateView(data, true);
         this.setPosition(20, 20);
         break;
       }
       case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
-        this.style.opacity = 1;
+        this.opacity = 1;
         this.style.display = 'block';
         this.style.position = 'absolute';
         const viewSize = this.setErrorView(data);
@@ -813,20 +799,51 @@ class TranslateModal extends HTMLElement {
       default:
         break;
     }
-
-    //this.style.opacity = opacity;
   }
 
-  hide() {
-    this.style.opacity = 0;
-  }
-
-  transitionHandler(e) {
-    if (e.propertyName === 'opacity' && this.style.opacity ==='0') {
-      this.style.display = 'none';
+  animateShow(duration) {
+    if (!this.showAnimate) {
+      this.showAnimate = true;
+      const animate = this.animate([
+        { opacity: 0 },
+        { opacity: this.opacity }
+      ], {
+        duration: duration,
+        iterations: 1,
+        fill: 'forwards'
+      });
+      animate.finished
+      .then(() => {
+        this.showAnimate = false;
+      });
+    } else {
+      this.style.opacity = this.opacity;
     }
   }
 
+  hide() {
+    if (!this.showAnimate) {
+      this.showAnimate = true;
+      const animate = this.animate([
+        { opacity: this.opacity },
+        { opacity: 0 }
+      ], {
+        duration: 400,
+        iterations: 1,
+        fill: 'forwards'
+      });
+      animate.finished
+      .then(() => {
+        this.showAnimate = false;
+        this.opacity = 0;
+        this.style.display = 'none';
+      })
+    } else {
+      this.opacity = 0;
+      this.style.opacity = 0;
+      this.style.display = 'none';
+    }
+  }
 }
 
 // Define the new element
