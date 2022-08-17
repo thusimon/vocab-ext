@@ -7,6 +7,7 @@ const mainAsync = async () => {
   const tbody = document.getElementById('vocab-tbody');
   const srcLangE = document.getElementById('src-lang');
   const tarLangE = document.getElementById('tar-lang');
+  const createdAtE = document.getElementById('created-at');
   const exportBtn = document.getElementById('export-vocab');
   const importBtn = document.getElementById('import-vocab');
   const editBtn = document.getElementById('edit-vocab');
@@ -26,8 +27,8 @@ const mainAsync = async () => {
 
   const synth = window.speechSynthesis;
 
-  const createTableRow = (original, vocabularyItem, idx) => {
-    const {translation, createdTime, dict} = vocabularyItem;
+  const createTableRow = (vocab, idx) => {
+    const {original, translation, createdTime, dict} = vocab;
     const td1 = document.createElement('td');
     const td2 = document.createElement('td');
     const td3 = document.createElement('td');
@@ -62,19 +63,38 @@ const mainAsync = async () => {
   srcLangE.textContent = I18Ns[SOURCE_LANG].name;
   tarLangE.textContent = I18Ns[TARGET_LANG].name;
 
-  const showVocabs = async () => {
+  const sortVocabs = (vocabs, criteria, ascending) => {
+    const keys = Object.keys(vocabs);
+    const vocabsArr = keys.map(key => ({
+      original: key,
+      ...vocabs[key]
+    }));
+    return vocabsArr.sort((vocabA, vocabB) => {
+      if (criteria === 'tar-lang') {
+        return vocabA.translation.localeCompare(vocabB.translation) * ascending;
+      } else if (criteria === 'created-at') {
+        return (vocabA.createdTime - vocabB.createdTime) * ascending;
+      } else {
+        return vocabA.original.localeCompare(vocabB.original) * ascending;
+      }
+    });
+
+  }
+  const showVocabs = async (sortCriteria, ascending) => {
     const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
     const vocabsWithSetting = vocabs[`${SOURCE_LANG}-${TARGET_LANG}`] || {};
 
     while(tbody.firstChild){
       tbody.removeChild(tbody.firstChild);
     }
-    let idx = 1;
-    for (const original in vocabsWithSetting) {
-      createTableRow(original, vocabsWithSetting[original], idx);
-      idx++;
-    }
-    countE.textContent = idx-1;
+
+    srcLangE.classList.remove('high-light');
+    tarLangE.classList.remove('high-light');
+    createdAtE.classList.remove('high-light');
+    document.getElementById(sortCriteria).classList.add('high-light');
+    const sortedVocab = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
+    sortedVocab.forEach(createTableRow)
+    countE.textContent = sortedVocab.length;
   }
 
   const showToaster = (msg, type='info', needConsent=false) => {
@@ -109,6 +129,24 @@ const mainAsync = async () => {
     }
   }
 
+  let srcLangAscending = 1;
+  srcLangE.addEventListener('click', () => {
+    showVocabs('src-lang', srcLangAscending);
+    srcLangAscending *= -1;
+  });
+
+  let tarLangAscending = 1;
+  tarLangE.addEventListener('click', () => {
+    showVocabs('tar-lang', tarLangAscending);
+    tarLangAscending *= -1;
+  });
+
+  let createdAtAscending = 1;
+  createdAtE.addEventListener('click', () => {
+    showVocabs('created-at', createdAtAscending);
+    createdAtAscending *= -1;
+  });
+
   const onFileLoaded = async (evt) => {
     const fileContent = evt.target.result;
     let fileJson;
@@ -125,7 +163,7 @@ const mainAsync = async () => {
         vocabs[langKey] = vocabsInLangKeys;
       }
       await storageSetP(STORAGE_AREA.VOCAB, vocabs);
-      await showVocabs();
+      await showVocabs('src-lang', srcLangAscending);
     } catch (e) {
       showToaster(e.message, 'error');
     }
@@ -296,7 +334,7 @@ const mainAsync = async () => {
     isModified = false;
     editedItems = {};
     deletedItems = {};
-    await showVocabs();
+    await showVocabs('src-lang', srcLangAscending);
   });
 
   toasterOKBtn.addEventListener('click', (evt) => {
@@ -347,7 +385,7 @@ const mainAsync = async () => {
     }
   })
 
-  await showVocabs();
+  await showVocabs('src-lang', srcLangAscending);
 }
 
 (async () => {

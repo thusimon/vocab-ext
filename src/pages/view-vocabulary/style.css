@@ -41,6 +41,10 @@ table, th, td {
   border: 1px solid black;
 }
 
+th.high-light {
+  background-color: #fcf6bd;
+}
+
 th, td {
   padding: 0px 10px;
   margin: 0px;
@@ -71,6 +75,10 @@ tr:nth-child(even) {
 
 tr:nth-child(even) input {
   background-color: #f2f2f2;
+}
+
+th {
+  cursor: zoom-in;
 }
 
 tr {
