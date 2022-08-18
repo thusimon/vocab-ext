@@ -24,6 +24,7 @@ const mainAsync = async () => {
   let isPaused = true;
   let toasterOKCallback = null;
   let selectedVocabTr = null;
+  let sortedVocabs = [];
 
   const synth = window.speechSynthesis;
 
@@ -92,9 +93,9 @@ const mainAsync = async () => {
     tarLangE.classList.remove('high-light');
     createdAtE.classList.remove('high-light');
     document.getElementById(sortCriteria).classList.add('high-light');
-    const sortedVocab = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
-    sortedVocab.forEach(createTableRow)
-    countE.textContent = sortedVocab.length;
+    sortedVocabs = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
+    sortedVocabs.forEach(createTableRow)
+    countE.textContent = sortedVocabs.length;
   }
 
   const showToaster = (msg, type='info', needConsent=false) => {
@@ -257,21 +258,14 @@ const mainAsync = async () => {
   }
 
   function* getNextReadVocab(vocabs, settings) {
-    for (let vocabItem in vocabs) {
-      const readContent = {
-        original: vocabItem,
-        translation: vocabs[vocabItem].translation
-      }
-      yield readOneVocab(readContent, settings);
+    for (const vocab of vocabs) {
+      yield readOneVocab(vocab, settings);
     }
   }
 
   const readAllVocabs = async () => {
     const setting = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-    const vocab = await storageGetP(STORAGE_AREA.VOCAB, {});
-    const langKeySetting = `${setting.SOURCE_LANG}-${setting.TARGET_LANG}`;
-    const vocabByLangKeySetting = vocab[langKeySetting] || {};
-    readingGenerator = getNextReadVocab(vocabByLangKeySetting, setting);
+    readingGenerator = getNextReadVocab(sortedVocabs, setting);
     readVocabs(readingGenerator);
   }
 
