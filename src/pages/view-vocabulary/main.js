@@ -16,6 +16,7 @@ const mainAsync = async () => {
   const readBtn = document.getElementById('read-vocab');
   const pauseReadBtn = document.getElementById('pause-read-vocab');
   const saveBtn = document.getElementById('save-vocab');
+  const searchField = document.getElementById('vocab-search');
   const countE = document.getElementById('total-vocab-count');
   let editedItems = {};
   let deletedItems = {};
@@ -84,18 +85,20 @@ const mainAsync = async () => {
   const showVocabs = async (sortCriteria, ascending) => {
     const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
     const vocabsWithSetting = vocabs[`${SOURCE_LANG}-${TARGET_LANG}`] || {};
-
-    while(tbody.firstChild){
-      tbody.removeChild(tbody.firstChild);
-    }
-
     srcLangE.classList.remove('high-light');
     tarLangE.classList.remove('high-light');
     createdAtE.classList.remove('high-light');
     document.getElementById(sortCriteria).classList.add('high-light');
     sortedVocabs = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
-    sortedVocabs.forEach(createTableRow)
+    setVocabs(sortedVocabs);
     countE.textContent = sortedVocabs.length;
+  }
+
+  const setVocabs = vocabs => {
+    while(tbody.firstChild){
+      tbody.removeChild(tbody.firstChild);
+    }
+    vocabs.forEach(createTableRow);
   }
 
   const showToaster = (msg, type='info', needConsent=false) => {
@@ -129,96 +132,6 @@ const mainAsync = async () => {
       }
     }
   }
-
-  let srcLangAscending = 1;
-  srcLangE.addEventListener('click', () => {
-    showVocabs('src-lang', srcLangAscending);
-    srcLangAscending *= -1;
-  });
-
-  let tarLangAscending = 1;
-  tarLangE.addEventListener('click', () => {
-    showVocabs('tar-lang', tarLangAscending);
-    tarLangAscending *= -1;
-  });
-
-  let createdAtAscending = 1;
-  createdAtE.addEventListener('click', () => {
-    showVocabs('created-at', createdAtAscending);
-    createdAtAscending *= -1;
-  });
-
-  const onFileLoaded = async (evt) => {
-    const fileContent = evt.target.result;
-    let fileJson;
-    try {
-      fileJson = JSON.parse(fileContent);
-      validateImportFile(fileJson);
-      const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
-      for (let langKey in fileJson) {
-        const vocabsInLangKeys = vocabs[langKey] || {};
-        const newVocabs = fileJson[langKey] || {};
-        for (let v in newVocabs) {
-          vocabsInLangKeys[v] = newVocabs[v]
-        }
-        vocabs[langKey] = vocabsInLangKeys;
-      }
-      await storageSetP(STORAGE_AREA.VOCAB, vocabs);
-      await showVocabs('src-lang', srcLangAscending);
-    } catch (e) {
-      showToaster(e.message, 'error');
-    }
-  }
-
-  importFile.addEventListener('change', (event) => {
-    const input = event.target;
-    if (!input.files[0]) {
-      return undefined;
-    }
-    const file = input.files[0];
-    const fr = new FileReader();
-    fr.onload = onFileLoaded;
-    fr.readAsText(file);
-    input.value = '';
-  });
-
-  exportBtn.addEventListener('click', async () => {
-    const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
-    const vocabsStr = JSON.stringify(vocabs, null, ' ');
-    const blob = new Blob([vocabsStr], {type: "application/json"});
-    const url = URL.createObjectURL(blob);
-    const downloadLink = document.createElement('a');
-    downloadLink.href = url;
-    downloadLink.download = "vocab-exported.json";  
-    document.body.appendChild(downloadLink);
-    downloadLink.click();
-    downloadLink.remove();
-  });
-
-  importBtn.addEventListener('click', () => {
-    importFile.click();
-  });
-
-  editBtn.addEventListener('click', () => {
-    if (selectedVocabTr) {
-      const {originalText, translationE} = getVocabItem(selectedVocabTr);
-      translationE.classList.remove('input-disable');
-      translationE.classList.add('input-enable');
-      translationE.focus();
-      editedItems[originalText] = translationE;
-      isModified = true;
-    }
-  });
-
-  deleteBtn.addEventListener('click', () => {
-    if (selectedVocabTr) {
-      const {originalText} = getVocabItem(selectedVocabTr);
-      deletedItems[originalText] = true;
-      selectedVocabTr.remove();
-      selectedVocabTr = null;
-      isModified = true;
-    }
-  });
 
   const readOneVocab = (vocab, setting) => {
     return new Promise((resolve, reject) => {
@@ -281,6 +194,105 @@ const mainAsync = async () => {
     }
   }
 
+  const onFileLoaded = async (evt) => {
+    const fileContent = evt.target.result;
+    let fileJson;
+    try {
+      fileJson = JSON.parse(fileContent);
+      validateImportFile(fileJson);
+      const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
+      for (let langKey in fileJson) {
+        const vocabsInLangKeys = vocabs[langKey] || {};
+        const newVocabs = fileJson[langKey] || {};
+        for (let v in newVocabs) {
+          vocabsInLangKeys[v] = newVocabs[v]
+        }
+        vocabs[langKey] = vocabsInLangKeys;
+      }
+      await storageSetP(STORAGE_AREA.VOCAB, vocabs);
+      await showVocabs('src-lang', srcLangAscending);
+    } catch (e) {
+      showToaster(e.message, 'error');
+    }
+  }
+
+  const getVocabItem = (trE) => {
+    const originalText = trE.childNodes[0].textContent;
+    const translationE = trE.childNodes[1].childNodes[0];
+    return {
+      originalText,
+      translationE
+    };
+  }
+
+  let srcLangAscending = 1;
+  srcLangE.addEventListener('click', () => {
+    showVocabs('src-lang', srcLangAscending);
+    srcLangAscending *= -1;
+  });
+
+  let tarLangAscending = 1;
+  tarLangE.addEventListener('click', () => {
+    showVocabs('tar-lang', tarLangAscending);
+    tarLangAscending *= -1;
+  });
+
+  let createdAtAscending = 1;
+  createdAtE.addEventListener('click', () => {
+    showVocabs('created-at', createdAtAscending);
+    createdAtAscending *= -1;
+  });
+
+  importFile.addEventListener('change', (event) => {
+    const input = event.target;
+    if (!input.files[0]) {
+      return undefined;
+    }
+    const file = input.files[0];
+    const fr = new FileReader();
+    fr.onload = onFileLoaded;
+    fr.readAsText(file);
+    input.value = '';
+  });
+
+  exportBtn.addEventListener('click', async () => {
+    const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
+    const vocabsStr = JSON.stringify(vocabs, null, ' ');
+    const blob = new Blob([vocabsStr], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = url;
+    downloadLink.download = "vocab-exported.json";  
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    downloadLink.remove();
+  });
+
+  importBtn.addEventListener('click', () => {
+    importFile.click();
+  });
+
+  editBtn.addEventListener('click', () => {
+    if (selectedVocabTr) {
+      const {originalText, translationE} = getVocabItem(selectedVocabTr);
+      translationE.classList.remove('input-disable');
+      translationE.classList.add('input-enable');
+      translationE.focus();
+      editedItems[originalText] = translationE;
+      isModified = true;
+    }
+  });
+
+  deleteBtn.addEventListener('click', () => {
+    if (selectedVocabTr) {
+      const {originalText} = getVocabItem(selectedVocabTr);
+      deletedItems[originalText] = true;
+      selectedVocabTr.remove();
+      selectedVocabTr = null;
+      isModified = true;
+    }
+  });
+
   readBtn.addEventListener('click', () => {
     if (!toasterOKCallback) {
       toasterOKCallback = readAllVocabs;
@@ -331,6 +343,15 @@ const mainAsync = async () => {
     await showVocabs('src-lang', srcLangAscending);
   });
 
+  searchField.addEventListener('input', debounce(evt => {
+    const value = evt.target.value;
+    const filteredVocabs = sortedVocabs.filter(vocab => {
+      const {original, translation} = vocab;
+      return original.includes(value) || translation.includes(value);
+    });
+    setVocabs(filteredVocabs);
+  }, 200));
+
   toasterOKBtn.addEventListener('click', (evt) => {
     if (toasterOKCallback) {
       isPaused = false;
@@ -347,16 +368,7 @@ const mainAsync = async () => {
     togglePlayPauseIcon(isPaused);
     toaster.classList.remove('show');
     toaster.classList.add('hide');
-  })
-
-  const getVocabItem = (trE) => {
-    const originalText = trE.childNodes[0].textContent;
-    const translationE = trE.childNodes[1].childNodes[0];
-    return {
-      originalText,
-      translationE
-    };
-  }
+  });
 
   tbody.addEventListener('click', (evt) => {
     const targetE = evt.target;
