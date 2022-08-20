@@ -6,29 +6,5 @@
   "appDesc": {
     "message": "translate hightlighted text and put the translation in a glossary book.", 
     "description":"translate hightlighted text and put the translation in a glossary book."
-  },
-  "stat_vocab_add_header": {
-    "message": "Statistics of adding new vocabulary", 
-    "description":"Statistics of adding new vocabulary"
-  },
-  "this_week": {
-    "message": "This week", 
-    "description":"This week"
-  },
-  "this_month": {
-    "message": "This month", 
-    "description":"This month"
-  },
-  "this_quarter": {
-    "message": "This quarter", 
-    "description":"This quarter"
-  },
-  "this_year": {
-    "message": "This year", 
-    "description":"This year"
-  },
-  "all_data": {
-    "message": "All data", 
-    "description":"all data"
   }
 }

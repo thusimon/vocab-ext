@@ -27,6 +27,18 @@ const removeAllChildNodes = (parent) => {
   }
 };
 
+const getI18NMessage = (lang, key) => {
+  const engKeys = I18Ns.en;
+  const langKeys = I18Ns[lang] ? I18Ns[lang] : engKeys
+  if (langKeys[key]) {
+    return langKeys[key];
+  }
+  if (engKeys[key]) {
+    return engKeys[key];
+  }
+  return `i18n_error[${lang}-${key}]`;
+};
+
 const getTranslateUri = (base, params) => {
   return `${base}?${new URLSearchParams(params)}`;
 };

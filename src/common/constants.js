@@ -56,6 +56,17 @@ const I18Ns = {
   },
   en: {
     name: 'English'
+    stat_vocab_add_header: 'Statistics of adding new vocabulary',
+    stat_this_week: 'This week',
+    stat_this_month: 'This month',
+    stat_this_quarter: 'This quarter',
+    stat_this_year: 'This year',
+    stat_all_data: 'All data',
+    popover_refresh_memory: 'Refresh your memory!',
+    popover_view_your_vocab: 'View your vocabularies',
+    popover_statistics: 'Statistics',
+    popover_settings: 'Settings',
+    popover_version: 'Version'
   },
   es: {
     name: '\u0045\u0073\u0070\u0061\u00f1\u006f\u006c'
@@ -109,10 +120,32 @@ const I18Ns = {
     name: '\u0056\u0069\u1ec7\u0074\u006e\u0061\u006d'
   },
   zh: {
-    name: '\u4E2D\u6587'
+    name: '\u4E2D\u6587',
+    stat_vocab_add_header: '\u65B0\u589E\u8BCD\u6C47\u7684\u7EDF\u8BA1\u56FE',
+    stat_this_week: '\u672C\u5468',
+    stat_this_month: '\u672C\u6708',
+    stat_this_quarter: '\u672C\u5B63\u5EA6',
+    stat_this_year: '\u4ECA\u5E74',
+    stat_all_data: '\u5168\u4F53\u6570\u636E',
+    popover_refresh_memory: '\u6E29\u6545\u800C\u77E5\u65B0!',
+    popover_view_your_vocab: '\u6D4F\u89C8\u751F\u8BCD\u8868',
+    popover_statistics: '\u7EDF\u8BA1',
+    popover_settings: '\u8BBE\u7F6E',
+    popover_version: '\u7248\u672C'
   },
   ['zh-tw']: {
-    name: '\u4e2d\u6587\u53f0\u7063'
+    name: '\u4e2d\u6587\u53f0\u7063',
+    stat_vocab_add_header: '\u65B0\u589E\u8A5E\u532F\u7684\u7D71\u8A08\u5716',
+    stat_this_week: '\u672C\u5468',
+    stat_this_month: '\u672C\u6708',
+    stat_this_quarter: '\u672C\u5B63\u5EA6',
+    stat_this_year: '\u4ECA\u5E74',
+    stat_all_data: '\u5168\u9AD4\u6578\u64DA',
+    popover_refresh_memory: '\u6EAB\u6545\u800C\u77E5\u65B0!',
+    popover_view_your_vocab: '\u6D4F\u89BD\u751F\u8A5E\u8868',
+    popover_statistics: '\u7D71\u8A08',
+    popover_settings: '\u8A2D\u7F6E',
+    popover_version: '\u7248\u672C'
   }
 };
 
