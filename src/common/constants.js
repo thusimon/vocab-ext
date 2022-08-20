@@ -55,7 +55,7 @@ const I18Ns = {
     name: '\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac'
   },
   en: {
-    name: 'English'
+    name: 'English',
     stat_vocab_add_header: 'Statistics of adding new vocabulary',
     stat_this_week: 'This week',
     stat_this_month: 'This month',
