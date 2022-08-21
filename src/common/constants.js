@@ -66,7 +66,18 @@ const I18Ns = {
     popover_view_your_vocab: 'View your vocabularies',
     popover_statistics: 'Statistics',
     popover_settings: 'Settings',
-    popover_version: 'Version'
+    popover_version: 'Version',
+    settings_save: 'Save the settings',
+    settings_option: "Option",
+    settings_settings: "Settings",
+    settings_src_lang: "Source Language",
+    settings_tar_lang: "Target Language",
+    settings_show_card: "Show glossary card",
+    settings_show_card_desp: "Show a random glossary card every time you open a web page",
+    settings_card_timeout: "Glossary card timeout",
+    settings_card_timeout_desp: "The time (seconds) that glossary card persists on a web page",
+    settings_ele_trigger: "Element triggers cards",
+    settings_ele_trigger_desp: "css selector of an element, glossary card shows when that element is clicked, e.g, the upperleft logo on YouTube: a#logo"
   },
   es: {
     name: '\u0045\u0073\u0070\u0061\u00f1\u006f\u006c'
@@ -131,7 +142,18 @@ const I18Ns = {
     popover_view_your_vocab: '\u6D4F\u89C8\u751F\u8BCD\u8868',
     popover_statistics: '\u7EDF\u8BA1',
     popover_settings: '\u8BBE\u7F6E',
-    popover_version: '\u7248\u672C'
+    popover_version: '\u7248\u672C',
+    settings_save: '\u4FDD\u5B58\u8BBE\u7F6E',
+    settings_option: '\u9009\u9879',
+    settings_settings: '\u8BBE\u7F6E',
+    settings_src_lang: '\u539F\u59CB\u8BED\u8A00',
+    settings_tar_lang: '\u76EE\u6807\u8BED\u8A00',
+    settings_show_card: '\u663E\u793A\u751F\u8BCD\u5361',
+    settings_show_card_desp: '\u6BCF\u4E00\u6B21\u6253\u5F00\u7F51\u9875\u65F6, \u663E\u793A\u4E00\u4E2A\u968F\u673A\u7684\u751F\u8BCD\u5361',
+    settings_card_timeout: '\u751F\u8BCD\u5361\u65F6\u95F4',
+    settings_card_timeout_desp: '\u751F\u8BCD\u5361\u5728\u7F51\u9875\u4E0A\u505C\u7559\u7684\u65F6\u95F4(\u79D2)',
+    settings_ele_trigger: '\u751F\u8BCD\u5361\u89E6\u53D1',
+    settings_ele_trigger_desp: 'CSS\u9009\u62E9\u5668, \u5F53\u70B9\u51FB\u8FD9\u4E2ACSS\u9009\u62E9\u7684\u5143\u7D20\u65F6, \u751F\u8BCD\u5361\u5C31\u4F1A\u663E\u793A, \u6BD4\u5982YouTube\u5DE6\u4E0A\u89D2\u7684\u56FE\u6807, CSS\u9009\u62E9\u5668\u662Fa#logo'
   },
   ['zh-tw']: {
     name: '\u4e2d\u6587\u53f0\u7063',
@@ -145,7 +167,18 @@ const I18Ns = {
     popover_view_your_vocab: '\u6D4F\u89BD\u751F\u8A5E\u8868',
     popover_statistics: '\u7D71\u8A08',
     popover_settings: '\u8A2D\u7F6E',
-    popover_version: '\u7248\u672C'
+    popover_version: '\u7248\u672C',
+    settings_save: '\u4FDD\u5B58\u8A2D\u7F6E',
+    settings_option: '\u9078\u9805',
+    settings_settings: '\u8A2D\u7F6E',
+    settings_src_lang: '\u539F\u59CB\u8A9E\u8A00',
+    settings_tar_lang: '\u76EE\u6A19\u8A9E\u8A00',
+    settings_show_card: '\u986F\u793A\u751F\u8A5E\u5361',
+    settings_show_card_desp: '\u6BCF\u4E00\u6B21\u6253\u958B\u7DB2\u9801\u6642, \u986F\u793A\u4E00\u500B\u96A8\u6A5F\u7684\u751F\u8A5E\u5361',
+    settings_card_timeout: '\u751F\u8A5E\u5361\u6642\u9593',
+    settings_card_timeout_desp: '\u751F\u8A5E\u5361\u5728\u7DB2\u9801\u4E0A\u505C\u7559\u7684\u6642\u9593(\u79D2)',
+    settings_ele_trigger: '\u751F\u8A5E\u5361\u89F8\u767C',
+    settings_ele_trigger_desp: 'CSS\u9078\u64C7\u5668, \u7576\u9EDE\u64CA\u9019\u500BCSS\u9078\u64C7\u7684\u5143\u7D20\u6642, \u751F\u8A5E\u5361\u5C31\u6703\u986F\u793A, \u6BD4\u5982YouTube\u5DE6\u4E0A\u89D2\u7684\u5716\u6A19, CSS\u9078\u64C7\u5668\u662Fa#logo'
   }
 };
 

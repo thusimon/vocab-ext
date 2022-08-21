@@ -20,17 +20,17 @@
         <table class="table">
           <thead>
             <tr>
-              <th scope="col" width="25%">Option</th>
-              <th scope="col" width="75%">Settings</th>
+              <th id="header-option" scope="col" width="25%">Option</th>
+              <th id="header-settings" scope="col" width="75%">Settings</th>
             </tr>
           </thead>
           <tbody id="vocab-tbody">
             <tr>
-              <td>Source Language</td>
+              <td id="source-language-label">Source Language</td>
               <td id="source-language"></td>
             </tr>
             <tr>
-              <td>Target Language</td>
+              <td id="target-language-label">Target Language</td>
               <td id="target-language"></td>
             </tr>
             <!--
@@ -42,29 +42,30 @@
             </tr>
             -->
             <tr>
-              <td>Show glossary card</td>
+              <td id="glossary-card-label">Show glossary card</td>
               <td id="glossary-card">
-                <input type="checkbox" id="glossary-card-chkbox">Show a random glossary card every time you open a web page</input>
+                <input type="checkbox" id="glossary-card-chkbox"></input>
+                <label id="glossary-card-chkbox-label" for="glossary-card-chkbox">Show a random glossary card every time you open a web page</label>
               </td>
             </tr>
             <tr>
-              <td>Glossary card fadeout time</td>
+              <td id="glossary-card-time-label">Glossary card timeout (seconds)</td>
               <td id="glossary-card-time">
                 <select id="glossary-card-time-select">
-                  <option value=3>3 seconds</option>
-                  <option value=5>5 seconds</option>
-                  <option value=10>10 seconds</option>
-                  <option value=15>15 seconds</option>
-                  <option value=20>20 seconds</option>
-                  <option value=30>30 seconds</option>
-                  <option value=60>60 seconds</option>
-                  <option value=-1>Always</option>
+                  <option value=3>3</option>
+                  <option value=5>5</option>
+                  <option value=10>10</option>
+                  <option value=15>15</option>
+                  <option value=20>20</option>
+                  <option value=30>30</option>
+                  <option value=60>60</option>
+                  <option value=-1>&#8734;</option>
                 </select>
-                <label>The time that glossary card persists</label>
+                <label id="glossary-card-time-persist-label">The time that glossary card persists on a web page</label>
               </td>
             </tr>
             <tr>
-              <td>Element triggers cards</td>
+              <td id="element-trigger-cards-label">Element triggers cards</td>
               <td id="element-trigger-cards">
                 <input type="text" id="element-trigger-cards-input" placeholder="css selector of an element, glossary card shows when that element is clicked, e.g, the upperleft logo on YouTube: a#logo"
                 title="css selector of an element, glossary card shows when that element is clicked, e.g, the upperleft logo on YouTube: a#logo"></input>
