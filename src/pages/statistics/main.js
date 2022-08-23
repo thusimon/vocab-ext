@@ -19,6 +19,7 @@ dataOptionMonthE.text = getI18NMessage(TARGET_LANG, 'stat_this_month');
 dataOptionQuarterE.text = getI18NMessage(TARGET_LANG, 'stat_this_quarter');
 dataOptionYearE.text = getI18NMessage(TARGET_LANG, 'stat_this_year');
 dataOptionAllE.text = getI18NMessage(TARGET_LANG, 'stat_all_data');
+document.title = getI18NMessage(TARGET_LANG, 'stat_title');
 
 const ONE_DAY_MS = 24*3600*1000;
 

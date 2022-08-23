@@ -29,7 +29,6 @@ const sourceLangOpts = createComboBox('source-lang-opt', I18Ns);
 const targetLangOpts = createComboBox('target-lang-opt', I18Ns);
 sourceLangE.append(sourceLangOpts);
 targetLangE.append(targetLangOpts);
-//const enableAPIE = document.getElementById('advanced-api-chkbox');
 const enableCardLabelE = document.getElementById('glossary-card-label');
 const enableCardE = document.getElementById('glossary-card-chkbox');
 const enableCardCheckLabelE = document.getElementById('glossary-card-chkbox-label');
@@ -50,7 +49,6 @@ const render = settings => {
   targetLangLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_tar_lang');
   sourceLangOpts.value = SOURCE_LANG;
   targetLangOpts.value = TARGET_LANG;
-  //enableAPIE.checked = ENABLE_API;
   enableCardLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_show_card');
   enableCardE.checked = ENABLE_CARD;
   enableCardCheckLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_show_card_desp');
@@ -66,6 +64,7 @@ const render = settings => {
   cardTriggerE.value = CARD_TRIGGER_CSS;
   cardTriggerE.placeholder = getI18NMessage(TARGET_LANG, 'settings_ele_trigger_desp');
   cardTriggerE.title = getI18NMessage(TARGET_LANG, 'settings_ele_trigger_desp');
+  document.title = getI18NMessage(TARGET_LANG, 'settings_title');
 };
 
 
@@ -89,7 +88,6 @@ targetLangOpts.addEventListener('change', () => {
   isModified = true;
   const SOURCE_LANG = sourceLangOpts.value;
   const TARGET_LANG = targetLangOpts.value;
-  //const ENABLE_API = enableAPIE.checked;
   const ENABLE_CARD = enableCardE.checked;
   const CARD_TIME = cardTimeE.value;
   const CARD_TRIGGER_CSS = cardTriggerE.value;
@@ -101,10 +99,6 @@ targetLangOpts.addEventListener('change', () => {
     CARD_TRIGGER_CSS
   });
 });
-
-// enableAPIE.addEventListener('change', () => {
-//   isModified = true;
-// });
 
 enableCardE.addEventListener('change', evt => {
   isModified = true;

@@ -1,11 +1,14 @@
-const vocabDisplayE = document.getElementById('vocab-display')
-  , vocabWelcomeE = document.getElementById('no-vocab')
-  , refreshBtnE = document.getElementById('refresh-btn')
-  , originalVocabE = document.getElementById('vocab-original')
-  , dictE = document.getElementById('dict')
-  , translationE = document.getElementById('translation')
-  , totalCountE = document.getElementById('total-count')
-  , readBtnE = document.getElementById('read-vocab-button');
+(async () => {
+
+const vocabDisplayE = document.getElementById('vocab-display');
+const vocabWelcomeE = document.getElementById('no-vocab');
+const refreshBtnE = document.getElementById('refresh-btn');
+const originalVocabE = document.getElementById('vocab-original');
+const dictE = document.getElementById('dict');
+const translationE = document.getElementById('translation');
+const totalCountLabelE = document.getElementById('total-vocab-label');
+const totalCountE = document.getElementById('total-vocab-count');
+const readBtnE = document.getElementById('read-vocab-button');
 
 const getVocabs = async (sourceLang, targetLang) => {
   const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
@@ -66,21 +69,23 @@ readBtnE.addEventListener('click', () => {
   readOneVocab(randomVocab, sourceLang);
 });
 
-(async () => {
-  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-  sourceLang = settings.SOURCE_LANG;
-  targetLang = settings.TARGET_LANG;
+const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+sourceLang = settings.SOURCE_LANG;
+targetLang = settings.TARGET_LANG;
 
-  const vocabs = await getVocabs(sourceLang, targetLang);
-  randomVocab = getRandomVocabulary(vocabs);
-  if (randomVocab) {
-    vocabDisplayE.style.display = 'block';
-    vocabWelcomeE.style.display = 'none';
-    constructNewTabVocab(randomVocab);
-  } else {
-    vocabDisplayE.style.display = 'none';
-    vocabWelcomeE.style.display = 'block';
-  }
-  const vocabsLen = Object.keys(vocabs).length
-  totalCountE.textContent = `Total: ${vocabsLen}`
+const vocabs = await getVocabs(sourceLang, targetLang);
+randomVocab = getRandomVocabulary(vocabs);
+if (randomVocab) {
+  vocabDisplayE.style.display = 'block';
+  vocabWelcomeE.style.display = 'none';
+  constructNewTabVocab(randomVocab);
+} else {
+  vocabDisplayE.style.display = 'none';
+  vocabWelcomeE.style.display = 'block';
+  vocabWelcomeE.textContent = getI18NMessage(targetLang, 'newtab_no_vocab_msg');
+}
+totalCountLabelE.textContent = getI18NMessage(targetLang, 'total');
+totalCountE.textContent = Object.keys(vocabs).length;
+document.title = getI18NMessage(targetLang, 'newtab_title');
+
 })()

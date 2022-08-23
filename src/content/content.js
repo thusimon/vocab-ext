@@ -152,6 +152,7 @@ chrome.runtime.onMessage.addListener(request => {
 class TranslateModal extends HTMLElement {
   static styleText = `
   #translate-container {
+    font-family: Serif;
     overflow: hidden;
     margin: 0px;
     padding: 0px;

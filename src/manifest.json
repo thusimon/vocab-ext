@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "author": "Lu",
@@ -22,9 +22,6 @@
   ],
   "host_permissions": [ "<all_urls>" ],
   "omnibox": { "keyword" : "vb" },
-  "chrome_url_overrides" : {
-    "newtab": "pages/new-tab/new-tab.html"
-  },
   "action": {
     "default_title": "Vocab",
     "default_popup": "popover/popover.html",
