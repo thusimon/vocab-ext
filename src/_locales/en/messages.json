@@ -4,7 +4,7 @@
     "description": "Vocab"
   },
   "appDesc": {
-    "message": "translate hightlighted text and store the translation in a glossary book. A random glossary card shows when opening a web page, which helps to learn the new vocabularies.", 
+    "message": "translate hightlighted text and store the translation in a glossary book. A random glossary card shows when opening a web page", 
     "description":"App description"
   }
 }
