@@ -83,6 +83,7 @@ const I18Ns = {
     settings_card_timeout_desp: 'The time (seconds) that glossary card persists on a web page',
     settings_ele_trigger: 'Element triggers cards',
     settings_ele_trigger_desp: 'css selector of an element, glossary card shows when that element is clicked, e.g, the upperleft logo on YouTube: a#logo',
+    settings_detect_lang: 'Detected target language "{}", please double check and choose the correct target language',
     vocab_title: 'Vocabulary',
     vocab_export_desp: 'Export all the vocabularies as a json file',
     vocab_import_desp: 'Import and update vocabularies from a json file, Attention: this will overwrite all your current vocabularies',
@@ -145,6 +146,9 @@ const I18Ns = {
   ug: {
     name: '\u0055\u0079\u01a3\u0075\u0072\u0071\u0259'
   },
+  uk: {
+    name: '\u0443\u043A\u0440\u0430\u0457\u0301\u043D\u0441\u044C\u043A\u0430'
+  },
   vi: {
     name: '\u0056\u0069\u1ec7\u0074\u006e\u0061\u006d'
   },
@@ -177,6 +181,7 @@ const I18Ns = {
     settings_card_timeout_desp: '\u751F\u8BCD\u5361\u5728\u7F51\u9875\u4E0A\u505C\u7559\u7684\u65F6\u95F4(\u79D2)',
     settings_ele_trigger: '\u751F\u8BCD\u5361\u89E6\u53D1',
     settings_ele_trigger_desp: 'CSS\u9009\u62E9\u5668, \u5F53\u70B9\u51FB\u8FD9\u4E2ACSS\u9009\u62E9\u7684\u5143\u7D20\u65F6, \u751F\u8BCD\u5361\u5C31\u4F1A\u663E\u793A, \u6BD4\u5982YouTube\u5DE6\u4E0A\u89D2\u7684\u56FE\u6807, CSS\u9009\u62E9\u5668\u662Fa#logo',
+    settings_detect_lang: '\u68C0\u6D4B\u5230\u6D4F\u89C8\u5668\u8BED\u8A00 "{}", \u8BF7\u518D\u6B21\u68C0\u67E5\u5E76\u9009\u62E9\u6B63\u786E\u7684\u76EE\u6807\u8BED\u8A00\u9009\u9879',
     vocab_title: '\u8BCD\u6C47\u8868',
     vocab_export_desp: '\u5C06\u6240\u6709\u7684\u8BCD\u6C47\u8868\u5BFC\u51FA\u4E3AJSON\u6587\u4EF6',
     vocab_import_desp: '\u4ECEJSON\u6587\u4EF6\u5BFC\u5165\u8BCD\u6C47\u8868, \u6CE8\u610F: \u8FD9\u5C06\u8986\u76D6\u4F60\u73B0\u6709\u7684\u6240\u6709\u8BCD\u6C47\u8868',
@@ -220,6 +225,7 @@ const I18Ns = {
     settings_card_timeout_desp: '\u751F\u8A5E\u5361\u5728\u7DB2\u9801\u4E0A\u505C\u7559\u7684\u6642\u9593(\u79D2)',
     settings_ele_trigger: '\u751F\u8A5E\u5361\u89F8\u767C',
     settings_ele_trigger_desp: 'CSS\u9078\u64C7\u5668, \u7576\u9EDE\u64CA\u9019\u500BCSS\u9078\u64C7\u7684\u5143\u7D20\u6642, \u751F\u8A5E\u5361\u5C31\u6703\u986F\u793A, \u6BD4\u5982YouTube\u5DE6\u4E0A\u89D2\u7684\u5716\u6A19, CSS\u9078\u64C7\u5668\u662Fa#logo',
+    settings_detect_lang: '\u6AA2\u6E2C\u5230\u6D4F\u89BD\u5668\u8A9E\u8A00 "{}", \u8ACB\u518D\u6B21\u6AA2\u67E5\u4E26\u9078\u64C7\u6B63\u78BA\u7684\u76EE\u6A19\u8A9E\u8A00\u9078\u9805',
     vocab_title: '\u8A5E\u5F59\u8868',
     vocab_export_desp: '\u5C07\u6240\u6709\u7684\u8A5E\u5F59\u8868\u5C0E\u51FA\u70BAJSON\u6587\u4EF6',
     vocab_import_desp: '\u5F9EJSON\u6587\u4EF6\u5C0E\u5165\u8A5E\u5F59\u8868, \u6CE8\u610F: \u9019\u5C07\u8986\u84CB\u4F60\u73FE\u6709\u7684\u6240\u6709\u8A5E\u5F59\u8868',

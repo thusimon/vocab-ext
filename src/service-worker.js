@@ -98,6 +98,16 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
+chrome.runtime.onInstalled.addListener(async (details) => {
+  if (!details || details.reason != 'install') {
+    return;
+  }
+  // user installed for the first time
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('/pages/settings/index.html?install=new')
+  });
+});
+
 chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
   const frameIds = [details.frameId];
   // run custom elements polyfill

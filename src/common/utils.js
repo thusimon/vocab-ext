@@ -43,6 +43,13 @@ const getTranslateUri = (base, params) => {
   return `${base}?${new URLSearchParams(params)}`;
 };
 
+const formatString = (message, ...params) => {
+  params.forEach(param => {
+    message = message.replace('{}', param);
+  });
+  return message;
+};
+
 const debounce = (func, timeout = 200) => {
   let timer;
   return (...args) => {

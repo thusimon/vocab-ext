@@ -211,11 +211,11 @@ tr.strikeout td:before {
 }
 
 @keyframes fadein {
-  from {top: 0px; opacity: 0;}
+  from {top: -160px; opacity: 0;}
   to {top: 10%; opacity: 1;}
 }
 
 @keyframes fadeout {
   from {top: 10%; opacity: 1;}
-  to {top: 0px; opacity: 0;}
+  to {top: -160px; opacity: 0;}
 }

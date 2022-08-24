@@ -49,3 +49,60 @@ tr:nth-child(even) {
 #element-trigger-cards-input {
   width: 80%;
 }
+
+.no-display {
+  display: none;
+}
+
+#toaster {
+  opacity: 0;
+  min-width: 250px;
+  margin: 0px;
+  background-color: #fcf6bd;
+  text-align: center;
+  border-radius: 3px;
+  border: 1px solid #f0f0f0;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  width: 20%;
+  left: 40%;
+  top: 40%;
+  font-size: 18px;
+  box-shadow: 3px 3px 3px #e0e0e0;
+}
+
+#toaster button {
+  width: 70px;
+}
+
+#toaster-msg.info {
+  color: darkgreen;
+}
+
+#toaster-msg.error {
+  color: crimson;
+}
+
+#toaster-buttons {
+  margin: 8px 0px 0px 0px;
+}
+
+#toaster.show {
+  visibility: visible;
+  animation: fadein 0.5s forwards;
+}
+
+#toaster.hide {
+  animation: fadeout 0.5s forwards;
+}
+
+@keyframes fadein {
+  from {top: -160px; opacity: 0;}
+  to {top: 10%; opacity: 1;}
+}
+
+@keyframes fadeout {
+  from {top: 10%; opacity: 1;}
+  to {top: -160px; opacity: 0;}
+}

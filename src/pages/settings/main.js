@@ -18,6 +18,21 @@ const createComboBox = (id, options, defaultValue) => {
   return listE;
 }
 
+const findClosestLang = queryLang => {
+  const langs = Object.keys(I18Ns);
+  queryLang = queryLang.toLowerCase();
+  let closestLang = langs.find(lang => lang === queryLang);
+  if (closestLang) {
+    return closestLang;
+  }
+  queryLang = queryLang.replace(/[^a-z]/g, '');
+  closestLang = langs.find(lang => {
+    lang = lang.replace(/[^a-z]/g, '');
+    return lang.startsWith(queryLang) || queryLang.startsWith(lang);
+  });
+  return closestLang ? closestLang : 'en';
+};
+
 const saveBtnE = document.getElementById('save-setting-btn');
 const headerOptionE = document.getElementById('header-option');
 const headerSettingsE = document.getElementById('header-settings');
@@ -37,6 +52,10 @@ const cardTimeE = document.getElementById('glossary-card-time-select');
 const cardTimeDespE = document.getElementById('glossary-card-time-persist-label');
 const cardTriggerLabelE = document.getElementById('element-trigger-cards-label');
 const cardTriggerE = document.getElementById('element-trigger-cards-input');
+const toaster = document.getElementById('toaster');
+const toasterMsg = document.getElementById('toaster-msg');
+const toasterBtns = document.getElementById('toaster-buttons');
+const toasterOKBtn = document.getElementById('toaster-ok');
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 
@@ -64,9 +83,26 @@ const render = settings => {
   cardTriggerE.value = CARD_TRIGGER_CSS;
   cardTriggerE.placeholder = getI18NMessage(TARGET_LANG, 'settings_ele_trigger_desp');
   cardTriggerE.title = getI18NMessage(TARGET_LANG, 'settings_ele_trigger_desp');
+  toasterOKBtn.textContent = getI18NMessage(TARGET_LANG, 'ok');
   document.title = getI18NMessage(TARGET_LANG, 'settings_title');
 };
 
+const showToaster = (msg, type='info', needConsent=false) => {
+  toasterMsg.textContent = msg;
+  toaster.classList.remove('show', 'hide');
+  toasterMsg.classList.remove('info', 'error');
+  toasterBtns.classList.remove('no-display');
+  const colorClass = type === 'info' ? 'info' : 'error'
+  toasterMsg.classList.add(colorClass);
+  toaster.classList.add('show');
+  if (!needConsent) {
+    toasterBtns.classList.add('no-display');
+    setTimeout(() => {
+      toaster.classList.remove('show');
+      toaster.classList.add('hide');
+    }, 5000);
+  }
+}
 
 saveBtnE.addEventListener('click', async () => {
   const SOURCE_LANG = sourceLangOpts.value;
@@ -117,12 +153,28 @@ cardTriggerE.addEventListener('change', () => {
   isModified = true;
 });
 
+toasterOKBtn.addEventListener('click', (evt) => {
+  toaster.classList.remove('show');
+  toaster.classList.add('hide');
+});
+
 window.addEventListener('beforeunload', (evt) => {
   if (isModified) {
     evt.preventDefault();
     evt.returnValue = 'Are you sure to leave without saving?';
   }
 });
+
+const url = new URL(document.URL);
+if (url.searchParams.get('install') === 'new') {
+  const uiLang = await chrome.i18n.getUILanguage();
+  const closestLang = findClosestLang(uiLang);
+  const closestLangName = I18Ns[closestLang].name;
+  const toasterMsg = formatString(getI18NMessage(closestLang, 'settings_detect_lang'), closestLangName);
+  toasterOKBtn.textContent = getI18NMessage(closestLang, 'ok');
+  showToaster(toasterMsg, 'info', true);
+  settings.TARGET_LANG = closestLang;
+}
 
 render(settings);
 

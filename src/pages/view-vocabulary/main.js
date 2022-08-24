@@ -132,7 +132,7 @@ const showToaster = (msg, type='info', needConsent=false) => {
     setTimeout(() => {
       toaster.classList.remove('show');
       toaster.classList.add('hide');
-    }, 3000);
+    }, 5000);
   }
 }
 
