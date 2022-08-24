@@ -83,7 +83,7 @@ const I18Ns = {
     settings_card_timeout_desp: 'The time (seconds) that glossary card persists on a web page',
     settings_ele_trigger: 'Element triggers cards',
     settings_ele_trigger_desp: 'css selector of an element, glossary card shows when that element is clicked, e.g, the upperleft logo on YouTube: a#logo',
-    settings_detect_lang: 'Detected target language "{}", please double check and choose the correct target language',
+    settings_detect_lang: 'Detected browser language "{}", please double check and choose the correct target language',
     vocab_title: 'Vocabulary',
     vocab_export_desp: 'Export all the vocabularies as a json file',
     vocab_import_desp: 'Import and update vocabularies from a json file, Attention: this will overwrite all your current vocabularies',
