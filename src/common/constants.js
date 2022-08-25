@@ -51,6 +51,9 @@ const I18Ns = {
   de: {
     name: 'Deutsch'
   },
+  cs: {
+    name: '\u010De\u0161tina'
+  },
   el: {
     name: '\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac'
   },

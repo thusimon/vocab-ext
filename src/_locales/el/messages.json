@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "μεταφράστε το επισημασμένο κείμενο και αποθηκεύστε τη μετάφραση σε ένα βιβλίο γλωσσάρι.", 
+    "description":"App description"
+  }
+}

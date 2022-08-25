@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Hervorgehobenen Text übersetzen und die Übersetzung in einem Glossarbuch speichern.", 
+    "description":"App description"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Traduisez le texte surligné et stockez la traduction dans un glossaire.", 
+    "description":"App description"
+  }
+}
