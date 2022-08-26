@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Käännä korostettu teksti ja tallenna käännös sanakirjaan. Satunnainen sanakirjakortti tulee näkyviin, kun avaat verkkosivun.", 
+    "description": "App description"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Terjemahkan teks yang disorot dan simpan terjemahannya ke kamus. Kartu kamus acak muncul saat Anda membuka halaman web.", 
+    "description": "App description"
+  }
+}

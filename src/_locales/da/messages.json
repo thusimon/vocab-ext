@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Oversæt fremhævet tekst og gem oversættelsen i en ordbog. Et tilfældigt ordlistekort vises, når du åbner en webside.", 
+    "description": "App description"
+  }
+}

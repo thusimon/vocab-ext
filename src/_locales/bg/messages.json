@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Преведете подчертания текст и запазете превода в речник. Произволна карта с речник се показва при отваряне на уеб страница.", 
+    "description": "App description"
+  }
+}

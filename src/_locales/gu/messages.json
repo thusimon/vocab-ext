@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "હાઇલાઇટ કરેલ ટેક્સ્ટનો અનુવાદ કરો અને અનુવાદને શબ્દકોશમાં સાચવો. જ્યારે તમે વેબ પેજ ખોલો છો ત્યારે રેન્ડમ ડિક્શનરી કાર્ડ દેખાય છે", 
+    "description": "App description"
+  }
+}

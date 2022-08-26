@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Prevedite označeno besedilo in shranite prevod v slovar. Ko odprete spletno stran, se prikaže naključna kartica slovarja.", 
+    "description": "App description"
+  }
+}

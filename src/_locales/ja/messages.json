@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "強調表示されたテキストを翻訳し、翻訳を辞書に保存します。 Web ページを開くと、ランダムな辞書カードが表示されます。", 
+    "description": "App description"
+  }
+}

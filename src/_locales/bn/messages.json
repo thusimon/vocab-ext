@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "হাইলাইট করা পাঠ্য অনুবাদ করুন এবং একটি শব্দকোষ বইতে অনুবাদ সংরক্ষণ করুন।", 
+    "description": "App description"
+  }
+}

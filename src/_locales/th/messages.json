@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "แปลข้อความที่ไฮไลต์และบันทึกการแปลลงในพจนานุกรม การ์ดพจนานุกรมแบบสุ่มจะปรากฏขึ้นเมื่อคุณเปิดหน้าเว็บ", 
+    "description": "App description"
+  }
+}

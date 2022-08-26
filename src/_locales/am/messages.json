@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "የደመቀውን ጽሑፍ ተርጉምና ትርጉሙን በመዝገበ-ቃላት መጽሐፍ ውስጥ አስቀምጥ። የዘፈቀደ የቃላት መፍቻ ካርድ ድረ-ገጽ ሲከፍት ያሳያል።", 
+    "description": "App description"
+  }
+}

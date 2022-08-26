@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Dịch văn bản được đánh dấu và lưu bản dịch vào từ điển. Một thẻ từ điển ngẫu nhiên xuất hiện khi bạn mở một trang web.", 
+    "description": "App description"
+  }
+}

@@ -45,14 +45,29 @@ const RUNTIME_EVENT_TYPE = {
 };
 
 const I18Ns = {
+  am: {
+    name: '\u12A0\u121B\u122D\u129B'
+  },
   ar: {
     name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629'
   },
-  de: {
-    name: 'Deutsch'
+  bg: {
+    name: '\u0431\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438'
+  },
+  bn: {
+    name: '\u09AC\u09BE\u0982\u09B2\u09BE'
+  },
+  ca: {
+    name: 'catal\xE0'
   },
   cs: {
     name: '\u010De\u0161tina'
+  },
+  da: {
+    name: 'dansk'
+  },
+  de: {
+    name: 'Deutsch'
   },
   el: {
     name: '\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac'
@@ -104,11 +119,35 @@ const I18Ns = {
   es: {
     name: '\u0045\u0073\u0070\u0061\u00f1\u006f\u006c'
   },
+  et: {
+    name: 'eesti keel'
+  },
+  fa: {
+    name: '\u0641\u0627\u0631\u0633\u06CC'
+  },
+  fi: {
+    name: 'suomi'
+  },
+  fil: {
+    name: 'Wikang Filipino'
+  },
   fr: {
     name: '\u0046\u0072\u0061\u006e\u00e7\u0061\u0069\u0073'
   },
+  gu: {
+    name: '\u0A97\u0AC1\u0A9C\u0AB0\u0ABE\u0AA4\u0AC0'
+  },
+  he: {
+    name: '\u05E2\u05B4\u05D1\u05B0\u05E8\u05B4\u05D9\u05EA'
+  },
   hi: {
     name: '\u0939\u093f\u0928\u094d\u0926\u0940'
+  },
+  hr: {
+    name: 'hrvatski'
+  },
+  hu: {
+    name: 'magyar nyelv'
   },
   id: {
     name: 'Bahasa Indonesia'
@@ -119,11 +158,29 @@ const I18Ns = {
   ja: {
     name: '\u65e5\u672c\u8a9e'
   },
+  kn: {
+    name: '\u0C95\u0CA8\u0CCD\u0CA8\u0CA1'
+  },
   ko: {
     name: '\ud55c\uad6d\uc5b4'
   },
   la: {
-    name: 'Latina'
+    name: 'Lat\u012Bna'
+  },
+  lt: {
+    name: 'lietuvi\u0173 kalba'
+  },
+  lv: {
+    name: 'latvie\u0161u valoda'
+  },
+  ml: {
+    name: '\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02'
+  },
+  mr: {
+    name: '\u092E\u0930\u093E\u0920\u0940'
+  },
+  ms: {
+    name: 'Bahasa Melayu'
   },
   nl: {
     name: 'Nederlands'
@@ -135,28 +192,52 @@ const I18Ns = {
     name: 'Polski'
   },
   pt: {
-    name: '\u0050\u006f\u0072\u0074\u0075\u0067\u0075\u00ea\u0073'
+    name: 'portugu\xEAs'
+  },
+  ro: {
+    name: 'limba rom\xE2n\u0103'
   },
   ru: {
-    name: '\u0420\u0443\u0441\u0441\u043a\u0438\u0439'
+    name: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A'
+  },
+  sk: {
+    name: 'sloven\u010Dina'
+  },
+  sl: {
+    name: 'slovenski jezik'
+  },
+  sr: {
+    name: '\u0441\u0440\u043F\u0441\u043A\u0438 \u0458\u0435\u0437\u0438\u043A'
   },
   sv: {
     name: 'Svenska'
   },
+  sw: {
+    name: 'Kiswahili'
+  },
+  ta: {
+    name: '\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD'
+  },
+  te: {
+    name: '\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41'
+  },
   th: {
-    name: '\u0e44\u0e17\u0e22'
+    name: '\u0E20\u0E32\u0E29\u0E32\u0E44\u0E17\u0E22'
+  },
+  tr: {
+    name: 'T\xFCrk\xE7e'
   },
   ug: {
-    name: '\u0055\u0079\u01a3\u0075\u0072\u0071\u0259'
+    name: '\u0626\u06C7\u064A\u063A\u06C7\u0631 \u062A\u0649\u0644\u0649'
   },
   uk: {
-    name: '\u0443\u043A\u0440\u0430\u0457\u0301\u043D\u0441\u044C\u043A\u0430'
+    name: '\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430 \u043C\u043E\u0432\u0430'
   },
   vi: {
-    name: '\u0056\u0069\u1ec7\u0074\u006e\u0061\u006d'
+    name: 'Ti\u1EBFng Vi\u1EC7t'
   },
   zh: {
-    name: '\u4E2D\u6587',
+    name: '\u4E2D\u6587\u7B80\u4F53',
     ok: '\u786E\u5B9A',
     cancel: '\u53D6\u6D88',
     total: '\u603B\u8BA1',
@@ -200,7 +281,7 @@ const I18Ns = {
     newtab_no_vocab_msg: '\u4F60\u8FD8\u6CA1\u6709\u6DFB\u52A0\u4EFB\u4F55\u8BCD\u6C47, \u8BF7\u7528\u53F3\u952E\u83DC\u5355\u6765\u7FFB\u8BD1\u5E76\u6DFB\u52A0\u5B83\u4EEC'
   },
   zh_tw: {
-    name: '\u4e2d\u6587\u53f0\u7063',
+    name: '\u4E2D\u6587\u6B63\u9AD4',
     ok: '\u78BA\u5B9A',
     cancel: '\u53D6\u6D88',
     total: '\u7E3D\u8A08',
@@ -247,5 +328,5 @@ const I18Ns = {
 
 const LangCodeMapping = {
   zh: 'zh-CN',
-  ['zh_tw']: 'zh-TW'
+  zh_tw: 'zh-TW'
 };

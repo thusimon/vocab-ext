@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Tulkojiet iezīmēto tekstu un saglabājiet tulkojumu vārdnīcā. Atverot tīmekļa lapu, tiek parādīta nejauša vārdnīcas kartīte.", 
+    "description": "App description"
+  }
+}

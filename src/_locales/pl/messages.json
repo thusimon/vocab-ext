@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Przetłumacz zaznaczony tekst i zapisz tłumaczenie w słowniku. Po otwarciu strony internetowej pojawia się losowa karta słownika.", 
+    "description": "App description"
+  }
+}

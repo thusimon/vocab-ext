@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Terjemah teks yang diserlahkan dan simpan terjemahan ke kamus. Kad kamus rawak muncul apabila anda membuka halaman web.", 
+    "description": "App description"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Vurgulanan metni çevirin ve çeviriyi sözlüğe kaydedin. Bir web sayfasını açtığınızda rastgele bir sözlük kartı görünür.", 
+    "description": "App description"
+  }
+}

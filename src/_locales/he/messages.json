@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "תרגם את הטקסט המודגש ושמור את התרגום למילון. כרטיס מילון אקראי מופיע בעת פתיחת דף אינטרנט.", 
+    "description": "App description"
+  }
+}

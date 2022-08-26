@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Traduceți textul evidențiat și salvați traducerea în dicționar. Un card de dicționar aleatoriu apare când deschideți o pagină web", 
+    "description": "App description"
+  }
+}

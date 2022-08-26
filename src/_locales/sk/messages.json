@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Preložte zvýraznený text a uložte preklad do slovníka. Keď otvoríte webovú stránku, zobrazí sa karta náhodného slovníka.", 
+    "description": "App description"
+  }
+}

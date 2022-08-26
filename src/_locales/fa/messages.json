@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "متن برجسته شده را ترجمه کنید و ترجمه را در فرهنگ لغت ذخیره کنید.", 
+    "description": "App description"
+  }
+}

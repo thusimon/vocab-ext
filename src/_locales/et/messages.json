@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Tõlkige esiletõstetud tekst ja salvestage tõlge sõnastikku. Veebilehe avamisel kuvatakse juhuslik sõnastikukaart.", 
+    "description": "App description"
+  }
+}

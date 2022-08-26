@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "강조 표시된 텍스트를 번역하고 번역을 사전에 저장합니다. 웹 페이지를 열면 임의의 사전 카드가 나타납니다.", 
+    "description": "App description"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Переведите выделенный текст и сохраните перевод в словаре. Случайная карточка словаря появляется при открытии веб-страницы.", 
+    "description": "App description"
+  }
+}

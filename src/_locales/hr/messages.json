@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Prevedite označeni tekst i spremite prijevod u rječnik. Nasumična kartica rječnika pojavljuje se kada otvorite web stranicu.", 
+    "description": "App description"
+  }
+}

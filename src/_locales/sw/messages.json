@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Tafsiri maandishi yaliyoangaziwa na uhifadhi tafsiri kwenye kamusi.Kadi ya kamusi nasibu inaonekana unapofungua ukurasa wa wavuti", 
+    "description":"App description"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "हायलाइट केलेला मजकूर अनुवादित करा आणि अनुवाद शब्दकोशात जतन करा. तुम्ही वेब पेज उघडता तेव्हा एक यादृच्छिक शब्दकोष कार्ड दिसते.", 
+    "description": "App description"
+  }
+}

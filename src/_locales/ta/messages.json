@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "தனிப்படுத்தப்பட்ட உரையை மொழிபெயர்த்து, மொழிபெயர்ப்பை அகராதியில் சேமிக்கவும்.", 
+    "description": "App description"
+  }
+}

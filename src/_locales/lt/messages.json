@@ -1,0 +1,10 @@
+{
+  "appName": {
+    "message": "Vocab",
+    "description": "Vocab"
+  },
+  "appDesc": {
+    "message": "Išverskite paryškintą tekstą ir išsaugokite vertimą žodyne. Atsitiktinė žodyno kortelė pasirodo atidarius tinklalapį.", 
+    "description": "App description"
+  }
+}
