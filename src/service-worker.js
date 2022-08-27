@@ -1,3 +1,5 @@
+(async () => {
+
 importScripts('common/constants.js', 'common/utils.js', 'background/translate-api.js');
 
 // TODO manifest V3 only support service worker in the root directory
@@ -6,10 +8,12 @@ const translateAPI = new TranslateAPI();
 let contextMenu = null;
 let contextMenuFrameId;
 
+const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+const { TARGET_LANG } = settings;
 if (!contextMenu) {
   contextMenu = chrome.contextMenus.create({
     id: CONTEXTMENU_TRANSLATE_ID,
-    title: 'Translate the selected text',
+    title: getI18NMessage(TARGET_LANG, 'sw_context_translate'),
     contexts: ['selection']
   });
 }
@@ -108,6 +112,26 @@ chrome.runtime.onInstalled.addListener(async (details) => {
   });
 });
 
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (namespace != 'local') {
+    return;
+  }
+  const changeKeys = Object.keys(changes);
+  if (changeKeys.length != 1 || changeKeys[0] != STORAGE_AREA.SETTINGS) {
+    return;
+  }
+  // settings changed
+  const newValue = changes[STORAGE_AREA.SETTINGS].newValue
+  if (!newValue || !newValue.TARGET_LANG) {
+    return;
+  }
+  const { TARGET_LANG } = newValue;
+  const contextTranslateTitle = getI18NMessage(TARGET_LANG, 'sw_context_translate');
+  chrome.contextMenus.update(CONTEXTMENU_TRANSLATE_ID, {title: contextTranslateTitle}, () => {
+    console.log(`context translate menu title updated as ${contextTranslateTitle}`);
+  });
+});
+
 chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
   const frameIds = [details.frameId];
   // run custom elements polyfill
@@ -120,3 +144,5 @@ chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
     files: [ 'content/content.js' ]
   });
 });
+
+})();
