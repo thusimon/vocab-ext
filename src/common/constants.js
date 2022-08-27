@@ -1,7 +1,6 @@
 const CONTEXTMENU_TRANSLATE_ID = 'CONTEXTMENU_TRANSLATE_ID';
 
 const TRANSLATE_ID = 'ea13eb3e-aeb5-11ea-b3de-0242ac130004';
-const TRANSLATE_IFRAME_ID = `${TRANSLATE_ID}-iframe`;
 const CARD_CSS_CHECK_TIMEOUT = 10000; // 10 seconds to get the triggering card element
 
 const STORAGE_AREA = {
@@ -20,21 +19,7 @@ const DEFAULT_SETTING = {
 
 const DOM_ID = {
   CONTAINER: `${TRANSLATE_ID}-vocab-container`,
-  TRANSLATE_IFRAME: `${TRANSLATE_ID}-vocab-translate`,
-  CARD_IFRAME: `${TRANSLATE_ID}-vocab-card`,
   TRANSLATE_MODAL: `${TRANSLATE_ID}-vocab-translate`
-};
-
-const FRAME_EVENT_TYPE = {
-  GET_TRANSLATION: `${DOM_ID.TRANSLATE_IFRAME}-getTranslation`,
-  GET_CARD: `${DOM_ID.CARD_IFRAME}-getCard`,
-  SEND_TRANSLATION: `${DOM_ID.TRANSLATE_IFRAME}-sendTranslation`,
-  SEND_CARD: `${DOM_ID.CARD_IFRAME}-sendCard`,
-  SET_TRANSLATION_SIZE: `${DOM_ID.TRANSLATE_IFRAME}-setSize`,
-  SET_CARD_SIZE: `${DOM_ID.CARD_IFRAME}-setSize`,
-  CLICK_ADD_BTN: `${DOM_ID.TRANSLATE_IFRAME}-clickAddBtn`,
-  CLOSE_TRANSLATE_MODAL: `${DOM_ID.TRANSLATE_IFRAME}-clickCloseBtn`,
-  CLOSE_CARD_MODAL: `${DOM_ID.CARD_IFRAME}-clickCloseBtn`
 };
 
 const RUNTIME_EVENT_TYPE = {
@@ -45,11 +30,53 @@ const RUNTIME_EVENT_TYPE = {
 };
 
 const I18Ns = {
+  ar: {
+    name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
+    ok: '\u0646\u0639\u0645',
+    cancel: '\u064A\u0644\u063A\u064A',
+    total: '\u0627\u0644\u0645\u062C\u0645\u0648\u0639',
+    sw_context_translate: '\u062A\u0631\u062C\u0645 \u0627\u0644\u0646\u0635',
+    stat_title: '\u0625\u062D\u0635\u0627\u0626\u064A\u0627\u062A',
+    stat_vocab_add_header: '\u0625\u062D\u0635\u0627\u0626\u064A\u0627\u062A \u0625\u0636\u0627\u0641\u0629 \u0645\u0641\u0631\u062F\u0627\u062A \u062C\u062F\u064A\u062F\u0629',
+    stat_this_week: '\u0647\u0630\u0627 \u0627\u0644\u0627\u0633\u0628\u0648\u0639',
+    stat_this_month: '\u0647\u0630\u0627 \u0627\u0644\u0634\u0647\u0631',
+    stat_this_quarter: '\u0647\u0630\u0627 \u0627\u0644\u0631\u0628\u0639',
+    stat_this_year: '\u0647\u0630\u0647 \u0627\u0644\u0633\u0646\u0629',
+    stat_all_data: '\u0643\u0644 \u0627\u0644\u0645\u0639\u0644\u0648\u0645\u0627\u062A',
+    popover_refresh_memory: '!\u0642\u0645 \u0628\u062A\u062D\u062F\u064A\u062B \u0630\u0627\u0643\u0631\u062A\u0643',
+    popover_view_your_vocab: '\u0639\u0631\u0636 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0627\u0644\u062E\u0627\u0635\u0629 \u0628\u0643',
+    popover_statistics: '\u0625\u062D\u0635\u0627\u0626\u064A\u0627\u062A',
+    popover_settings: '\u0625\u0639\u062F\u0627\u062F\u0627\u062A',
+    popover_version: '\u0625\u0635\u062F\u0627\u0631',
+    settings_title: '\u0625\u0639\u062F\u0627\u062F\u0627\u062A',
+    settings_save: '\u0627\u062D\u0641\u0638 \u0627\u0644\u0625\u0639\u062F\u0627\u062F\u0627\u062A',
+    settings_option: '\u062E\u064A\u0627\u0631',
+    settings_settings: '\u0625\u0639\u062F\u0627\u062F\u0627\u062A',
+    settings_src_lang: '\u0644\u063A\u0629 \u0627\u0644\u0645\u0635\u062F\u0631',
+    settings_tar_lang: '\u0644\u063A\u0629 \u0627\u0644\u0647\u062F\u0641',
+    settings_show_card: '\u0625\u0638\u0647\u0627\u0631 \u0628\u0637\u0627\u0642\u0629 \u0627\u0644\u0645\u0633\u0631\u062F',
+    settings_show_card_desp: '\u0623\u0638\u0647\u0631 \u0628\u0637\u0627\u0642\u0629 \u0642\u0627\u0645\u0648\u0633 \u0645\u0635\u0637\u0644\u062D\u0627\u062A \u0639\u0634\u0648\u0627\u0626\u064A\u0629 \u0641\u064A \u0643\u0644 \u0645\u0631\u0629 \u062A\u0641\u062A\u062D \u0641\u064A\u0647\u0627 \u0635\u0641\u062D\u0629 \u0648\u064A\u0628',
+    settings_card_timeout: '\u0645\u0647\u0644\u0629 \u0628\u0637\u0627\u0642\u0629 \u0645\u0633\u0631\u062F \u0627\u0644\u0645\u0635\u0637\u0644\u062D\u0627\u062A',
+    settings_card_timeout_desp: '\u0627\u0644\u0648\u0642\u062A (\u0628\u0627\u0644\u062B\u0648\u0627\u0646\u064A) \u0627\u0644\u0630\u064A \u062A\u0633\u062A\u0645\u0631 \u0641\u064A\u0647 \u0628\u0637\u0627\u0642\u0629 \u0627\u0644\u0645\u0633\u0631\u062F \u0639\u0644\u0649 \u0635\u0641\u062D\u0629 \u0627\u0644\u0648\u064A\u0628',
+    settings_ele_trigger: '\u0639\u0646\u0635\u0631 \u0645\u0634\u063A\u0644\u0627\u062A \u0627\u0644\u0628\u0637\u0627\u0642\u0627\u062A',
+    settings_ele_trigger_desp: '\u0645\u062D\u062F\u062F CSS \u0644\u0639\u0646\u0635\u0631 \u060C \u062A\u0638\u0647\u0631 \u0628\u0637\u0627\u0642\u0629 \u0627\u0644\u0645\u0635\u0637\u0644\u062D\u0627\u062A \u0639\u0646\u062F \u0627\u0644\u0646\u0642\u0631 \u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u0639\u0646\u0635\u0631 \u060C i.n. \u060C \u0627\u0644\u0634\u0639\u0627\u0631 \u0627\u0644\u0623\u064A\u0633\u0631 \u0627\u0644\u0639\u0644\u0648\u064A \u0639\u0644\u0649 YouTube: a#logo',
+    settings_detect_lang: '\u0644\u063A\u0629 \u0627\u0644\u0645\u062A\u0635\u0641\u062D \u0627\u0644\u062A\u064A \u062A\u0645 \u0627\u0643\u062A\u0634\u0627\u0641\u0647\u0627 "{}" \u060C \u064A\u0631\u062C\u0649 \u0627\u0644\u062A\u062D\u0642\u0642 \u062C\u064A\u062F\u064B\u0627 \u0648\u0627\u062E\u062A\u064A\u0627\u0631 \u0627\u0644\u0644\u063A\u0629 \u0627\u0644\u0647\u062F\u0641 \u0627\u0644\u0635\u062D\u064A\u062D\u0629',
+    vocab_title: '\u0645\u0641\u0631\u062F\u0627\u062A',
+    vocab_export_desp: '\u062A\u0635\u062F\u064A\u0631 \u062C\u0645\u064A\u0639 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0643\u0645\u0644\u0641 JSON',
+    vocab_import_desp: '\u0627\u0633\u062A\u064A\u0631\u0627\u062F \u0648\u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0645\u0646 \u0645\u0644\u0641 JSON \u060C \u0627\u0646\u062A\u0628\u0647: \u0633\u064A\u0624\u062F\u064A \u0630\u0644\u0643 \u0625\u0644\u0649 \u0627\u0633\u062A\u0628\u062F\u0627\u0644 \u062C\u0645\u064A\u0639 \u0645\u0641\u0631\u062F\u0627\u062A\u0643 \u0627\u0644\u062D\u0627\u0644\u064A\u0629',
+    vocab_edit_desp: '\u0642\u0645 \u0628\u062A\u062D\u0631\u064A\u0631 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0627\u0644\u0645\u062E\u062A\u0627\u0631\u0629',
+    vocab_delete_desp: '\u0627\u062D\u0630\u0641 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0627\u0644\u0645\u062E\u062A\u0627\u0631\u0629',
+    vocab_save_desp: '\u0627\u062D\u0641\u0638 \u062C\u0645\u064A\u0639 \u0627\u0644\u062A\u0639\u062F\u064A\u0644\u0627\u062A',
+    vocab_pronounce_desp: '\u0627\u0642\u0631\u0623 \u062C\u0645\u064A\u0639 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0648\u0627\u062D\u062F\u0629 \u062A\u0644\u0648 \u0627\u0644\u0623\u062E\u0631\u0649',
+    vocab_pronounce_msg: '\u0633\u062A\u062A\u0645 \u0642\u0631\u0627\u0621\u0629 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0628\u0635\u0648\u062A \u0639\u0627\u0644\u064D \u060C \u064A\u0631\u062C\u0649 \u0636\u0628\u0637 \u0645\u0633\u062A\u0648\u0649 \u0627\u0644\u0635\u0648\u062A',
+    vocab_pause_pronounce_desp: '\u062A\u0648\u0642\u0641 \u0639\u0646 \u0627\u0644\u0642\u0631\u0627\u0621\u0629',
+    vocab_search_desp: '\u0627\u0628\u062D\u062B \u0639\u0646 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A',
+    vocab_createdAt: '\u0623\u0646\u0634\u0626\u062A \u0641\u064A',
+    newtab_title: '\u0639\u0644\u0627\u0645\u0629 \u062A\u0628\u0648\u064A\u0628 \u062C\u062F\u064A\u062F\u0629',
+    newtab_no_vocab_msg: `\u0644\u0645 \u062A\u0642\u0645 \u0628\u0625\u0636\u0627\u0641\u0629 \u0623\u064A \u0645\u0641\u0631\u062F\u0627\u062A \u060C \u0627\u0633\u062A\u062E\u062F\u0645 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0633\u064A\u0627\u0642 \u0644\u062A\u0631\u062C\u0645\u062A\u0647\u0627 \u0648\u0625\u0636\u0627\u0641\u062A\u0647\u0627 :)`
+  },
   am: {
     name: '\u12A0\u121B\u122D\u129B'
-  },
-  ar: {
-    name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629'
   },
   bg: {
     name: '\u0431\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438'
@@ -101,17 +128,17 @@ const I18Ns = {
     settings_card_timeout: 'Glossary card timeout',
     settings_card_timeout_desp: 'The time (seconds) that glossary card persists on a web page',
     settings_ele_trigger: 'Element triggers cards',
-    settings_ele_trigger_desp: 'css selector of an element, glossary card shows when that element is clicked, e.g, the upperleft logo on YouTube: a#logo',
+    settings_ele_trigger_desp: 'CSS selector of an element, glossary card shows when that element is clicked, e.g., the upper left logo on YouTube: a#logo',
     settings_detect_lang: 'Detected browser language "{}", please double check and choose the correct target language',
     vocab_title: 'Vocabulary',
-    vocab_export_desp: 'Export all the vocabularies as a json file',
-    vocab_import_desp: 'Import and update vocabularies from a json file, Attention: this will overwrite all your current vocabularies',
+    vocab_export_desp: 'Export all the vocabularies as a JSON file',
+    vocab_import_desp: 'Import and update vocabularies from a JSON file, Attention: this will overwrite all your current vocabularies',
     vocab_edit_desp: 'Edit the selected vocabulary',
     vocab_delete_desp: 'Delete the selected vocabulary',
     vocab_save_desp: 'Save all the modifications',
-    vocab_pronounce_desp: 'Pronounce all the vocabularies one by one',
-    vocab_pronounce_msg: 'Vocabularies will be read aloud, please adjust the volumn',
-    vocab_pause_pronounce_desp: 'Pause the pronounce',
+    vocab_pronounce_desp: 'Read all the vocabularies one by one',
+    vocab_pronounce_msg: 'Vocabularies will be read aloud, please adjust the volume',
+    vocab_pause_pronounce_desp: 'Pause the reading',
     vocab_search_desp: 'Search vocabulary',
     vocab_createdAt: 'Created at',
     newtab_title: 'New Tab',
