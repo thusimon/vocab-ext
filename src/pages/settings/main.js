@@ -38,12 +38,18 @@ const headerOptionE = document.getElementById('header-option');
 const headerSettingsE = document.getElementById('header-settings');
 const sourceLangLabelE = document.getElementById('source-language-label');
 const targetLangLabelE = document.getElementById('target-language-label');
+const uiLangLabelE = document.getElementById('ui-language-label');
 const sourceLangE = document.getElementById('source-language');
 const targetLangE = document.getElementById('target-language');
+const uiLangE = document.getElementById('ui-language');
 const sourceLangOpts = createComboBox('source-lang-opt', I18Ns);
 const targetLangOpts = createComboBox('target-lang-opt', I18Ns);
+const uiLangOpts = createComboBox('ui-lang-opt', I18Ns);
 sourceLangE.append(sourceLangOpts);
 targetLangE.append(targetLangOpts);
+uiLangE.append(uiLangOpts);
+const uitarLangSameE = document.getElementById('ui-tar-lang-same-chkbox');
+const uitarLangSameLabelE = document.getElementById('ui-tar-lang-same-chkbox-label');
 const enableCardLabelE = document.getElementById('glossary-card-label');
 const enableCardE = document.getElementById('glossary-card-chkbox');
 const enableCardCheckLabelE = document.getElementById('glossary-card-chkbox-label');
@@ -58,33 +64,45 @@ const toasterBtns = document.getElementById('toaster-buttons');
 const toasterOKBtn = document.getElementById('toaster-ok');
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+if (settings.UI_TAREGT_LANG_SAME) {
+  settings.UI_LANG = settings.TARGET_LANG
+}
 
 const render = settings => {
-  const {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = settings;
-  saveBtnE.title = getI18NMessage(TARGET_LANG, 'settings_save');
-  headerOptionE.textContent = getI18NMessage(TARGET_LANG, 'settings_option');
-  headerSettingsE.textContent = getI18NMessage(TARGET_LANG, 'settings_settings');
-  sourceLangLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_src_lang');
-  targetLangLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_tar_lang');
+  const {SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = settings;
+  saveBtnE.title = getI18NMessage(UI_LANG, 'settings_save');
+  headerOptionE.textContent = getI18NMessage(UI_LANG, 'settings_option');
+  headerSettingsE.textContent = getI18NMessage(UI_LANG, 'settings_settings');
+  sourceLangLabelE.textContent = getI18NMessage(UI_LANG, 'settings_src_lang');
+  targetLangLabelE.textContent = getI18NMessage(UI_LANG, 'settings_tar_lang');
+  uiLangLabelE.textContent = getI18NMessage(UI_LANG, 'settings_ui_lang');
   sourceLangOpts.value = SOURCE_LANG;
   targetLangOpts.value = TARGET_LANG;
-  enableCardLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_show_card');
+  uiLangOpts.value = UI_LANG;
+  if (UI_TAREGT_LANG_SAME) {
+    uiLangOpts.classList.add('no-display');
+  } else {
+    uiLangOpts.classList.remove('no-display');
+  }
+  uitarLangSameE.checked = UI_TAREGT_LANG_SAME;
+  uitarLangSameLabelE.textContent = getI18NMessage(UI_LANG, 'settings_ui_tar_same');
+  enableCardLabelE.textContent = getI18NMessage(UI_LANG, 'settings_show_card');
   enableCardE.checked = ENABLE_CARD;
-  enableCardCheckLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_show_card_desp');
-  cardTimeLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_card_timeout');
+  enableCardCheckLabelE.textContent = getI18NMessage(UI_LANG, 'settings_show_card_desp');
+  cardTimeLabelE.textContent = getI18NMessage(UI_LANG, 'settings_card_timeout');
   cardTimeE.value = CARD_TIME;
   if (ENABLE_CARD) {
     cardTimeE.disabled = false;
   } else {
     cardTimeE.disabled = true;
   }
-  cardTimeDespE.textContent = getI18NMessage(TARGET_LANG, 'settings_card_timeout_desp');
-  cardTriggerLabelE.textContent = getI18NMessage(TARGET_LANG, 'settings_ele_trigger');
+  cardTimeDespE.textContent = getI18NMessage(UI_LANG, 'settings_card_timeout_desp');
+  cardTriggerLabelE.textContent = getI18NMessage(UI_LANG, 'settings_ele_trigger');
   cardTriggerE.value = CARD_TRIGGER_CSS;
-  cardTriggerE.placeholder = getI18NMessage(TARGET_LANG, 'settings_ele_trigger_desp');
-  cardTriggerE.title = getI18NMessage(TARGET_LANG, 'settings_ele_trigger_desp');
-  toasterOKBtn.textContent = getI18NMessage(TARGET_LANG, 'ok');
-  document.title = getI18NMessage(TARGET_LANG, 'settings_title');
+  cardTriggerE.placeholder = getI18NMessage(UI_LANG, 'settings_ele_trigger_desp');
+  cardTriggerE.title = getI18NMessage(UI_LANG, 'settings_ele_trigger_desp');
+  toasterOKBtn.textContent = getI18NMessage(UI_LANG, 'ok');
+  document.title = getI18NMessage(UI_LANG, 'settings_title');
 };
 
 const showToaster = (msg, type='info', needConsent=false) => {
@@ -107,11 +125,22 @@ const showToaster = (msg, type='info', needConsent=false) => {
 saveBtnE.addEventListener('click', async () => {
   const SOURCE_LANG = sourceLangOpts.value;
   const TARGET_LANG = targetLangOpts.value;
+  const UI_LANG = uiLangOpts.value;
+  const UI_TAREGT_LANG_SAME = uitarLangSameE.checked;
   const ENABLE_API = false;
   const ENABLE_CARD = enableCardE.checked;
   const CARD_TIME = cardTimeE.value;
   const CARD_TRIGGER_CSS = cardTriggerE.value;
-  await storageSetP(STORAGE_AREA.SETTINGS, {SOURCE_LANG, TARGET_LANG, ENABLE_API, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS});
+  await storageSetP(STORAGE_AREA.SETTINGS, {
+    SOURCE_LANG,
+    TARGET_LANG,
+    UI_LANG,
+    UI_TAREGT_LANG_SAME,
+    ENABLE_API,
+    ENABLE_CARD,
+    CARD_TIME,
+    CARD_TRIGGER_CSS
+  });
   isModified = false;
   window.close();
 });
@@ -122,6 +151,10 @@ sourceLangOpts.addEventListener('change', () => {
 
 targetLangOpts.addEventListener('change', () => {
   isModified = true;
+  const uitarLangSame = uitarLangSameE.checked;
+  if (!uitarLangSame) {
+    return;
+  }
   const SOURCE_LANG = sourceLangOpts.value;
   const TARGET_LANG = targetLangOpts.value;
   const ENABLE_CARD = enableCardE.checked;
@@ -130,10 +163,44 @@ targetLangOpts.addEventListener('change', () => {
   render({
     SOURCE_LANG,
     TARGET_LANG,
+    UI_LANG: TARGET_LANG,
+    UI_TAREGT_LANG_SAME: true,
     ENABLE_CARD,
     CARD_TIME,
     CARD_TRIGGER_CSS
   });
+});
+
+uiLangOpts.addEventListener('change', () => {
+  isModified = true;
+  const uitarLangSame = uitarLangSameE.checked;
+  if (uitarLangSame) {
+    return;
+  }
+  const SOURCE_LANG = sourceLangOpts.value;
+  const TARGET_LANG = targetLangOpts.value;
+  const UI_LANG = uiLangOpts.value;
+  const ENABLE_CARD = enableCardE.checked;
+  const CARD_TIME = cardTimeE.value;
+  const CARD_TRIGGER_CSS = cardTriggerE.value;
+  render({
+    SOURCE_LANG,
+    TARGET_LANG,
+    UI_LANG,
+    UI_TAREGT_LANG_SAME: false,
+    ENABLE_CARD,
+    CARD_TIME,
+    CARD_TRIGGER_CSS
+  });
+});
+
+uitarLangSameE.addEventListener('change', evt => {
+  isModified = true;
+  if (evt.target.checked) {
+    uiLangOpts.classList.add('no-display');
+  } else {
+    uiLangOpts.classList.remove('no-display');
+  }
 });
 
 enableCardE.addEventListener('change', evt => {
@@ -174,6 +241,8 @@ if (url.searchParams.get('install') === 'new') {
   toasterOKBtn.textContent = getI18NMessage(closestLang, 'ok');
   showToaster(toasterMsg, 'info', true);
   settings.TARGET_LANG = closestLang;
+  settings.UI_LANG = closestLang;
+  storageSetP(STORAGE_AREA.SETTINGS, settings);
 }
 
 render(settings);

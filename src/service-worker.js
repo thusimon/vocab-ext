@@ -9,11 +9,12 @@ let contextMenu = null;
 let contextMenuFrameId;
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-const { TARGET_LANG } = settings;
+const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
+const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 if (!contextMenu) {
   contextMenu = chrome.contextMenus.create({
     id: CONTEXTMENU_TRANSLATE_ID,
-    title: getI18NMessage(TARGET_LANG, 'sw_context_translate'),
+    title: getI18NMessage(uiLang, 'sw_context_translate'),
     contexts: ['selection']
   });
 }
@@ -125,8 +126,9 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   if (!newValue || !newValue.TARGET_LANG) {
     return;
   }
-  const { TARGET_LANG } = newValue;
-  const contextTranslateTitle = getI18NMessage(TARGET_LANG, 'sw_context_translate');
+  const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = newValue;
+  const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
+  const contextTranslateTitle = getI18NMessage(uiLang, 'sw_context_translate');
   chrome.contextMenus.update(CONTEXTMENU_TRANSLATE_ID, {title: contextTranslateTitle}, () => {
     console.log(`context translate menu title updated as ${contextTranslateTitle}`);
   });

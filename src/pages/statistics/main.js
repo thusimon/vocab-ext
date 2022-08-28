@@ -1,12 +1,13 @@
 (async () => {
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-const {TARGET_LANG} = settings;
+const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
+const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 
 const controllerE = document.getElementById('statistics-controller');
 const chartE = document.getElementById('statistics-charts');
 
-const chartTitle = getI18NMessage(TARGET_LANG, 'stat_vocab_add_header');
+const chartTitle = getI18NMessage(uiLang, 'stat_vocab_add_header');
 const dataOptionWeekE = document.getElementById('data-source-option-week');
 const dataOptionMonthE = document.getElementById('data-source-option-month');
 const dataOptionQuarterE = document.getElementById('data-source-option-quarter');
@@ -14,12 +15,12 @@ const dataOptionYearE = document.getElementById('data-source-option-year');
 const dataOptionAllE = document.getElementById('data-source-option-all');
 
 
-dataOptionWeekE.text = getI18NMessage(TARGET_LANG, 'stat_this_week');
-dataOptionMonthE.text = getI18NMessage(TARGET_LANG, 'stat_this_month');
-dataOptionQuarterE.text = getI18NMessage(TARGET_LANG, 'stat_this_quarter');
-dataOptionYearE.text = getI18NMessage(TARGET_LANG, 'stat_this_year');
-dataOptionAllE.text = getI18NMessage(TARGET_LANG, 'stat_all_data');
-document.title = getI18NMessage(TARGET_LANG, 'stat_title');
+dataOptionWeekE.text = getI18NMessage(uiLang, 'stat_this_week');
+dataOptionMonthE.text = getI18NMessage(uiLang, 'stat_this_month');
+dataOptionQuarterE.text = getI18NMessage(uiLang, 'stat_this_quarter');
+dataOptionYearE.text = getI18NMessage(uiLang, 'stat_this_year');
+dataOptionAllE.text = getI18NMessage(uiLang, 'stat_all_data');
+document.title = getI18NMessage(uiLang, 'stat_title');
 
 const ONE_DAY_MS = 24*3600*1000;
 

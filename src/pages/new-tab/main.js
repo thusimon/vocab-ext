@@ -70,8 +70,10 @@ readBtnE.addEventListener('click', () => {
 });
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-sourceLang = settings.SOURCE_LANG;
-targetLang = settings.TARGET_LANG;
+const { SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
+sourceLang = SOURCE_LANG;
+targetLang = TARGET_LANG;
+const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 
 const vocabs = await getVocabs(sourceLang, targetLang);
 randomVocab = getRandomVocabulary(vocabs);
@@ -82,10 +84,10 @@ if (randomVocab) {
 } else {
   vocabDisplayE.style.display = 'none';
   vocabWelcomeE.style.display = 'block';
-  vocabWelcomeE.textContent = getI18NMessage(targetLang, 'newtab_no_vocab_msg');
+  vocabWelcomeE.textContent = getI18NMessage(uiLang, 'newtab_no_vocab_msg');
 }
-totalCountLabelE.textContent = getI18NMessage(targetLang, 'total');
+totalCountLabelE.textContent = getI18NMessage(uiLang, 'total');
 totalCountE.textContent = Object.keys(vocabs).length;
-document.title = getI18NMessage(targetLang, 'newtab_title');
+document.title = getI18NMessage(uiLang, 'newtab_title');
 
 })()

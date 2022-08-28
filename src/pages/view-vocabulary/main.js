@@ -64,24 +64,26 @@ const createTableRow = (vocab, idx) => {
 }
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-const {SOURCE_LANG, TARGET_LANG} = settings;
-document.title = getI18NMessage(TARGET_LANG, 'vocab_title');
-srcLangE.textContent = getI18NMessage(SOURCE_LANG, 'name');
-tarLangE.textContent = getI18NMessage(TARGET_LANG, 'name');
-createdAtE.textContent = getI18NMessage(TARGET_LANG, 'vocab_createdAt');
+const {SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
+const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 
-toasterOKBtn.textContent = getI18NMessage(TARGET_LANG, 'ok');
-toasterCancelBtn.textContent = getI18NMessage(TARGET_LANG, 'cancel');
+document.title = getI18NMessage(uiLang, 'vocab_title');
+srcLangE.textContent = getI18NMessage(uiLang, 'name');
+tarLangE.textContent = getI18NMessage(uiLang, 'name');
+createdAtE.textContent = getI18NMessage(uiLang, 'vocab_createdAt');
 
-exportBtn.title = getI18NMessage(TARGET_LANG, 'vocab_export_desp');
-importBtn.title = getI18NMessage(TARGET_LANG, 'vocab_import_desp');
-editBtn.title = getI18NMessage(TARGET_LANG, 'vocab_edit_desp');
-deleteBtn.title = getI18NMessage(TARGET_LANG, 'vocab_delete_desp');
-saveBtn.title = getI18NMessage(TARGET_LANG, 'vocab_save_desp');
-readBtn.title = getI18NMessage(TARGET_LANG, 'vocab_pronounce_desp');
-pauseReadBtn.title = getI18NMessage(TARGET_LANG, 'vocab_pause_pronounce_desp');
-searchField.placeholder = getI18NMessage(TARGET_LANG, 'vocab_search_desp');
-countLabelE.textContent = getI18NMessage(TARGET_LANG, 'total');
+toasterOKBtn.textContent = getI18NMessage(uiLang, 'ok');
+toasterCancelBtn.textContent = getI18NMessage(uiLang, 'cancel');
+
+exportBtn.title = getI18NMessage(uiLang, 'vocab_export_desp');
+importBtn.title = getI18NMessage(uiLang, 'vocab_import_desp');
+editBtn.title = getI18NMessage(uiLang, 'vocab_edit_desp');
+deleteBtn.title = getI18NMessage(uiLang, 'vocab_delete_desp');
+saveBtn.title = getI18NMessage(uiLang, 'vocab_save_desp');
+readBtn.title = getI18NMessage(uiLang, 'vocab_pronounce_desp');
+pauseReadBtn.title = getI18NMessage(uiLang, 'vocab_pause_pronounce_desp');
+searchField.placeholder = getI18NMessage(uiLang, 'vocab_search_desp');
+countLabelE.textContent = getI18NMessage(uiLang, 'total');
 
 const sortVocabs = (vocabs, criteria, ascending) => {
   const keys = Object.keys(vocabs);
@@ -314,7 +316,7 @@ deleteBtn.addEventListener('click', () => {
 readBtn.addEventListener('click', () => {
   if (!toasterOKCallback) {
     toasterOKCallback = readAllVocabs;
-    showToaster(getI18NMessage(TARGET_LANG, 'vocab_pronounce_msg'), 'info', true);
+    showToaster(getI18NMessage(uiLang, 'vocab_pronounce_msg'), 'info', true);
   } else {
     // already notified user
     isPaused = !isPaused;
