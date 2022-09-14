@@ -1,4 +1,9 @@
+import {getTranslateUri} from '../common/utils';
+
 class TranslateAPI {
+  reqUriBase: string;
+  API_KEY: string;
+  reqUriFreeBase: string;
   constructor() {
     this.API_KEY = 'API-KEY-TO-REPLACE';
     this.reqUriBase = 'https://translation.googleapis.com/language/translate/v2';
@@ -21,7 +26,7 @@ class TranslateAPI {
       var op2 = opString[0];	//	'+' | '^' ~ SLL | SRL
       var xd = opString[2];	//	[0-9a-f]
   
-      var shiftAmount = hexCharAsNumber(xd);
+      var shiftAmount = this.hexCharAsNumber(xd);
       var mask = (op1 == '+') ? acc >>> shiftAmount : acc << shiftAmount;
       return (op2 == '+') ? (acc + mask & 0xffffffff) : (acc ^ mask);
     }, num);
@@ -32,7 +37,7 @@ class TranslateAPI {
   }
   
   transformQuery(query) {
-    for (var e = [], f = 0, g = 0; g < query.length; g++) {
+    for (var e: any = [], f = 0, g = 0; g < query.length; g++) {
       var l = query.charCodeAt(g);
       if (l < 128) {
         e[f++] = l;					//	0{l[6-0]}
@@ -63,7 +68,7 @@ class TranslateAPI {
   
   calcHash(query, windowTkk) {
     //	STEP 1: spread the the query char codes on a byte-array, 1-3 bytes per char
-    var bytesArray = transformQuery(query);
+    var bytesArray = this.transformQuery(query);
   
     //	STEP 2: starting with TKK index, add the array from last step one-by-one, and do 2 rounds of shift+add/xor
     var d = windowTkk.split('.');
@@ -72,14 +77,14 @@ class TranslateAPI {
   
     var encondingRound1 = bytesArray.reduce((acc, current) => {
       acc += current;
-      return shiftLeftOrRightThenSumOrXor(acc, ['+-a', '^+6'])
+      return this.shiftLeftOrRightThenSumOrXor(acc, ['+-a', '^+6'])
     }, tkkIndex);
   
     //	STEP 3: apply 3 rounds of shift+add/xor and XOR with they TKK key
-    var encondingRound2 = shiftLeftOrRightThenSumOrXor(encondingRound1, ['+-3', '^+b', '+-f']) ^ tkkKey;
+    var encondingRound2 = this.shiftLeftOrRightThenSumOrXor(encondingRound1, ['+-3', '^+b', '+-f']) ^ tkkKey;
   
     //	STEP 4: Normalize to 2s complement & format
-    var normalizedResult = normalizeHash(encondingRound2);
+    var normalizedResult = this.normalizeHash(encondingRound2);
   
     return normalizedResult.toString() + "." + (normalizedResult ^ tkkIndex)
   }
@@ -118,7 +123,7 @@ class TranslateAPI {
       translit = sentences[1].translit;
       src_translit = sentences[1].src_translit;
     }
-    let dictResult = [];
+    let dictResult: any = [];
     if (dict) {
       dict.forEach(d=>{
         dictResult.push({
@@ -143,3 +148,5 @@ class TranslateAPI {
     };
   }
 }
+
+export default TranslateAPI;

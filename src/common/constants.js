@@ -1,14 +1,14 @@
-const CONTEXTMENU_TRANSLATE_ID = 'CONTEXTMENU_TRANSLATE_ID';
+export const CONTEXTMENU_TRANSLATE_ID = 'CONTEXTMENU_TRANSLATE_ID';
 
-const TRANSLATE_ID = 'ea13eb3e-aeb5-11ea-b3de-0242ac130004';
-const CARD_CSS_CHECK_TIMEOUT = 10000; // 10 seconds to get the triggering card element
+export const TRANSLATE_ID = 'ea13eb3e-aeb5-11ea-b3de-0242ac130004';
+export const CARD_CSS_CHECK_TIMEOUT = 10000; // 10 seconds to get the triggering card element
 
-const STORAGE_AREA = {
+export const STORAGE_AREA = {
   VOCAB: 'VOCAB',
   SETTINGS: 'SETTINGS'
 };
 
-const DEFAULT_SETTING = {
+export const DEFAULT_SETTING = {
   SOURCE_LANG: 'en',
   TARGET_LANG: 'en',
   UI_LANG: 'en',
@@ -19,19 +19,19 @@ const DEFAULT_SETTING = {
   CARD_TRIGGER_CSS: ''
 };
 
-const DOM_ID = {
+export const DOM_ID = {
   CONTAINER: `${TRANSLATE_ID}-vocab-container`,
   TRANSLATE_MODAL: `${TRANSLATE_ID}-vocab-translate`
 };
 
-const RUNTIME_EVENT_TYPE = {
+export const RUNTIME_EVENT_TYPE = {
   LOAD_TRANSLATION: 'loadTranslation',
   GET_TRANSLATION: 'getTranslation',
   ERROR_TRANSLATION: 'errorTranslation',
   CARD_TRANSLATION: 'cardTranslation'
 };
 
-const I18Ns = {
+export const I18Ns = {
   ar: {
     name: '\u0627\u0644\u0639\u0631\u0628\u064a\u0629',
     ok: '\u0646\u0639\u0645',
@@ -2478,7 +2478,7 @@ const I18Ns = {
   }
 };
 
-const LangCodeMapping = {
+export const LangCodeMapping = {
   zh: 'zh-CN',
   zh_tw: 'zh-TW'
 };

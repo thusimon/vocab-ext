@@ -1,4 +1,6 @@
-const storageGetP = (key, defaultValue) => {
+import { I18Ns } from "./constants";
+
+export const storageGetP = (key, defaultValue) => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(key, (value) => {
       let storageValue;
@@ -13,7 +15,7 @@ const storageGetP = (key, defaultValue) => {
   });
 };
 
-const storageSetP = (key, value) => {
+export const storageSetP = (key, value) => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.set({[key]: value}, () => {
       resolve();
@@ -21,13 +23,13 @@ const storageSetP = (key, value) => {
   });
 };
 
-const removeAllChildNodes = (parent) => {
+export const removeAllChildNodes = (parent) => {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
 };
 
-const getI18NMessage = (lang, key) => {
+export const getI18NMessage = (lang, key) => {
   const engKeys = I18Ns.en;
   const langKeys = I18Ns[lang] ? I18Ns[lang] : engKeys
   if (langKeys[key]) {
@@ -39,18 +41,18 @@ const getI18NMessage = (lang, key) => {
   return `i18n_error[${lang}-${key}]`;
 };
 
-const getTranslateUri = (base, params) => {
+export const getTranslateUri = (base, params) => {
   return `${base}?${new URLSearchParams(params)}`;
 };
 
-const formatString = (message, ...params) => {
+export const formatString = (message, ...params) => {
   params.forEach(param => {
     message = message.replace('{}', param);
   });
   return message;
 };
 
-const debounce = (func, timeout = 200) => {
+export const debounce = (func, timeout = 200) => {
   let timer;
   return (...args) => {
     clearTimeout(timer);

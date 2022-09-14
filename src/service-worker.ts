@@ -1,11 +1,14 @@
-(async () => {
+import TranslateAPI from './background/translate-api';
+import {STORAGE_AREA, DEFAULT_SETTING, CONTEXTMENU_TRANSLATE_ID, RUNTIME_EVENT_TYPE, LangCodeMapping} from './common/constants';
+import {storageGetP, storageSetP, getTranslateUri, getI18NMessage} from './common/utils';
 
-importScripts('common/constants.js', 'common/utils.js', 'background/translate-api.js');
+
+(async () => {
 
 // TODO manifest V3 only support service worker in the root directory
 const translateAPI = new TranslateAPI();
 
-let contextMenu = null;
+let contextMenu;
 let contextMenuFrameId;
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
@@ -22,12 +25,12 @@ if (!contextMenu) {
 const translateInternal = async (text, sourceLang, targetLang, enableAPI) => {
   const translateRes = enableAPI
     ? await translateAPI.translate(text, sourceLang, targetLang, 'text')
-    : await translateAPI.translateFree(encodeURIComponent(text), sourceLang, targetLang, 'text');
+    : await translateAPI.translateFree(encodeURIComponent(text), sourceLang, targetLang);
   return translateRes;
 }
 
-const sendMessageToCurrentTab = async (tabId, frameId, type, data) => {
-  const options = {};
+const sendMessageToCurrentTab = async (tabId: number, frameId: number, type, data = {}) => {
+  const options:any = {};
   if (Number.isInteger(frameId)) {
     options.frameId = frameId;
   } else {
@@ -37,7 +40,7 @@ const sendMessageToCurrentTab = async (tabId, frameId, type, data) => {
     return await chrome.tabs.sendMessage(tabId, {type, data}, options);
   } else {
     const tabs = await chrome.tabs.query({ currentWindow: true, active : true});
-    if (tabs && tabs[0]) {
+    if (tabs && tabs[0] && typeof tabs[0].id != 'undefined') {
       return await chrome.tabs.sendMessage(tabs[0].id, {type, data}, options);
     }
   }
@@ -52,7 +55,7 @@ const onTranslateClick = async (info, tab) => {
     const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings;
     try {
       await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.LOAD_TRANSLATION);
-      translateRes = await translateInternal(q, SOURCE_LANG, TARGET_LANG, ENABLE_API);
+      const translateRes = await translateInternal(q, SOURCE_LANG, TARGET_LANG, ENABLE_API);
       await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.GET_TRANSLATION, translateRes);
     } catch (e) {
       console.log(`Error: ${e.message}`);

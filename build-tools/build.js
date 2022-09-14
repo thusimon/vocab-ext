@@ -1,5 +1,6 @@
 const fsp = require('fs').promises;
 const path = require('path');
+const swc = require("@swc/core");
 
 const itemExists = async (src) => {
   try {
@@ -43,28 +44,78 @@ const copyFiles = async (src, dest, excludes = []) => {
   await fsp.mkdir(buildPath);
 
   // copy the existing files:
-  await copyFiles(path.join(dir, '../src'), buildPath, [`content${path.sep}content.js`]);
+  await copyFiles(path.join(dir, '../src'), buildPath, ['.js', '.ts']);
   await fsp.rename(path.join(buildPath, 'src'), buildExtPath);
 
+
   // read all files
-  const constantsScript = await fsp.readFile(path.join(dir, '../src/common/constants.js'), 'utf8');
-  const utilsScript = await fsp.readFile(path.join(dir, '../src/common/utils.js'), 'utf8');
-  const contentScript = await fsp.readFile(path.join(dir, '../src/content/content.js'), 'utf8');
-  let contentFinalScript = await fsp.readFile(path.join(dir, 'content-template.js'), 'utf8');
+  // const constantsScript = await fsp.readFile(path.join(dir, '../src/common/constants.js'), 'utf8');
+  // const utilsScript = await fsp.readFile(path.join(dir, '../src/common/utils.js'), 'utf8');
+  // const contentScript = await fsp.readFile(path.join(dir, '../src/content/content.js'), 'utf8');
+  // let contentFinalScript = await fsp.readFile(path.join(dir, 'content-template.js'), 'utf8');
 
   // combine as content.js
-  contentFinalScript = contentFinalScript.replace('CONSTANTS_SCRIPT_TO_REPLACE', constantsScript)
-    .replace('UTILS_SCRIPT_TO_REPLACE', utilsScript)
-    .replace('CONTENT_SCRIPT_TO_REPLACE', contentScript);
+  // contentFinalScript = contentFinalScript.replace('CONSTANTS_SCRIPT_TO_REPLACE', constantsScript)
+  //   .replace('UTILS_SCRIPT_TO_REPLACE', utilsScript)
+  //   .replace('CONTENT_SCRIPT_TO_REPLACE', contentScript);
 
-  await fsp.writeFile(path.join(buildExtPath, '/content/content.js'), contentFinalScript, 'utf8');
+  // await fsp.writeFile(path.join(buildExtPath, '/content/content.js'), contentFinalScript, 'utf8');
 
   // replace the API token
-  const env = await fsp.readFile(path.join(dir, '.env'), 'utf8');
-  const API_KEY = env.match(/^API-KEY-TO-REPLACE:(\S+)/)[1];
-  const translateAPIScriptPath = path.join(buildExtPath, 'background/translate-api.js');
-  let translateAPIScript = await fsp.readFile(translateAPIScriptPath, 'utf8');
-  translateAPIScript = translateAPIScript.replace('API-KEY-TO-REPLACE', API_KEY);
-  await fsp.writeFile(translateAPIScriptPath, translateAPIScript, 'utf8');
+  // const env = await fsp.readFile(path.join(dir, '.env'), 'utf8');
+  // const API_KEY = env.match(/^API-KEY-TO-REPLACE:(\S+)/)[1];
+  // const translateAPIScriptPath = path.join(buildExtPath, 'background/translate-api.js');
+  // let translateAPIScript = await fsp.readFile(translateAPIScriptPath, 'utf8');
+  // translateAPIScript = translateAPIScript.replace('API-KEY-TO-REPLACE', API_KEY);
+  // await fsp.writeFile(translateAPIScriptPath, translateAPIScript, 'utf8');
 
+  const devConfig = {
+    target: 'browser',
+    options: {
+      minify: {
+        "compress": {
+          "unused": false
+        }
+      },
+      jsc: {
+        target: 'es2015'
+      }
+    }
+  }
+  const prodConfig = {
+    target: 'browser',
+    options: {
+      minify: true,
+      jsc: {
+        target: 'es2015'
+      }
+    }
+  }
+  const result = await swc.bundle({
+    entry: {
+      'background/translate-api': './src/background/translate-api.ts',
+      'service-worker': './src/service-worker.ts'
+    },
+    mode: 'production',
+    target: 'browser',
+    options: {
+      minify: true,
+      jsc: {
+        target: 'es5',
+        minify: {
+          compress: {
+            unused: true,
+          }
+        }
+      }
+    }
+  });
+  console.log(Object.keys(result));
+
+  Object.keys(result).forEach(file => {
+    fsp.writeFile(`build/vocab-ext/${file}.js`, result[file].code);
+    console.log(result[file].map)
+  });
+
+  //console.log(result['service-worker'])
 })()
