@@ -1,14 +1,22 @@
-(async () => {
+import {
+  STORAGE_AREA, DEFAULT_SETTING
+} from '../../common/constants';
+import {
+  storageGetP, getI18NMessage
+} from '../../common/utils';
 
-const vocabDisplayE = document.getElementById('vocab-display');
-const vocabWelcomeE = document.getElementById('no-vocab');
-const refreshBtnE = document.getElementById('refresh-btn');
-const originalVocabE = document.getElementById('vocab-original');
-const dictE = document.getElementById('dict');
-const translationE = document.getElementById('translation');
-const totalCountLabelE = document.getElementById('total-vocab-label');
-const totalCountE = document.getElementById('total-vocab-count');
-const readBtnE = document.getElementById('read-vocab-button');
+(async () => {
+const I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+
+const vocabDisplayE = document.getElementById('vocab-display')!;
+const vocabWelcomeE = document.getElementById('no-vocab')!;
+const refreshBtnE = document.getElementById('refresh-btn')!;
+const originalVocabE = document.getElementById('vocab-original')!;
+const dictE = document.getElementById('dict')!;
+const translationE = document.getElementById('translation')!;
+const totalCountLabelE = document.getElementById('total-vocab-label')!;
+const totalCountE = document.getElementById('total-vocab-count')!;
+const readBtnE = document.getElementById('read-vocab-button')!;
 
 const getVocabs = async (sourceLang, targetLang) => {
   const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
@@ -84,10 +92,10 @@ if (randomVocab) {
 } else {
   vocabDisplayE.style.display = 'none';
   vocabWelcomeE.style.display = 'block';
-  vocabWelcomeE.textContent = getI18NMessage(uiLang, 'newtab_no_vocab_msg');
+  vocabWelcomeE.textContent = getI18NMessage(I18Ns, uiLang, 'newtab_no_vocab_msg');
 }
-totalCountLabelE.textContent = getI18NMessage(uiLang, 'total');
-totalCountE.textContent = Object.keys(vocabs).length;
-document.title = getI18NMessage(uiLang, 'newtab_title');
+totalCountLabelE.textContent = getI18NMessage(I18Ns, uiLang, 'total');
+totalCountE.textContent = `${Object.keys(vocabs).length}`;
+document.title = getI18NMessage(I18Ns, uiLang, 'newtab_title');
 
 })()

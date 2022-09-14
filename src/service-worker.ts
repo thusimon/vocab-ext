@@ -1,7 +1,17 @@
 import TranslateAPI from './background/translate-api';
-import {STORAGE_AREA, DEFAULT_SETTING, CONTEXTMENU_TRANSLATE_ID, RUNTIME_EVENT_TYPE, LangCodeMapping} from './common/constants';
-import {storageGetP, storageSetP, getTranslateUri, getI18NMessage} from './common/utils';
+import {
+  STORAGE_AREA, DEFAULT_SETTING, CONTEXTMENU_TRANSLATE_ID, RUNTIME_EVENT_TYPE,
+  LangCodeMapping, I18Ns
+} from './common/constants';
+import {
+  storageGetP, storageSetP, getTranslateUri, getI18NMessage
+} from './common/utils';
 
+interface SettingsType {
+  SOURCE_LANG: string;
+  TARGET_LANG: string;
+  ENABLE_API: boolean;
+}
 
 (async () => {
 
@@ -17,7 +27,7 @@ const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 if (!contextMenu) {
   contextMenu = chrome.contextMenus.create({
     id: CONTEXTMENU_TRANSLATE_ID,
-    title: getI18NMessage(uiLang, 'sw_context_translate'),
+    title: getI18NMessage(I18Ns, uiLang, 'sw_context_translate'),
     contexts: ['selection']
   });
 }
@@ -52,7 +62,7 @@ const onTranslateClick = async (info, tab) => {
   if (q) {
     q = q.trim().toLowerCase();
     const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-    const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings;
+    const {SOURCE_LANG, TARGET_LANG, ENABLE_API} = settings as unknown as SettingsType;
     try {
       await sendMessageToCurrentTab(tab.id, contextMenuFrameId, RUNTIME_EVENT_TYPE.LOAD_TRANSLATION);
       const translateRes = await translateInternal(q, SOURCE_LANG, TARGET_LANG, ENABLE_API);
@@ -101,6 +111,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse('added');
       break;
     }
+    case 'getI18NStrings': {
+      sendResponse(I18Ns);
+    }
     default:
       break;
   }
@@ -131,7 +144,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   }
   const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = newValue;
   const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
-  const contextTranslateTitle = getI18NMessage(uiLang, 'sw_context_translate');
+  const contextTranslateTitle = getI18NMessage(I18Ns, uiLang, 'sw_context_translate');
   chrome.contextMenus.update(CONTEXTMENU_TRANSLATE_ID, {title: contextTranslateTitle}, () => {
     console.log(`context translate menu title updated as ${contextTranslateTitle}`);
   });

@@ -1,3 +1,9 @@
+import {
+  DOM_ID, RUNTIME_EVENT_TYPE, CARD_CSS_CHECK_TIMEOUT, STORAGE_AREA
+  , DEFAULT_SETTING } from '../common/constants';
+import { removeAllChildNodes, storageGetP } from '../common/utils';
+
+(async () => {
 let contextClientX;
 let contextClientY;
 let cardClearTimer;
@@ -36,10 +42,10 @@ const getContainer = () => {
   return containerE;
 };
 
-const getTranslateModal = () => {
-  let translateModal = document.getElementById(DOM_ID.TRANSLATE_MODAL);
+const getTranslateModal = (): TranslateModal => {
+  let translateModal = document.getElementById(DOM_ID.TRANSLATE_MODAL) as TranslateModal;
   if (!translateModal) {
-    translateModal = document.createElement('translate-modal');
+    translateModal = document.createElement('translate-modal') as TranslateModal;
     translateModal.id = DOM_ID.TRANSLATE_MODAL;
   }
   return translateModal;
@@ -72,7 +78,7 @@ const showTranslate = ({type, data}) => {
 
 const cleanTranslate = () => {
   const containerE = getContainer();
-  const translateE = containerE.querySelector(`#${DOM_ID.TRANSLATE_MODAL}`);
+  const translateE = containerE.querySelector(`#${DOM_ID.TRANSLATE_MODAL}`) as TranslateModal;
   if (translateE) {
     translateE.hide();
   }
@@ -87,7 +93,7 @@ const showCard = (cardData, cardTime) => {
   if (cardClearTimer) {
     clearTimeout(cardClearTimer);
   }
-  translateE.show(RUNTIME_EVENT_TYPE.CARD_TRANSLATION, cardData);
+  translateE.show(RUNTIME_EVENT_TYPE.CARD_TRANSLATION, cardData, {});
 
   if (cardTime > 0) {
     cardClearTimer = setTimeout(() => {
@@ -113,9 +119,9 @@ const showCardRandom = (vocabsWithSetting, cardTime) => {
   showCard(cardData, cardTime);
 }
 
-const getCardTriggerElem = async (cardCss) => {
+const getCardTriggerElem = async (cardCss): Promise<HTMLElement> => {
   const timeOutToGetElem = (currentTime, resolve, reject) => {
-    const cardElem = document.querySelector(cardCss);
+    const cardElem: HTMLElement = document.querySelector(cardCss);
     if (cardElem) {
       resolve(cardElem);
     } else if (Date.now() < currentTime + CARD_CSS_CHECK_TIMEOUT) {
@@ -140,7 +146,6 @@ chrome.runtime.onMessage.addListener(request => {
     case RUNTIME_EVENT_TYPE.LOAD_TRANSLATION:
     case RUNTIME_EVENT_TYPE.GET_TRANSLATION:
     case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
-      translateResult = data;
       showTranslate({ type, data });
       break;
     }
@@ -477,6 +482,19 @@ class TranslateModal extends HTMLElement {
   </div>
   `;
   static modalBottomMargin = 20;
+  container: HTMLDivElement;
+  header: HTMLDivElement;
+  content: HTMLDivElement;
+  loadingView: HTMLDivElement;
+  translateView: HTMLDivElement;
+  errorView: HTMLDivElement;
+  successView: HTMLDivElement;
+  showAnimate: boolean;
+  translateResult: any;
+  startDragPoint: any;
+  leftOffSet: number;
+  topOffSet: number;
+  opacity: number;
   constructor() {
     super();
     const shadow = this.attachShadow({mode: 'open'});
@@ -538,25 +556,28 @@ class TranslateModal extends HTMLElement {
 
     this.showAnimate = false;
     this.setLoadingView();
-    const closeBtn = this.shadowRoot.querySelector('#close-btn');
-    closeBtn.addEventListener('click', evt => {
+    if (!this.shadowRoot) {
+      return;
+    }
+    const closeBtn = this.shadowRoot!.querySelector('#close-btn');
+    closeBtn!.addEventListener('click', evt => {
       evt.stopPropagation();
       this.hide();
     });
     const addVocabBtn = this.shadowRoot.querySelector('#add-vocab-button');
-    addVocabBtn.addEventListener('click', async evt => {
+    addVocabBtn!.addEventListener('click', async evt => {
       evt.stopPropagation();
       if (!this.translateResult) {
         return;
       }
-      await sendMessage('addToVocab', this.translateResult);
+      await sendMessage('addToVocab', this.translateResult, () => {});
       this.setSuccessView();
       setTimeout(() => {
         this.hide();
       }, 500);
     });
     const readVocabBtn = this.shadowRoot.querySelector('#read-vocab-button');
-    readVocabBtn.addEventListener('click', async evt => {
+    readVocabBtn!.addEventListener('click', async evt => {
       evt.stopPropagation();
       const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
       const synthesis = window.speechSynthesis;
@@ -564,7 +585,7 @@ class TranslateModal extends HTMLElement {
         return;
       }
       const utterOriginal = new SpeechSynthesisUtterance(this.translateResult.originalText);
-      utterOriginal.lang = settings.SOURCE_LANG;
+      utterOriginal.lang = settings.SOURCE_LANG as unknown as string;
       synthesis.speak(utterOriginal);
     });
 
@@ -597,7 +618,7 @@ class TranslateModal extends HTMLElement {
       if (this.startDragPoint) {
         const newOffSetX = this.leftOffSet + evt.x - this.startDragPoint.x;
         const newOffSetY = this.topOffSet + evt.y - this.startDragPoint.y;
-        this.setPosition(newOffSetX, newOffSetY);
+        this.setPosition(newOffSetX, newOffSetY, false);
         this.startDragPoint = null;
       }
     });
@@ -636,18 +657,18 @@ class TranslateModal extends HTMLElement {
     this.translateView.style.display = 'block';
     this.errorView.style.display = 'none';
     this.successView.style.display = 'none';
-    const sentenceE = this.shadowRoot.getElementById('sentence');
-    const dictCE = this.shadowRoot.getElementById('dict-container');
-    const dictE = this.shadowRoot.getElementById('dict');
+    const sentenceE = this.shadowRoot!.getElementById('sentence');
+    const dictCE = this.shadowRoot!.getElementById('dict-container');
+    const dictE = this.shadowRoot!.getElementById('dict');
     //const synsetsCE = this.shadowRoot.getElementById('synsets-container');
     //const synsetsE = this.shadowRoot.getElementById('synsets');
-    const exampleCE = this.shadowRoot.getElementById('examples-container');
-    const examplesE = this.shadowRoot.getElementById('examples');
-    const addVocabBtn = this.shadowRoot.getElementById('add-vocab-button');
+    const exampleCE = this.shadowRoot!.getElementById('examples-container');
+    const examplesE = this.shadowRoot!.getElementById('examples');
+    const addVocabBtn = this.shadowRoot!.getElementById('add-vocab-button');
 
     this.translateResult = data;
     const translatedText = isCardView ? `${data.originalText}: ${data.translatedText}` : data.translatedText;
-    sentenceE.textContent = translatedText;
+    sentenceE!.textContent = translatedText;
     this.processDictResult(dictCE, dictE, data.dictResult);
     // this.processSynsets(synsetsCE, synsetsE, data.synsets);
     this.processExamples(exampleCE, examplesE, data.exampleRes);
@@ -656,9 +677,9 @@ class TranslateModal extends HTMLElement {
     const containerHeight = this.container.offsetHeight;
 
     if (isCardView) {
-      addVocabBtn.style.display = 'none';
+      addVocabBtn!.style.display = 'none';
     } else {
-      addVocabBtn.style.display = 'inline-block';
+      addVocabBtn!.style.display = 'inline-block';
     }
     this.successView.style.height = `${containerHeight - 18}px`;
     return {
@@ -673,7 +694,7 @@ class TranslateModal extends HTMLElement {
     this.translateView.style.display = 'none';
     this.errorView.style.display = 'flex';
     this.successView.style.display = 'none';
-    const instructionLink = this.shadowRoot.getElementById('translation-link');
+    const instructionLink = this.shadowRoot!.getElementById('translation-link') as HTMLLinkElement;
     if (instructionLink) {
       instructionLink.href = url;
     }
@@ -753,7 +774,7 @@ class TranslateModal extends HTMLElement {
         exampleEntry.classList.add('example-entry');
         const exampleText = example.text || '';
         const exampleTextParsed = domParser.parseFromString(`<span>${idx+1}. ${exampleText}</span>`, 'text/html');
-        exampleEntry.append(exampleTextParsed.body.firstElementChild);
+        exampleEntry.append(exampleTextParsed.body.firstElementChild!);
         examplesE.appendChild(exampleEntry);
       });
     } else {
@@ -769,7 +790,7 @@ class TranslateModal extends HTMLElement {
         this.style.position = 'absolute';
         this.animateShow(100);
         const viewSize = this.setLoadingView();
-        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
+        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin, false);
         break;
       }
       case RUNTIME_EVENT_TYPE.GET_TRANSLATION: {
@@ -777,7 +798,7 @@ class TranslateModal extends HTMLElement {
         this.style.display = 'block';
         this.style.position = 'absolute';
         const viewSize = this.setTranslateView(data, false);
-        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
+        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin, false);
         break;
       }
       case RUNTIME_EVENT_TYPE.CARD_TRANSLATION: {
@@ -786,7 +807,7 @@ class TranslateModal extends HTMLElement {
         this.style.position = 'fixed';
         this.animateShow(400);
         this.setTranslateView(data, true);
-        this.setPosition(20, 20);
+        this.setPosition(20, 20, false);
         break;
       }
       case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
@@ -794,7 +815,7 @@ class TranslateModal extends HTMLElement {
         this.style.display = 'block';
         this.style.position = 'absolute';
         const viewSize = this.setErrorView(data);
-        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin);
+        this.setPosition(offSet.offSetContainerX, offSet.offSetContainerY - viewSize.height - TranslateModal.modalBottomMargin, false);
         break;
       }
       default:
@@ -818,7 +839,7 @@ class TranslateModal extends HTMLElement {
         this.showAnimate = false;
       });
     } else {
-      this.style.opacity = this.opacity;
+      this.style.opacity = `${this.opacity}`;
     }
   }
 
@@ -841,7 +862,7 @@ class TranslateModal extends HTMLElement {
       })
     } else {
       this.opacity = 0;
-      this.style.opacity = 0;
+      this.style.opacity = '0';
       this.style.display = 'none';
     }
   }
@@ -855,10 +876,10 @@ const translateE = initTranslate();
 
 const {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 if (ENABLE_CARD && window.self === window.top) {
-  vocabs = await storageGetP(STORAGE_AREA.VOCAB);
+  const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
   const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
   const vocabsWithSetting = vocabs[vocabTranslateArea] || {};
-  const cardTimeInt = parseInt(CARD_TIME);
+  const cardTimeInt = parseInt(CARD_TIME as unknown as string);
   
   showCardRandom(vocabsWithSetting, cardTimeInt);
 
@@ -876,3 +897,4 @@ if (ENABLE_CARD && window.self === window.top) {
     console.log(err);
   });
 }
+})();

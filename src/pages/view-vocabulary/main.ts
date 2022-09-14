@@ -1,33 +1,42 @@
+import {
+  STORAGE_AREA, DEFAULT_SETTING
+} from '../../common/constants';
+import {
+  storageGetP, storageSetP, getI18NMessage, debounce
+} from '../../common/utils';
+
 (async () => {
 
-const toaster = document.getElementById('toaster');
-const toasterMsg = document.getElementById('toaster-msg');
-const toasterBtns = document.getElementById('toaster-buttons');
-const toasterOKBtn = document.getElementById('toaster-ok');
-const toasterCancelBtn = document.getElementById('toaster-cancel');
-const tbody = document.getElementById('vocab-tbody');
-const srcLangE = document.getElementById('src-lang');
-const tarLangE = document.getElementById('tar-lang');
-const createdAtE = document.getElementById('created-at');
-const exportBtn = document.getElementById('export-vocab');
-const importBtn = document.getElementById('import-vocab');
-const editBtn = document.getElementById('edit-vocab');
-const deleteBtn = document.getElementById('delete-vocab');
-const importFile = document.getElementById('import-file');
-const readBtn = document.getElementById('read-vocab');
-const pauseReadBtn = document.getElementById('pause-read-vocab');
-const saveBtn = document.getElementById('save-vocab');
-const searchField = document.getElementById('vocab-search');
-const countLabelE = document.getElementById('total-vocab-label');
-const countE = document.getElementById('total-vocab-count');
+const I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+
+const toaster = document.getElementById('toaster')!;
+const toasterMsg = document.getElementById('toaster-msg')!;
+const toasterBtns = document.getElementById('toaster-buttons')!;
+const toasterOKBtn = document.getElementById('toaster-ok')!;
+const toasterCancelBtn = document.getElementById('toaster-cancel')!;
+const tbody = document.getElementById('vocab-tbody')!;
+const srcLangE = document.getElementById('src-lang')!;
+const tarLangE = document.getElementById('tar-lang')!;
+const createdAtE = document.getElementById('created-at')!;
+const exportBtn = document.getElementById('export-vocab')!;
+const importBtn = document.getElementById('import-vocab')!;
+const editBtn = document.getElementById('edit-vocab')!;
+const deleteBtn = document.getElementById('delete-vocab')!;
+const importFile = document.getElementById('import-file')!;
+const readBtn = document.getElementById('read-vocab')!;
+const pauseReadBtn = document.getElementById('pause-read-vocab')!;
+const saveBtn = document.getElementById('save-vocab')!;
+const searchField = document.getElementById('vocab-search')! as HTMLInputElement;
+const countLabelE = document.getElementById('total-vocab-label')!;
+const countE = document.getElementById('total-vocab-count')!;
 
 let editedItems = {};
 let deletedItems = {};
 let isModified = false;
 let readingGenerator;
 let isPaused = true;
-let toasterOKCallback = null;
-let selectedVocabTr = null;
+let toasterOKCallback: (() => void) | null = null;
+let selectedVocabTr: HTMLElement | null = null;
 let sortedVocabs = [];
 
 const synth = window.speechSynthesis;
@@ -67,23 +76,23 @@ const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 const {SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
 const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 
-document.title = getI18NMessage(uiLang, 'vocab_title');
-srcLangE.textContent = getI18NMessage(uiLang, 'name');
-tarLangE.textContent = getI18NMessage(uiLang, 'name');
-createdAtE.textContent = getI18NMessage(uiLang, 'vocab_createdAt');
+document.title = getI18NMessage(I18Ns, uiLang, 'vocab_title');
+srcLangE.textContent = getI18NMessage(I18Ns, uiLang, 'name');
+tarLangE.textContent = getI18NMessage(I18Ns, uiLang, 'name');
+createdAtE.textContent = getI18NMessage(I18Ns, uiLang, 'vocab_createdAt');
 
-toasterOKBtn.textContent = getI18NMessage(uiLang, 'ok');
-toasterCancelBtn.textContent = getI18NMessage(uiLang, 'cancel');
+toasterOKBtn.textContent = getI18NMessage(I18Ns, uiLang, 'ok');
+toasterCancelBtn.textContent = getI18NMessage(I18Ns, uiLang, 'cancel');
 
-exportBtn.title = getI18NMessage(uiLang, 'vocab_export_desp');
-importBtn.title = getI18NMessage(uiLang, 'vocab_import_desp');
-editBtn.title = getI18NMessage(uiLang, 'vocab_edit_desp');
-deleteBtn.title = getI18NMessage(uiLang, 'vocab_delete_desp');
-saveBtn.title = getI18NMessage(uiLang, 'vocab_save_desp');
-readBtn.title = getI18NMessage(uiLang, 'vocab_pronounce_desp');
-pauseReadBtn.title = getI18NMessage(uiLang, 'vocab_pause_pronounce_desp');
-searchField.placeholder = getI18NMessage(uiLang, 'vocab_search_desp');
-countLabelE.textContent = getI18NMessage(uiLang, 'total');
+exportBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_export_desp');
+importBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_import_desp');
+editBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_edit_desp');
+deleteBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_delete_desp');
+saveBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_save_desp');
+readBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_pronounce_desp');
+pauseReadBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_pause_pronounce_desp');
+searchField.placeholder = getI18NMessage(I18Ns, uiLang, 'vocab_search_desp');
+countLabelE.textContent = getI18NMessage(I18Ns, uiLang, 'total');
 
 const sortVocabs = (vocabs, criteria, ascending) => {
   const keys = Object.keys(vocabs);
@@ -108,10 +117,10 @@ const showVocabs = async (sortCriteria, ascending) => {
   srcLangE.classList.remove('high-light');
   tarLangE.classList.remove('high-light');
   createdAtE.classList.remove('high-light');
-  document.getElementById(sortCriteria).classList.add('high-light');
-  sortedVocabs = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
+  document.getElementById(sortCriteria)!.classList.add('high-light');
+  const sortedVocabs = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
   setVocabs(sortedVocabs);
-  countE.textContent = sortedVocabs.length;
+  countE.textContent = `${sortedVocabs.length}`;
 }
 
 const setVocabs = vocabs => {
@@ -167,7 +176,7 @@ const readOneVocab = (vocab, setting) => {
     });
     utterTranslated.addEventListener('end', (evt) => {
       setTimeout(() => {
-        resolve();
+        resolve(true);
       }, 0);
     });
     synth.speak(utterOriginal);
@@ -264,8 +273,8 @@ createdAtE.addEventListener('click', () => {
 });
 
 importFile.addEventListener('change', (event) => {
-  const input = event.target;
-  if (!input.files[0]) {
+  const input = event.target! as HTMLInputElement;
+  if (!input.files || !input.files[0]) {
     return undefined;
   }
   const file = input.files[0];
@@ -316,7 +325,7 @@ deleteBtn.addEventListener('click', () => {
 readBtn.addEventListener('click', () => {
   if (!toasterOKCallback) {
     toasterOKCallback = readAllVocabs;
-    showToaster(getI18NMessage(uiLang, 'vocab_pronounce_msg'), 'info', true);
+    showToaster(getI18NMessage(I18Ns ,uiLang, 'vocab_pronounce_msg'), 'info', true);
   } else {
     // already notified user
     isPaused = !isPaused;
@@ -365,7 +374,7 @@ saveBtn.addEventListener('click', async () => {
 
 searchField.addEventListener('input', debounce(evt => {
   const value = evt.target.value;
-  const filteredVocabs = sortedVocabs.filter(vocab => {
+  const filteredVocabs = sortedVocabs.filter((vocab: {original: string, translation: string}) => {
     const {original, translation} = vocab;
     return original.includes(value) || translation.includes(value);
   });
@@ -397,11 +406,13 @@ tbody.addEventListener('click', (evt) => {
   }
   if (selectedVocabTr) {
     selectedVocabTr.classList.remove('selected');
-    selectedVocabTr.childNodes[1].childNodes[0].classList.remove('selected');
+    const node = selectedVocabTr.childNodes[1].childNodes[0] as HTMLElement;
+    node.classList.remove('selected');
   }
-  selectedVocabTr = targetE.parentNode;
+  selectedVocabTr = targetE.parentNode as HTMLElement;
   selectedVocabTr.classList.add('selected');
-  selectedVocabTr.childNodes[1].childNodes[0].classList.add('selected');
+  const node = selectedVocabTr.childNodes[1].childNodes[0] as HTMLElement;
+  node.classList.add('selected');
 });
 
 window.addEventListener('beforeunload', (evt) => {

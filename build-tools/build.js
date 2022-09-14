@@ -43,11 +43,11 @@ const copyFiles = async (src, dest, excludes = []) => {
   await fsp.rm(buildPath, { recursive: true });
   await fsp.mkdir(buildPath);
 
-  // copy the existing files:
+  // copy the existing non script files:
   await copyFiles(path.join(dir, '../src'), buildPath, ['.js', '.ts']);
+  // copy the libraries
+  await copyFiles(path.join(dir, '../src/common/lib'), path.join(buildPath, 'src/common'), []);
   await fsp.rename(path.join(buildPath, 'src'), buildExtPath);
-
-
   // read all files
   // const constantsScript = await fsp.readFile(path.join(dir, '../src/common/constants.js'), 'utf8');
   // const utilsScript = await fsp.readFile(path.join(dir, '../src/common/utils.js'), 'utf8');
@@ -94,19 +94,26 @@ const copyFiles = async (src, dest, excludes = []) => {
   const result = await swc.bundle({
     entry: {
       'background/translate-api': './src/background/translate-api.ts',
-      'service-worker': './src/service-worker.ts'
+      'service-worker': './src/service-worker.ts',
+      'content/content': './src/content/content.ts',
+      'popover/main': './src/popover/main.ts',
+      'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
+      'pages/statistics/main': './src/pages/statistics/main.ts',
+      'pages/statistics/barChart': './src/pages/statistics/barChart.js',
+      'pages/settings/main': './src/pages/settings/main.ts',
+      'pages/new-tab/main': './src/pages/new-tab/main.ts'
     },
     mode: 'production',
     target: 'browser',
     options: {
-      minify: true,
+      minify: false,
       jsc: {
         target: 'es5',
-        minify: {
-          compress: {
-            unused: true,
-          }
-        }
+        // minify: {
+        //   compress: {
+        //     unused: true,
+        //   }
+        // }
       }
     }
   });
@@ -114,7 +121,7 @@ const copyFiles = async (src, dest, excludes = []) => {
 
   Object.keys(result).forEach(file => {
     fsp.writeFile(`build/vocab-ext/${file}.js`, result[file].code);
-    console.log(result[file].map)
+    //fsp.writeFile(`build/vocab-ext/${file}.js.map`, result[file].map);
   });
 
   //console.log(result['service-worker'])

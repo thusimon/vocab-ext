@@ -1,4 +1,24 @@
+import * as d3 from 'd3';
+
 class BarChart {
+  parentElement: any;
+  config: any;
+  data: any;
+  customization: any;
+  svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
+  chart: d3.Selection<SVGGElement, unknown, null, undefined>;
+  scaleX: any;
+  scaleY: any;
+  title: d3.Selection<SVGTextElement, unknown, null, undefined>;
+  t: d3.Transition<d3.BaseType, unknown, null, undefined>;
+  axisXCall: d3.Axis<d3.AxisDomain>;
+  axisYCall: d3.Axis<d3.AxisDomain>;
+  axisX: d3.Selection<SVGGElement, unknown, null, undefined>;
+  axisY: any;
+  chartBgArea: d3.Selection<d3.BaseType | SVGRectElement, number, SVGGElement, unknown>;
+  chartBgLine: d3.Transition<d3.BaseType | SVGLineElement, unknown, SVGGElement, unknown>;
+  tooltip: any;
+  rects: d3.Selection<d3.BaseType | SVGRectElement, unknown, SVGGElement, unknown>;
   constructor(parentElement, config, data, customization) {
     this.parentElement = parentElement;
     this.config = config;
@@ -36,7 +56,7 @@ class BarChart {
     vis.scaleY = d3.scaleLinear()
       .range([chartHeight, 0]);
     
-    vis.axisXCall = d3.axisBottom()
+    vis.axisXCall = d3.axisBottom(vis.scaleX)
     .tickFormat(d => {
       if (this.customization && this.customization.xTickFormat) {
         return this.customization.xTickFormat(d);
@@ -45,7 +65,7 @@ class BarChart {
       }
     });
 
-    vis.axisYCall = d3.axisLeft()
+    vis.axisYCall = d3.axisLeft(vis.scaleY)
     .tickFormat(d => {
       if (this.customization && this.customization.yTickFormat) {
         return this.customization.yTickFormat(d);
@@ -57,7 +77,7 @@ class BarChart {
     vis.axisX = vis.chart.append('g')
       .attr("transform", `translate(0, ${chartHeight})`);
     
-    vis.axisY = vis.chart.append('g')
+    vis.axisX = vis.chart.append('g')
 
     vis.title = vis.svg.append('text')
       .attr('x', width / 2)           
@@ -76,11 +96,11 @@ class BarChart {
     this.updateSize();
     const {width, height, chartWidth, chartHeight, chartMargin, barColor, chartBg, barHoverColor, tooltipColor} = this.config;
     // update scales
-    const xExtent = d3.extent(vis.data, d => d.key);
-    const yExtent = d3.extent(vis.data, d => d.value);
-    yExtent[1] = yExtent[1] < 5 ? 5 : yExtent[1];
+    const xExtent = d3.extent(vis.data, (d: {key: string}) => d.key);
+    const yExtent = d3.extent(vis.data, (d: {value: number}) => d.value);
+    yExtent[1] = yExtent[1]! < 5 ? 5 : yExtent[1];
     vis.scaleX.domain(this.data.map(d => d.key));
-    vis.scaleY.domain([0, yExtent[1]*1.05]);
+    vis.scaleY.domain([0, yExtent[1]! * 1.05]);
 
     // update axises
     vis.axisXCall.scale(vis.scaleX);
@@ -109,10 +129,10 @@ class BarChart {
       .join('line')
       .transition(vis.t)
       .attr('class', 'y-dash-area')
-      .attr('x1', d=>d[0][0])
-      .attr('y1', d=>vis.scaleY(d[0][1]))
-      .attr('x2', d=>d[1][0])
-      .attr('y2', d=>vis.scaleY(d[1][1]));
+      .attr('x1', (d: any)=>d[0][0])
+      .attr('y1', (d: any)=>vis.scaleY(d[0][1]))
+      .attr('x2', (d: any)=>d[1][0])
+      .attr('y2', (d: any)=>vis.scaleY(d[1][1]));
 
     if (!vis.tooltip) {
       vis.tooltip = vis.chart.append("text")
@@ -126,7 +146,7 @@ class BarChart {
     }
 
     vis.rects = vis.chart.selectAll('.charBar')
-      .data(this.data, d=>d)
+      .data(this.data, (d: any)=>d)
       .join(
         enter => enter.append('rect')
           .attr('class', 'charBar')
@@ -135,7 +155,8 @@ class BarChart {
           .attr('y', chartHeight)
           .attr('width', vis.scaleX.bandwidth())
           .attr('height', 0)
-          .on('mouseover', function (evt, d) {
+          .on('mouseover', function (evt, data) {
+            const d = data as {key: string, value: number};
             const date = new Date(d.key);
             const msg = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}: ${d.value}`;
             const x = vis.scaleX(d.key)-40;
@@ -162,17 +183,17 @@ class BarChart {
               .style('opacity', 0);
           })
           .call(rect => rect.transition(vis.t)
-            .attr('x', d => vis.scaleX(d.key))
-            .attr('y', d => vis.scaleY(d.value))
+            .attr('x', (d: any) => vis.scaleX(d.key))
+            .attr('y', (d: any) => vis.scaleY(d.value))
             .attr('width', vis.scaleX.bandwidth())
-            .attr('height', d => chartHeight - vis.scaleY(d.value))
+            .attr('height', (d: any) => chartHeight - vis.scaleY(d.value))
           ),
       update => update
         .call(rect => rect.transition(vis.t)
-          .attr('x', d => vis.scaleX(d.key))
-          .attr('y', d => vis.scaleY(d.value))
+          .attr('x', (d: any) => vis.scaleX(d.key))
+          .attr('y', (d: any) => vis.scaleY(d.value))
           .attr('width', vis.scaleX.bandwidth())
-          .attr('height', d => chartHeight - vis.scaleY(d.value))),
+          .attr('height', (d: any) => chartHeight - vis.scaleY(d.value))),
       exit => exit
         .call(rect => rect.transition(vis.t)
           .attr('height', 0)

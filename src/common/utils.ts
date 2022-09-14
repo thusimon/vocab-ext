@@ -1,9 +1,11 @@
-import { I18Ns } from "./constants";
+interface StorageValueType {
+  [key: string]: object | string
+};
 
-export const storageGetP = (key, defaultValue) => {
+export const storageGetP = (key, defaultValue): Promise<StorageValueType> => {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(key, (value) => {
-      let storageValue;
+      let storageValue = {};
       if (!value || !value[key]) {
         storageValue = {};
       } else {
@@ -15,10 +17,11 @@ export const storageGetP = (key, defaultValue) => {
   });
 };
 
-export const storageSetP = (key, value) => {
+export const storageSetP = (key, value): Promise<StorageValueType> => {
   return new Promise((resolve, reject) => {
-    chrome.storage.local.set({[key]: value}, () => {
-      resolve();
+    const data = {[key]: value}
+    chrome.storage.local.set(data, () => {
+      resolve(data);
     });
   });
 };
@@ -29,9 +32,9 @@ export const removeAllChildNodes = (parent) => {
   }
 };
 
-export const getI18NMessage = (lang, key) => {
-  const engKeys = I18Ns.en;
-  const langKeys = I18Ns[lang] ? I18Ns[lang] : engKeys
+export const getI18NMessage = (localStrings, lang, key) => {
+  const engKeys = localStrings.en;
+  const langKeys = localStrings[lang] ? localStrings[lang] : engKeys
   if (langKeys[key]) {
     return langKeys[key];
   }
