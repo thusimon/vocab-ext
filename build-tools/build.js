@@ -99,7 +99,7 @@ const copyFiles = async (src, dest, excludes = []) => {
       'popover/main': './src/popover/main.ts',
       'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
       'pages/statistics/main': './src/pages/statistics/main.ts',
-      'pages/statistics/barChart': './src/pages/statistics/barChart.js',
+      'pages/statistics/barChart': './src/pages/statistics/barChart.ts',
       'pages/settings/main': './src/pages/settings/main.ts',
       'pages/new-tab/main': './src/pages/new-tab/main.ts'
     },
@@ -107,6 +107,7 @@ const copyFiles = async (src, dest, excludes = []) => {
     target: 'browser',
     options: {
       minify: false,
+      sourceMaps: true,
       jsc: {
         target: 'es5',
         // minify: {

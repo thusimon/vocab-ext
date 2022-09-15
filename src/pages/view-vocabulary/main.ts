@@ -77,7 +77,7 @@ const {SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
 const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 
 document.title = getI18NMessage(I18Ns, uiLang, 'vocab_title');
-srcLangE.textContent = getI18NMessage(I18Ns, uiLang, 'name');
+srcLangE.textContent = getI18NMessage(I18Ns, SOURCE_LANG, 'name');
 tarLangE.textContent = getI18NMessage(I18Ns, uiLang, 'name');
 createdAtE.textContent = getI18NMessage(I18Ns, uiLang, 'vocab_createdAt');
 

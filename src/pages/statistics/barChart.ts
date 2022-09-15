@@ -1,24 +1,40 @@
-import * as d3 from 'd3';
+/**
+ * This is a hack! Just want to use ts instead of js
+ * the correct approach is `import * as d3 from 'd3'`
+ * However, swc throw error when bundling d3
+ * so still use d3.v6.min.js as a libary file
+ */
+interface D3Type {
+  select: any;
+  scaleBand: any;
+  scaleLinear: any;
+  axisBottom: any;
+  axisLeft: any;
+  transition: any;
+  extent: any;
+}
+
+let d3: D3Type;
 
 class BarChart {
   parentElement: any;
   config: any;
   data: any;
   customization: any;
-  svg: d3.Selection<SVGSVGElement, unknown, null, undefined>;
-  chart: d3.Selection<SVGGElement, unknown, null, undefined>;
+  svg: any;
+  chart: any;
   scaleX: any;
   scaleY: any;
-  title: d3.Selection<SVGTextElement, unknown, null, undefined>;
-  t: d3.Transition<d3.BaseType, unknown, null, undefined>;
-  axisXCall: d3.Axis<d3.AxisDomain>;
-  axisYCall: d3.Axis<d3.AxisDomain>;
-  axisX: d3.Selection<SVGGElement, unknown, null, undefined>;
+  axisXCall: any;
+  axisYCall: any;
+  axisX: any;
   axisY: any;
-  chartBgArea: d3.Selection<d3.BaseType | SVGRectElement, number, SVGGElement, unknown>;
-  chartBgLine: d3.Transition<d3.BaseType | SVGLineElement, unknown, SVGGElement, unknown>;
+  title: any;
+  chartBgArea: any;
+  chartBgLine: any;
   tooltip: any;
-  rects: d3.Selection<d3.BaseType | SVGRectElement, unknown, SVGGElement, unknown>;
+  rects: any;
+  t: any;
   constructor(parentElement, config, data, customization) {
     this.parentElement = parentElement;
     this.config = config;
@@ -96,11 +112,11 @@ class BarChart {
     this.updateSize();
     const {width, height, chartWidth, chartHeight, chartMargin, barColor, chartBg, barHoverColor, tooltipColor} = this.config;
     // update scales
-    const xExtent = d3.extent(vis.data, (d: {key: string}) => d.key);
-    const yExtent = d3.extent(vis.data, (d: {value: number}) => d.value);
-    yExtent[1] = yExtent[1]! < 5 ? 5 : yExtent[1];
+    const xExtent = d3.extent(vis.data, (d: any) => d.key);
+    const yExtent = d3.extent(vis.data, (d: any) => d.value) as unknown as number[];
+    yExtent[1] = yExtent[1] < 5 ? 5 : yExtent[1];
     vis.scaleX.domain(this.data.map(d => d.key));
-    vis.scaleY.domain([0, yExtent[1]! * 1.05]);
+    vis.scaleY.domain([0, yExtent[1]*1.05]);
 
     // update axises
     vis.axisXCall.scale(vis.scaleX);
@@ -129,10 +145,10 @@ class BarChart {
       .join('line')
       .transition(vis.t)
       .attr('class', 'y-dash-area')
-      .attr('x1', (d: any)=>d[0][0])
-      .attr('y1', (d: any)=>vis.scaleY(d[0][1]))
-      .attr('x2', (d: any)=>d[1][0])
-      .attr('y2', (d: any)=>vis.scaleY(d[1][1]));
+      .attr('x1', d=>d[0][0])
+      .attr('y1', d=>vis.scaleY(d[0][1]))
+      .attr('x2', d=>d[1][0])
+      .attr('y2', d=>vis.scaleY(d[1][1]));
 
     if (!vis.tooltip) {
       vis.tooltip = vis.chart.append("text")
@@ -155,11 +171,10 @@ class BarChart {
           .attr('y', chartHeight)
           .attr('width', vis.scaleX.bandwidth())
           .attr('height', 0)
-          .on('mouseover', function (evt, data) {
-            const d = data as {key: string, value: number};
+          .on('mouseover', function (evt, d: any) {
             const date = new Date(d.key);
             const msg = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}: ${d.value}`;
-            const x = vis.scaleX(d.key)-40;
+            const x = vis.scaleX(d.key)!-40;
             const y = vis.scaleY(d.value) - 10;
             d3.select(this).transition()
               .duration(200)
@@ -183,14 +198,14 @@ class BarChart {
               .style('opacity', 0);
           })
           .call(rect => rect.transition(vis.t)
-            .attr('x', (d: any) => vis.scaleX(d.key))
+            .attr('x', (d: any) => vis.scaleX(d.key) || 0)
             .attr('y', (d: any) => vis.scaleY(d.value))
             .attr('width', vis.scaleX.bandwidth())
             .attr('height', (d: any) => chartHeight - vis.scaleY(d.value))
           ),
       update => update
         .call(rect => rect.transition(vis.t)
-          .attr('x', (d: any) => vis.scaleX(d.key))
+          .attr('x', (d: any) => vis.scaleX(d.key) || 0)
           .attr('y', (d: any) => vis.scaleY(d.value))
           .attr('width', vis.scaleX.bandwidth())
           .attr('height', (d: any) => chartHeight - vis.scaleY(d.value))),
