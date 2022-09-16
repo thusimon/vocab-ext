@@ -6,7 +6,21 @@ import {
 } from '../../common/utils';
 
 (async () => {
-const I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+let sourceLang, targetLang, randomVocab;
+
+const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+const { SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
+sourceLang = SOURCE_LANG;
+targetLang = TARGET_LANG;
+const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
+
+let I18Ns: {[key: string]: any};
+// due to service-worker inactive after 5min, use try catch to make sure the data is obtained
+try {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+} catch(e) {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+}
 
 const vocabDisplayE = document.getElementById('vocab-display')!;
 const vocabWelcomeE = document.getElementById('no-vocab')!;
@@ -65,8 +79,6 @@ const constructNewTabVocab = (vocab) => {
   }
 }
 
-let sourceLang, targetLang, randomVocab;
-
 refreshBtnE.addEventListener('click', async () => {
   const vocabs = await getVocabs(sourceLang, targetLang)
   randomVocab = getRandomVocabulary(vocabs);
@@ -76,12 +88,6 @@ refreshBtnE.addEventListener('click', async () => {
 readBtnE.addEventListener('click', () => {
   readOneVocab(randomVocab, sourceLang);
 });
-
-const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-const { SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
-sourceLang = SOURCE_LANG;
-targetLang = TARGET_LANG;
-const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
 
 const vocabs = await getVocabs(sourceLang, targetLang);
 randomVocab = getRandomVocabulary(vocabs);

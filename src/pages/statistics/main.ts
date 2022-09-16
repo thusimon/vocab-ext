@@ -7,11 +7,17 @@ import {
 import BarChart from './barChart';
 
 (async () => {
-const I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
-
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
 const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
+
+let I18Ns: {[key: string]: any};
+// due to service-worker inactive after 5min, use try catch to make sure the data is obtained
+try {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+} catch(e) {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+}
 
 const controllerE = document.getElementById('statistics-controller');
 const chartE = document.getElementById('statistics-charts');

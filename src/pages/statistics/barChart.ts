@@ -14,7 +14,14 @@ interface D3Type {
   extent: any;
 }
 
-let d3: D3Type;
+
+declare global {
+  interface Window {
+    d3: D3Type;
+  }
+}
+
+let d3: D3Type = window.d3;
 
 class BarChart {
   parentElement: any;
@@ -93,7 +100,7 @@ class BarChart {
     vis.axisX = vis.chart.append('g')
       .attr("transform", `translate(0, ${chartHeight})`);
     
-    vis.axisX = vis.chart.append('g')
+    vis.axisY = vis.chart.append('g')
 
     vis.title = vis.svg.append('text')
       .attr('x', width / 2)           

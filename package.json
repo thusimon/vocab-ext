@@ -1,10 +1,9 @@
 {
   "name": "vocab-ext",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx spack"
+    "build": "node ./build-tools/build prod",
+    "build:dev": "node ./build-tools/build dev"
   },
   "author": "Lu",
   "license": "ISC",

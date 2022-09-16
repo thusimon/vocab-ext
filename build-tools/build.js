@@ -34,6 +34,67 @@ const copyFiles = async (src, dest, excludes = []) => {
   }
 };
 
+const buildMode = process.argv[2] || 'prod';
+
+const jscOption = {
+  target: 'es5',
+  minify: {
+    compress: {
+      unused: true,
+    }
+  }
+};
+
+const devConfig = {
+  target: 'browser',
+  options: {
+    minify: false,
+    sourceMaps: true,
+    jsc: jscOption
+  }
+};
+
+const prodConfig = {
+  target: 'browser',
+  options: {
+    minify: true,
+    sourceMaps: false,
+    jsc: jscOption
+  }
+};
+
+const bundle = async mode => {
+  const buildConfig = {
+    entry: {
+      'service-worker': './src/service-worker.ts',
+      'content/content': './src/content/content.ts',
+      'popover/main': './src/popover/main.ts',
+      'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
+      'pages/statistics/main': './src/pages/statistics/main.ts',
+      'pages/settings/main': './src/pages/settings/main.ts',
+      'pages/new-tab/main': './src/pages/new-tab/main.ts'
+    },
+    ...(mode === 'prod' ? prodConfig : devConfig)
+  };
+
+  const result = await swc.bundle(buildConfig);
+
+  console.log(`building in ${mode}`);
+  Object.keys(result).forEach(file => {
+    let code = result[file].code;
+    if (mode != 'prod') {
+      // append source map comment at the end
+      //# sourceMappingURL=<file_path>.js.map
+      const fileName = file.split('/').pop()
+      code += `\n//# sourceMappingURL=${fileName}.js.map`;
+      fsp.writeFile(`build/vocab-ext/${file}.js.map`, result[file].map);
+      fsp.writeFile(`build/vocab-ext/${file}.js`, code);
+    }
+    fsp.writeFile(`build/vocab-ext/${file}.js`, code);
+    console.log(`${file} done`);
+  });
+}
+
 (async () => {
   const dir = __dirname;
   // delete existing files
@@ -48,82 +109,6 @@ const copyFiles = async (src, dest, excludes = []) => {
   // copy the libraries
   await copyFiles(path.join(dir, '../src/common/lib'), path.join(buildPath, 'src/common'), []);
   await fsp.rename(path.join(buildPath, 'src'), buildExtPath);
-  // read all files
-  // const constantsScript = await fsp.readFile(path.join(dir, '../src/common/constants.js'), 'utf8');
-  // const utilsScript = await fsp.readFile(path.join(dir, '../src/common/utils.js'), 'utf8');
-  // const contentScript = await fsp.readFile(path.join(dir, '../src/content/content.js'), 'utf8');
-  // let contentFinalScript = await fsp.readFile(path.join(dir, 'content-template.js'), 'utf8');
-
-  // combine as content.js
-  // contentFinalScript = contentFinalScript.replace('CONSTANTS_SCRIPT_TO_REPLACE', constantsScript)
-  //   .replace('UTILS_SCRIPT_TO_REPLACE', utilsScript)
-  //   .replace('CONTENT_SCRIPT_TO_REPLACE', contentScript);
-
-  // await fsp.writeFile(path.join(buildExtPath, '/content/content.js'), contentFinalScript, 'utf8');
-
-  // replace the API token
-  // const env = await fsp.readFile(path.join(dir, '.env'), 'utf8');
-  // const API_KEY = env.match(/^API-KEY-TO-REPLACE:(\S+)/)[1];
-  // const translateAPIScriptPath = path.join(buildExtPath, 'background/translate-api.js');
-  // let translateAPIScript = await fsp.readFile(translateAPIScriptPath, 'utf8');
-  // translateAPIScript = translateAPIScript.replace('API-KEY-TO-REPLACE', API_KEY);
-  // await fsp.writeFile(translateAPIScriptPath, translateAPIScript, 'utf8');
-
-  const devConfig = {
-    target: 'browser',
-    options: {
-      minify: {
-        "compress": {
-          "unused": false
-        }
-      },
-      jsc: {
-        target: 'es2015'
-      }
-    }
-  }
-  const prodConfig = {
-    target: 'browser',
-    options: {
-      minify: true,
-      jsc: {
-        target: 'es2015'
-      }
-    }
-  }
-  const result = await swc.bundle({
-    entry: {
-      'background/translate-api': './src/background/translate-api.ts',
-      'service-worker': './src/service-worker.ts',
-      'content/content': './src/content/content.ts',
-      'popover/main': './src/popover/main.ts',
-      'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
-      'pages/statistics/main': './src/pages/statistics/main.ts',
-      'pages/statistics/barChart': './src/pages/statistics/barChart.ts',
-      'pages/settings/main': './src/pages/settings/main.ts',
-      'pages/new-tab/main': './src/pages/new-tab/main.ts'
-    },
-    mode: 'production',
-    target: 'browser',
-    options: {
-      minify: false,
-      sourceMaps: true,
-      jsc: {
-        target: 'es5',
-        // minify: {
-        //   compress: {
-        //     unused: true,
-        //   }
-        // }
-      }
-    }
-  });
-  console.log(Object.keys(result));
-
-  Object.keys(result).forEach(file => {
-    fsp.writeFile(`build/vocab-ext/${file}.js`, result[file].code);
-    //fsp.writeFile(`build/vocab-ext/${file}.js.map`, result[file].map);
-  });
-
-  //console.log(result['service-worker'])
+  
+  await bundle(buildMode);
 })()

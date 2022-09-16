@@ -113,6 +113,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
     case 'getI18NStrings': {
       sendResponse(I18Ns);
+      break;
     }
     default:
       break;

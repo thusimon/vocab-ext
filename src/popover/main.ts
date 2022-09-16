@@ -7,9 +7,16 @@ import { storageGetP, getI18NMessage } from '../common/utils';
 (async () => {
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-const I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
 const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
-const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
+const uiLang = (UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG) as string;
+
+let I18Ns: {[key: string]: any};
+// due to service-worker inactive after 5min, use try catch to make sure the data is obtained
+try {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+} catch(e) {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+}
 
 const viewVocabBtn = document.getElementById('view-vocab') as HTMLElement;
 const settingsBtn = document.getElementById('settings') as HTMLElement;

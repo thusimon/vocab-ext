@@ -6,7 +6,18 @@ import {
 } from '../../common/utils';
 
 (async () => {
-const I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+if (settings.UI_TAREGT_LANG_SAME) {
+  settings.UI_LANG = settings.TARGET_LANG
+}
+
+let I18Ns: {[key: string]: any};
+// due to service-worker inactive after 5min, use try catch to make sure the data is obtained
+try {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+} catch(e) {
+  I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
+}
 
 let isModified = false;
 const createComboBox = (id, options, defaultValue) => {
@@ -70,11 +81,6 @@ const toaster = document.getElementById('toaster')!;
 const toasterMsg = document.getElementById('toaster-msg')!;
 const toasterBtns = document.getElementById('toaster-buttons')!;
 const toasterOKBtn = document.getElementById('toaster-ok')!;
-
-const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-if (settings.UI_TAREGT_LANG_SAME) {
-  settings.UI_LANG = settings.TARGET_LANG
-}
 
 const render = settings => {
   const {SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = settings;
