@@ -1,6 +1,6 @@
 const fsp = require('fs').promises;
 const path = require('path');
-const swc = require("@swc/core");
+const webpack = require('webpack');
 
 const itemExists = async (src) => {
   try {
@@ -36,78 +36,69 @@ const copyFiles = async (src, dest, excludes = []) => {
 
 const buildMode = process.argv[2] || 'prod';
 
-const jscOption = {
-  target: 'es5',
-  minify: {
-    compress: {
-      unused: true,
-    }
-  }
+const buildPath = path.join(__dirname, '../build');
+const buildExtPath = path.join(buildPath, 'vocab-ext');
+
+const webpackConfig = {
+  entry: {
+    'service-worker': './src/service-worker.ts',
+    'content/content': './src/content/content.ts',
+    'popover/main': './src/popover/main.ts',
+    'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
+    'pages/statistics/main': './src/pages/statistics/main.ts',
+    'pages/settings/main': './src/pages/settings/main.ts',
+    'pages/new-tab/main': './src/pages/new-tab/main.ts'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
+  },
+  output: {
+    filename: '../build/vocab-ext/[name].js',
+  },
 };
 
-const devConfig = {
-  target: 'browser',
-  options: {
-    minify: false,
-    sourceMaps: true,
-    jsc: jscOption
-  }
-};
+const webpackDevConfig = Object.assign({}, webpackConfig, {
+  mode: 'development',
+  devtool: 'cheap-source-map',
+});
 
-const prodConfig = {
-  target: 'browser',
-  options: {
-    minify: true,
-    sourceMaps: false,
-    jsc: jscOption
-  }
-};
+const webpackProdConfig = Object.assign({}, webpackConfig, {
+  mode: 'production',
+  devtool: false,
+});
+
 
 const bundle = async mode => {
-  const buildConfig = {
-    entry: {
-      'service-worker': './src/service-worker.ts',
-      'content/content': './src/content/content.ts',
-      'popover/main': './src/popover/main.ts',
-      'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
-      'pages/statistics/main': './src/pages/statistics/main.ts',
-      'pages/settings/main': './src/pages/settings/main.ts',
-      'pages/new-tab/main': './src/pages/new-tab/main.ts'
-    },
-    ...(mode === 'prod' ? prodConfig : devConfig)
-  };
-
-  const result = await swc.bundle(buildConfig);
-
-  console.log(`building in ${mode}`);
-  Object.keys(result).forEach(file => {
-    let code = result[file].code;
-    if (mode != 'prod') {
-      // append source map comment at the end
-      //# sourceMappingURL=<file_path>.js.map
-      const fileName = file.split('/').pop()
-      code += `\n//# sourceMappingURL=${fileName}.js.map`;
-      fsp.writeFile(`build/vocab-ext/${file}.js.map`, result[file].map);
-      fsp.writeFile(`build/vocab-ext/${file}.js`, code);
+  const config = mode === 'prod' ? webpackProdConfig : webpackDevConfig;
+  const compiler = webpack(config);
+  
+  compiler.run((err, stats) => {
+    if (err) {
+      console.log(err);
     }
-    fsp.writeFile(`build/vocab-ext/${file}.js`, code);
-    console.log(`${file} done`);
+    compiler.close((closeErr) => {
+    });
   });
 }
 
 (async () => {
   const dir = __dirname;
-  // delete existing files
-  const buildPath = path.join(dir, '../build');
-  const buildExtPath = path.join(buildPath, 'vocab-ext');
   const zipExtPath = path.join(buildPath, 'vocab-ext.zip');
+  // delete entire build folder
   await fsp.rm(buildPath, { recursive: true });
   await fsp.mkdir(buildPath);
 
   // copy the existing non script files:
   await copyFiles(path.join(dir, '../src'), buildPath, ['.js', '.ts']);
-  // copy the libraries
-  await copyFiles(path.join(dir, '../src/common/lib'), path.join(buildPath, 'src/common'), []);
   await fsp.rename(path.join(buildPath, 'src'), buildExtPath);
   
   await bundle(buildMode);

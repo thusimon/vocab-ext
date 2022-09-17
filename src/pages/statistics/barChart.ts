@@ -1,28 +1,4 @@
-/**
- * This is a hack! Just want to use ts instead of js
- * the correct approach is `import * as d3 from 'd3'`
- * However, swc throw error when bundling d3
- * so still use d3.v6.min.js as a libary file
- */
-interface D3Type {
-  select: any;
-  scaleBand: any;
-  scaleLinear: any;
-  axisBottom: any;
-  axisLeft: any;
-  transition: any;
-  extent: any;
-}
-
-
-declare global {
-  interface Window {
-    d3: D3Type;
-  }
-}
-
-let d3: D3Type = window.d3;
-
+import * as d3 from "d3";
 class BarChart {
   parentElement: any;
   config: any;
