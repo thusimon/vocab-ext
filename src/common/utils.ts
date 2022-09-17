@@ -62,3 +62,17 @@ export const debounce = (func, timeout = 200) => {
     timer = setTimeout(() => { func.apply(this, args); }, timeout);
   };
 };
+
+export const setDomStyles = (elem, prop, value) => {
+  elem.style.setProperty(prop, value, 'important');
+};
+
+export const sendMessage = async (type, data, callback) => {
+  if (!chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
+    return;
+  }
+  const resp = await chrome.runtime.sendMessage({ type, data });
+  if (callback) {
+    return callback(resp);
+  }
+};

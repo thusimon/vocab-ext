@@ -47,7 +47,7 @@ let readingGenerator;
 let isPaused = true;
 let toasterOKCallback: (() => void) | null = null;
 let selectedVocabTr: HTMLElement | null = null;
-let sortedVocabs = [];
+let sortedVocabs: any[] = [];
 
 const synth = window.speechSynthesis;
 
@@ -124,7 +124,7 @@ const showVocabs = async (sortCriteria, ascending) => {
   tarLangE.classList.remove('high-light');
   createdAtE.classList.remove('high-light');
   document.getElementById(sortCriteria)!.classList.add('high-light');
-  const sortedVocabs = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
+  sortedVocabs = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
   setVocabs(sortedVocabs);
   countE.textContent = `${sortedVocabs.length}`;
 }
