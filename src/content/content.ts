@@ -3,7 +3,7 @@ import {
   DOM_ID, RUNTIME_EVENT_TYPE, CARD_CSS_CHECK_TIMEOUT, STORAGE_AREA,
   DEFAULT_SETTING
 } from '../common/constants';
-import { storageGetP, setDomStyles } from '../common/utils';
+import { storageGetP, setDomStyles, sendMessage } from '../common/utils';
 import TranslateModal from './TranslateModal';
 
 (async () => {
@@ -14,6 +14,9 @@ let cardClearTimer;
 document.addEventListener('contextmenu', evt => {
   contextClientX = evt.clientX;
   contextClientY = evt.clientY;
+  // service worker becomes inactive after 30s, as a result, chrome.contextMenus.onClicked is not triggered
+  // send a simple message to re-activate service worker
+  sendMessage('SYN', {}, () => {});
   cleanTranslate();
 }, true);
 

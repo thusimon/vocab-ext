@@ -115,6 +115,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse(I18Ns);
       break;
     }
+    case 'SYN': {
+      sendResponse('SYN-ACK');
+      break;
+    }
     default:
       break;
   }
