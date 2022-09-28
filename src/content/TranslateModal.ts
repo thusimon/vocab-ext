@@ -385,6 +385,8 @@ class TranslateModal extends HTMLElement {
 
     this.container.append(this.header, this.content);
 
+    this.opacity = 0;
+
     shadow.append(style, this.container);
   }
 

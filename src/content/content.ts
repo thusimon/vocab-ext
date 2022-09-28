@@ -39,19 +39,14 @@ const getContainer = () => {
 };
 
 const getTranslateModal = (): TranslateModal => {
+  const containerE = getContainer();
   let translateModal = document.getElementById(DOM_ID.TRANSLATE_MODAL);
   if (!translateModal) {
     translateModal = document.createElement('translate-modal');
     translateModal.id = DOM_ID.TRANSLATE_MODAL;
+    containerE.append(translateE);
   }
   return translateModal as TranslateModal;
-}
-
-const initTranslate = () => {
-  const containerE = getContainer();
-  const translateE = getTranslateModal();
-  containerE.append(translateE);
-  return translateE;
 }
 
 const showTranslate = ({type, data}) => {
@@ -128,7 +123,7 @@ const getCardTriggerElem = async (cardCss): Promise<HTMLElement> => {
   })
 }
 
-chrome.runtime.onMessage.addListener(request => {
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   const {type, data} = request;
   if (!type) {
     return;
@@ -138,6 +133,7 @@ chrome.runtime.onMessage.addListener(request => {
     case RUNTIME_EVENT_TYPE.GET_TRANSLATION:
     case RUNTIME_EVENT_TYPE.ERROR_TRANSLATION: {
       showTranslate({ type, data });
+      sendResponse(true);
       break;
     }
     default:
@@ -149,7 +145,7 @@ chrome.runtime.onMessage.addListener(request => {
 window.customElements.define('translate-modal', TranslateModal);
 
 const vocabContainer = getContainer();
-const translateE = initTranslate();
+const translateE = getTranslateModal();
 
 const {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 if (ENABLE_CARD && window.self === window.top) {

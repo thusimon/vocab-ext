@@ -46,14 +46,20 @@ const sendMessageToCurrentTab = async (tabId: number, frameId: number, type, dat
   } else {
     options.frameId = 0;
   }
-  if (tabId > -1) {
-    return await chrome.tabs.sendMessage(tabId, {type, data}, options);
-  } else {
+  if (tabId < 0) {
     const tabs = await chrome.tabs.query({ currentWindow: true, active : true});
-    if (tabs && tabs[0] && typeof tabs[0].id != 'undefined') {
-      return await chrome.tabs.sendMessage(tabs[0].id, {type, data}, options);
-    }
+    tabId = tabs[0].id;
   }
+  const promise = new Promise((resolve, reject) => {
+    chrome.tabs.sendMessage(tabId, {type, data}, options, resp => {
+      if(chrome.runtime.lastError) {
+        reject(chrome.runtime.lastError.message);
+      } else {
+        resolve(resp);
+      }
+    });
+  });
+  return promise;
 }
 
 const onTranslateClick = async (info, tab) => {

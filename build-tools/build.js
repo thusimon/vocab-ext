@@ -68,7 +68,7 @@ const webpackConfig = {
 
 const webpackDevConfig = Object.assign({}, webpackConfig, {
   mode: 'development',
-  devtool: 'cheap-source-map',
+  devtool: 'source-map',
 });
 
 const webpackProdConfig = Object.assign({}, webpackConfig, {
