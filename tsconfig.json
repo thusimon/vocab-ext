@@ -5,5 +5,10 @@
     "target": "es5",
     "allowJs": true,
     "moduleResolution": "node"
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "build-tools"
+  ]
 }

@@ -44,7 +44,7 @@ const getTranslateModal = (): TranslateModal => {
   if (!translateModal) {
     translateModal = document.createElement('translate-modal');
     translateModal.id = DOM_ID.TRANSLATE_MODAL;
-    containerE.append(translateE);
+    containerE.append(translateModal);
   }
   return translateModal as TranslateModal;
 }

@@ -123,7 +123,7 @@ class TranslateAPI {
       translit = sentences[1].translit;
       src_translit = sentences[1].src_translit;
     }
-    let dictResult: any = [];
+    let dictResult: any[] = [];
     if (dict) {
       dict.forEach(d=>{
         dictResult.push({
@@ -132,7 +132,7 @@ class TranslateAPI {
         });
       });
     }
-    let exampleRes = [];
+    let exampleRes: any[] = [];
     if (examples) {
       exampleRes = examples.example || []
     }

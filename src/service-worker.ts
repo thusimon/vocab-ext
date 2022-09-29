@@ -4,7 +4,7 @@ import {
   LangCodeMapping, I18Ns
 } from './common/constants';
 import {
-  storageGetP, storageSetP, getTranslateUri, getI18NMessage
+  storageGetP, storageSetP, getTranslateUri, getI18NMessage, debounce
 } from './common/utils';
 
 interface SettingsType {
@@ -173,5 +173,58 @@ chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
     files: [ 'content/content.js' ]
   });
 });
+
+const omniboxInputChangeHandler = async (text, suggest) => {
+  text = text.trim();
+  if (!text) {
+    return;
+  }
+  const suggestions = [];
+  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+  const {SOURCE_LANG, TARGET_LANG} = settings as unknown as SettingsType;
+  try {
+    const translateRes = await translateAPI.translateFree(encodeURIComponent(text), SOURCE_LANG, TARGET_LANG);
+    // build suggestions
+    if (translateRes.translatedText) {
+      suggestions.push({
+        content: `${text}: ${translateRes.translatedText}`,
+        deletable: false,
+        description: `${text}: ${translateRes.translatedText}`
+      });
+    }
+    if (translateRes.dictResult && translateRes.dictResult.length > 0) {
+      const dictResults = translateRes.dictResult.slice(0, 3); // use 3 dict at most
+      dictResults.forEach(dict => {
+        suggestions.push({
+          content: `${dict.pos}: ${dict.terms.join(', ')}`,
+          deletable: false,
+          description: `${dict.pos}: ${dict.terms.join(', ')}`
+        });
+      });
+    }
+    if (translateRes.exampleRes && translateRes.exampleRes.length > 0) {
+      const exampleRes = translateRes.exampleRes.slice(0, 2); // use 2 examples at most
+      exampleRes.forEach(example => {
+        const exampleText = (example.text || '').replace(/<\/{0,1}b>/g, '');
+        if (!exampleText) {
+          return;
+        }
+        suggestions.push({
+          content: exampleText,
+          deletable: false,
+          description: exampleText
+        });
+      });
+    }
+  } catch (e) {
+    suggestions.push({
+      content: text,
+      deletable: false,
+      description: `Error: ${e}`
+    });
+  }
+  suggest(suggestions);
+}
+chrome.omnibox.onInputChanged.addListener(debounce(omniboxInputChangeHandler, 500));
 
 })();
