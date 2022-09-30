@@ -13,14 +13,18 @@
   "background": {
     "service_worker": "service-worker.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "run_at": "document_idle",
+      "js": ["content/content.js"]
+    }
+  ],
   "permissions": [
-    "webNavigation",
-    "scripting",
     "storage",
     "unlimitedStorage",
     "contextMenus"
   ],
-  "host_permissions": [ "<all_urls>" ],
   "omnibox": { "keyword" : "vb" },
   "action": {
     "default_title": "Vocab",

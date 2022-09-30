@@ -18,19 +18,22 @@ interface SettingsType {
 // TODO manifest V3 only support service worker in the root directory
 const translateAPI = new TranslateAPI();
 
-let contextMenu;
 let contextMenuFrameId;
 
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
 const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
-if (!contextMenu) {
-  contextMenu = chrome.contextMenus.create({
-    id: CONTEXTMENU_TRANSLATE_ID,
-    title: getI18NMessage(I18Ns, uiLang, 'sw_context_translate'),
-    contexts: ['selection']
-  });
-}
+
+chrome.contextMenus.create({
+  id: CONTEXTMENU_TRANSLATE_ID,
+  title: getI18NMessage(I18Ns, uiLang, 'sw_context_translate'),
+  contexts: ['selection']
+}, () => {
+  if (chrome.runtime.lastError) {
+    console.log(`Warning when creating context menu: ${chrome.runtime.lastError.message}`);
+  }
+});
+
 
 const translateInternal = async (text, sourceLang, targetLang, enableAPI) => {
   const translateRes = enableAPI
@@ -158,19 +161,6 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   const contextTranslateTitle = getI18NMessage(I18Ns, uiLang, 'sw_context_translate');
   chrome.contextMenus.update(CONTEXTMENU_TRANSLATE_ID, {title: contextTranslateTitle}, () => {
     console.log(`context translate menu title updated as ${contextTranslateTitle}`);
-  });
-});
-
-chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
-  const frameIds = [details.frameId];
-  // run custom elements polyfill
-  // await chrome.scripting.executeScript({
-  //   target: {tabId: details.tabId, frameIds: frameIds},
-  //   files: [ 'content/custom-elements.js' ]
-  // });
-  await chrome.scripting.executeScript({
-    target: {tabId: details.tabId, frameIds: frameIds},
-    files: [ 'content/content.js' ]
   });
 });
 
