@@ -84,7 +84,7 @@ const createTableRow = (vocab, idx) => {
 
 document.title = getI18NMessage(I18Ns, uiLang, 'vocab_title');
 srcLangE.textContent = getI18NMessage(I18Ns, SOURCE_LANG, 'name');
-tarLangE.textContent = getI18NMessage(I18Ns, uiLang, 'name');
+tarLangE.textContent = getI18NMessage(I18Ns, TARGET_LANG, 'name');
 createdAtE.textContent = getI18NMessage(I18Ns, uiLang, 'vocab_createdAt');
 
 toasterOKBtn.textContent = getI18NMessage(I18Ns, uiLang, 'ok');
