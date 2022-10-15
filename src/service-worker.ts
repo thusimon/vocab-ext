@@ -133,16 +133,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
-chrome.runtime.onInstalled.addListener(async (details) => {
-  if (!details || details.reason != 'install') {
-    return;
-  }
-  // user installed for the first time
-  chrome.tabs.create({
-    url: chrome.runtime.getURL('/pages/settings/index.html?install=new')
-  });
-});
-
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace != 'local') {
     return;
@@ -218,3 +208,14 @@ const omniboxInputChangeHandler = async (text, suggest) => {
 chrome.omnibox.onInputChanged.addListener(debounce(omniboxInputChangeHandler, 500));
 
 })();
+
+// onInstalled event only triggered when the registeration is called sync in the first place.
+chrome.runtime.onInstalled.addListener(details => {
+  if (!details || details.reason != 'install') {
+    return;
+  }
+  // user installed for the first time
+  chrome.tabs.create({
+    url: chrome.runtime.getURL('/pages/settings/index.html?install=new')
+  });
+});
