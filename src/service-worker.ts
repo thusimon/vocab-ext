@@ -196,6 +196,12 @@ const omniboxInputChangeHandler = async (text, suggest) => {
         });
       });
     }
+    // push an add button
+    suggestions.push({
+      content: 'Add',
+      deletable: false,
+      description: '<match>Add</match>'
+    });
   } catch (e) {
     suggestions.push({
       content: text,
