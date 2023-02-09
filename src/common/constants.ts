@@ -500,7 +500,8 @@ export const I18Ns = {
     vocab_search_desp: 'Search vocabulary',
     vocab_createdAt: 'Created at',
     newtab_title: 'New Tab',
-    newtab_no_vocab_msg: `You haven't added any vocabulary, use context menu to translate and add them:)`
+    newtab_no_vocab_msg: `You haven't added any vocabulary, use context menu to translate and add them:)`,
+    omni_add: 'Add this vocabulary to glossary book'
   },
   es: {
     name: '\u0045\u0073\u0070\u0061\u00f1\u006f\u006c',

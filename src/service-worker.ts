@@ -154,6 +154,8 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   });
 });
 
+let translateRes;
+
 const omniboxInputChangeHandler = async (text, suggest) => {
   text = text.trim();
   if (!text) {
@@ -163,7 +165,7 @@ const omniboxInputChangeHandler = async (text, suggest) => {
   const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
   const {SOURCE_LANG, TARGET_LANG} = settings as unknown as SettingsType;
   try {
-    const translateRes = await translateAPI.translateFree(encodeURIComponent(text), SOURCE_LANG, TARGET_LANG);
+    translateRes = await translateAPI.translateFree(encodeURIComponent(text), SOURCE_LANG, TARGET_LANG);
     // build suggestions
     if (translateRes.translatedText) {
       suggestions.push({
@@ -197,10 +199,11 @@ const omniboxInputChangeHandler = async (text, suggest) => {
       });
     }
     // push an add button
+    const addText = getI18NMessage(I18Ns, uiLang, 'omni_add');
     suggestions.push({
-      content: 'Add',
+      content: addText,
       deletable: false,
-      description: '<match>Add</match>'
+      description: `<match>${addText}</match>`
     });
   } catch (e) {
     suggestions.push({
@@ -211,8 +214,13 @@ const omniboxInputChangeHandler = async (text, suggest) => {
   }
   suggest(suggestions);
 }
-chrome.omnibox.onInputChanged.addListener(debounce(omniboxInputChangeHandler, 500));
 
+const omniboxInputEnterHandler = async (text, disposition) => {
+  console.log(text, disposition, translateRes);
+}
+
+chrome.omnibox.onInputChanged.addListener(debounce(omniboxInputChangeHandler, 500));
+chrome.omnibox.onInputEntered.addListener(omniboxInputEnterHandler);
 })();
 
 // onInstalled event only triggered when the registeration is called sync in the first place.
