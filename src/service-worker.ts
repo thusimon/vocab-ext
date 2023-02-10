@@ -199,7 +199,7 @@ const omniboxInputChangeHandler = async (text, suggest) => {
       });
     }
     // push an add button
-    const addText = getI18NMessage(I18Ns, uiLang, 'omni_add');
+    const addText = ` + ${getI18NMessage(I18Ns, uiLang, 'omni_add')}`;
     suggestions.push({
       content: addText,
       deletable: false,
@@ -216,7 +216,9 @@ const omniboxInputChangeHandler = async (text, suggest) => {
 }
 
 const omniboxInputEnterHandler = async (text, disposition) => {
-  console.log(text, disposition, translateRes);
+  if (text && text.startsWith(' + ') && translateRes) {
+    addVocabularyToStorage(translateRes);
+  }
 }
 
 chrome.omnibox.onInputChanged.addListener(debounce(omniboxInputChangeHandler, 500));
