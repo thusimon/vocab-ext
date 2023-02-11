@@ -133,6 +133,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
+let omniAddText = ` + ${getI18NMessage(I18Ns, uiLang, 'omni_add')}`;
+
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (namespace != 'local') {
     return;
@@ -152,6 +154,7 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   chrome.contextMenus.update(CONTEXTMENU_TRANSLATE_ID, {title: contextTranslateTitle}, () => {
     console.log(`context translate menu title updated as ${contextTranslateTitle}`);
   });
+  omniAddText = ` + ${getI18NMessage(I18Ns, uiLang, 'omni_add')}`;
 });
 
 let translateRes;
@@ -199,11 +202,10 @@ const omniboxInputChangeHandler = async (text, suggest) => {
       });
     }
     // push an add button
-    const addText = ` + ${getI18NMessage(I18Ns, uiLang, 'omni_add')}`;
     suggestions.push({
-      content: addText,
+      content: omniAddText,
       deletable: false,
-      description: `<match>${addText}</match>`
+      description: `<match>${omniAddText}</match>`
     });
   } catch (e) {
     suggestions.push({
