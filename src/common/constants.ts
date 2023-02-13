@@ -222,7 +222,7 @@ export const I18Ns = {
     vocab_createdAt: '\u098F \u09A8\u09BF\u09B0\u09CD\u09AE\u09BF\u09A4',
     newtab_title: '\u09A8\u09A4\u09C1\u09A8 \u099F\u09CD\u09AF\u09BE\u09AC',
     newtab_no_vocab_msg: '\u0986\u09AA\u09A8\u09BF \u0995\u09CB\u09A8\u09CB \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A3\u09CD\u09A1\u09BE\u09B0 \u09AF\u09CB\u0997 \u0995\u09B0\u09C7\u09A8\u09A8\u09BF, \u0985\u09A8\u09C1\u09AC\u09BE\u09A6 \u0995\u09B0\u09A4\u09C7 \u098F\u09AC\u0982 \u09AF\u09CB\u0997 \u0995\u09B0\u09A4\u09C7 \u09AA\u09CD\u09B0\u09B8\u0999\u09CD\u0997 \u09AE\u09C7\u09A8\u09C1 \u09AC\u09CD\u09AF\u09AC\u09B9\u09BE\u09B0 \u0995\u09B0\u09C1\u09A8 :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u09B6\u09AC\u09CD\u09A6\u0995\u09CB\u09B7 \u09AC\u0987\u09A4\u09C7 \u098F\u0987 \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0 \u09AF\u09CB\u0997 \u0995\u09B0\u09C1\u09A8'
   },
   ca: {
     name: 'catal\xE0',
@@ -270,7 +270,7 @@ export const I18Ns = {
     vocab_createdAt: 'Creat a',
     newtab_title: 'Nova pestanya',
     newtab_no_vocab_msg: 'No heu afegit cap vocabulari, feu servir el men\xFA contextual per traduir-lo i afegir-lo :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Afegiu aquest vocabulari al llibre de glossari'
   },
   cs: {
     name: '\u010De\u0161tina',
@@ -318,7 +318,7 @@ export const I18Ns = {
     vocab_createdAt: 'Vytvo\u0159eno v',
     newtab_title: 'Nov\xE1 karta',
     newtab_no_vocab_msg: 'Nep\u0159idali jste \u017E\xE1dnou slovn\xED z\xE1sobu, pou\u017Eijte kontextov\xE9 menu k p\u0159ekladu a p\u0159id\xE1n\xED:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'P\u0159idejte tuto slovn\xED z\xE1sobu do slovn\xEDku'
   },
   da: {
     name: 'dansk',
@@ -366,7 +366,7 @@ export const I18Ns = {
     vocab_createdAt: 'Oprettet kl',
     newtab_title: 'Ny fane',
     newtab_no_vocab_msg: 'Du har ikke tilf\xF8jet noget ordforr\xE5d, brug kontekstmenuen til at overs\xE6tte og tilf\xF8je dem :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'F\xF8j dette ordforr\xE5d til ordbog'
   },
   de: {
     name: 'Deutsch',
@@ -414,7 +414,7 @@ export const I18Ns = {
     vocab_createdAt: 'Hergestellt in',
     newtab_title: 'Neue Registerkarte',
     newtab_no_vocab_msg: 'Sie haben keine Vokabeln hinzugef\xFCgt, verwenden Sie das Kontextmen\xFC, um sie zu \xFCbersetzen und hinzuzuf\xFCgen :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'F\xFCgen Sie dieses Vokabular dem Glossarbuch hinzu'
   },
   el: {
     name: '\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac',
@@ -462,7 +462,7 @@ export const I18Ns = {
     vocab_createdAt: '\u0394\u03B7\u03BC\u03B9\u03BF\u03C5\u03C1\u03B3\u03AE\u03B8\u03B7\u03BA\u03B5 \u03C3\u03C4\u03BF',
     newtab_title: '\u039D\u03AD\u03B1 \u03BA\u03B1\u03C1\u03C4\u03AD\u03BB\u03B1',
     newtab_no_vocab_msg: '\u0394\u03B5\u03BD \u03AD\u03C7\u03B5\u03C4\u03B5 \u03C0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03B5\u03B9 \u03BB\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03BF, \u03C7\u03C1\u03B7\u03C3\u03B9\u03BC\u03BF\u03C0\u03BF\u03B9\u03AE\u03C3\u03C4\u03B5 \u03C4\u03BF \u03BC\u03B5\u03BD\u03BF\u03CD \u03C0\u03B5\u03C1\u03B9\u03B2\u03AC\u03BB\u03BB\u03BF\u03BD\u03C4\u03BF\u03C2 \u03B3\u03B9\u03B1 \u03BD\u03B1 \u03C4\u03BF \u03BC\u03B5\u03C4\u03B1\u03C6\u03C1\u03AC\u03C3\u03B5\u03C4\u03B5 \u03BA\u03B1\u03B9 \u03BD\u03B1 \u03C4\u03BF \u03C0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03B5\u03C4\u03B5 :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u03A0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03C4\u03B5 \u03B1\u03C5\u03C4\u03CC \u03C4\u03BF \u03BB\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03BF \u03C3\u03C4\u03BF \u03B2\u03B9\u03B2\u03BB\u03AF\u03BF \u03B3\u03BB\u03C9\u03C3\u03C3\u03AC\u03C1\u03B9'
   },
   en: {
     name: 'English',
