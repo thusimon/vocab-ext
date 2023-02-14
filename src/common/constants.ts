@@ -558,7 +558,7 @@ export const I18Ns = {
     vocab_createdAt: 'Creado en',
     newtab_title: 'Nueva pesta\xF1a',
     newtab_no_vocab_msg: 'No ha agregado ning\xFAn vocabulario, use el men\xFA contextual para traducirlo y agregarlo :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'A\xF1adir este vocabulario al libro de glosario'
   },
   et: {
     name: 'eesti keel',
@@ -606,7 +606,7 @@ export const I18Ns = {
     vocab_createdAt: 'Loodud kell',
     newtab_title: 'Uuel kaardil',
     newtab_no_vocab_msg: 'Te pole s\xF5navara lisanud, kasutage nende t\xF5lkimiseks ja lisamiseks kontekstimen\xFC\xFCd:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Lisage see s\xF5navara s\xF5nastikesse'
   },
   fa: {
     name: '\u0641\u0627\u0631\u0633\u06CC',
@@ -654,7 +654,7 @@ export const I18Ns = {
     vocab_createdAt: '\u0627\u06CC\u062C\u0627\u062F \u0634\u062F\u0647 \u062F\u0631',
     newtab_title: '\u0628\u0631\u06AF\u0647 \u062C\u062F\u06CC\u062F',
     newtab_no_vocab_msg: '\u0634\u0645\u0627 \u0647\u06CC\u0686 \u0648\u0627\u0698\u06AF\u0627\u0646\u06CC \u0627\u0636\u0627\u0641\u0647 \u0646\u06A9\u0631\u062F\u0647 \u0627\u06CC\u062F\u060C \u0627\u0632 \u0645\u0646\u0648\u06CC \u0632\u0645\u06CC\u0646\u0647 \u0628\u0631\u0627\u06CC \u062A\u0631\u062C\u0645\u0647 \u0648 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0631\u062F\u0646 \u0622\u0646\u0647\u0627 \u0627\u0633\u062A\u0641\u0627\u062F\u0647 \u06A9\u0646\u06CC\u062F:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0627\u06CC\u0646 \u0648\u0627\u0698\u06AF\u0627\u0646 \u0631\u0627 \u0628\u0647 \u06A9\u062A\u0627\u0628 \u0648\u0627\u0698\u0647 \u0646\u0627\u0645\u0647 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0646\u06CC\u062F'
   },
   fi: {
     name: 'suomi',
@@ -702,7 +702,7 @@ export const I18Ns = {
     vocab_createdAt: 'Luotu klo',
     newtab_title: 'Uusi v\xE4lilehti',
     newtab_no_vocab_msg: 'Et ole lis\xE4nnyt sanastoa, k\xE4yt\xE4 kontekstivalikkoa k\xE4\xE4nt\xE4\xE4ksesi ja lis\xE4t\xE4ksesi ne:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Lis\xE4\xE4 t\xE4m\xE4 sanasto sanastokirjaan'
   },
   fil: {
     name: 'Wikang Filipino',
@@ -750,7 +750,7 @@ export const I18Ns = {
     vocab_createdAt: 'Nilikha sa',
     newtab_title: 'Bagong tab',
     newtab_no_vocab_msg: 'Hindi ka pa nagdagdag ng anumang bokabularyo, gumamit ng menu ng konteksto upang isalin at idagdag ang mga ito:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Idagdag ang bokabularyo na ito sa glossary book'
   },
   fr: {
     name: '\u0046\u0072\u0061\u006e\u00e7\u0061\u0069\u0073',
@@ -798,7 +798,7 @@ export const I18Ns = {
     vocab_createdAt: 'Cr\xE9\xE9 \xE0',
     newtab_title: 'Nouvel onglet',
     newtab_no_vocab_msg: 'Vous n\'avez ajout\xE9 aucun vocabulaire, utilisez le menu contextuel pour traduire et ajoutez-les :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Ajouter ce vocabulaire au livre de glossaire'
   },
   gu: {
     name: '\u0A97\u0AC1\u0A9C\u0AB0\u0ABE\u0AA4\u0AC0',
