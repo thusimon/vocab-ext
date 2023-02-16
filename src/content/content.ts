@@ -167,7 +167,8 @@ if (ENABLE_CARD && window.self === window.top) {
     });
   })
   .catch((err) => {
-    console.log(err);
+    // do not log in content script
+    // TODO: log in service-worker
   });
 }
 })();

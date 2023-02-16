@@ -846,7 +846,7 @@ export const I18Ns = {
     vocab_createdAt: '\u0A96\u0ABE\u0AA4\u0AC7 \u0AAC\u0AA8\u0ABE\u0AB5\u0AC7\u0AB2 \u0A9B\u0AC7',
     newtab_title: '\u0AA8\u0AB5\u0AC1\u0A82 \u0A9F\u0AC7\u0AAC',
     newtab_no_vocab_msg: '\u0AA4\u0AAE\u0AC7 \u0A95\u0ACB\u0A88\u0AAA\u0AA3 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0A89\u0AAE\u0AC7\u0AB0\u0ACD\u0AAF\u0AC1\u0A82 \u0AA8\u0AA5\u0AC0, \u0A85\u0AA8\u0AC1\u0AB5\u0ABE\u0AA6 \u0A95\u0AB0\u0AB5\u0ABE \u0A85\u0AA8\u0AC7 \u0AA4\u0AC7\u0AA8\u0AC7 \u0A89\u0AAE\u0AC7\u0AB0\u0AB5\u0ABE \u0AAE\u0ABE\u0A9F\u0AC7 \u0AB8\u0A82\u0AA6\u0AB0\u0ACD\u0AAD \u0AAE\u0AC7\u0AA8\u0AC2\u0AA8\u0ACB \u0A89\u0AAA\u0AAF\u0ACB\u0A97 \u0A95\u0AB0\u0ACB :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0AAA\u0AC1\u0AB8\u0ACD\u0AA4\u0A95\u0AAE\u0ABE\u0A82 \u0A86 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0A89\u0AAE\u0AC7\u0AB0\u0ACB'
   },
   he: {
     name: '\u05E2\u05B4\u05D1\u05B0\u05E8\u05B4\u05D9\u05EA',
@@ -894,7 +894,7 @@ export const I18Ns = {
     vocab_createdAt: '\u05E0\u05D5\u05E6\u05E8 \u05D1',
     newtab_title: '\u05DB\u05E8\u05D8\u05D9\u05E1\u05D9\u05D9\u05D4 \u05D7\u05D3\u05E9\u05D4',
     newtab_no_vocab_msg: '\u05DC\u05D0 \u05D4\u05D5\u05E1\u05E4\u05EA \u05D0\u05D5\u05E6\u05E8 \u05DE\u05D9\u05DC\u05D9\u05DD, \u05D4\u05E9\u05EA\u05DE\u05E9 \u05D1\u05EA\u05E4\u05E8\u05D9\u05D8 \u05D4\u05D4\u05E7\u05E9\u05E8 \u05DB\u05D3\u05D9 \u05DC\u05EA\u05E8\u05D2\u05DD \u05D5\u05DC\u05D4\u05D5\u05E1\u05D9\u05E3 \u05D0\u05D5\u05EA\u05DD :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u05D4\u05D5\u05E1\u05E3 \u05D0\u05EA \u05D0\u05D5\u05E6\u05E8 \u05D4\u05DE\u05D9\u05DC\u05D9\u05DD \u05D4\u05D6\u05D4 \u05DC\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D5\u05E0\u05D7\u05D9\u05DD'
   },
   hi: {
     name: '\u0939\u093f\u0928\u094d\u0926\u0940',
@@ -942,7 +942,7 @@ export const I18Ns = {
     vocab_createdAt: '\u092A\u0930 \u092C\u0928\u093E\u092F\u093E \u0917\u092F\u093E',
     newtab_title: '\u0928\u092F\u093E \u091F\u0948\u092C',
     newtab_no_vocab_msg: '\u0906\u092A\u0928\u0947 \u0915\u094B\u0908 \u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940 \u0928\u0939\u0940\u0902 \u091C\u094B\u0921\u093C\u0940 \u0939\u0948, \u0905\u0928\u0941\u0935\u093E\u0926 \u0915\u0930\u0928\u0947 \u0914\u0930 \u0909\u0928\u094D\u0939\u0947\u0902 \u091C\u094B\u0921\u093C\u0928\u0947 \u0915\u0947 \u0932\u093F\u090F \u0938\u0902\u0926\u0930\u094D\u092D \u092E\u0947\u0928\u0942 \u0915\u093E \u0909\u092A\u092F\u094B\u0917 \u0915\u0930\u0947\u0902 :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0907\u0938 \u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940 \u0915\u094B \u0936\u092C\u094D\u0926\u0915\u094B\u0937 \u092A\u0941\u0938\u094D\u0924\u0915 \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u0947\u0902'
   },
   hr: {
     name: 'hrvatski',
@@ -990,7 +990,7 @@ export const I18Ns = {
     vocab_createdAt: 'Stvoreno u',
     newtab_title: 'Nova kartica',
     newtab_no_vocab_msg: 'Niste dodali nikakav vokabular, upotrijebite kontekstni izbornik za prijevod i dodajte ih :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Dodajte ovaj vokabular u knjigu pojmovnika'
   },
   hu: {
     name: 'magyar nyelv',
@@ -1038,7 +1038,7 @@ export const I18Ns = {
     vocab_createdAt: 'L\xE9trehozva',
     newtab_title: '\xDAj lap',
     newtab_no_vocab_msg: 'Nem adt\xE1l hozz\xE1 sz\xF3kincset, ford\xEDtsd le \xE9s add hozz\xE1 a helyi men\xFCt:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Adja hozz\xE1 ezt a sz\xF3kincset a sz\xF3szedethez'
   },
   id: {
     name: 'Bahasa Indonesia',

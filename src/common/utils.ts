@@ -71,8 +71,13 @@ export const sendMessage = async (type, data, callback) => {
   if (!chrome || !chrome.runtime || !chrome.runtime.sendMessage) {
     return;
   }
-  const resp = await chrome.runtime.sendMessage({ type, data });
-  if (callback) {
-    return callback(resp);
+  try {
+    const resp = await chrome.runtime.sendMessage({ type, data });
+    if (callback) {
+      return callback(resp);
+    }
+  } catch(err) {
+    // do not log in content script
+    // TODO: log in service-worker
   }
 };
