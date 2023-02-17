@@ -1470,7 +1470,7 @@ export const I18Ns = {
     vocab_createdAt: '\u0D0E\u0D28\u0D4D\u0D28 \u0D38\u0D4D\u0D25\u0D32\u0D24\u0D4D\u0D24\u0D4D \u0D38\u0D43\u0D37\u0D4D\u0D1F\u0D3F\u0D1A\u0D4D\u0D1A\u0D41',
     newtab_title: '\u0D2A\u0D41\u0D24\u0D3F\u0D2F \u0D1F\u0D3E\u0D2C\u0D4D',
     newtab_no_vocab_msg: '\u0D28\u0D3F\u0D19\u0D4D\u0D19\u0D7E \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F\u0D15\u0D33\u0D4A\u0D28\u0D4D\u0D28\u0D41\u0D02 \u0D1A\u0D47\u0D7C\u0D24\u0D4D\u0D24\u0D3F\u0D1F\u0D4D\u0D1F\u0D3F\u0D32\u0D4D\u0D32, \u0D35\u0D3F\u0D35\u0D7C\u0D24\u0D4D\u0D24\u0D28\u0D02 \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D3E\u0D28\u0D41\u0D02 \u0D05\u0D35 \u0D1A\u0D47\u0D7C\u0D15\u0D4D\u0D15\u0D3E\u0D28\u0D41\u0D02 \u0D38\u0D28\u0D4D\u0D26\u0D7C\u0D2D \u0D2E\u0D46\u0D28\u0D41 \u0D09\u0D2A\u0D2F\u0D4B\u0D17\u0D3F\u0D15\u0D4D\u0D15\u0D41\u0D15 :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0D08 \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F \u0D17\u0D4D\u0D32\u0D4B\u0D38\u0D31\u0D3F \u0D2A\u0D41\u0D38\u0D4D\u0D24\u0D15\u0D24\u0D4D\u0D24\u0D3F\u0D32\u0D47\u0D15\u0D4D\u0D15\u0D4D \u0D1A\u0D47\u0D7C\u0D15\u0D4D\u0D15\u0D41\u0D15'
   },
   mr: {
     name: '\u092E\u0930\u093E\u0920\u0940',
@@ -1518,7 +1518,7 @@ export const I18Ns = {
     vocab_createdAt: '\u092F\u0947\u0925\u0947 \u0924\u092F\u093E\u0930 \u0915\u0947\u0932\u0947',
     newtab_title: '\u0928\u0935\u0940\u0928 \u091F\u0945\u092C',
     newtab_no_vocab_msg: '\u0924\u0941\u092E\u094D\u0939\u0940 \u0915\u094B\u0923\u0924\u0940\u0939\u0940 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u091C\u094B\u0921\u0932\u0947\u0932\u0940 \u0928\u093E\u0939\u0940, \u092D\u093E\u0937\u093E\u0902\u0924\u0930 \u0915\u0930\u0923\u094D\u092F\u093E\u0938\u093E\u0920\u0940 \u0938\u0902\u0926\u0930\u094D\u092D \u092E\u0947\u0928\u0942 \u0935\u093E\u092A\u0930\u093E \u0906\u0923\u093F \u091C\u094B\u0921\u093E :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0939\u093E \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u0936\u092C\u094D\u0926\u0915\u094B\u0937\u093E\u091A\u094D\u092F\u093E \u092A\u0941\u0938\u094D\u0924\u0915\u093E\u0924 \u091C\u094B\u0921\u093E'
   },
   ms: {
     name: 'Bahasa Melayu',
@@ -1566,7 +1566,7 @@ export const I18Ns = {
     vocab_createdAt: 'Dicipta pada',
     newtab_title: 'Tab baru',
     newtab_no_vocab_msg: 'Anda belum menambah apa-apa perbendaharaan kata, gunakan menu konteks untuk menterjemah dan menambahnya :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Tambahkan perbendaharaan kata ini pada buku glosari'
   },
   nl: {
     name: 'Nederlands',
@@ -1614,7 +1614,7 @@ export const I18Ns = {
     vocab_createdAt: 'Gemaakt bij',
     newtab_title: 'Nieuw tabblad',
     newtab_no_vocab_msg: 'Je hebt geen woordenschat toegevoegd, gebruik het contextmenu om te vertalen en voeg ze toe :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Voeg deze woordenschat toe aan het woordenlijstboek'
   },
   no: {
     name: 'Norsk',
@@ -1662,7 +1662,7 @@ export const I18Ns = {
     vocab_createdAt: 'Opprettet kl',
     newtab_title: 'Ny fane',
     newtab_no_vocab_msg: 'Du har ikke lagt til noe ordforr\xE5d, bruk kontekstmenyen for \xE5 oversette og legge dem til:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Legg til dette ordforr\xE5det til ordlisteboken'
   },
   pl: {
     name: 'Polski',
@@ -1710,7 +1710,7 @@ export const I18Ns = {
     vocab_createdAt: 'Utworzono w',
     newtab_title: 'Nowa karta',
     newtab_no_vocab_msg: 'Nie doda\u0142e\u015B \u017Cadnego s\u0142ownictwa, u\u017Cyj menu kontekstowego, aby je przet\u0142umaczy\u0107 i doda\u0107 :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Dodaj to s\u0142ownictwo do glosariusza'
   },
   pt: {
     name: 'portugu\xEAs',
@@ -1758,7 +1758,7 @@ export const I18Ns = {
     vocab_createdAt: 'Criado em',
     newtab_title: 'Nova aba',
     newtab_no_vocab_msg: 'Voc\xEA n\xE3o adicionou nenhum vocabul\xE1rio, use o menu de contexto para traduzir e adicion\xE1-los :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Adicionar este vocabul\xE1rio ao livro gloss\xE1rio'
   },
   ro: {
     name: 'limba rom\xE2n\u0103',
