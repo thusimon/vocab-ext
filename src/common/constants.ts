@@ -1086,7 +1086,7 @@ export const I18Ns = {
     vocab_createdAt: 'Dibuat di',
     newtab_title: 'Tab baru',
     newtab_no_vocab_msg: 'Anda belum menambahkan kosakata apa pun, gunakan menu konteks untuk menerjemahkan dan menambahkannya :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Tambahkan kosakata ini ke buku glosarium'
   },
   it: {
     name: 'Italiano',
@@ -1134,7 +1134,7 @@ export const I18Ns = {
     vocab_createdAt: 'Creato a',
     newtab_title: 'Nuova scheda',
     newtab_no_vocab_msg: 'Non hai aggiunto alcun vocabolario, usa il menu contestuale per tradurre e aggiungerli :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Aggiungi questo vocabolario al libro del glossario'
   },
   ja: {
     name: '\u65e5\u672c\u8a9e',
@@ -1182,7 +1182,7 @@ export const I18Ns = {
     vocab_createdAt: '\u3067\u4F5C\u6210',
     newtab_title: '\u65B0\u3057\u3044\u30BF\u30D6',
     newtab_no_vocab_msg: '\u8A9E\u5F59\u3092\u8FFD\u52A0\u3057\u3066\u3044\u307E\u305B\u3093\u3002\u30B3\u30F3\u30C6\u30AD\u30B9\u30C8 \u30E1\u30CB\u30E5\u30FC\u3092\u4F7F\u7528\u3057\u3066\u7FFB\u8A33\u3057\u3001\u8FFD\u52A0\u3057\u3066\u304F\u3060\u3055\u3044:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u3053\u306E\u8A9E\u5F59\u3092\u7528\u8A9E\u96C6\u306B\u8FFD\u52A0'
   },
   kn: {
     name: '\u0C95\u0CA8\u0CCD\u0CA8\u0CA1',
@@ -1230,7 +1230,7 @@ export const I18Ns = {
     vocab_createdAt: '\u0CA8\u0CB2\u0CCD\u0CB2\u0CBF \u0CB0\u0C9A\u0CBF\u0CB8\u0CB2\u0CBE\u0C97\u0CBF\u0CA6\u0CC6',
     newtab_title: '\u0CB9\u0CC6\u0CC2\u0CB8 \u0C9F\u0CCD\u0CAF\u0CBE\u0CAC\u0CCD',
     newtab_no_vocab_msg: '\u0CA8\u0CC0\u0CB5\u0CC1 \u0CAF\u0CBE\u0CB5\u0CC1\u0CA6\u0CC7 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CBF\u0CB2\u0CCD\u0CB2, \u0C85\u0CB5\u0CC1\u0C97\u0CB3\u0CA8\u0CCD\u0CA8\u0CC1 \u0CAD\u0CBE\u0CB7\u0CBE\u0C82\u0CA4\u0CB0\u0CBF\u0CB8\u0CB2\u0CC1 \u0CAE\u0CA4\u0CCD\u0CA4\u0CC1 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CB2\u0CC1 \u0CB8\u0C82\u0CA6\u0CB0\u0CCD\u0CAD \u0CAE\u0CC6\u0CA8\u0CC1 \u0CAC\u0CB3\u0CB8\u0CBF :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0C88 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0C97\u0CCD\u0CB2\u0CBE\u0CB8\u0CB0\u0CBF \u0CAA\u0CC1\u0CB8\u0CCD\u0CA4\u0C95\u0C95\u0CCD\u0C95\u0CC6 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CBF'
   },
   ko: {
     name: '\ud55c\uad6d\uc5b4',
@@ -1278,7 +1278,7 @@ export const I18Ns = {
     vocab_createdAt: '\uB9CC\uB4E0 \uC2DC\uAC04',
     newtab_title: '\uC0C8\uB85C\uC6B4 \uD0ED',
     newtab_no_vocab_msg: '\uC5B4\uD718\uB97C \uCD94\uAC00\uD558\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4. \uCEE8\uD14D\uC2A4\uD2B8 \uBA54\uB274\uB97C \uC0AC\uC6A9\uD558\uC5EC \uBC88\uC5ED\uD558\uACE0 \uCD94\uAC00\uD558\uC138\uC694:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\uC774 \uC5B4\uD718\uB97C \uC6A9\uC5B4\uC9D1\uC5D0 \uCD94\uAC00'
   },
   la: {
     name: 'Lat\u012Bna',
@@ -1326,7 +1326,7 @@ export const I18Ns = {
     vocab_createdAt: 'Creatus est',
     newtab_title: 'Novus tab',
     newtab_no_vocab_msg: 'Quodlibet vocabulum non adiecisti, utere contextu sermonis ad ea transferenda et ad ea adde:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Adde hoc vocabularium ad librum glossarium'
   },
   lt: {
     name: 'lietuvi\u0173 kalba',
@@ -1374,7 +1374,7 @@ export const I18Ns = {
     vocab_createdAt: 'Sukurta adresu',
     newtab_title: 'Naujas skirtukas',
     newtab_no_vocab_msg: 'Neprid\u0117jote jokio \u017Eodyno, naudokite kontekstin\u012F meniu, kad i\u0161verstum\u0117te ir prid\u0117kite :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Prid\u0117kite \u0161\u012F \u017Eodyn\u0105 prie \u017Eodyno knygos'
   },
   lv: {
     name: 'latvie\u0161u valoda',
@@ -1422,7 +1422,7 @@ export const I18Ns = {
     vocab_createdAt: 'Izveidots plkst',
     newtab_title: 'Jauna cilne',
     newtab_no_vocab_msg: 'J\u016Bs neesat pievienojis v\u0101rdu kr\u0101jumu, izmantojiet kontekstizv\u0113lni, lai tos tulkotu un pievienotu:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Pievienojiet \u0161o v\u0101rdu kr\u0101jumu glos\u0101riju gr\u0101matai'
   },
   ml: {
     name: '\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02',
