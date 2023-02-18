@@ -1806,7 +1806,7 @@ export const I18Ns = {
     vocab_createdAt: 'Creat la',
     newtab_title: 'Fil\u0103 nou\u0103',
     newtab_no_vocab_msg: 'Nu ai ad\u0103ugat niciun vocabular, folose\u0219te meniul contextual pentru a le traduce \u0219i a le ad\u0103uga:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Ad\u0103uga\u021Bi acest vocabular la cartea de glosar'
   },
   ru: {
     name: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A',
@@ -1854,7 +1854,7 @@ export const I18Ns = {
     vocab_createdAt: '\u0421\u043E\u0437\u0434\u0430\u043D\u043E \u043D\u0430',
     newtab_title: '\u041D\u043E\u0432\u0430\u044F \u0432\u043A\u043B\u0430\u0434\u043A\u0430',
     newtab_no_vocab_msg: '\u0412\u044B \u043D\u0435 \u0434\u043E\u0431\u0430\u0432\u0438\u043B\u0438 \u0441\u043B\u043E\u0432\u0430\u0440\u043D\u044B\u0439 \u0437\u0430\u043F\u0430\u0441, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u043E\u0435 \u043C\u0435\u043D\u044E, \u0447\u0442\u043E\u0431\u044B \u043F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438 \u0438 \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0445 :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u044D\u0442\u043E\u0442 \u0441\u043B\u043E\u0432\u0430\u0440\u044C \u0432 \u0433\u043B\u043E\u0441\u0441\u0430\u0440\u0438\u0439'
   },
   sk: {
     name: 'sloven\u010Dina',
@@ -1902,7 +1902,7 @@ export const I18Ns = {
     vocab_createdAt: 'Vytvoren\xE9 o',
     newtab_title: 'Nov\xE1 karta',
     newtab_no_vocab_msg: 'Nepridali ste \u017Eiadnu slovn\xFA z\xE1sobu, pou\u017Eite kontextov\xE9 menu na ich preklad a pridanie:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Pridajte t\xFAto slovn\xFA z\xE1sobu do slovn\xEDka'
   },
   sl: {
     name: 'slovenski jezik',
@@ -1950,7 +1950,7 @@ export const I18Ns = {
     vocab_createdAt: 'Ustvarjeno ob',
     newtab_title: 'Nov zavihek',
     newtab_no_vocab_msg: 'Niste dodali nobenega besedi\u0161\u010Da, uporabite kontekstni meni za prevod in jih dodajte :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Dodajte ta besednjak v glosar'
   },
   sr: {
     name: '\u0441\u0440\u043F\u0441\u043A\u0438 \u0458\u0435\u0437\u0438\u043A',
@@ -1998,7 +1998,7 @@ export const I18Ns = {
     vocab_createdAt: '\u041A\u0440\u0435\u0438\u0440\u0430\u043D\u043E',
     newtab_title: '\u041D\u043E\u0432\u0438 \u043F\u0440\u043E\u0437\u043E\u0440',
     newtab_no_vocab_msg: '\u041D\u0438\u0441\u0442\u0435 \u0434\u043E\u0434\u0430\u043B\u0438 \u043D\u0438\u043A\u0430\u043A\u0430\u0432 \u0440\u0435\u0447\u043D\u0438\u043A, \u043A\u043E\u0440\u0438\u0441\u0442\u0438\u0442\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u0438 \u043C\u0435\u043D\u0438 \u0434\u0430 \u0438\u0445 \u043F\u0440\u0435\u0432\u0435\u0434\u0435\u0442\u0435 \u0438 \u0434\u043E\u0434\u0430\u0442\u0435 :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: '\u0414\u043E\u0434\u0430\u0458\u0442\u0435 \u043E\u0432\u0430\u0458 \u0440\u0435\u0447\u043D\u0438\u043A \u0443 \u043A\u045A\u0438\u0433\u0443 \u0440\u0435\u0447\u043D\u0438\u043A\u0430'
   },
   sv: {
     name: 'Svenska',
@@ -2046,7 +2046,7 @@ export const I18Ns = {
     vocab_createdAt: 'Skapad vid',
     newtab_title: 'Ny flik',
     newtab_no_vocab_msg: 'Du har inte lagt till n\xE5got ordf\xF6rr\xE5d, anv\xE4nd snabbmenyn f\xF6r att \xF6vers\xE4tta och l\xE4gga till dem :)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'L\xE4gg till detta ordf\xF6rr\xE5d till ordboken'
   },
   sw: {
     name: 'Kiswahili',
@@ -2094,7 +2094,7 @@ export const I18Ns = {
     vocab_createdAt: 'Imeundwa saa',
     newtab_title: 'Kichupo Kipya',
     newtab_no_vocab_msg: 'Hujaongeza msamiati wowote, tumia menyu ya muktadha kutafsiri na kuyaongeza:)',
-    omni_add: 'Add this vocabulary to glossary book'
+    omni_add: 'Ongeza msamiati huu kwenye kitabu cha faharasa'
   },
   ta: {
     name: '\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD',
