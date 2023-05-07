@@ -16,7 +16,8 @@ export const DEFAULT_SETTING = {
   ENABLE_API: false,
   ENABLE_CARD: false,
   CARD_TIME: 5,
-  CARD_TRIGGER_CSS: ''
+  CARD_TRIGGER_CSS: '',
+  ENABLE_SIDEBAR: true
 };
 
 export const DOM_ID = {
@@ -497,6 +498,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element triggers cards',
     settings_ele_trigger_desp: 'CSS selector of an element, glossary card shows when that element is clicked, e.g., the upper left logo on YouTube: a#logo',
     settings_detect_lang: 'Detected browser language "{}", please double check and choose the correct target language',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation side bar when texts are highlighted',
     vocab_title: 'Vocabulary',
     vocab_export_desp: 'Export all the vocabularies as a JSON file',
     vocab_import_desp: 'Import and update vocabularies from a JSON file, Attention: this will overwrite all your current vocabularies',

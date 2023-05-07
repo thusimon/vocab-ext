@@ -23,7 +23,8 @@
   "permissions": [
     "storage",
     "unlimitedStorage",
-    "contextMenus"
+    "contextMenus",
+    "sidePanel"
   ],
   "omnibox": { "keyword" : "vb" },
   "action": {

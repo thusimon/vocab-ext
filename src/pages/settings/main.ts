@@ -81,9 +81,21 @@ const toaster = document.getElementById('toaster')!;
 const toasterMsg = document.getElementById('toaster-msg')!;
 const toasterBtns = document.getElementById('toaster-buttons')!;
 const toasterOKBtn = document.getElementById('toaster-ok')!;
+const enableSideBarLabelE = document.getElementById('show-sidebar-label')!;
+const enableSideBarE = document.getElementById('show-sidebar-chkbox')! as HTMLInputElement;
+const enableSideBarCheckLabelE = document.getElementById('show-sidebar-chkbox-label')! as HTMLInputElement;
 
 const render = settings => {
-  const {SOURCE_LANG, TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = settings;
+  const {
+    SOURCE_LANG,
+    TARGET_LANG,
+    UI_LANG,
+    UI_TAREGT_LANG_SAME,
+    ENABLE_CARD,
+    CARD_TIME,
+    CARD_TRIGGER_CSS,
+    ENABLE_SIDEBAR
+  } = settings;
   saveBtnE.title = getI18NMessage(I18Ns, UI_LANG, 'settings_save');
   headerOptionE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_option');
   headerSettingsE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_settings');
@@ -116,6 +128,9 @@ const render = settings => {
   cardTriggerE.placeholder = getI18NMessage(I18Ns, UI_LANG, 'settings_ele_trigger_desp');
   cardTriggerE.title = getI18NMessage(I18Ns, UI_LANG, 'settings_ele_trigger_desp');
   toasterOKBtn.textContent = getI18NMessage(I18Ns, UI_LANG, 'ok');
+  enableSideBarLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_side_bar');
+  enableSideBarE.checked = ENABLE_SIDEBAR;
+  enableSideBarCheckLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_side_bar_desp');
   document.title = getI18NMessage(I18Ns, UI_LANG, 'settings_title');
 };
 
@@ -145,6 +160,7 @@ saveBtnE.addEventListener('click', async () => {
   const ENABLE_CARD = enableCardE.checked;
   const CARD_TIME = cardTimeE.value;
   const CARD_TRIGGER_CSS = cardTriggerE.value;
+  const ENABLE_SIDEBAR = enableSideBarE.checked;
   await storageSetP(STORAGE_AREA.SETTINGS, {
     SOURCE_LANG,
     TARGET_LANG,
@@ -153,7 +169,8 @@ saveBtnE.addEventListener('click', async () => {
     ENABLE_API,
     ENABLE_CARD,
     CARD_TIME,
-    CARD_TRIGGER_CSS
+    CARD_TRIGGER_CSS,
+    ENABLE_SIDEBAR
   });
   isModified = false;
   window.close();
@@ -174,6 +191,7 @@ targetLangOpts.addEventListener('change', () => {
   const ENABLE_CARD = enableCardE.checked;
   const CARD_TIME = cardTimeE.value;
   const CARD_TRIGGER_CSS = cardTriggerE.value;
+  const ENABLE_SIDEBAR = enableSideBarE.checked;
   render({
     SOURCE_LANG,
     TARGET_LANG,
@@ -181,7 +199,8 @@ targetLangOpts.addEventListener('change', () => {
     UI_TAREGT_LANG_SAME: true,
     ENABLE_CARD,
     CARD_TIME,
-    CARD_TRIGGER_CSS
+    CARD_TRIGGER_CSS,
+    ENABLE_SIDEBAR
   });
 });
 
@@ -197,6 +216,7 @@ uiLangOpts.addEventListener('change', () => {
   const ENABLE_CARD = enableCardE.checked;
   const CARD_TIME = cardTimeE.value;
   const CARD_TRIGGER_CSS = cardTriggerE.value;
+  const ENABLE_SIDEBAR = enableSideBarE.checked;
   render({
     SOURCE_LANG,
     TARGET_LANG,
@@ -204,7 +224,8 @@ uiLangOpts.addEventListener('change', () => {
     UI_TAREGT_LANG_SAME: false,
     ENABLE_CARD,
     CARD_TIME,
-    CARD_TRIGGER_CSS
+    CARD_TRIGGER_CSS,
+    ENABLE_SIDEBAR
   });
 });
 
@@ -245,6 +266,10 @@ cardTriggerE.addEventListener('change', () => {
 toasterOKBtn.addEventListener('click', (evt) => {
   toaster.classList.remove('show');
   toaster.classList.add('hide');
+});
+
+enableSideBarE.addEventListener('change', () => {
+  isModified = true;
 });
 
 window.addEventListener('beforeunload', (evt) => {
