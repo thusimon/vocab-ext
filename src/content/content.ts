@@ -147,7 +147,7 @@ window.customElements.define('translate-modal', TranslateModal);
 const vocabContainer = getContainer();
 const translateE = getTranslateModal();
 
-const {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+const {SOURCE_LANG, TARGET_LANG, ENABLE_CARD, CARD_TIME, CARD_TRIGGER_CSS, ENABLE_SIDEBAR} = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 if (ENABLE_CARD && window.self === window.top) {
   const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
   const vocabTranslateArea = `${SOURCE_LANG}-${TARGET_LANG}`;
@@ -171,4 +171,12 @@ if (ENABLE_CARD && window.self === window.top) {
     // TODO: log in service-worker
   });
 }
+
+if (ENABLE_SIDEBAR) {
+  document.addEventListener('selectionchange', (e)=>{
+    console.log("Archor node - ", window.getSelection().toString());
+  });
+}
+
+
 })();

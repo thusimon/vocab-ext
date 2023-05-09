@@ -47,7 +47,8 @@ const webpackConfig = {
     'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
     'pages/statistics/main': './src/pages/statistics/main.ts',
     'pages/settings/main': './src/pages/settings/main.ts',
-    'pages/new-tab/main': './src/pages/new-tab/main.ts'
+    'pages/new-tab/main': './src/pages/new-tab/main.ts',
+    'pages/side-panel/main': './src/pages/side-panel/main.ts'
   },
   module: {
     rules: [
