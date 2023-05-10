@@ -128,6 +128,15 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse('SYN-ACK');
       break;
     }
+    case 'UPDATE_SIDE_PANEL': {
+      (chrome as any).sidePanel.setOptions({
+        tabId: sender.tab.id,
+        path: 'pages/side-panel/index.html',
+        enabled: true
+      });
+      sendResponse('UPDATE_SIDE_PANEL');
+      break;
+    }
     default:
       break;
   }

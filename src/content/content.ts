@@ -3,7 +3,7 @@ import {
   DOM_ID, RUNTIME_EVENT_TYPE, CARD_CSS_CHECK_TIMEOUT, STORAGE_AREA,
   DEFAULT_SETTING
 } from '../common/constants';
-import { storageGetP, setDomStyles, sendMessage } from '../common/utils';
+import { storageGetP, setDomStyles, sendMessage, debounce } from '../common/utils';
 import TranslateModal from './TranslateModal';
 
 (async () => {
@@ -173,9 +173,15 @@ if (ENABLE_CARD && window.self === window.top) {
 }
 
 if (ENABLE_SIDEBAR) {
-  document.addEventListener('selectionchange', (e)=>{
-    console.log("Archor node - ", window.getSelection().toString());
-  });
+  document.addEventListener('selectionchange', debounce(()=>{
+    const selectionText = window.getSelection().toString();
+    if(!selectionText) {
+      return;
+    }
+    sendMessage('UPDATE_SIDE_PANEL', {selectionText}, (msg) => {
+      console.log(182, msg);
+    });
+  }, 300));
 }
 
 

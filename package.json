@@ -8,7 +8,7 @@
   "author": "Lu",
   "license": "ISC",
   "devDependencies": {
-    "@types/chrome": "^0.0.196",
+    "@types/chrome": "^0.0.235",
     "@types/d3": "^7.4.0",
     "ts-loader": "^9.3.1",
     "typescript": "^4.8.3",
