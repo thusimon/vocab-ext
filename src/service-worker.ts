@@ -131,9 +131,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     case 'UPDATE_SIDE_PANEL': {
       (chrome as any).sidePanel.setOptions({
         tabId: sender.tab.id,
-        path: 'pages/side-panel/index.html',
+        path: './pages/side-panel/index.html',
         enabled: true
+      }, function () {
+        console.log(136, arguments)
       });
+      console.log('enabled pannel');
       sendResponse('UPDATE_SIDE_PANEL');
       break;
     }
@@ -244,5 +247,30 @@ chrome.runtime.onInstalled.addListener(details => {
   // user installed for the first time
   chrome.tabs.create({
     url: chrome.runtime.getURL('/pages/settings/index.html?install=new')
+  });
+});
+
+
+chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
+  // if (!tab.url) return;
+  // const url = new URL(tab.url);
+  // Enables the side panel on google.com
+  // if (url.origin === 'https://www.google.com') {
+  //   await chrome.sidePanel.setOptions({
+  //     tabId,
+  //     path: 'pages/side-panel/index.html',
+  //     enabled: true
+  //   });
+  // } else {
+  //   // Disables the side panel on all other sites
+  //   await chrome.sidePanel.setOptions({
+  //     tabId,
+  //     enabled: false
+  //   });
+  // }
+  await chrome.sidePanel.setOptions({
+    tabId,
+    path: 'pages/side-panel/index.html',
+    enabled: true
   });
 });
