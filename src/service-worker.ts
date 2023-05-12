@@ -129,13 +129,18 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       break;
     }
     case 'UPDATE_SIDE_PANEL': {
-      (chrome as any).sidePanel.setOptions({
-        tabId: sender.tab.id,
-        path: './pages/side-panel/index.html',
-        enabled: true
-      }, function () {
-        console.log(136, arguments)
-      });
+      if (data.selectionText && data.selectionText.length > 5) {
+        (chrome as any).sidePanel.setOptions({
+          tabId: sender.tab.id,
+          path: './pages/side-panel/index.html',
+          enabled: true
+        });
+      } else {
+        (chrome as any).sidePanel.setOptions({
+          tabId: sender.tab.id,
+          enabled: false
+        });
+      }
       console.log('enabled pannel');
       sendResponse('UPDATE_SIDE_PANEL');
       break;
@@ -237,6 +242,8 @@ const omniboxInputEnterHandler = async (text, disposition) => {
 
 chrome.omnibox.onInputChanged.addListener(debounce(omniboxInputChangeHandler, 500));
 chrome.omnibox.onInputEntered.addListener(omniboxInputEnterHandler);
+
+(chrome as any).sidePanel.setPanelBehavior({openPanelOnActionClick: false});
 })();
 
 // onInstalled event only triggered when the registeration is called sync in the first place.
@@ -247,30 +254,5 @@ chrome.runtime.onInstalled.addListener(details => {
   // user installed for the first time
   chrome.tabs.create({
     url: chrome.runtime.getURL('/pages/settings/index.html?install=new')
-  });
-});
-
-
-chrome.tabs.onUpdated.addListener(async (tabId, info, tab) => {
-  // if (!tab.url) return;
-  // const url = new URL(tab.url);
-  // Enables the side panel on google.com
-  // if (url.origin === 'https://www.google.com') {
-  //   await chrome.sidePanel.setOptions({
-  //     tabId,
-  //     path: 'pages/side-panel/index.html',
-  //     enabled: true
-  //   });
-  // } else {
-  //   // Disables the side panel on all other sites
-  //   await chrome.sidePanel.setOptions({
-  //     tabId,
-  //     enabled: false
-  //   });
-  // }
-  await chrome.sidePanel.setOptions({
-    tabId,
-    path: 'pages/side-panel/index.html',
-    enabled: true
   });
 });
