@@ -128,23 +128,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       sendResponse('SYN-ACK');
       break;
     }
-    case 'UPDATE_SIDE_PANEL': {
-      if (data.selectionText && data.selectionText.length > 5) {
-        (chrome as any).sidePanel.setOptions({
-          tabId: sender.tab.id,
-          path: './pages/side-panel/index.html',
-          enabled: true
-        });
-      } else {
-        (chrome as any).sidePanel.setOptions({
-          tabId: sender.tab.id,
-          enabled: false
-        });
-      }
-      console.log('enabled pannel');
-      sendResponse('UPDATE_SIDE_PANEL');
-      break;
-    }
     default:
       break;
   }
@@ -162,16 +145,28 @@ chrome.storage.onChanged.addListener((changes, namespace) => {
   }
   // settings changed
   const newValue = changes[STORAGE_AREA.SETTINGS].newValue
-  if (!newValue || !newValue.TARGET_LANG) {
+  if (!newValue) {
     return;
   }
-  const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = newValue;
-  const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
-  const contextTranslateTitle = getI18NMessage(I18Ns, uiLang, 'sw_context_translate');
-  chrome.contextMenus.update(CONTEXTMENU_TRANSLATE_ID, {title: contextTranslateTitle}, () => {
-    console.log(`context translate menu title updated as ${contextTranslateTitle}`);
-  });
-  omniAddText = ` + ${getI18NMessage(I18Ns, uiLang, 'omni_add')}`;
+  const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME, ENABLE_SIDEBAR } = newValue;
+  if (TARGET_LANG) {
+    const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
+    const contextTranslateTitle = getI18NMessage(I18Ns, uiLang, 'sw_context_translate');
+    chrome.contextMenus.update(CONTEXTMENU_TRANSLATE_ID, {title: contextTranslateTitle}, () => {
+      console.log(`context translate menu title updated as ${contextTranslateTitle}`);
+    });
+    omniAddText = ` + ${getI18NMessage(I18Ns, uiLang, 'omni_add')}`;
+  }
+  if (ENABLE_SIDEBAR) {
+    (chrome as any).sidePanel.setOptions({
+      enabled: true,
+      path: 'pages/side-panel/index.html'
+    });
+  } else {
+    (chrome as any).sidePanel.setOptions({
+      enabled: false
+    })
+  }
 });
 
 let translateRes;
@@ -244,6 +239,10 @@ chrome.omnibox.onInputChanged.addListener(debounce(omniboxInputChangeHandler, 50
 chrome.omnibox.onInputEntered.addListener(omniboxInputEnterHandler);
 
 (chrome as any).sidePanel.setPanelBehavior({openPanelOnActionClick: false});
+(chrome as any).sidePanel.setOptions({
+  enabled: true,
+  path: 'pages/side-panel/index.html'
+});
 })();
 
 // onInstalled event only triggered when the registeration is called sync in the first place.

@@ -178,9 +178,7 @@ if (ENABLE_SIDEBAR) {
     if(!selectionText) {
       return;
     }
-    sendMessage('UPDATE_SIDE_PANEL', {selectionText}, (msg) => {
-      console.log(182, msg);
-    });
+    sendMessage('SELECTED_TEXT', {selectionText}, () => {});
   }, 300));
 }
 
