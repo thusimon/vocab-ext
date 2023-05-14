@@ -1,6 +1,4 @@
-interface StorageValueType {
-  [key: string]: object | string
-};
+import { StorageValueType } from "../types";
 
 export const storageGetP = (key, defaultValue): Promise<StorageValueType> => {
   return new Promise((resolve, reject) => {

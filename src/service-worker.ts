@@ -6,12 +6,7 @@ import {
 import {
   storageGetP, storageSetP, getTranslateUri, getI18NMessage, debounce
 } from './common/utils';
-
-interface SettingsType {
-  SOURCE_LANG: string;
-  TARGET_LANG: string;
-  ENABLE_API: boolean;
-}
+import { SettingsType } from './types';
 
 (async () => {
 

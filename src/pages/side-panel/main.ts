@@ -1,4 +1,26 @@
-console.log('side-panel init');
+import TranslateAPI from "../../background/translate-api";
+import { DEFAULT_SETTING, STORAGE_AREA } from "../../common/constants";
+import { storageGetP } from "../../common/utils";
+
+const translateAPI = new TranslateAPI();
+
+const _doTranslate = async (text: string) => {
+  if (!text) {
+    return;
+  }
+  text = text.trim().toLowerCase();
+  if (!text) {
+    return;
+  }
+  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+  const {SOURCE_LANG, TARGET_LANG} = settings;
+  try {
+    const translateRes = await translateAPI.translateFree(encodeURIComponent(text), SOURCE_LANG, TARGET_LANG);
+    return translateRes;
+  } catch (e) {
+    console.log(`Error: ${e.message}`);
+  }
+}
 
 chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   const {type, data} = msg;
@@ -7,21 +29,8 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   }
   switch (type) {
     case 'SELECTED_TEXT': {
-      console.log(10, data);
-      // if (data.selectionText && data.selectionText.length > 5) {
-      //   (chrome as any).sidePanel.setOptions({
-      //     tabId: sender.tab.id,
-      //     path: './pages/side-panel/index.html',
-      //     enabled: true
-      //   });
-      // } else {
-      //   (chrome as any).sidePanel.setOptions({
-      //     tabId: sender.tab.id,
-      //     enabled: false
-      //   });
-      // }
-      // console.log('enabled pannel');
-      // sendResponse('UPDATE_SIDE_PANEL');
+      const translateResult = await _doTranslate(data.selectionText)
+      console.log(10, translateResult);
       break;
     }
   }
