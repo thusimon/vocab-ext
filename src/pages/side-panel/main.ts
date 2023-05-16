@@ -4,6 +4,8 @@ import { storageGetP } from "../../common/utils";
 
 const translateAPI = new TranslateAPI();
 
+const selectionTextE = document.getElementById('selection-text');
+
 const _doTranslate = async (text: string) => {
   if (!text) {
     return;
@@ -29,7 +31,9 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   }
   switch (type) {
     case 'SELECTED_TEXT': {
-      const translateResult = await _doTranslate(data.selectionText)
+      const { selectionText } = data;
+      selectionTextE.textContent = selectionText
+      const translateResult = await _doTranslate(selectionText)
       console.log(10, translateResult);
       break;
     }

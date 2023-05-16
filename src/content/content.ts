@@ -156,11 +156,7 @@ if (ENABLE_CARD && window.self === window.top) {
   
   showCardRandom(vocabsWithSetting, cardTimeInt);
 
-  if (!CARD_TRIGGER_CSS) {
-    return;
-  }
-  
-  getCardTriggerElem(CARD_TRIGGER_CSS)
+  CARD_TRIGGER_CSS && getCardTriggerElem(CARD_TRIGGER_CSS)
   .then((cardTriggerElem) => {
     cardTriggerElem.addEventListener('click', () => {
       showCardRandom(vocabsWithSetting, cardTimeInt);
@@ -174,13 +170,16 @@ if (ENABLE_CARD && window.self === window.top) {
 
 if (ENABLE_SIDEBAR) {
   document.addEventListener('selectionchange', debounce(()=>{
-    const selectionText = window.getSelection().toString();
-    if(!selectionText) {
+    const selection = window.getSelection();
+    if (!selection || selection.type === 'None') {
+      return;
+    }
+    const selectionText = selection.toString().trim().toLowerCase();
+    if (!selectionText) {
       return;
     }
     sendMessage('SELECTED_TEXT', {selectionText}, () => {});
   }, 300));
 }
-
 
 })();
