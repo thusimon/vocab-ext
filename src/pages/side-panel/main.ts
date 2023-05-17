@@ -5,6 +5,8 @@ import { storageGetP } from "../../common/utils";
 const translateAPI = new TranslateAPI();
 
 const selectionTextE = document.getElementById('selection-text');
+const translateDataE = document.getElementById('translate-data');
+const translateLoadingE = document.getElementById('translate-loading');
 
 const _doTranslate = async (text: string) => {
   if (!text) {
@@ -32,8 +34,14 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   switch (type) {
     case 'SELECTED_TEXT': {
       const { selectionText } = data;
-      selectionTextE.textContent = selectionText
-      const translateResult = await _doTranslate(selectionText)
+      selectionTextE.textContent = selectionText;
+      translateDataE.classList.add('hide');
+      translateLoadingE.classList.remove('hide');
+      translateDataE.classList.add('hide');
+      const translateResult = await _doTranslate(selectionText);
+      translateLoadingE.classList.add('hide');
+      translateDataE.classList.remove('hide');
+      translateDataE.textContent = JSON.stringify(translateResult);
       console.log(10, translateResult);
       break;
     }

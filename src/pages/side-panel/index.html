@@ -2,14 +2,25 @@
 <html>
   <head>
     <title>Translation</title>
+    <link rel="stylesheet" href="../../common/styles/common.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
+    <p id="title">Vocab</p>
     <div id="translate-container">
-      <div id="translate-content">
-        <div id="selection-text"></div>
-        <div id="translate-loading"></div>
-        <div id="translate-data"></div>
-        <div id="translate-error"></div>
+      <div id="translate-content" class="translates">
+        <div id="selection-text" ></div>
+        <div id="translate-loading" class="hide">
+          <div class="loading-spinner">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+              <path d="M10 50A40 40 0 0 0 90 50A40 45 0 0 1 10 50" fill="#004aad" stroke="none">
+                <animateTransform attributeName="transform" type="rotate" dur="1s" repeatCount="indefinite" keyTimes="0;1" values="0 50 52.5;360 50 52.5"></animateTransform>
+              </path>
+            </svg>
+          </div>
+        </div>
+        <div id="translate-data" class="hide"></div>
+        <div id="translate-error" class="hide"></div>
       </div>
     </div>
     <script src="main.js"></script>
