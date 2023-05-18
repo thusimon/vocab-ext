@@ -5,3 +5,8 @@
 .show {
   display: block;
 }
+
+.loading-spinner {
+  margin: auto;
+  width: 60%;
+}
