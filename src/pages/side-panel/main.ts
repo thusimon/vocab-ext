@@ -1,12 +1,26 @@
 import TranslateAPI from "../../background/translate-api";
 import { DEFAULT_SETTING, STORAGE_AREA } from "../../common/constants";
-import { storageGetP } from "../../common/utils";
+import { removeAllChildNodes, storageGetP } from "../../common/utils";
 
 const translateAPI = new TranslateAPI();
 
 const selectionTextE = document.getElementById('selection-text');
 const translateDataE = document.getElementById('translate-data');
 const translateLoadingE = document.getElementById('translate-loading');
+
+const processDictResult = (dictE, dicts) => {
+  removeAllChildNodes(dictE);
+  if (dicts && dicts.length > 0) {
+    dicts.forEach(dict => {
+      const dictEntry = document.createElement('div');
+      dictEntry.classList.add('dict-entry')
+      const pos = dict.pos;
+      const terms = (dict.terms || []).join(', ')
+      dictEntry.textContent = `[${pos}]: ${terms}`;
+      dictE.appendChild(dictEntry);
+    });
+  }
+}
 
 const _doTranslate = async (text: string) => {
   if (!text) {
