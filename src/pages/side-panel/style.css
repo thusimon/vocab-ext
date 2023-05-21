@@ -1,3 +1,7 @@
+body {
+  background: rgba(242, 242, 242, 1);
+}
+
 .hide {
   display: none;
 }
@@ -6,7 +10,178 @@
   display: block;
 }
 
+#translate-container {
+  font-family: Serif;
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  color: black;
+  line-height: 1;
+}
+
+#translate-header {
+  width: 100%;
+  height: 1rem;
+  background: #004AAD;
+}
+
+.grab {
+  cursor: grab;
+}
+
+.grabbing {
+  cursor: grabbing;
+}
+
+#close-btn {
+  margin: 1px 2px;
+  float: right;
+}
+
+#close-btn > svg {
+  fill: #F0F0F0;
+}
+
+#close-btn:hover {
+  cursor: pointer;
+}
+
+#close-btn:hover > svg {
+  fill: #FEFEFE
+}
+
+#translate-content {
+  margin: 0px 6px;
+  padding: 0px;
+  font-size: 1rem;
+  vertical-align: middle;
+  user-select: none;
+}
+
+.translate-loading {
+  text-align: center;
+}
+
+.translate-error {
+  display: flex;
+  justify-content: space-between;
+}
+
+.translate-action-success {
+  display: flex;
+  justify-content: center;
+}
+
+.translate-action-success svg {
+  width: 40px;
+  height: 100%;
+}
+
 .loading-spinner {
+  display: block;
   margin: auto;
   width: 60%;
+}
+
+.error-image {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  margin: 10px 10px 10px 20px;
+}
+
+.error-message {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.error-message a {
+  font-size: 20px;
+}
+
+.error-message svg {
+  transform: rotate(90deg) scale(1, -1);
+}
+
+.error-instruction {
+  width: 1rem;
+  height: 1rem;
+  display: inline-block;
+  margin: 10px;
+}
+
+.td-icon {
+  vertical-align: text-top;
+}
+
+.translate-entry {
+  margin:4px 0px;
+}
+
+.translate-seperate-line {
+  border-bottom: 1px solid #707070;
+  width: 100%;
+  margin: 2px 0px;
+}
+
+#sentence {
+  font-size: 1rem;
+  max-width: 600px;
+  white-space: normal;
+  font-weight: 600;
+  user-select: text;
+}
+
+#selection-text {
+  font-size: 1rem;
+  max-width: 600px;
+  white-space: normal;
+  font-weight: 600;
+  user-select: text;
+}
+
+#dict {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.dict-entry {
+  user-select: text;
+  line-height: 1.2;
+}
+
+#examples {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.example-entry {
+  user-select: text;
+}
+
+.error {
+  background-color: lightpink;
+  text-align: center;
+}
+
+button {
+  width: 20px;
+  height: 20px;
+  margin: 0px 8px;
+  padding: 0px;
+  border: none;
+  border-radius: 10px;
+  vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+}
+
+button svg:hover {
+  stroke: #2699FB;
+}
+#translate-button-group {
+  margin: 10px 5px;
+  text-align: right;
 }
