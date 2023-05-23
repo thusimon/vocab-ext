@@ -13,7 +13,9 @@ const dictCE = document.getElementById('dict-container');
 const dictE = document.getElementById('dict');
 const examplesCE = document.getElementById('examples-container');
 const examplesE = document.getElementById('examples');
+const readVocabBtn = document.getElementById('read-vocab-button');
 
+let translateResult;
 
 const viewsE = [translateLoadingE, translateDataE, translateErrorE];
 
@@ -93,6 +95,18 @@ const _doTranslate = async (text: string) => {
   }
 }
 
+readVocabBtn.addEventListener('click', async evt => {
+  evt.stopPropagation();
+  const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+  const synthesis = window.speechSynthesis;
+  if (!translateResult || !translateResult.originalText || synthesis.speaking) {
+    return;
+  }
+  const utterOriginal = new SpeechSynthesisUtterance(translateResult.originalText);
+  utterOriginal.lang = settings.SOURCE_LANG as unknown as string;
+  synthesis.speak(utterOriginal);
+});
+
 chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
   const {type, data} = msg;
   if (!type) {
@@ -104,12 +118,11 @@ chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {
       selectionTextE.textContent = selectionText;
       showLoadingView();
       try {
-        const translateResult = await _doTranslate(selectionText);
+        translateResult = await _doTranslate(selectionText);
         translateSentenceE.textContent = translateResult.translatedText;
         processDictResult(dictCE, dictE, translateResult.dictResult);
         processExamples(examplesCE, examplesE, translateResult.exampleRes)
         showTranslateView();
-        console.log(10, translateResult);
       } catch (e) {
 
       }
