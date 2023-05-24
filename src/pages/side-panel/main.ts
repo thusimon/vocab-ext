@@ -1,6 +1,6 @@
 import TranslateAPI from "../../background/translate-api";
 import { DEFAULT_SETTING, STORAGE_AREA } from "../../common/constants";
-import { removeAllChildNodes, storageGetP } from "../../common/utils";
+import { removeAllChildNodes, sendMessage, storageGetP } from "../../common/utils";
 
 const translateAPI = new TranslateAPI();
 
@@ -14,6 +14,7 @@ const dictE = document.getElementById('dict');
 const examplesCE = document.getElementById('examples-container');
 const examplesE = document.getElementById('examples');
 const readVocabBtn = document.getElementById('read-vocab-button');
+const addVocabBtn = document.getElementById('add-vocab-button');
 
 let translateResult;
 
@@ -34,6 +35,7 @@ const showLoadingView = () => {
 
 const showTranslateView = () => {
   showSpecificView(1);
+  addVocabBtn.className = 'empty-svg'
 };
 
 const showErrorView = () => {
@@ -105,6 +107,15 @@ readVocabBtn.addEventListener('click', async evt => {
   const utterOriginal = new SpeechSynthesisUtterance(translateResult.originalText);
   utterOriginal.lang = settings.SOURCE_LANG as unknown as string;
   synthesis.speak(utterOriginal);
+});
+
+addVocabBtn.addEventListener('click', async evt => {
+  evt.stopPropagation();
+  if (!translateResult) {
+    return;
+  }
+  await sendMessage('addToVocab', translateResult, () => {});
+  addVocabBtn.className = 'fill-svg';
 });
 
 chrome.runtime.onMessage.addListener(async (msg, sender, sendResponse) => {

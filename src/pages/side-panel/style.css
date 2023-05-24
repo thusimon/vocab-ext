@@ -181,7 +181,16 @@ button {
 button svg:hover {
   stroke: #2699FB;
 }
+
 #translate-button-group {
   margin: 10px 5px;
   text-align: right;
+}
+
+.empty-svg svg{
+  fill: none;
+}
+
+.fill-svg svg {
+  fill: #c7f9cc
 }
