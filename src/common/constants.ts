@@ -5,7 +5,8 @@ export const CARD_CSS_CHECK_TIMEOUT = 10000; // 10 seconds to get the triggering
 
 export const STORAGE_AREA = {
   VOCAB: 'VOCAB',
-  SETTINGS: 'SETTINGS'
+  SETTINGS: 'SETTINGS',
+  USAGE: 'USAGE'
 };
 
 export const DEFAULT_SETTING = {
@@ -18,6 +19,10 @@ export const DEFAULT_SETTING = {
   CARD_TIME: 5,
   CARD_TRIGGER_CSS: '',
   ENABLE_SIDEBAR: true
+};
+
+export const DEFAULT_USAGE = {
+  VERSION_SEEN: '0.0.0'
 };
 
 export const DOM_ID = {

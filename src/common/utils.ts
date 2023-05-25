@@ -1,4 +1,4 @@
-import { StorageValueType } from "../types";
+import { StorageValueType, VersionNumberType } from "../types";
 
 export const storageGetP = (key, defaultValue): Promise<StorageValueType> => {
   return new Promise((resolve, reject) => {
@@ -78,4 +78,18 @@ export const sendMessage = async (type, data, callback) => {
     // do not log in content script
     // TODO: log in service-worker
   }
+};
+
+export const parseIntWithDefault = (intStr: string, def: number = 0): number => {
+  const parsedInt = parseInt(intStr);
+  return Number.isNaN(parsedInt) ? def : parsedInt;
+};
+
+export const parseVersionString = (versionStr: string): VersionNumberType => {
+  const versionParts = versionStr.split('.');
+  return [
+    parseIntWithDefault(versionParts[0]),
+    parseIntWithDefault(versionParts[1]),
+    parseIntWithDefault(versionParts[2])
+  ];
 };
