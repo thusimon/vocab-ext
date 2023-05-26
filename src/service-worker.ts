@@ -4,7 +4,7 @@ import {
   LangCodeMapping, I18Ns, DEFAULT_USAGE
 } from './common/constants';
 import {
-  storageGetP, storageSetP, getTranslateUri, getI18NMessage, debounce, compareVersion
+  storageGetP, storageSetP, getTranslateUri, getI18NMessage, debounce, compareVersion, setBadge
 } from './common/utils';
 import { SettingsType } from './types';
 
@@ -24,9 +24,7 @@ const { VERSION_SEEN } = usage;
 const currentVersion = chrome.runtime.getManifest().version;
 if (compareVersion(VERSION_SEEN as string, currentVersion) < 0) {
   // set badge
-  chrome.action.setBadgeText({ text: '!'});
-  chrome.action.setBadgeTextColor({color: 'red'});
-  chrome.action.setBadgeBackgroundColor({color: [0, 0, 0, 0]});
+  setBadge('🟌', '#068DA9', '#FFD95A');
 }
 
 chrome.contextMenus.create({
@@ -270,9 +268,7 @@ chrome.runtime.onInstalled.addListener(details => {
       const currentVersion = chrome.runtime.getManifest().version;
       if (compareVersion(VERSION_SEEN as string, currentVersion) < 0) {
         // set badge
-        chrome.action.setBadgeText({ text: '★'});
-        chrome.action.setBadgeTextColor({color: 'red'});
-        chrome.action.setBadgeBackgroundColor({color: [0, 255, 0, 255]});
+        setBadge('🟌', '#068DA9', '#FFD95A');
       }
     });
   }

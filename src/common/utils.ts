@@ -105,3 +105,9 @@ export const compareVersion = (v1Str: string, v2Str: string): number => {
   }
   return 0;
 };
+
+export const setBadge = (text: string, foreground: string, background: string) => {
+  chrome.action.setBadgeText({ text: text });
+  chrome.action.setBadgeTextColor({color: foreground});
+  chrome.action.setBadgeBackgroundColor({color: background});
+};
