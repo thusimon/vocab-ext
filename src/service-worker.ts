@@ -1,10 +1,10 @@
 import TranslateAPI from './background/translate-api';
 import {
   STORAGE_AREA, DEFAULT_SETTING, CONTEXTMENU_TRANSLATE_ID, RUNTIME_EVENT_TYPE,
-  LangCodeMapping, I18Ns
+  LangCodeMapping, I18Ns, DEFAULT_USAGE
 } from './common/constants';
 import {
-  storageGetP, storageSetP, getTranslateUri, getI18NMessage, debounce
+  storageGetP, storageSetP, getTranslateUri, getI18NMessage, debounce, compareVersion
 } from './common/utils';
 import { SettingsType } from './types';
 
@@ -18,6 +18,16 @@ let contextMenuFrameId;
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 const { TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
 const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
+
+const usage = await storageGetP(STORAGE_AREA.USAGE, DEFAULT_USAGE);
+const { VERSION_SEEN } = usage;
+const currentVersion = chrome.runtime.getManifest().version;
+if (compareVersion(VERSION_SEEN as string, currentVersion) < 0) {
+  // set badge
+  chrome.action.setBadgeText({ text: '!'});
+  chrome.action.setBadgeTextColor({color: 'red'});
+  chrome.action.setBadgeBackgroundColor({color: [0, 0, 0, 0]});
+}
 
 chrome.contextMenus.create({
   id: CONTEXTMENU_TRANSLATE_ID,
@@ -242,11 +252,28 @@ chrome.omnibox.onInputEntered.addListener(omniboxInputEnterHandler);
 
 // onInstalled event only triggered when the registeration is called sync in the first place.
 chrome.runtime.onInstalled.addListener(details => {
-  if (!details || details.reason != 'install') {
+  if (!details) {
     return;
   }
-  // user installed for the first time
-  chrome.tabs.create({
-    url: chrome.runtime.getURL('/pages/settings/index.html?install=new')
-  });
+  if (details.reason === 'install') {
+    // user installed for the first time
+    chrome.tabs.create({
+      url: chrome.runtime.getURL('/pages/settings/index.html?install=new')
+    });
+    return;
+  }
+  if (details.reason === 'update') {
+    // extension updated
+    storageGetP(STORAGE_AREA.USAGE, DEFAULT_USAGE)
+    .then(usage => {
+      const { VERSION_SEEN } = usage;
+      const currentVersion = chrome.runtime.getManifest().version;
+      if (compareVersion(VERSION_SEEN as string, currentVersion) < 0) {
+        // set badge
+        chrome.action.setBadgeText({ text: '★'});
+        chrome.action.setBadgeTextColor({color: 'red'});
+        chrome.action.setBadgeBackgroundColor({color: [0, 255, 0, 255]});
+      }
+    });
+  }
 });
