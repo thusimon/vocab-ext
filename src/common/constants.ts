@@ -488,6 +488,7 @@ export const I18Ns = {
     popover_statistics: 'Statistics',
     popover_settings: 'Settings',
     popover_version: 'Version',
+    popover_release_notes: 'Release notes',
     settings_title: 'Settings',
     settings_save: 'Save the settings',
     settings_option: 'Option',

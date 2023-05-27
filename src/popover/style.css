@@ -54,17 +54,39 @@ h2 {
 }
 
 .footer {
-  height: 20px;
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
-.footer-version {
-  line-height: 20px;
+#footer-version {
   font-size: 12px;
-  margin: 0px 9px;
+  margin: 0 4px;
+}
+
+#release-notes {
+  margin: 0 5px 0 0;
+  font-size: 0.8rem;
+  color: #FFD95A;
+  cursor: pointer;
+}
+
+.beat {
+  animation: beat .8s infinite alternate;
+	transform-origin: bottom;
+}
+
+.hide {
+  display: none;
 }
 
 #view-vocab {
   width: 170px;
   font-size: 14px;
+}
+
+@keyframes beat{
+	to {
+    transform: scale(1.6);
+  }
 }
