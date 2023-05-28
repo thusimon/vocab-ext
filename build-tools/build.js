@@ -48,7 +48,8 @@ const webpackConfig = {
     'pages/statistics/main': './src/pages/statistics/main.ts',
     'pages/settings/main': './src/pages/settings/main.ts',
     'pages/new-tab/main': './src/pages/new-tab/main.ts',
-    'pages/side-panel/main': './src/pages/side-panel/main.ts'
+    'pages/side-panel/main': './src/pages/side-panel/main.ts',
+    'pages/release-notes/main': './src/pages/release-notes/main.ts'
   },
   module: {
     rules: [

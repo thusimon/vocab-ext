@@ -58,7 +58,7 @@ statBtn.addEventListener('click', () => {
 versionE.textContent = currentVersion;
 
 releaseNotesE.addEventListener('click', () => {
-  const url = chrome.runtime.getURL('/pages/new-tab/new-tab.html');
+  const url = chrome.runtime.getURL('/pages/release-notes/index.html');
   chrome.tabs.create({url});
   window.close();
 });
