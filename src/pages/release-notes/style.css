@@ -1,0 +1,33 @@
+#title {
+  font-size: 1.5rem;
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1rem;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th:first-child, td:first-child {
+  width: 80px;
+}
+
+td:first-child {
+  text-align: center;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+th:not(:first-child), td:not(:first-child) {
+  width: auto;
+}
+
+td img {
+  width: min(80%, 600px);
+  display: block;
+}
