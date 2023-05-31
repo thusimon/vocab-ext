@@ -27,7 +27,26 @@ th:not(:first-child), td:not(:first-child) {
   width: auto;
 }
 
-td img {
+td .version {
+  margin: 1rem 0rem;
+}
+td ul {
+  margin: 1rem 0rem;
+}
+
+.release-item {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.click-here {
+  margin: 0px 0.5rem;
+  width: 1.2rem;
+  cursor: pointer;
+}
+
+/* td img {
   width: min(80%, 600px);
   display: block;
-}
+} */

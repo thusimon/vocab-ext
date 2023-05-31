@@ -72,7 +72,7 @@ h2 {
 }
 
 .beat {
-  animation: beat .8s infinite alternate;
+  animation: beat .7s infinite alternate;
 	transform-origin: bottom;
 }
 
