@@ -2,6 +2,36 @@
   font-size: 1.5rem;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: flex;
+}
+
+#example-container {
+  flex-direction: column;
+  position: fixed;
+  top: 10vh;
+  width: 60vw;
+  left: 20vw;
+  box-shadow: 5px 5px 5px gray;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#example-header {
+  background: lightblue;
+}
+
+#example-close {
+  float: right;
+  font-size: 1.5rem;
+  margin: 0px 10px;
+  cursor: pointer;
+}
+
 table {
   table-layout: fixed;
   border-collapse: collapse;
