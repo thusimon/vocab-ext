@@ -1,7 +1,13 @@
-import { DEFAULT_USAGE, STORAGE_AREA } from "../../common/constants";
-import { compareVersion, debounce, setBadge, storageGetP, storageSetP } from "../../common/utils";
+import { DEFAULT_SETTING, DEFAULT_USAGE, I18Ns, STORAGE_AREA } from "../../common/constants";
+import { compareVersion, debounce, getI18NMessage, setBadge, storageGetP, storageSetP } from "../../common/utils";
 
 (async () => {
+
+const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
+const {TARGET_LANG, UI_LANG, UI_TAREGT_LANG_SAME } = settings;
+const uiLang = UI_TAREGT_LANG_SAME ? TARGET_LANG : UI_LANG;
+
+const titleE = document.getElementById('title');
 const clickHereE = document.getElementsByClassName('click-here');
 const exampleContainerE = document.getElementById('example-container');
 const imageE = document.getElementById('example-img') as HTMLImageElement;
@@ -21,14 +27,6 @@ const clickHereHander = (evt: MouseEvent) => {
   imageE.src = `images/${img}.gif`;
   exampleContainerE.className = 'show';
 }
-
-for(const element of clickHereE){
-  element.addEventListener('click', clickHereHander);
-}
-
-closeE.addEventListener('click', () => {
-  exampleContainerE.className = 'hide';
-});
 
 const getLastVersionInView = async () => {
   const tableRect = tableE.getBoundingClientRect();
@@ -62,6 +60,19 @@ window.addEventListener('scroll', debounce(async () => {
   await getLastVersionInView();
 }, 500));
 
+const releaseNotesText = getI18NMessage(I18Ns, uiLang, 'release_notes');
+
+titleE.textContent = releaseNotesText;
+document.title = releaseNotesText;
+
 await getLastVersionInView();
+
+for(const element of clickHereE){
+  element.addEventListener('click', clickHereHander);
+}
+
+closeE.addEventListener('click', () => {
+  exampleContainerE.className = 'hide';
+});
 
 })();

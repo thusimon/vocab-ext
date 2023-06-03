@@ -19,17 +19,23 @@
   box-shadow: 5px 5px 5px gray;
   border-radius: 8px;
   overflow: hidden;
+  z-index: 1;
 }
 
 #example-header {
-  background: lightblue;
+  background-color: #004AAD;
 }
 
 #example-close {
   float: right;
   font-size: 1.5rem;
+  color: #F0F0F0;
   margin: 0px 10px;
   cursor: pointer;
+}
+
+#example-close:hover {
+  color: #FFFFFF
 }
 
 table {
@@ -76,7 +82,13 @@ td ul {
   cursor: pointer;
 }
 
-/* td img {
-  width: min(80%, 600px);
-  display: block;
-} */
+.click-here:hover {
+  animation: point .5s infinite alternate;
+	transform-origin: right;
+}
+
+@keyframes point{
+	to {
+    transform: translateX(-0.25rem);
+  }
+}

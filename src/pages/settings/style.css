@@ -2,6 +2,21 @@
   margin: 0px;
   padding: 0px;
   background-color: #004AAD;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#release-notes {
+  color: #F0F0F0;
+  font-size: 1rem;
+  margin: 0px 1rem;
+  cursor: pointer;
+}
+
+#release-notes:hover {
+  color: #FFFFFF
 }
 
 .header-btn-group {

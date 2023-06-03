@@ -35,7 +35,7 @@ viewVocabBtn.textContent = getI18NMessage(I18Ns, uiLang, 'popover_refresh_memory
 viewVocabBtn.title = getI18NMessage(I18Ns, uiLang, 'popover_view_your_vocab');
 settingsBtn.title = getI18NMessage(I18Ns, uiLang, 'popover_settings');
 statBtn.title = getI18NMessage(I18Ns, uiLang, 'popover_statistics');
-releaseNotesE.title = getI18NMessage(I18Ns, uiLang, 'popover_release_notes');
+releaseNotesE.title = getI18NMessage(I18Ns, uiLang, 'release_notes');
 
 viewVocabBtn.addEventListener('click', () => {
   const url = chrome.runtime.getURL('/pages/view-vocabulary/index.html');

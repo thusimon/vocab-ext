@@ -8,7 +8,7 @@ import {
 (async () => {
 const settings = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 if (settings.UI_TAREGT_LANG_SAME) {
-  settings.UI_LANG = settings.TARGET_LANG
+  settings.UI_LANG = settings.TARGET_LANG;
 }
 
 let I18Ns: {[key: string]: any};
@@ -84,6 +84,7 @@ const toasterOKBtn = document.getElementById('toaster-ok')!;
 const enableSideBarLabelE = document.getElementById('show-sidebar-label')!;
 const enableSideBarE = document.getElementById('show-sidebar-chkbox')! as HTMLInputElement;
 const enableSideBarCheckLabelE = document.getElementById('show-sidebar-chkbox-label')! as HTMLInputElement;
+const releaseNotesE = document.getElementById('release-notes') as HTMLElement;
 
 const render = settings => {
   const {
@@ -102,6 +103,7 @@ const render = settings => {
   sourceLangLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_src_lang');
   targetLangLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_tar_lang');
   uiLangLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_ui_lang');
+  releaseNotesE.textContent = getI18NMessage(I18Ns, UI_LANG, 'release_notes');
   sourceLangOpts.value = SOURCE_LANG;
   targetLangOpts.value = TARGET_LANG;
   uiLangOpts.value = UI_LANG;
@@ -270,6 +272,12 @@ toasterOKBtn.addEventListener('click', (evt) => {
 
 enableSideBarE.addEventListener('change', () => {
   isModified = true;
+});
+
+releaseNotesE.addEventListener('click', () => {
+  chrome.tabs.create({
+    url: '/pages/release-notes/index.html'
+  });
 });
 
 window.addEventListener('beforeunload', (evt) => {
