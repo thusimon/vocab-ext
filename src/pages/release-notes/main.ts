@@ -1,5 +1,7 @@
-import { debounce } from "../../common/utils";
+import { DEFAULT_USAGE, STORAGE_AREA } from "../../common/constants";
+import { compareVersion, debounce, setBadge, storageGetP, storageSetP } from "../../common/utils";
 
+(async () => {
 const clickHereE = document.getElementsByClassName('click-here');
 const exampleContainerE = document.getElementById('example-container');
 const imageE = document.getElementById('example-img') as HTMLImageElement;
@@ -28,19 +30,38 @@ closeE.addEventListener('click', () => {
   exampleContainerE.className = 'hide';
 });
 
-const getLastVersionInView = () => {
+const getLastVersionInView = async () => {
   const tableRect = tableE.getBoundingClientRect();
   const tableY = tableRect.y;
   const firstVersionY = tableY + 42;
   const windowBottom = window.innerHeight + window.scrollY
-  const currentMaxVersionIndex = Math.round((windowBottom - firstVersionY) / tableCellHeight);
-  const currentVersionIndex = Math.min(versionsE.length, currentMaxVersionIndex - 1);
-  console.log(currentVersionIndex);
+  const currentMaxVersionIndex = Math.max(0, Math.round((windowBottom - firstVersionY) / tableCellHeight) - 1);
+  const currentVersionIndex = Math.min(versionsE.length - 1, currentMaxVersionIndex);
+  const versionSeen = versionsE[currentVersionIndex].textContent;
+  await saveTheSeenVersion(versionSeen);
 }
 
-getLastVersionInView();
+const saveTheSeenVersion = async (version: string) => {
+  // get the current seen version first
+  const usage = await storageGetP(STORAGE_AREA.USAGE, DEFAULT_USAGE);
+  let { VERSION_SEEN } = usage;
+  const currentVersion = chrome.runtime.getManifest().version;
+  if (compareVersion(VERSION_SEEN as string, version) < 0) {
+    // user has seen a higher or equal version, need to update the version seen
+    VERSION_SEEN = version;
+    usage.VERSION_SEEN = version;
+    await storageSetP(STORAGE_AREA.USAGE, usage);
+  }
+  if (compareVersion(VERSION_SEEN as string, currentVersion) >= 0) {
+    // the version user see >= manifest version, should clear badge
+    setBadge('', '#FFFFFF', '#FFFFFF');
+  }
+};
 
-window.addEventListener('scroll', debounce(() => {
-  getLastVersionInView();
+window.addEventListener('scroll', debounce(async () => {
+  await getLastVersionInView();
 }, 500));
 
+await getLastVersionInView();
+
+})();
