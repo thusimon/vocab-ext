@@ -14,6 +14,7 @@ const imageE = document.getElementById('example-img') as HTMLImageElement;
 const closeE = document.getElementById('example-close');
 const tableE = document.getElementById('release-table');
 const versionsE = document.getElementsByClassName('version');
+const tableHeadsE = document.querySelectorAll('table tr th');
 const tableCellE = document.querySelector('table tr td');
 const tableCellEPos = tableCellE.getBoundingClientRect();
 const tableCellHeight = tableCellEPos.height;
@@ -63,6 +64,9 @@ window.addEventListener('scroll', debounce(async () => {
 const releaseNotesText = getI18NMessage(I18Ns, uiLang, 'release_notes');
 
 titleE.textContent = releaseNotesText;
+tableHeadsE[0].textContent = getI18NMessage(I18Ns, uiLang, 'version');
+tableHeadsE[1].textContent = getI18NMessage(I18Ns, uiLang, 'release_what_new');
+closeE.title = getI18NMessage(I18Ns, uiLang, 'close');
 document.title = releaseNotesText;
 
 await getLastVersionInView();
