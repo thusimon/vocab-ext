@@ -44,6 +44,8 @@ export const I18Ns = {
     cancel: '\u064A\u0644\u063A\u064A',
     total: '\u0627\u0644\u0645\u062C\u0645\u0648\u0639',
     version: '\u0625\u0635\u062F\u0627\u0631',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u062A\u0631\u062C\u0645 \u0627\u0644\u0646\u0635',
     stat_title: '\u0625\u062D\u0635\u0627\u0626\u064A\u0627\u062A',
     stat_vocab_add_header: '\u0625\u062D\u0635\u0627\u0626\u064A\u0627\u062A \u0625\u0636\u0627\u0641\u0629 \u0645\u0641\u0631\u062F\u0627\u062A \u062C\u062F\u064A\u062F\u0629',
@@ -71,6 +73,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0639\u0646\u0635\u0631 \u0645\u0634\u063A\u0644\u0627\u062A \u0627\u0644\u0628\u0637\u0627\u0642\u0627\u062A',
     settings_ele_trigger_desp: '\u0645\u062D\u062F\u062F CSS \u0644\u0639\u0646\u0635\u0631 \u060C \u062A\u0638\u0647\u0631 \u0628\u0637\u0627\u0642\u0629 \u0627\u0644\u0645\u0635\u0637\u0644\u062D\u0627\u062A \u0639\u0646\u062F \u0627\u0644\u0646\u0642\u0631 \u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u0639\u0646\u0635\u0631 \u060C i.n. \u060C \u0627\u0644\u0634\u0639\u0627\u0631 \u0627\u0644\u0623\u064A\u0633\u0631 \u0627\u0644\u0639\u0644\u0648\u064A \u0639\u0644\u0649 YouTube: a#logo',
     settings_detect_lang: '\u0644\u063A\u0629 \u0627\u0644\u0645\u062A\u0635\u0641\u062D \u0627\u0644\u062A\u064A \u062A\u0645 \u0627\u0643\u062A\u0634\u0627\u0641\u0647\u0627 "{}" \u060C \u064A\u0631\u062C\u0649 \u0627\u0644\u062A\u062D\u0642\u0642 \u062C\u064A\u062F\u064B\u0627 \u0648\u0627\u062E\u062A\u064A\u0627\u0631 \u0627\u0644\u0644\u063A\u0629 \u0627\u0644\u0647\u062F\u0641 \u0627\u0644\u0635\u062D\u064A\u062D\u0629',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0645\u0641\u0631\u062F\u0627\u062A',
     vocab_export_desp: '\u062A\u0635\u062F\u064A\u0631 \u062C\u0645\u064A\u0639 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0643\u0645\u0644\u0641 JSON',
     vocab_import_desp: '\u0627\u0633\u062A\u064A\u0631\u0627\u062F \u0648\u062A\u062D\u062F\u064A\u062B \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0645\u0646 \u0645\u0644\u0641 JSON \u060C \u0627\u0646\u062A\u0628\u0647: \u0633\u064A\u0624\u062F\u064A \u0630\u0644\u0643 \u0625\u0644\u0649 \u0627\u0633\u062A\u0628\u062F\u0627\u0644 \u062C\u0645\u064A\u0639 \u0645\u0641\u0631\u062F\u0627\u062A\u0643 \u0627\u0644\u062D\u0627\u0644\u064A\u0629',
@@ -84,7 +88,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0623\u0646\u0634\u0626\u062A \u0641\u064A',
     newtab_title: '\u0639\u0644\u0627\u0645\u0629 \u062A\u0628\u0648\u064A\u0628 \u062C\u062F\u064A\u062F\u0629',
     newtab_no_vocab_msg: `\u0644\u0645 \u062A\u0642\u0645 \u0628\u0625\u0636\u0627\u0641\u0629 \u0623\u064A \u0645\u0641\u0631\u062F\u0627\u062A \u060C \u0627\u0633\u062A\u062E\u062F\u0645 \u0642\u0627\u0626\u0645\u0629 \u0627\u0644\u0633\u064A\u0627\u0642 \u0644\u062A\u0631\u062C\u0645\u062A\u0647\u0627 \u0648\u0625\u0636\u0627\u0641\u062A\u0647\u0627 :)`,
-    omni_add: '\u0623\u0636\u0641 \u0647\u0630\u0647 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0625\u0644\u0649 \u0643\u062A\u0627\u0628 \u0627\u0644\u0645\u0633\u0631\u062F'
+    omni_add: '\u0623\u0636\u0641 \u0647\u0630\u0647 \u0627\u0644\u0645\u0641\u0631\u062F\u0627\u062A \u0625\u0644\u0649 \u0643\u062A\u0627\u0628 \u0627\u0644\u0645\u0633\u0631\u062F',
+    release_what_new: `What's new`
   },
   am: {
     name: '\u12A0\u121B\u122D\u129B',
@@ -92,6 +97,8 @@ export const I18Ns = {
     cancel: '\u1230\u122D\u12DD',
     total: '\u1320\u1245\u120B\u120B',
     version: '\u1225\u122A\u1275',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u133D\u1211\u1349\u1295 \u1270\u122D\u1309\u121D',
     stat_title: '\u1235\u1273\u1275\u1235\u1272\u12AD\u1235',
     stat_vocab_add_header: '\u12A0\u12F2\u1235 \u1218\u12DD\u1308\u1260-\u1243\u120B\u1275\u1295 \u12E8\u1218\u1328\u1218\u122D \u1235\u1273\u1272\u1235\u1272\u12AD\u1235',
@@ -119,6 +126,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u12A4\u1208\u1218\u1295\u1275 \u12AB\u122D\u12F6\u127D\u1295 \u12EB\u1290\u1233\u1233\u120D\u1362',
     settings_ele_trigger_desp: 'CSS \u1218\u122B\u132D\u1363 \u12E8\u1243\u120B\u1275 \u1218\u134D\u127B \u12AB\u122D\u12F5 \u12EB \u12A4\u1208\u1218\u1295\u1275 \u1320\u1245 \u1232\u12F0\u1228\u130D \u12EB\u1233\u12EB\u120D\u1363 \u1208\u121D\u1233\u120C\u1363 \u1260\u12E9\u1272\u12E9\u1265 \u120B\u12ED \u12EB\u1208\u12CD \u12E8\u120B\u12ED\u129B\u12CD \u130D\u122B \u12A0\u122D\u121B\u1361 a#logo',
     settings_detect_lang: '\u12E8\u1270\u1308\u1298 \u12E8\u12A0\u1233\u123D \u124B\u1295\u124B "{}"\u1363 \u12A5\u1263\u12AD\u12CE\u1295 \u12F0\u130D\u1218\u12CD \u12EB\u1228\u130B\u130D\u1321 \u12A5\u1293 \u1275\u12AD\u12AD\u1208\u129B\u12CD\u1295 \u12E8\u12D2\u120B\u121B \u124B\u1295\u124B \u12ED\u121D\u1228\u1321',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u1218\u12DD\u1308\u1260 \u1243\u120B\u1275',
     vocab_export_desp: '\u1201\u1209\u1295\u121D \u12E8\u1243\u120B\u1275 \u12DD\u122D\u12DD\u122D \u12A5\u1295\u12F0 JSON \u134B\u12ED\u120D \u12C8\u12F0 \u12CD\u132D \u120B\u12AD',
     vocab_import_desp: '\u1243\u120B\u1275\u1295 \u12A8JSON \u134B\u12ED\u120D \u12EB\u1235\u1218\u1321 \u12A5\u1293 \u12EB\u12D8\u121D\u1291\u1363 \u1275\u12A9\u1228\u1275\u1361 \u12ED\u1205 \u12A0\u1201\u1295 \u12EB\u1209\u1275\u1295 \u1201\u1209\u1295\u121D \u12E8\u1243\u120B\u1275 \u1243\u120B\u1276\u127D \u12ED\u1270\u12AB\u120D\u1362',
@@ -132,7 +141,8 @@ export const I18Ns = {
     vocab_createdAt: '\u12E8\u1270\u1348\u1320\u1228\u12CD \u1260',
     newtab_title: '\u12A0\u12F2\u1235 \u1275\u122D',
     newtab_no_vocab_msg: '\u121D\u1295\u121D \u12E8\u1243\u120B\u1275 \u12DD\u122D\u12DD\u122D \u12A0\u120B\u12A8\u120D\u12AD\u121D\u1363 \u1208\u1218\u1270\u122D\u130E\u121D \u12A5\u1293 \u1208\u121B\u12A8\u120D \u12A0\u12CD\u12F5 \u121C\u1291 \u1270\u1320\u1240\u121D\u1361)',
-    omni_add: '\u12ED\u1205\u1295\u1295 \u12E8\u1243\u120B\u1275 \u12DD\u122D\u12DD\u122D \u12C8\u12F0 \u1218\u12DD\u1308\u1260 \u1243\u120B\u1275 \u1218\u133D\u1210\u134D \u12EB\u12AD\u1209'
+    omni_add: '\u12ED\u1205\u1295\u1295 \u12E8\u1243\u120B\u1275 \u12DD\u122D\u12DD\u122D \u12C8\u12F0 \u1218\u12DD\u1308\u1260 \u1243\u120B\u1275 \u1218\u133D\u1210\u134D \u12EB\u12AD\u1209',
+    release_what_new: `What's new`
   },
   bg: {
     name: '\u0431\u044A\u043B\u0433\u0430\u0440\u0441\u043A\u0438',
@@ -140,6 +150,8 @@ export const I18Ns = {
     cancel: '\u041E\u0442\u043A\u0430\u0437',
     total: '\u041E\u0431\u0449\u0430 \u0441\u0443\u043C\u0430',
     version: '\u0412\u0435\u0440\u0441\u0438\u044F',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u041F\u0440\u0435\u0432\u0435\u0434\u0435\u0442\u0435 \u0442\u0435\u043A\u0441\u0442\u0430',
     stat_title: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430',
     stat_vocab_add_header: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430 \u0437\u0430 \u0434\u043E\u0431\u0430\u0432\u044F\u043D\u0435 \u043D\u0430 \u043D\u043E\u0432 \u0440\u0435\u0447\u043D\u0438\u043A',
@@ -167,6 +179,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0415\u043B\u0435\u043C\u0435\u043D\u0442 \u0437\u0430\u0434\u0435\u0439\u0441\u0442\u0432\u0430 \u043A\u0430\u0440\u0442\u0438',
     settings_ele_trigger_desp: 'CSS \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440 \u043D\u0430 \u0435\u043B\u0435\u043C\u0435\u043D\u0442, \u043A\u0430\u0440\u0442\u0430 \u0441 \u0440\u0435\u0447\u043D\u0438\u043A \u043F\u043E\u043A\u0430\u0437\u0432\u0430, \u043A\u043E\u0433\u0430\u0442\u043E \u0441\u0435 \u0449\u0440\u0430\u043A\u043D\u0435 \u0432\u044A\u0440\u0445\u0443 \u0442\u043E\u0437\u0438 \u0435\u043B\u0435\u043C\u0435\u043D\u0442, \u043D\u0430\u043F\u0440. \u0433\u043E\u0440\u043D\u043E\u0442\u043E \u043B\u044F\u0432\u043E \u043B\u043E\u0433\u043E \u043D\u0430 YouTube: a#logo',
     settings_detect_lang: '\u041E\u0442\u043A\u0440\u0438\u0442 \u0435\u0437\u0438\u043A \u043D\u0430 \u0431\u0440\u0430\u0443\u0437\u044A\u0440\u0430 \u201E{}\u201C, \u043C\u043E\u043B\u044F, \u043F\u0440\u043E\u0432\u0435\u0440\u0435\u0442\u0435 \u043E\u0442\u043D\u043E\u0432\u043E \u0438 \u0438\u0437\u0431\u0435\u0440\u0435\u0442\u0435 \u043F\u0440\u0430\u0432\u0438\u043B\u043D\u0438\u044F \u0446\u0435\u043B\u0435\u0432\u0438 \u0435\u0437\u0438\u043A',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0420\u0435\u0447\u043D\u0438\u043A',
     vocab_export_desp: '\u0415\u043A\u0441\u043F\u043E\u0440\u0442\u0438\u0440\u0430\u0439\u0442\u0435 \u0432\u0441\u0438\u0447\u043A\u0438 \u0440\u0435\u0447\u043D\u0438\u0446\u0438 \u043A\u0430\u0442\u043E JSON \u0444\u0430\u0439\u043B',
     vocab_import_desp: '\u0418\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u0430\u0439\u0442\u0435 \u0438 \u0430\u043A\u0442\u0443\u0430\u043B\u0438\u0437\u0438\u0440\u0430\u0439\u0442\u0435 \u0440\u0435\u0447\u043D\u0438\u0446\u0438 \u043E\u0442 JSON \u0444\u0430\u0439\u043B, \u0412\u043D\u0438\u043C\u0430\u043D\u0438\u0435: \u0442\u043E\u0432\u0430 \u0449\u0435 \u043F\u0440\u0435\u0437\u0430\u043F\u0438\u0448\u0435 \u0432\u0441\u0438\u0447\u043A\u0438 \u0432\u0430\u0448\u0438 \u0442\u0435\u043A\u0443\u0449\u0438 \u0440\u0435\u0447\u043D\u0438\u0446\u0438',
@@ -180,7 +194,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0421\u044A\u0437\u0434\u0430\u0434\u0435\u043D \u043D\u0430',
     newtab_title: '\u041D\u043E\u0432 \u043F\u0440\u043E\u0437\u043E\u0440\u0435\u0446',
     newtab_no_vocab_msg: '\u041D\u0435 \u0441\u0442\u0435 \u0434\u043E\u0431\u0430\u0432\u0438\u043B\u0438 \u043D\u0438\u043A\u0430\u043A\u044A\u0432 \u0440\u0435\u0447\u043D\u0438\u043A, \u0438\u0437\u043F\u043E\u043B\u0437\u0432\u0430\u0439\u0442\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u043E\u0442\u043E \u043C\u0435\u043D\u044E \u0437\u0430 \u043F\u0440\u0435\u0432\u043E\u0434 \u0438 \u0433\u0438 \u0434\u043E\u0431\u0430\u0432\u0435\u0442\u0435 :)',
-    omni_add: '\u0414\u043E\u0431\u0430\u0432\u0435\u0442\u0435 \u0442\u043E\u0437\u0438 \u0440\u0435\u0447\u043D\u0438\u043A \u043A\u044A\u043C \u0440\u0435\u0447\u043D\u0438\u043A\u0430'
+    omni_add: '\u0414\u043E\u0431\u0430\u0432\u0435\u0442\u0435 \u0442\u043E\u0437\u0438 \u0440\u0435\u0447\u043D\u0438\u043A \u043A\u044A\u043C \u0440\u0435\u0447\u043D\u0438\u043A\u0430',
+    release_what_new: `What's new`
   },
   bn: {
     name: '\u09AC\u09BE\u0982\u09B2\u09BE',
@@ -188,6 +203,8 @@ export const I18Ns = {
     cancel: '\u09AC\u09BE\u09A4\u09BF\u09B2 \u0995\u09B0\u09C1\u09A8',
     total: '\u09AE\u09CB\u099F',
     version: '\u09B8\u0982\u09B8\u09CD\u0995\u09B0\u09A3',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u09AC\u09BE\u0995\u09CD\u09AF\u099F\u09BF \u0985\u09A8\u09C1\u09AC\u09BE\u09A6 \u0995\u09B0',
     stat_title: '\u09AA\u09B0\u09BF\u09B8\u0982\u0996\u09CD\u09AF\u09BE\u09A8',
     stat_vocab_add_header: '\u09A8\u09A4\u09C1\u09A8 \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0 \u09AF\u09CB\u0997 \u0995\u09B0\u09BE\u09B0 \u09AA\u09B0\u09BF\u09B8\u0982\u0996\u09CD\u09AF\u09BE\u09A8',
@@ -215,6 +232,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0989\u09AA\u09BE\u09A6\u09BE\u09A8 \u099F\u09CD\u09B0\u09BF\u0997\u09BE\u09B0 \u0995\u09BE\u09B0\u09CD\u09A1',
     settings_ele_trigger_desp: '\u098F\u0995\u099F\u09BF \u0989\u09AA\u09BE\u09A6\u09BE\u09A8\u09C7\u09B0 CSS \u09A8\u09BF\u09B0\u09CD\u09AC\u09BE\u099A\u0995, \u09B6\u09AC\u09CD\u09A6\u0995\u09CB\u09B7 \u0995\u09BE\u09B0\u09CD\u09A1 \u09A6\u09C7\u0996\u09BE\u09AF\u09BC \u09AF\u0996\u09A8 \u09B8\u09C7\u0987 \u0989\u09AA\u09BE\u09A6\u09BE\u09A8\u099F\u09BF \u0995\u09CD\u09B2\u09BF\u0995 \u0995\u09B0\u09BE \u09B9\u09AF\u09BC, \u09AF\u09C7\u09AE\u09A8, YouTube-\u098F \u0989\u09AA\u09B0\u09C7\u09B0 \u09AC\u09BE\u09AE \u09B2\u09CB\u0997\u09CB: a#logo',
     settings_detect_lang: '\u09B6\u09A8\u09BE\u0995\u09CD\u09A4 \u0995\u09B0\u09BE \u09AC\u09CD\u09B0\u09BE\u0989\u099C\u09BE\u09B0 \u09AD\u09BE\u09B7\u09BE "{}", \u0985\u09A8\u09C1\u0997\u09CD\u09B0\u09B9 \u0995\u09B0\u09C7 \u09A6\u09C1\u09AC\u09BE\u09B0 \u099A\u09C7\u0995 \u0995\u09B0\u09C1\u09A8 \u098F\u09AC\u0982 \u09B8\u09A0\u09BF\u0995 \u099F\u09BE\u09B0\u09CD\u0997\u09C7\u099F \u09AD\u09BE\u09B7\u09BE \u09AC\u09C7\u099B\u09C7 \u09A8\u09BF\u09A8',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0',
     vocab_export_desp: '\u098F\u0995\u099F\u09BF JSON \u09AB\u09BE\u0987\u09B2 \u09B9\u09BF\u09B8\u09BE\u09AC\u09C7 \u09B8\u09AE\u09B8\u09CD\u09A4 \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0 \u09B0\u09AA\u09CD\u09A4\u09BE\u09A8\u09BF \u0995\u09B0\u09C1\u09A8\u09F7',
     vocab_import_desp: '\u098F\u0995\u099F\u09BF JSON \u09AB\u09BE\u0987\u09B2 \u09A5\u09C7\u0995\u09C7 \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0 \u0986\u09AE\u09A6\u09BE\u09A8\u09BF \u098F\u09AC\u0982 \u0986\u09AA\u09A1\u09C7\u099F \u0995\u09B0\u09C1\u09A8, \u09AE\u09A8\u09CB\u09AF\u09CB\u0997 \u09A6\u09BF\u09A8: \u098F\u099F\u09BF \u0986\u09AA\u09A8\u09BE\u09B0 \u09B8\u09AE\u09B8\u09CD\u09A4 \u09AC\u09B0\u09CD\u09A4\u09AE\u09BE\u09A8 \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0 \u0993\u09AD\u09BE\u09B0\u09B0\u09BE\u0987\u099F \u0995\u09B0\u09AC\u09C7',
@@ -228,7 +247,8 @@ export const I18Ns = {
     vocab_createdAt: '\u098F \u09A8\u09BF\u09B0\u09CD\u09AE\u09BF\u09A4',
     newtab_title: '\u09A8\u09A4\u09C1\u09A8 \u099F\u09CD\u09AF\u09BE\u09AC',
     newtab_no_vocab_msg: '\u0986\u09AA\u09A8\u09BF \u0995\u09CB\u09A8\u09CB \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A3\u09CD\u09A1\u09BE\u09B0 \u09AF\u09CB\u0997 \u0995\u09B0\u09C7\u09A8\u09A8\u09BF, \u0985\u09A8\u09C1\u09AC\u09BE\u09A6 \u0995\u09B0\u09A4\u09C7 \u098F\u09AC\u0982 \u09AF\u09CB\u0997 \u0995\u09B0\u09A4\u09C7 \u09AA\u09CD\u09B0\u09B8\u0999\u09CD\u0997 \u09AE\u09C7\u09A8\u09C1 \u09AC\u09CD\u09AF\u09AC\u09B9\u09BE\u09B0 \u0995\u09B0\u09C1\u09A8 :)',
-    omni_add: '\u09B6\u09AC\u09CD\u09A6\u0995\u09CB\u09B7 \u09AC\u0987\u09A4\u09C7 \u098F\u0987 \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0 \u09AF\u09CB\u0997 \u0995\u09B0\u09C1\u09A8'
+    omni_add: '\u09B6\u09AC\u09CD\u09A6\u0995\u09CB\u09B7 \u09AC\u0987\u09A4\u09C7 \u098F\u0987 \u09B6\u09AC\u09CD\u09A6\u09AD\u09BE\u09A8\u09CD\u09A1\u09BE\u09B0 \u09AF\u09CB\u0997 \u0995\u09B0\u09C1\u09A8',
+    release_what_new: `What's new`
   },
   ca: {
     name: 'catal\xE0',
@@ -236,6 +256,8 @@ export const I18Ns = {
     cancel: 'Cancel \xB7 lar',
     total: 'Total',
     version: 'Versi\xF3',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Tradueix el text',
     stat_title: 'Estad\xEDstiques',
     stat_vocab_add_header: 'Estad\xEDstiques d\'afegir nou vocabulari',
@@ -263,6 +285,8 @@ export const I18Ns = {
     settings_ele_trigger: `L'element activa cartes`,
     settings_ele_trigger_desp: `Selector CSS d'un element, la targeta de glossari mostra quan es fa clic en aquest element, per exemple, el logotip superior esquerre a YouTube: a#logo`,
     settings_detect_lang: `S'ha detectat l'idioma del navegador "{}", si us plau, comproveu-ho i trieu l'idioma de destinaci\xF3 correcte`,
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabulari',
     vocab_export_desp: 'Exporteu tots els vocabularis com a fitxer JSON',
     vocab_import_desp: `Importa i actualitza vocabularis des d'un fitxer JSON, Atenci\xF3: aix\xF2 sobreescriur\xE0 tots els teus vocabularis actuals`,
@@ -276,7 +300,8 @@ export const I18Ns = {
     vocab_createdAt: 'Creat a',
     newtab_title: 'Nova pestanya',
     newtab_no_vocab_msg: 'No heu afegit cap vocabulari, feu servir el men\xFA contextual per traduir-lo i afegir-lo :)',
-    omni_add: 'Afegiu aquest vocabulari al llibre de glossari'
+    omni_add: 'Afegiu aquest vocabulari al llibre de glossari',
+    release_what_new: `What's new`
   },
   cs: {
     name: '\u010De\u0161tina',
@@ -284,6 +309,8 @@ export const I18Ns = {
     cancel: 'zru\u0161en\xED',
     total: 'Celkov\xFD',
     version: 'Verze',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'P\u0159elo\u017Ete text',
     stat_title: 'Statistika',
     stat_vocab_add_header: 'Statistika p\u0159id\xE1v\xE1n\xED nov\xE9 slovn\xED z\xE1soby',
@@ -311,6 +338,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element spou\u0161t\xED karty',
     settings_ele_trigger_desp: 'Selektor CSS prvku, karta glos\xE1\u0159e se zobraz\xED po kliknut\xED na prvek, nap\u0159. logo vlevo naho\u0159e na YouTube: a#logo',
     settings_detect_lang: 'Zji\u0161t\u011Bn\xFD jazyk prohl\xED\u017Ee\u010De "{}", pros\xEDm zkontrolujte a vyberte spr\xE1vn\xFD c\xEDlov\xFD jazyk',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Slovn\xED z\xE1soba',
     vocab_export_desp: 'Exportujte v\u0161echny slovn\xEDky jako soubor JSON',
     vocab_import_desp: 'Importujte a aktualizujte slovn\xEDky ze souboru JSON, Pozor: t\xEDm p\u0159ep\xED\u0161ete v\u0161echny va\u0161e aktu\xE1ln\xED slovn\xEDky',
@@ -324,7 +353,8 @@ export const I18Ns = {
     vocab_createdAt: 'Vytvo\u0159eno v',
     newtab_title: 'Nov\xE1 karta',
     newtab_no_vocab_msg: 'Nep\u0159idali jste \u017E\xE1dnou slovn\xED z\xE1sobu, pou\u017Eijte kontextov\xE9 menu k p\u0159ekladu a p\u0159id\xE1n\xED:)',
-    omni_add: 'P\u0159idejte tuto slovn\xED z\xE1sobu do slovn\xEDku'
+    omni_add: 'P\u0159idejte tuto slovn\xED z\xE1sobu do slovn\xEDku',
+    release_what_new: `What's new`
   },
   da: {
     name: 'dansk',
@@ -332,6 +362,8 @@ export const I18Ns = {
     cancel: 'Afbestille',
     total: 'i alt',
     version: 'Version',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Overs\xE6t teksten',
     stat_title: 'Statistikker',
     stat_vocab_add_header: 'Statistik over tilf\xF8jelse af nyt ordforr\xE5d',
@@ -359,6 +391,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element udl\xF8ser kort',
     settings_ele_trigger_desp: 'CSS-v\xE6lger for et element, ordlistekort viser, n\xE5r der klikkes p\xE5 det element, f.eks. logoet \xF8verst til venstre p\xE5 YouTube: a#logo',
     settings_detect_lang: 'Detekteret browsersprog "{}", dobbelttjek og v\xE6lg det korrekte m\xE5lsprog',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Ordforr\xE5d',
     vocab_export_desp: 'Eksporter alle ordforr\xE5d som en JSON-fil',
     vocab_import_desp: 'Importer og opdater ordforr\xE5d fra en JSON-fil. Bem\xE6rk: dette vil overskrive alle dine nuv\xE6rende ordforr\xE5d',
@@ -372,7 +406,8 @@ export const I18Ns = {
     vocab_createdAt: 'Oprettet kl',
     newtab_title: 'Ny fane',
     newtab_no_vocab_msg: 'Du har ikke tilf\xF8jet noget ordforr\xE5d, brug kontekstmenuen til at overs\xE6tte og tilf\xF8je dem :)',
-    omni_add: 'F\xF8j dette ordforr\xE5d til ordbog'
+    omni_add: 'F\xF8j dette ordforr\xE5d til ordbog',
+    release_what_new: `What's new`
   },
   de: {
     name: 'Deutsch',
@@ -380,6 +415,8 @@ export const I18Ns = {
     cancel: 'Absagen',
     total: 'Gesamt',
     version: 'Ausf\xFChrung',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\xDCbersetze den Text',
     stat_title: 'Statistiken',
     stat_vocab_add_header: 'Statistiken \xFCber das Hinzuf\xFCgen neuer Vokabeln',
@@ -407,6 +444,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element l\xF6st Karten aus',
     settings_ele_trigger_desp: 'CSS-Selektor eines Elements, Glossarkarte zeigt an, wenn auf dieses Element geklickt wird, z. B. das Logo oben links auf YouTube: a#logo',
     settings_detect_lang: 'Browsersprache "{}" erkannt, bitte \xFCberpr\xFCfen Sie dies und w\xE4hlen Sie die richtige Zielsprache aus',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Wortschatz',
     vocab_export_desp: 'Exportieren Sie alle Vokabeln als JSON-Datei',
     vocab_import_desp: 'Importieren und aktualisieren Sie Vokabeln aus einer JSON-Datei. Achtung: Dadurch werden alle Ihre aktuellen Vokabeln \xFCberschrieben',
@@ -420,7 +459,8 @@ export const I18Ns = {
     vocab_createdAt: 'Hergestellt in',
     newtab_title: 'Neue Registerkarte',
     newtab_no_vocab_msg: 'Sie haben keine Vokabeln hinzugef\xFCgt, verwenden Sie das Kontextmen\xFC, um sie zu \xFCbersetzen und hinzuzuf\xFCgen :)',
-    omni_add: 'F\xFCgen Sie dieses Vokabular dem Glossarbuch hinzu'
+    omni_add: 'F\xFCgen Sie dieses Vokabular dem Glossarbuch hinzu',
+    release_what_new: `What's new`
   },
   el: {
     name: '\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac',
@@ -428,6 +468,8 @@ export const I18Ns = {
     cancel: '\u039C\u03B1\u03C4\u03B1\u03AF\u03C9\u03C3\u03B7',
     total: '\u03A3\u03CD\u03BD\u03BF\u03BB\u03BF',
     version: '\u0395\u03BA\u03B4\u03BF\u03C7\u03AE',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u039C\u03B5\u03C4\u03B1\u03C6\u03C1\u03AC\u03C3\u03C4\u03B5 \u03C4\u03BF \u03BA\u03B5\u03AF\u03BC\u03B5\u03BD\u03BF',
     stat_title: '\u03A3\u03C4\u03B1\u03C4\u03B9\u03C3\u03C4\u03B9\u03BA\u03AE',
     stat_vocab_add_header: '\u03A3\u03C4\u03B1\u03C4\u03B9\u03C3\u03C4\u03B9\u03BA\u03AC \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03B1 \u03C0\u03C1\u03BF\u03C3\u03B8\u03AE\u03BA\u03B7\u03C2 \u03BD\u03AD\u03BF\u03C5 \u03BB\u03B5\u03BE\u03B9\u03BB\u03BF\u03B3\u03AF\u03BF\u03C5',
@@ -455,6 +497,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u03A4\u03BF \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF \u03B5\u03BD\u03B5\u03C1\u03B3\u03BF\u03C0\u03BF\u03B9\u03B5\u03AF \u03BA\u03AC\u03C1\u03C4\u03B5\u03C2',
     settings_ele_trigger_desp: '\u039F \u03B5\u03C0\u03B9\u03BB\u03BF\u03B3\u03AD\u03B1\u03C2 CSS \u03B5\u03BD\u03CC\u03C2 \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF\u03C5, \u03B7 \u03BA\u03AC\u03C1\u03C4\u03B1 \u03B3\u03BB\u03C9\u03C3\u03C3\u03B1\u03C1\u03AF\u03BF\u03C5 \u03B4\u03B5\u03AF\u03C7\u03BD\u03B5\u03B9 \u03CC\u03C4\u03B1\u03BD \u03B3\u03AF\u03BD\u03B5\u03C4\u03B1\u03B9 \u03BA\u03BB\u03B9\u03BA \u03C3\u03B5 \u03B1\u03C5\u03C4\u03CC \u03C4\u03BF \u03C3\u03C4\u03BF\u03B9\u03C7\u03B5\u03AF\u03BF, \u03C0.\u03C7. \u03C3\u03C4\u03BF \u03B5\u03C0\u03AC\u03BD\u03C9 \u03B1\u03C1\u03B9\u03C3\u03C4\u03B5\u03C1\u03CC \u03BB\u03BF\u03B3\u03CC\u03C4\u03C5\u03C0\u03BF \u03C3\u03C4\u03BF YouTube: a#logo',
     settings_detect_lang: '\u0395\u03BD\u03C4\u03BF\u03C0\u03AF\u03C3\u03C4\u03B7\u03BA\u03B5 \u03B3\u03BB\u03CE\u03C3\u03C3\u03B1 \u03C0\u03C1\u03BF\u03B3\u03C1\u03AC\u03BC\u03BC\u03B1\u03C4\u03BF\u03C2 \u03C0\u03B5\u03C1\u03B9\u03AE\u03B3\u03B7\u03C3\u03B7\u03C2 "{}", \u03B5\u03BB\u03AD\u03B3\u03BE\u03C4\u03B5 \u03BE\u03B1\u03BD\u03AC \u03BA\u03B1\u03B9 \u03B5\u03C0\u03B9\u03BB\u03AD\u03BE\u03C4\u03B5 \u03C4\u03B7 \u03C3\u03C9\u03C3\u03C4\u03AE \u03B3\u03BB\u03CE\u03C3\u03C3\u03B1-\u03C3\u03C4\u03CC\u03C7\u03BF',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u039B\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03BF',
     vocab_export_desp: '\u0395\u03BE\u03B1\u03B3\u03AC\u03B3\u03B5\u03C4\u03B5 \u03CC\u03BB\u03B1 \u03C4\u03B1 \u03BB\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03B1 \u03C9\u03C2 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF JSON',
     vocab_import_desp: '\u0395\u03B9\u03C3\u03B1\u03B3\u03C9\u03B3\u03AE \u03BA\u03B1\u03B9 \u03B5\u03BD\u03B7\u03BC\u03AD\u03C1\u03C9\u03C3\u03B7 \u03BB\u03B5\u03BE\u03B9\u03BB\u03BF\u03B3\u03AF\u03C9\u03BD \u03B1\u03C0\u03CC \u03AD\u03BD\u03B1 \u03B1\u03C1\u03C7\u03B5\u03AF\u03BF JSON, \u03A0\u03C1\u03BF\u03C3\u03BF\u03C7\u03AE: \u03B1\u03C5\u03C4\u03CC \u03B8\u03B1 \u03B1\u03BD\u03C4\u03B9\u03BA\u03B1\u03C4\u03B1\u03C3\u03C4\u03AE\u03C3\u03B5\u03B9 \u03CC\u03BB\u03B1 \u03C4\u03B1 \u03C4\u03C1\u03AD\u03C7\u03BF\u03BD\u03C4\u03B1 \u03BB\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03AC \u03C3\u03B1\u03C2',
@@ -468,7 +512,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0394\u03B7\u03BC\u03B9\u03BF\u03C5\u03C1\u03B3\u03AE\u03B8\u03B7\u03BA\u03B5 \u03C3\u03C4\u03BF',
     newtab_title: '\u039D\u03AD\u03B1 \u03BA\u03B1\u03C1\u03C4\u03AD\u03BB\u03B1',
     newtab_no_vocab_msg: '\u0394\u03B5\u03BD \u03AD\u03C7\u03B5\u03C4\u03B5 \u03C0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03B5\u03B9 \u03BB\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03BF, \u03C7\u03C1\u03B7\u03C3\u03B9\u03BC\u03BF\u03C0\u03BF\u03B9\u03AE\u03C3\u03C4\u03B5 \u03C4\u03BF \u03BC\u03B5\u03BD\u03BF\u03CD \u03C0\u03B5\u03C1\u03B9\u03B2\u03AC\u03BB\u03BB\u03BF\u03BD\u03C4\u03BF\u03C2 \u03B3\u03B9\u03B1 \u03BD\u03B1 \u03C4\u03BF \u03BC\u03B5\u03C4\u03B1\u03C6\u03C1\u03AC\u03C3\u03B5\u03C4\u03B5 \u03BA\u03B1\u03B9 \u03BD\u03B1 \u03C4\u03BF \u03C0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03B5\u03C4\u03B5 :)',
-    omni_add: '\u03A0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03C4\u03B5 \u03B1\u03C5\u03C4\u03CC \u03C4\u03BF \u03BB\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03BF \u03C3\u03C4\u03BF \u03B2\u03B9\u03B2\u03BB\u03AF\u03BF \u03B3\u03BB\u03C9\u03C3\u03C3\u03AC\u03C1\u03B9'
+    omni_add: '\u03A0\u03C1\u03BF\u03C3\u03B8\u03AD\u03C3\u03C4\u03B5 \u03B1\u03C5\u03C4\u03CC \u03C4\u03BF \u03BB\u03B5\u03BE\u03B9\u03BB\u03CC\u03B3\u03B9\u03BF \u03C3\u03C4\u03BF \u03B2\u03B9\u03B2\u03BB\u03AF\u03BF \u03B3\u03BB\u03C9\u03C3\u03C3\u03AC\u03C1\u03B9',
+    release_what_new: `What's new`
   },
   en: {
     name: 'English',
@@ -506,7 +551,7 @@ export const I18Ns = {
     settings_ele_trigger_desp: 'CSS selector of an element, glossary card shows when that element is clicked, e.g., the upper left logo on YouTube: a#logo',
     settings_detect_lang: 'Detected browser language "{}", please double check and choose the correct target language',
     settings_side_bar: 'Translation side bar',
-    settings_side_bar_desp: 'Show translation side bar when texts are highlighted',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabulary',
     vocab_export_desp: 'Export all the vocabularies as a JSON file',
     vocab_import_desp: 'Import and update vocabularies from a JSON file, Attention: this will overwrite all your current vocabularies',
@@ -529,6 +574,8 @@ export const I18Ns = {
     cancel: 'Cancelar',
     total: 'Total',
     version: 'Versi\xF3n',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Traduce el texto',
     stat_title: 'Estad\xEDsticas',
     stat_vocab_add_header: 'Estad\xEDsticas de adici\xF3n de nuevo vocabulario',
@@ -556,6 +603,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Cartas de disparadores de elementos',
     settings_ele_trigger_desp: 'Selector de CSS de un elemento, la tarjeta del glosario muestra cuando se hace clic en ese elemento, por ejemplo, el logotipo superior izquierdo en YouTube: a#logo',
     settings_detect_lang: 'Se detect\xF3 el idioma del navegador "{}", verifique dos veces y elija el idioma de destino correcto',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabulario',
     vocab_export_desp: 'Exporte todos los vocabularios como un archivo JSON',
     vocab_import_desp: 'Importe y actualice vocabularios desde un archivo JSON. Atenci\xF3n: esto sobrescribir\xE1 todos sus vocabularios actuales.',
@@ -569,7 +618,8 @@ export const I18Ns = {
     vocab_createdAt: 'Creado en',
     newtab_title: 'Nueva pesta\xF1a',
     newtab_no_vocab_msg: 'No ha agregado ning\xFAn vocabulario, use el men\xFA contextual para traducirlo y agregarlo :)',
-    omni_add: 'A\xF1adir este vocabulario al libro de glosario'
+    omni_add: 'A\xF1adir este vocabulario al libro de glosario',
+    release_what_new: `What's new`
   },
   et: {
     name: 'eesti keel',
@@ -577,6 +627,8 @@ export const I18Ns = {
     cancel: 'T\xFChista',
     total: 'Kokku',
     version: 'Versioon',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'T\xF5lgi tekst',
     stat_title: 'Statistika',
     stat_vocab_add_header: 'Uue s\xF5navara lisamise statistika',
@@ -604,6 +656,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element k\xE4ivitab kaardid',
     settings_ele_trigger_desp: 'Elemendi CSS-i valija, s\xF5nastikukaart n\xE4itab, kui sellel elemendil kl\xF5psatakse, nt YouTube\'i \xFClemine vasakpoolne logo: a#logo',
     settings_detect_lang: 'Tuvastati brauseri keel "{}", kontrollige uuesti ja valige \xF5ige sihtkeel',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'S\xF5navara',
     vocab_export_desp: 'Eksportige k\xF5ik s\xF5navarad JSON-failina',
     vocab_import_desp: 'Importige ja v\xE4rskendage s\xF5navarasid JSON-failist. T\xE4helepanu: see kirjutab \xFCle k\xF5ik teie praegused s\xF5navarad',
@@ -617,7 +671,8 @@ export const I18Ns = {
     vocab_createdAt: 'Loodud kell',
     newtab_title: 'Uuel kaardil',
     newtab_no_vocab_msg: 'Te pole s\xF5navara lisanud, kasutage nende t\xF5lkimiseks ja lisamiseks kontekstimen\xFC\xFCd:)',
-    omni_add: 'Lisage see s\xF5navara s\xF5nastikesse'
+    omni_add: 'Lisage see s\xF5navara s\xF5nastikesse',
+    release_what_new: `What's new`
   },
   fa: {
     name: '\u0641\u0627\u0631\u0633\u06CC',
@@ -625,6 +680,8 @@ export const I18Ns = {
     cancel: '\u0644\u063A\u0648 \u06A9\u0646\u06CC\u062F',
     total: '\u062C\u0645\u0639',
     version: '\u0646\u0633\u062E\u0647',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u0645\u062A\u0646 \u0631\u0627 \u062A\u0631\u062C\u0645\u0647 \u06A9\u0646\u06CC\u062F',
     stat_title: '\u0622\u0645\u0627\u0631',
     stat_vocab_add_header: '\u0622\u0645\u0627\u0631 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0631\u062F\u0646 \u0648\u0627\u0698\u06AF\u0627\u0646 \u062C\u062F\u06CC\u062F',
@@ -652,6 +709,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0639\u0646\u0635\u0631 \u06A9\u0627\u0631\u062A \u0647\u0627 \u0631\u0627 \u0641\u0639\u0627\u0644 \u0645\u06CC \u06A9\u0646\u062F',
     settings_ele_trigger_desp: '\u0627\u0646\u062A\u062E\u0627\u0628\u06AF\u0631 CSS \u06CC\u06A9 \u0639\u0646\u0635\u0631\u060C \u06A9\u0627\u0631\u062A \u0648\u0627\u0698\u0647 \u0646\u0627\u0645\u0647 \u0632\u0645\u0627\u0646\u06CC \u0631\u0627 \u0646\u0634\u0627\u0646 \u0645\u06CC \u062F\u0647\u062F \u06A9\u0647 \u0622\u0646 \u0639\u0646\u0635\u0631 \u06A9\u0644\u06CC\u06A9 \u0645\u06CC \u0634\u0648\u062F\u060C \u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u0645\u062B\u0627\u0644\u060C \u0622\u0631\u0645 \u0633\u0645\u062A \u0686\u067E \u0628\u0627\u0644\u0627\u06CC YouTube: a#logo',
     settings_detect_lang: '\u0632\u0628\u0627\u0646 \u0645\u0631\u0648\u0631\u06AF\u0631 "{}" \u0634\u0646\u0627\u0633\u0627\u06CC\u06CC \u0634\u062F\u060C \u0644\u0637\u0641\u0627\u064B \u062F\u0648\u0628\u0627\u0631\u0647 \u0628\u0631\u0631\u0633\u06CC \u06A9\u0646\u06CC\u062F \u0648 \u0632\u0628\u0627\u0646 \u0645\u0642\u0635\u062F \u0635\u062D\u06CC\u062D \u0631\u0627 \u0627\u0646\u062A\u062E\u0627\u0628 \u06A9\u0646\u06CC\u062F',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0648\u0627\u0698\u06AF\u0627\u0646',
     vocab_export_desp: '\u0647\u0645\u0647 \u0648\u0627\u0698\u06AF\u0627\u0646 \u0631\u0627 \u0628\u0647 \u0639\u0646\u0648\u0627\u0646 \u06CC\u06A9 \u0641\u0627\u06CC\u0644 JSON \u0635\u0627\u062F\u0631 \u06A9\u0646\u06CC\u062F',
     vocab_import_desp: '\u0648\u0627\u0698\u06AF\u0627\u0646 \u0631\u0627 \u0627\u0632 \u06CC\u06A9 \u0641\u0627\u06CC\u0644 JSON \u0648\u0627\u0631\u062F \u0648 \u0628\u0647 \u0631\u0648\u0632 \u06A9\u0646\u06CC\u062F\u060C \u062A\u0648\u062C\u0647: \u0627\u06CC\u0646 \u06A9\u0627\u0631 \u0647\u0645\u0647 \u0648\u0627\u0698\u06AF\u0627\u0646 \u0641\u0639\u0644\u06CC \u0634\u0645\u0627 \u0631\u0627 \u0628\u0627\u0632\u0646\u0648\u06CC\u0633\u06CC \u0645\u06CC \u06A9\u0646\u062F',
@@ -665,7 +724,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0627\u06CC\u062C\u0627\u062F \u0634\u062F\u0647 \u062F\u0631',
     newtab_title: '\u0628\u0631\u06AF\u0647 \u062C\u062F\u06CC\u062F',
     newtab_no_vocab_msg: '\u0634\u0645\u0627 \u0647\u06CC\u0686 \u0648\u0627\u0698\u06AF\u0627\u0646\u06CC \u0627\u0636\u0627\u0641\u0647 \u0646\u06A9\u0631\u062F\u0647 \u0627\u06CC\u062F\u060C \u0627\u0632 \u0645\u0646\u0648\u06CC \u0632\u0645\u06CC\u0646\u0647 \u0628\u0631\u0627\u06CC \u062A\u0631\u062C\u0645\u0647 \u0648 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0631\u062F\u0646 \u0622\u0646\u0647\u0627 \u0627\u0633\u062A\u0641\u0627\u062F\u0647 \u06A9\u0646\u06CC\u062F:)',
-    omni_add: '\u0627\u06CC\u0646 \u0648\u0627\u0698\u06AF\u0627\u0646 \u0631\u0627 \u0628\u0647 \u06A9\u062A\u0627\u0628 \u0648\u0627\u0698\u0647 \u0646\u0627\u0645\u0647 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0646\u06CC\u062F'
+    omni_add: '\u0627\u06CC\u0646 \u0648\u0627\u0698\u06AF\u0627\u0646 \u0631\u0627 \u0628\u0647 \u06A9\u062A\u0627\u0628 \u0648\u0627\u0698\u0647 \u0646\u0627\u0645\u0647 \u0627\u0636\u0627\u0641\u0647 \u06A9\u0646\u06CC\u062F',
+    release_what_new: `What's new`
   },
   fi: {
     name: 'suomi',
@@ -673,6 +733,8 @@ export const I18Ns = {
     cancel: 'Peruuttaa',
     total: 'Kaikki yhteens\xE4',
     version: 'Versio',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'K\xE4\xE4nn\xE4 teksti',
     stat_title: 'Tilastot',
     stat_vocab_add_header: 'Tilastot uuden sanaston lis\xE4\xE4misest\xE4',
@@ -700,6 +762,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Elementti laukaisee kortit',
     settings_ele_trigger_desp: 'Elementin CSS-valitsin, sanastokortti n\xE4ytt\xE4\xE4, kun elementti\xE4 napsautetaan, esim. YouTuben vasemmassa yl\xE4kulmassa oleva logo: a#logo',
     settings_detect_lang: 'Havaittu selaimen kieli "{}", tarkista ja valitse oikea kohdekieli',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Sanasto',
     vocab_export_desp: 'Vie kaikki sanastot JSON-tiedostona',
     vocab_import_desp: 'Tuo ja p\xE4ivit\xE4 sanastoja JSON-tiedostosta. Huomio: t\xE4m\xE4 korvaa kaikki nykyiset sanastosi',
@@ -713,7 +777,8 @@ export const I18Ns = {
     vocab_createdAt: 'Luotu klo',
     newtab_title: 'Uusi v\xE4lilehti',
     newtab_no_vocab_msg: 'Et ole lis\xE4nnyt sanastoa, k\xE4yt\xE4 kontekstivalikkoa k\xE4\xE4nt\xE4\xE4ksesi ja lis\xE4t\xE4ksesi ne:)',
-    omni_add: 'Lis\xE4\xE4 t\xE4m\xE4 sanasto sanastokirjaan'
+    omni_add: 'Lis\xE4\xE4 t\xE4m\xE4 sanasto sanastokirjaan',
+    release_what_new: `What's new`
   },
   fil: {
     name: 'Wikang Filipino',
@@ -721,6 +786,8 @@ export const I18Ns = {
     cancel: 'Kanselahin',
     total: 'Kabuuan',
     version: 'Bersyon',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Isalin ang teksto',
     stat_title: 'Mga istatistika',
     stat_vocab_add_header: 'Mga istatistika ng pagdaragdag ng bagong bokabularyo',
@@ -748,6 +815,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Nagti-trigger ng mga card ang elemento',
     settings_ele_trigger_desp: 'CSS selector ng isang elemento, makikita ang glossary card kapag na-click ang elementong iyon, hal., ang kaliwang itaas na logo sa YouTube: a#logo',
     settings_detect_lang: 'Natukoy na wika ng browser na "{}", pakisuri at piliin ang tamang target na wika',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Talasalitaan',
     vocab_export_desp: 'I-export ang lahat ng bokabularyo bilang JSON file',
     vocab_import_desp: 'Mag-import at mag-update ng mga bokabularyo mula sa isang JSON file, Attention: ito ay mag-overwrite sa lahat ng iyong kasalukuyang mga bokabularyo',
@@ -761,7 +830,8 @@ export const I18Ns = {
     vocab_createdAt: 'Nilikha sa',
     newtab_title: 'Bagong tab',
     newtab_no_vocab_msg: 'Hindi ka pa nagdagdag ng anumang bokabularyo, gumamit ng menu ng konteksto upang isalin at idagdag ang mga ito:)',
-    omni_add: 'Idagdag ang bokabularyo na ito sa glossary book'
+    omni_add: 'Idagdag ang bokabularyo na ito sa glossary book',
+    release_what_new: `What's new`
   },
   fr: {
     name: '\u0046\u0072\u0061\u006e\u00e7\u0061\u0069\u0073',
@@ -769,6 +839,8 @@ export const I18Ns = {
     cancel: 'Annuler',
     total: 'Total',
     version: 'Version',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Traduit le texte',
     stat_title: 'Statistiques',
     stat_vocab_add_header: `Statistiques d'ajout de nouveau vocabulaire`,
@@ -796,6 +868,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Cartes \xE9l\xE9ment d\xE9clencheur',
     settings_ele_trigger_desp: 'S\xE9lecteur CSS d\'un \xE9l\xE9ment, la carte de glossaire s\'affiche lorsque cet \xE9l\xE9ment est cliqu\xE9, par exemple, le logo en haut \xE0 gauche sur YouTube\xA0: a#logo',
     settings_detect_lang: 'Langue du navigateur d\xE9tect\xE9e "{}", veuillez rev\xE9rifier et choisir la langue cible correcte',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabulaire',
     vocab_export_desp: 'Exporter tous les vocabulaires sous forme de fichier JSON',
     vocab_import_desp: 'Importez et mettez \xE0 jour des vocabulaires \xE0 partir d\'un fichier JSON, Attention\xA0: cela \xE9crasera tous vos vocabulaires actuels',
@@ -809,7 +883,8 @@ export const I18Ns = {
     vocab_createdAt: 'Cr\xE9\xE9 \xE0',
     newtab_title: 'Nouvel onglet',
     newtab_no_vocab_msg: 'Vous n\'avez ajout\xE9 aucun vocabulaire, utilisez le menu contextuel pour traduire et ajoutez-les :)',
-    omni_add: 'Ajouter ce vocabulaire au livre de glossaire'
+    omni_add: 'Ajouter ce vocabulaire au livre de glossaire',
+    release_what_new: `What's new`
   },
   gu: {
     name: '\u0A97\u0AC1\u0A9C\u0AB0\u0ABE\u0AA4\u0AC0',
@@ -817,6 +892,8 @@ export const I18Ns = {
     cancel: '\u0AB0\u0AA6 \u0A95\u0AB0\u0ACB',
     total: '\u0A95\u0AC1\u0AB2',
     version: '\u0AB8\u0A82\u0AB8\u0ACD\u0A95\u0AB0\u0AA3',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u0A9F\u0AC7\u0A95\u0ACD\u0AB8\u0ACD\u0A9F\u0AA8\u0ACB \u0A85\u0AA8\u0AC1\u0AB5\u0ABE\u0AA6 \u0A95\u0AB0\u0ACB',
     stat_title: '\u0A86\u0A82\u0A95\u0AA1\u0ABE',
     stat_vocab_add_header: '\u0AA8\u0AB5\u0AC0 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0A89\u0AAE\u0AC7\u0AB0\u0AB5\u0ABE\u0AA8\u0ABE \u0A86\u0A82\u0A95\u0AA1\u0ABE',
@@ -844,6 +921,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0A8F\u0AB2\u0ABF\u0AAE\u0AC7\u0AA8\u0ACD\u0A9F \u0A95\u0ABE\u0AB0\u0ACD\u0AA1\u0ACD\u0AB8\u0AA8\u0AC7 \u0A9F\u0ACD\u0AB0\u0ABF\u0A97\u0AB0 \u0A95\u0AB0\u0AC7 \u0A9B\u0AC7',
     settings_ele_trigger_desp: '\u0A8F\u0AB2\u0ABF\u0AAE\u0AC7\u0AA8\u0ACD\u0A9F\u0AA8\u0AC1\u0A82 CSS \u0AB8\u0ABF\u0AB2\u0AC7\u0A95\u0ACD\u0A9F\u0AB0, \u0A97\u0ACD\u0AB2\u0ACB\u0AB8\u0AB0\u0AC0 \u0A95\u0ABE\u0AB0\u0ACD\u0AA1 \u0A9C\u0ACD\u0AAF\u0ABE\u0AB0\u0AC7 \u0AA4\u0AC7 \u0A98\u0A9F\u0A95\u0AA8\u0AC7 \u0A95\u0ACD\u0AB2\u0ABF\u0A95 \u0A95\u0AB0\u0AB5\u0ABE\u0AAE\u0ABE\u0A82 \u0A86\u0AB5\u0AC7 \u0AA4\u0ACD\u0AAF\u0ABE\u0AB0\u0AC7 \u0AAC\u0AA4\u0ABE\u0AB5\u0AC7 \u0A9B\u0AC7, \u0AA6\u0ABE.\u0AA4., YouTube \u0AAA\u0AB0 \u0AA1\u0ABE\u0AAC\u0AC0 \u0AAC\u0ABE\u0A9C\u0AC1\u0AA8\u0ACB \u0A89\u0AAA\u0AB0\u0AA8\u0ACB \u0AB2\u0ACB\u0A97\u0ACB: a#logo',
     settings_detect_lang: '\u0AB6\u0ACB\u0AA7\u0ABE\u0AAF\u0AC7\u0AB2 \u0AAC\u0ACD\u0AB0\u0ABE\u0A89\u0A9D\u0AB0 \u0AAD\u0ABE\u0AB7\u0ABE "{}", \u0A95\u0AC3\u0AAA\u0ABE \u0A95\u0AB0\u0AC0\u0AA8\u0AC7 \u0AAC\u0AC7 \u0AB5\u0ABE\u0AB0 \u0AA4\u0AAA\u0ABE\u0AB8\u0ACB \u0A85\u0AA8\u0AC7 \u0AB8\u0ABE\u0A9A\u0AC0 \u0AB2\u0A95\u0ACD\u0AB7\u0ACD\u0AAF \u0AAD\u0ABE\u0AB7\u0ABE \u0AAA\u0AB8\u0A82\u0AA6 \u0A95\u0AB0\u0ACB',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3',
     vocab_export_desp: '\u0AA4\u0AAE\u0ABE\u0AAE \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3\u0AA8\u0AC7 JSON \u0AAB\u0ABE\u0A87\u0AB2 \u0AA4\u0AB0\u0AC0\u0A95\u0AC7 \u0AA8\u0ABF\u0A95\u0ABE\u0AB8 \u0A95\u0AB0\u0ACB',
     vocab_import_desp: 'JSON \u0AAB\u0ABE\u0A87\u0AB2\u0AAE\u0ABE\u0A82\u0AA5\u0AC0 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0A86\u0AAF\u0ABE\u0AA4 \u0A95\u0AB0\u0ACB \u0A85\u0AA8\u0AC7 \u0A85\u0AAA\u0AA1\u0AC7\u0A9F \u0A95\u0AB0\u0ACB, \u0AA7\u0ACD\u0AAF\u0ABE\u0AA8 \u0A86\u0AAA\u0ACB: \u0A86 \u0AA4\u0AAE\u0ABE\u0AB0\u0AC0 \u0AAC\u0AA7\u0AC0 \u0AB5\u0AB0\u0ACD\u0AA4\u0AAE\u0ABE\u0AA8 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3\u0AA8\u0AC7 \u0A93\u0AB5\u0AB0\u0AB0\u0ABE\u0A88\u0A9F \u0A95\u0AB0\u0AB6\u0AC7',
@@ -857,7 +936,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0A96\u0ABE\u0AA4\u0AC7 \u0AAC\u0AA8\u0ABE\u0AB5\u0AC7\u0AB2 \u0A9B\u0AC7',
     newtab_title: '\u0AA8\u0AB5\u0AC1\u0A82 \u0A9F\u0AC7\u0AAC',
     newtab_no_vocab_msg: '\u0AA4\u0AAE\u0AC7 \u0A95\u0ACB\u0A88\u0AAA\u0AA3 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0A89\u0AAE\u0AC7\u0AB0\u0ACD\u0AAF\u0AC1\u0A82 \u0AA8\u0AA5\u0AC0, \u0A85\u0AA8\u0AC1\u0AB5\u0ABE\u0AA6 \u0A95\u0AB0\u0AB5\u0ABE \u0A85\u0AA8\u0AC7 \u0AA4\u0AC7\u0AA8\u0AC7 \u0A89\u0AAE\u0AC7\u0AB0\u0AB5\u0ABE \u0AAE\u0ABE\u0A9F\u0AC7 \u0AB8\u0A82\u0AA6\u0AB0\u0ACD\u0AAD \u0AAE\u0AC7\u0AA8\u0AC2\u0AA8\u0ACB \u0A89\u0AAA\u0AAF\u0ACB\u0A97 \u0A95\u0AB0\u0ACB :)',
-    omni_add: '\u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0AAA\u0AC1\u0AB8\u0ACD\u0AA4\u0A95\u0AAE\u0ABE\u0A82 \u0A86 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0A89\u0AAE\u0AC7\u0AB0\u0ACB'
+    omni_add: '\u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0AAA\u0AC1\u0AB8\u0ACD\u0AA4\u0A95\u0AAE\u0ABE\u0A82 \u0A86 \u0AB6\u0AAC\u0ACD\u0AA6\u0AAD\u0A82\u0AA1\u0ACB\u0AB3 \u0A89\u0AAE\u0AC7\u0AB0\u0ACB',
+    release_what_new: `What's new`
   },
   he: {
     name: '\u05E2\u05B4\u05D1\u05B0\u05E8\u05B4\u05D9\u05EA',
@@ -865,6 +945,8 @@ export const I18Ns = {
     cancel: '\u05DC\u05B0\u05D1\u05B7\u05D8\u05B5\u05DC',
     total: '\u05E1\u05DA \u05D4\u05DB\u05DC',
     version: '\u05D2\u05B4\u05E8\u05B0\u05E1\u05B8\u05D4',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u05EA\u05EA\u05E8\u05D2\u05DD \u05D0\u05EA \u05D4\u05D8\u05E7\u05E1\u05D8',
     stat_title: '\u05E1\u05D8\u05B8\u05D8\u05B4\u05D9\u05E1\u05D8\u05B4\u05D9\u05E7\u05B8\u05D4',
     stat_vocab_add_header: '\u05E1\u05D8\u05D8\u05D9\u05E1\u05D8\u05D9\u05E7\u05D4 \u05E9\u05DC \u05D4\u05D5\u05E1\u05E4\u05EA \u05D0\u05D5\u05E6\u05E8 \u05DE\u05D9\u05DC\u05D9\u05DD \u05D7\u05D3\u05E9',
@@ -892,6 +974,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u05D0\u05DC\u05DE\u05E0\u05D8 \u05DE\u05E4\u05E2\u05D9\u05DC \u05E7\u05DC\u05E4\u05D9\u05DD',
     settings_ele_trigger_desp: '\u05D1\u05D5\u05E8\u05E8 CSS \u05E9\u05DC \u05D0\u05DC\u05DE\u05E0\u05D8, \u05DB\u05E8\u05D8\u05D9\u05E1 \u05DE\u05D9\u05DC\u05D5\u05DF \u05DE\u05D5\u05E0\u05D7\u05D9\u05DD \u05DE\u05E6\u05D9\u05D2 \u05DB\u05D0\u05E9\u05E8 \u05DC\u05D5\u05D7\u05E6\u05D9\u05DD \u05E2\u05DC \u05E8\u05DB\u05D9\u05D1 \u05D6\u05D4, \u05DC\u05DE\u05E9\u05DC, \u05D4\u05DC\u05D5\u05D2\u05D5 \u05D4\u05E9\u05DE\u05D0\u05DC\u05D9 \u05D4\u05E2\u05DC\u05D9\u05D5\u05DF \u05D1-YouTube: a#logo',
     settings_detect_lang: '\u05E9\u05E4\u05EA \u05D4\u05D3\u05E4\u05D3\u05E4\u05DF \u05E9\u05D6\u05D5\u05D4\u05EA\u05D4 "{}", \u05D0\u05E0\u05D0 \u05D1\u05D3\u05D5\u05E7 \u05E9\u05D5\u05D1 \u05D5\u05D1\u05D7\u05E8 \u05D0\u05EA \u05E9\u05E4\u05EA \u05D4\u05D9\u05E2\u05D3 \u05D4\u05E0\u05DB\u05D5\u05E0\u05D4',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u05D0\u05D5\u05E6\u05E8 \u05DE\u05D9\u05DC\u05D9\u05DD',
     vocab_export_desp: '\u05D9\u05D9\u05E6\u05D0 \u05D0\u05EA \u05DB\u05DC \u05D0\u05D5\u05E6\u05E8 \u05D4\u05DE\u05D9\u05DC\u05D9\u05DD \u05DB\u05E7\u05D5\u05D1\u05E5 JSON',
     vocab_import_desp: '\u05D9\u05D9\u05D1\u05D5\u05D0 \u05D5\u05E2\u05D3\u05DB\u05DF \u05D0\u05D5\u05E6\u05E8 \u05DE\u05D9\u05DC\u05D9\u05DD \u05DE\u05E7\u05D5\u05D1\u05E5 JSON, \u05E9\u05D9\u05DE\u05D5 \u05DC\u05D1: \u05D6\u05D4 \u05D9\u05D7\u05DC\u05D9\u05E3 \u05D0\u05EA \u05DB\u05DC \u05D0\u05D5\u05E6\u05E8 \u05D4\u05DE\u05D9\u05DC\u05D9\u05DD \u05D4\u05E0\u05D5\u05DB\u05D7\u05D9\u05D9\u05DD \u05E9\u05DC\u05DA',
@@ -905,7 +989,8 @@ export const I18Ns = {
     vocab_createdAt: '\u05E0\u05D5\u05E6\u05E8 \u05D1',
     newtab_title: '\u05DB\u05E8\u05D8\u05D9\u05E1\u05D9\u05D9\u05D4 \u05D7\u05D3\u05E9\u05D4',
     newtab_no_vocab_msg: '\u05DC\u05D0 \u05D4\u05D5\u05E1\u05E4\u05EA \u05D0\u05D5\u05E6\u05E8 \u05DE\u05D9\u05DC\u05D9\u05DD, \u05D4\u05E9\u05EA\u05DE\u05E9 \u05D1\u05EA\u05E4\u05E8\u05D9\u05D8 \u05D4\u05D4\u05E7\u05E9\u05E8 \u05DB\u05D3\u05D9 \u05DC\u05EA\u05E8\u05D2\u05DD \u05D5\u05DC\u05D4\u05D5\u05E1\u05D9\u05E3 \u05D0\u05D5\u05EA\u05DD :)',
-    omni_add: '\u05D4\u05D5\u05E1\u05E3 \u05D0\u05EA \u05D0\u05D5\u05E6\u05E8 \u05D4\u05DE\u05D9\u05DC\u05D9\u05DD \u05D4\u05D6\u05D4 \u05DC\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D5\u05E0\u05D7\u05D9\u05DD'
+    omni_add: '\u05D4\u05D5\u05E1\u05E3 \u05D0\u05EA \u05D0\u05D5\u05E6\u05E8 \u05D4\u05DE\u05D9\u05DC\u05D9\u05DD \u05D4\u05D6\u05D4 \u05DC\u05E1\u05E4\u05E8 \u05D4\u05DE\u05D5\u05E0\u05D7\u05D9\u05DD',
+    release_what_new: `What's new`
   },
   hi: {
     name: '\u0939\u093f\u0928\u094d\u0926\u0940',
@@ -913,6 +998,8 @@ export const I18Ns = {
     cancel: '\u0930\u0926\u094D\u0926 \u0915\u0930\u0928\u093E',
     total: '\u0915\u0941\u0932',
     version: '\u0938\u0902\u0938\u094D\u0915\u0930\u0923',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u092A\u093E\u0920 \u0915\u093E \u0905\u0928\u0941\u0935\u093E\u0926 \u0915\u0930\u0947\u0902',
     stat_title: '\u0906\u0902\u0915\u0921\u093C\u0947',
     stat_vocab_add_header: '\u0928\u0908 \u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940 \u091C\u094B\u0921\u093C\u0928\u0947 \u0915\u0947 \u0906\u0902\u0915\u0921\u093C\u0947',
@@ -940,6 +1027,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0924\u0924\u094D\u0935 \u0915\u093E\u0930\u094D\u0921 \u091F\u094D\u0930\u093F\u0917\u0930 \u0915\u0930\u0924\u093E \u0939\u0948',
     settings_ele_trigger_desp: '\u0915\u093F\u0938\u0940 \u0924\u0924\u094D\u0935 \u0915\u093E CSS \u091A\u092F\u0928\u0915\u0930\u094D\u0924\u093E, \u0936\u092C\u094D\u0926\u0915\u094B\u0937 \u0915\u093E\u0930\u094D\u0921 \u0926\u093F\u0916\u093E\u0924\u093E \u0939\u0948 \u0915\u093F \u0909\u0938 \u0924\u0924\u094D\u0935 \u092A\u0930 \u0915\u092C \u0915\u094D\u0932\u093F\u0915 \u0915\u093F\u092F\u093E \u0917\u092F\u093E, \u0909\u0926\u093E., YouTube \u092A\u0930 \u090A\u092A\u0930\u0940 \u092C\u093E\u090F\u0901 \u0932\u094B\u0917\u094B: a#logo',
     settings_detect_lang: '\u0916\u094B\u091C\u0940 \u0917\u0908 \u092C\u094D\u0930\u093E\u0909\u091C\u093C\u0930 \u092D\u093E\u0937\u093E "{}", \u0915\u0943\u092A\u092F\u093E \u0926\u094B\u092C\u093E\u0930\u093E \u091C\u093E\u0902\u091A\u0947\u0902 \u0914\u0930 \u0938\u0939\u0940 \u0932\u0915\u094D\u0937\u094D\u092F \u092D\u093E\u0937\u093E \u091A\u0941\u0928\u0947\u0902',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940',
     vocab_export_desp: 'JSON \u092B\u093C\u093E\u0907\u0932 \u0915\u0947 \u0930\u0942\u092A \u092E\u0947\u0902 \u0938\u092D\u0940 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u0928\u093F\u0930\u094D\u092F\u093E\u0924 \u0915\u0930\u0947\u0902',
     vocab_import_desp: 'JSON \u092B\u093C\u093E\u0907\u0932 \u0938\u0947 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u0906\u092F\u093E\u0924 \u0914\u0930 \u0905\u092A\u0921\u0947\u091F \u0915\u0930\u0947\u0902, \u0927\u094D\u092F\u093E\u0928 \u0926\u0947\u0902: \u092F\u0939 \u0906\u092A\u0915\u0940 \u0938\u092D\u0940 \u092E\u094C\u091C\u0942\u0926\u093E \u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940 \u0915\u094B \u0905\u0927\u093F\u0932\u0947\u0916\u093F\u0924 \u0915\u0930 \u0926\u0947\u0917\u093E',
@@ -953,7 +1042,8 @@ export const I18Ns = {
     vocab_createdAt: '\u092A\u0930 \u092C\u0928\u093E\u092F\u093E \u0917\u092F\u093E',
     newtab_title: '\u0928\u092F\u093E \u091F\u0948\u092C',
     newtab_no_vocab_msg: '\u0906\u092A\u0928\u0947 \u0915\u094B\u0908 \u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940 \u0928\u0939\u0940\u0902 \u091C\u094B\u0921\u093C\u0940 \u0939\u0948, \u0905\u0928\u0941\u0935\u093E\u0926 \u0915\u0930\u0928\u0947 \u0914\u0930 \u0909\u0928\u094D\u0939\u0947\u0902 \u091C\u094B\u0921\u093C\u0928\u0947 \u0915\u0947 \u0932\u093F\u090F \u0938\u0902\u0926\u0930\u094D\u092D \u092E\u0947\u0928\u0942 \u0915\u093E \u0909\u092A\u092F\u094B\u0917 \u0915\u0930\u0947\u0902 :)',
-    omni_add: '\u0907\u0938 \u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940 \u0915\u094B \u0936\u092C\u094D\u0926\u0915\u094B\u0937 \u092A\u0941\u0938\u094D\u0924\u0915 \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u0947\u0902'
+    omni_add: '\u0907\u0938 \u0936\u092C\u094D\u0926\u093E\u0935\u0932\u0940 \u0915\u094B \u0936\u092C\u094D\u0926\u0915\u094B\u0937 \u092A\u0941\u0938\u094D\u0924\u0915 \u092E\u0947\u0902 \u091C\u094B\u0921\u093C\u0947\u0902',
+    release_what_new: `What's new`
   },
   hr: {
     name: 'hrvatski',
@@ -961,6 +1051,8 @@ export const I18Ns = {
     cancel: 'Otkazati',
     total: 'Ukupno',
     version: 'Verzija',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Prevedite tekst',
     stat_title: 'Statistika',
     stat_vocab_add_header: 'Statistika dodavanja novog vokabulara',
@@ -988,6 +1080,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element pokre\u0107e kartice',
     settings_ele_trigger_desp: 'CSS bira\u010D elementa, kartica pojmovnika prikazuje kada se klikne na taj element, npr. gornji lijevi logotip na YouTubeu: a#logo',
     settings_detect_lang: 'Otkriven jezik preglednika "{}", provjerite jo\u0161 jednom i odaberite ispravan ciljni jezik',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Rje\u010Dnik',
     vocab_export_desp: 'Izvezite sve vokabulare kao JSON datoteku',
     vocab_import_desp: 'Uvezite i a\u017Eurirajte rje\u010Dnike iz JSON datoteke, pa\u017Enja: ovo \u0107e prebrisati sve va\u0161e trenutne rje\u010Dnike',
@@ -1001,7 +1095,8 @@ export const I18Ns = {
     vocab_createdAt: 'Stvoreno u',
     newtab_title: 'Nova kartica',
     newtab_no_vocab_msg: 'Niste dodali nikakav vokabular, upotrijebite kontekstni izbornik za prijevod i dodajte ih :)',
-    omni_add: 'Dodajte ovaj vokabular u knjigu pojmovnika'
+    omni_add: 'Dodajte ovaj vokabular u knjigu pojmovnika',
+    release_what_new: `What's new`
   },
   hu: {
     name: 'magyar nyelv',
@@ -1009,6 +1104,8 @@ export const I18Ns = {
     cancel: 'Megsz\xFCnteti',
     total: 'Teljes',
     version: 'V\xE1ltozat',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Ford\xEDtsa le a sz\xF6veget',
     stat_title: 'Statisztika',
     stat_vocab_add_header: 'Statisztik\xE1k az \xFAj sz\xF3kincs hozz\xE1ad\xE1s\xE1val kapcsolatban',
@@ -1036,6 +1133,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Az elem kiv\xE1ltja a k\xE1rty\xE1kat',
     settings_ele_trigger_desp: 'Egy elem CSS-v\xE1laszt\xF3ja, sz\xF3szedet k\xE1rtya mutatja, ha az elemre kattintanak, p\xE9ld\xE1ul a YouTube bal fels\u0151 log\xF3ja: a#logo',
     settings_detect_lang: 'Az \xE9szlelt b\xF6ng\xE9sz\u0151 nyelve: "{}", ellen\u0151rizze m\xE9g egyszer, \xE9s v\xE1lassza ki a megfelel\u0151 c\xE9lnyelvet',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Sz\xF3jegyz\xE9k',
     vocab_export_desp: 'Export\xE1lja az \xF6sszes sz\xF3t\xE1rat JSON-f\xE1jlk\xE9nt',
     vocab_import_desp: 'Sz\xF3kincsek import\xE1l\xE1sa \xE9s friss\xEDt\xE9se JSON-f\xE1jlb\xF3l. Figyelem: ez fel\xFCl\xEDrja az \xF6sszes jelenlegi sz\xF3t\xE1r\xE1t',
@@ -1049,7 +1148,8 @@ export const I18Ns = {
     vocab_createdAt: 'L\xE9trehozva',
     newtab_title: '\xDAj lap',
     newtab_no_vocab_msg: 'Nem adt\xE1l hozz\xE1 sz\xF3kincset, ford\xEDtsd le \xE9s add hozz\xE1 a helyi men\xFCt:)',
-    omni_add: 'Adja hozz\xE1 ezt a sz\xF3kincset a sz\xF3szedethez'
+    omni_add: 'Adja hozz\xE1 ezt a sz\xF3kincset a sz\xF3szedethez',
+    release_what_new: `What's new`
   },
   id: {
     name: 'Bahasa Indonesia',
@@ -1057,6 +1157,8 @@ export const I18Ns = {
     cancel: 'Membatalkan',
     total: 'Total',
     version: 'Versi: kapan',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Terjemahkan teks',
     stat_title: 'Statistik',
     stat_vocab_add_header: 'Statistik penambahan kosakata baru',
@@ -1084,6 +1186,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Kartu pemicu elemen',
     settings_ele_trigger_desp: 'Pemilih CSS dari suatu elemen, kartu glosarium menunjukkan saat elemen tersebut diklik, mis., logo kiri atas di YouTube: a#logo',
     settings_detect_lang: 'Bahasa browser yang terdeteksi "{}", harap periksa kembali dan pilih bahasa target yang benar',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Kosakata',
     vocab_export_desp: 'Ekspor semua kosakata sebagai file JSON',
     vocab_import_desp: 'Impor dan perbarui kosakata dari file JSON, Perhatian: ini akan menimpa semua kosakata Anda saat ini',
@@ -1097,7 +1201,8 @@ export const I18Ns = {
     vocab_createdAt: 'Dibuat di',
     newtab_title: 'Tab baru',
     newtab_no_vocab_msg: 'Anda belum menambahkan kosakata apa pun, gunakan menu konteks untuk menerjemahkan dan menambahkannya :)',
-    omni_add: 'Tambahkan kosakata ini ke buku glosarium'
+    omni_add: 'Tambahkan kosakata ini ke buku glosarium',
+    release_what_new: `What's new`
   },
   it: {
     name: 'Italiano',
@@ -1105,6 +1210,8 @@ export const I18Ns = {
     cancel: 'Annulla',
     total: 'Totale',
     version: 'Versione',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Tradurre il testo',
     stat_title: 'Statistiche',
     stat_vocab_add_header: 'Statistiche di aggiunta di nuovo vocabolario',
@@ -1132,6 +1239,8 @@ export const I18Ns = {
     settings_ele_trigger: `L'elemento attiva le carte`,
     settings_ele_trigger_desp: `Selettore CSS di un elemento, la scheda del glossario mostra quando si fa clic su quell'elemento, ad esempio il logo in alto a sinistra su YouTube: a#logo`,
     settings_detect_lang: 'Lingua del browser rilevata "{}", controlla due volte e scegli la lingua di destinazione corretta',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabolario',
     vocab_export_desp: 'Esporta tutti i vocabolari come file JSON',
     vocab_import_desp: 'Importa e aggiorna i vocabolari da un file JSON, Attenzione: questo sovrascriver\xE0 tutti i tuoi vocabolari attuali',
@@ -1145,7 +1254,8 @@ export const I18Ns = {
     vocab_createdAt: 'Creato a',
     newtab_title: 'Nuova scheda',
     newtab_no_vocab_msg: 'Non hai aggiunto alcun vocabolario, usa il menu contestuale per tradurre e aggiungerli :)',
-    omni_add: 'Aggiungi questo vocabolario al libro del glossario'
+    omni_add: 'Aggiungi questo vocabolario al libro del glossario',
+    release_what_new: `What's new`
   },
   ja: {
     name: '\u65e5\u672c\u8a9e',
@@ -1153,6 +1263,8 @@ export const I18Ns = {
     cancel: '\u30AD\u30E3\u30F3\u30BB\u30EB',
     total: '\u5408\u8A08',
     version: '\u30D0\u30FC\u30B8\u30E7\u30F3',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u30C6\u30AD\u30B9\u30C8\u3092\u7FFB\u8A33\u3059\u308B',
     stat_title: '\u7D71\u8A08',
     stat_vocab_add_header: '\u65B0\u3057\u3044\u8A9E\u5F59\u306E\u8FFD\u52A0\u306E\u7D71\u8A08',
@@ -1180,6 +1292,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u30A8\u30EC\u30E1\u30F3\u30C8\u30C8\u30EA\u30AC\u30FC\u30AB\u30FC\u30C9',
     settings_ele_trigger_desp: '\u8981\u7D20\u306E CSS \u30BB\u30EC\u30AF\u30BF\u30FC\u3001\u7528\u8A9E\u96C6\u30AB\u30FC\u30C9\u306F\u3001\u305D\u306E\u8981\u7D20\u304C\u30AF\u30EA\u30C3\u30AF\u3055\u308C\u305F\u3068\u304D\u306B\u8868\u793A\u3055\u308C\u307E\u3059\u3002\u305F\u3068\u3048\u3070\u3001YouTube \u306E\u5DE6\u4E0A\u306E\u30ED\u30B4: a#logo',
     settings_detect_lang: '\u30D6\u30E9\u30A6\u30B6\u8A00\u8A9E\u300C{}\u300D\u304C\u691C\u51FA\u3055\u308C\u307E\u3057\u305F\u3002\u518D\u78BA\u8A8D\u3057\u3066\u6B63\u3057\u3044\u30BF\u30FC\u30B2\u30C3\u30C8\u8A00\u8A9E\u3092\u9078\u629E\u3057\u3066\u304F\u3060\u3055\u3044',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u5358\u8A9E',
     vocab_export_desp: '\u3059\u3079\u3066\u306E\u8A9E\u5F59\u3092 JSON \u30D5\u30A1\u30A4\u30EB\u3068\u3057\u3066\u30A8\u30AF\u30B9\u30DD\u30FC\u30C8\u3057\u307E\u3059',
     vocab_import_desp: 'JSON \u30D5\u30A1\u30A4\u30EB\u304B\u3089\u8A9E\u5F59\u3092\u30A4\u30F3\u30DD\u30FC\u30C8\u3057\u3066\u66F4\u65B0\u3057\u307E\u3059\u3002\u6CE8\u610F: \u3053\u308C\u306B\u3088\u308A\u3001\u73FE\u5728\u306E\u3059\u3079\u3066\u306E\u8A9E\u5F59\u304C\u4E0A\u66F8\u304D\u3055\u308C\u307E\u3059',
@@ -1193,7 +1307,8 @@ export const I18Ns = {
     vocab_createdAt: '\u3067\u4F5C\u6210',
     newtab_title: '\u65B0\u3057\u3044\u30BF\u30D6',
     newtab_no_vocab_msg: '\u8A9E\u5F59\u3092\u8FFD\u52A0\u3057\u3066\u3044\u307E\u305B\u3093\u3002\u30B3\u30F3\u30C6\u30AD\u30B9\u30C8 \u30E1\u30CB\u30E5\u30FC\u3092\u4F7F\u7528\u3057\u3066\u7FFB\u8A33\u3057\u3001\u8FFD\u52A0\u3057\u3066\u304F\u3060\u3055\u3044:)',
-    omni_add: '\u3053\u306E\u8A9E\u5F59\u3092\u7528\u8A9E\u96C6\u306B\u8FFD\u52A0'
+    omni_add: '\u3053\u306E\u8A9E\u5F59\u3092\u7528\u8A9E\u96C6\u306B\u8FFD\u52A0',
+    release_what_new: `What's new`
   },
   kn: {
     name: '\u0C95\u0CA8\u0CCD\u0CA8\u0CA1',
@@ -1201,6 +1316,8 @@ export const I18Ns = {
     cancel: '\u0CB0\u0CA6\u0CCD\u0CA6\u0CC1\u0CAE\u0CBE\u0CA1\u0CBF',
     total: '\u0C92\u0C9F\u0CCD\u0C9F\u0CC1',
     version: '\u0C86\u0CB5\u0CC3\u0CA4\u0CCD\u0CA4\u0CBF',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u0CAA\u0CA0\u0CCD\u0CAF\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0C85\u0CA8\u0CC1\u0CB5\u0CBE\u0CA6\u0CBF\u0CB8\u0CBF',
     stat_title: '\u0C85\u0C82\u0C95\u0CBF\u0C85\u0C82\u0CB6\u0C97\u0CB3\u0CC1',
     stat_vocab_add_header: '\u0CB9\u0CCA\u0CB8 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CC1\u0CB5 \u0C85\u0C82\u0C95\u0CBF\u0C85\u0C82\u0CB6\u0C97\u0CB3\u0CC1',
@@ -1228,6 +1345,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0C8E\u0CB2\u0CBF\u0CAE\u0CC6\u0C82\u0C9F\u0CCD \u0C95\u0CBE\u0CB0\u0CCD\u0CA1\u0CCD\u200C\u0C97\u0CB3\u0CA8\u0CCD\u0CA8\u0CC1 \u0CAA\u0CCD\u0CB0\u0C9A\u0CCB\u0CA6\u0CBF\u0CB8\u0CC1\u0CA4\u0CCD\u0CA4\u0CA6\u0CC6',
     settings_ele_trigger_desp: '\u0C85\u0C82\u0CB6\u0CA6 CSS \u0CB8\u0CC6\u0CB2\u0CC6\u0C95\u0CCD\u0C9F\u0CB0\u0CCD, \u0C97\u0CCD\u0CB2\u0CBE\u0CB8\u0CB0\u0CBF \u0C95\u0CBE\u0CB0\u0CCD\u0CA1\u0CCD \u0C86 \u0C85\u0C82\u0CB6\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0C95\u0CCD\u0CB2\u0CBF\u0C95\u0CCD \u0CAE\u0CBE\u0CA1\u0CBF\u0CA6\u0CBE\u0C97 \u0CA4\u0CCB\u0CB0\u0CBF\u0CB8\u0CC1\u0CA4\u0CCD\u0CA4\u0CA6\u0CC6, \u0C89\u0CA6\u0CBE. YouTube \u0CA8\u0CB2\u0CCD\u0CB2\u0CBF \u0CAE\u0CC7\u0CB2\u0CBF\u0CA8 \u0C8E\u0CA1 \u0CB2\u0CCB\u0C97\u0CCB: a#logo',
     settings_detect_lang: '\u0CAA\u0CA4\u0CCD\u0CA4\u0CC6\u0CAF\u0CBE\u0CA6 \u0CAC\u0CCD\u0CB0\u0CCC\u0CB8\u0CB0\u0CCD \u0CAD\u0CBE\u0CB7\u0CC6 "{}", \u0CA6\u0CAF\u0CB5\u0CBF\u0C9F\u0CCD\u0C9F\u0CC1 \u0C8E\u0CB0\u0CA1\u0CC1 \u0CAC\u0CBE\u0CB0\u0CBF \u0CAA\u0CB0\u0CBF\u0CB6\u0CC0\u0CB2\u0CBF\u0CB8\u0CBF \u0CAE\u0CA4\u0CCD\u0CA4\u0CC1 \u0CB8\u0CB0\u0CBF\u0CAF\u0CBE\u0CA6 \u0C97\u0CC1\u0CB0\u0CBF \u0CAD\u0CBE\u0CB7\u0CC6\u0CAF\u0CA8\u0CCD\u0CA8\u0CC1 \u0C86\u0CAF\u0CCD\u0C95\u0CC6\u0CAE\u0CBE\u0CA1\u0CBF',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6',
     vocab_export_desp: '\u0C8E\u0CB2\u0CCD\u0CB2\u0CBE \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0C97\u0CB3\u0CA8\u0CCD\u0CA8\u0CC1 JSON \u0CAB\u0CC8\u0CB2\u0CCD \u0C86\u0C97\u0CBF \u0CB0\u0CAB\u0CCD\u0CA4\u0CC1 \u0CAE\u0CBE\u0CA1\u0CBF',
     vocab_import_desp: 'JSON \u0CAB\u0CC8\u0CB2\u0CCD\u200C\u0CA8\u0CBF\u0C82\u0CA6 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0C97\u0CB3\u0CA8\u0CCD\u0CA8\u0CC1 \u0C86\u0CAE\u0CA6\u0CC1 \u0CAE\u0CBE\u0CA1\u0CBF\u0C95\u0CCA\u0CB3\u0CCD\u0CB3\u0CBF \u0CAE\u0CA4\u0CCD\u0CA4\u0CC1 \u0CA8\u0CB5\u0CC0\u0C95\u0CB0\u0CBF\u0CB8\u0CBF, \u0C97\u0CAE\u0CA8: \u0C87\u0CA6\u0CC1 \u0CA8\u0CBF\u0CAE\u0CCD\u0CAE \u0C8E\u0CB2\u0CCD\u0CB2\u0CBE \u0CAA\u0CCD\u0CB0\u0CB8\u0CCD\u0CA4\u0CC1\u0CA4 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0C97\u0CB3\u0CA8\u0CCD\u0CA8\u0CC1 \u0CA4\u0CBF\u0CA6\u0CCD\u0CA6\u0CBF \u0CAC\u0CB0\u0CC6\u0CAF\u0CC1\u0CA4\u0CCD\u0CA4\u0CA6\u0CC6',
@@ -1241,7 +1360,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0CA8\u0CB2\u0CCD\u0CB2\u0CBF \u0CB0\u0C9A\u0CBF\u0CB8\u0CB2\u0CBE\u0C97\u0CBF\u0CA6\u0CC6',
     newtab_title: '\u0CB9\u0CC6\u0CC2\u0CB8 \u0C9F\u0CCD\u0CAF\u0CBE\u0CAC\u0CCD',
     newtab_no_vocab_msg: '\u0CA8\u0CC0\u0CB5\u0CC1 \u0CAF\u0CBE\u0CB5\u0CC1\u0CA6\u0CC7 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CBF\u0CB2\u0CCD\u0CB2, \u0C85\u0CB5\u0CC1\u0C97\u0CB3\u0CA8\u0CCD\u0CA8\u0CC1 \u0CAD\u0CBE\u0CB7\u0CBE\u0C82\u0CA4\u0CB0\u0CBF\u0CB8\u0CB2\u0CC1 \u0CAE\u0CA4\u0CCD\u0CA4\u0CC1 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CB2\u0CC1 \u0CB8\u0C82\u0CA6\u0CB0\u0CCD\u0CAD \u0CAE\u0CC6\u0CA8\u0CC1 \u0CAC\u0CB3\u0CB8\u0CBF :)',
-    omni_add: '\u0C88 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0C97\u0CCD\u0CB2\u0CBE\u0CB8\u0CB0\u0CBF \u0CAA\u0CC1\u0CB8\u0CCD\u0CA4\u0C95\u0C95\u0CCD\u0C95\u0CC6 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CBF'
+    omni_add: '\u0C88 \u0CB6\u0CAC\u0CCD\u0CA6\u0C95\u0CCB\u0CB6\u0CB5\u0CA8\u0CCD\u0CA8\u0CC1 \u0C97\u0CCD\u0CB2\u0CBE\u0CB8\u0CB0\u0CBF \u0CAA\u0CC1\u0CB8\u0CCD\u0CA4\u0C95\u0C95\u0CCD\u0C95\u0CC6 \u0CB8\u0CC7\u0CB0\u0CBF\u0CB8\u0CBF',
+    release_what_new: `What's new`
   },
   ko: {
     name: '\ud55c\uad6d\uc5b4',
@@ -1249,6 +1369,8 @@ export const I18Ns = {
     cancel: '\uCDE8\uC18C',
     total: '\uCD1D',
     version: '\uBC84\uC804',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\uBB38\uC7A5\uC744 \uBC88\uC5ED\uD558\uB2E4',
     stat_title: '\uD1B5\uACC4',
     stat_vocab_add_header: '\uC0C8\uB85C\uC6B4 \uC5B4\uD718 \uCD94\uAC00 \uD1B5\uACC4',
@@ -1276,6 +1398,8 @@ export const I18Ns = {
     settings_ele_trigger: '\uC694\uC18C \uD2B8\uB9AC\uAC70 \uCE74\uB4DC',
     settings_ele_trigger_desp: '\uC694\uC18C\uC758 CSS \uC120\uD0DD\uAE30, \uC6A9\uC5B4\uC9D1 \uCE74\uB4DC\uB294 \uD574\uB2F9 \uC694\uC18C\uAC00 \uD074\uB9AD\uB420 \uB54C \uD45C\uC2DC\uB429\uB2C8\uB2E4(\uC608: YouTube\uC758 \uC67C\uCABD \uC0C1\uB2E8 \uB85C\uACE0: a#logo).',
     settings_detect_lang: '\uAC10\uC9C0\uB41C \uBE0C\uB77C\uC6B0\uC800 \uC5B8\uC5B4 "{}", \uB2E4\uC2DC \uD655\uC778\uD558\uACE0 \uC62C\uBC14\uB978 \uB300\uC0C1 \uC5B8\uC5B4\uB97C \uC120\uD0DD\uD558\uC2ED\uC2DC\uC624.',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\uC5B4\uD718',
     vocab_export_desp: '\uBAA8\uB4E0 \uC5B4\uD718\uB97C JSON \uD30C\uC77C\uB85C \uB0B4\uBCF4\uB0B4\uAE30',
     vocab_import_desp: 'JSON \uD30C\uC77C\uC5D0\uC11C \uC5B4\uD718 \uAC00\uC838\uC624\uAE30 \uBC0F \uC5C5\uB370\uC774\uD2B8, \uC8FC\uC758: \uD604\uC7AC \uBAA8\uB4E0 \uC5B4\uD718\uB97C \uB36E\uC5B4\uC501\uB2C8\uB2E4.',
@@ -1289,7 +1413,8 @@ export const I18Ns = {
     vocab_createdAt: '\uB9CC\uB4E0 \uC2DC\uAC04',
     newtab_title: '\uC0C8\uB85C\uC6B4 \uD0ED',
     newtab_no_vocab_msg: '\uC5B4\uD718\uB97C \uCD94\uAC00\uD558\uC9C0 \uC54A\uC558\uC2B5\uB2C8\uB2E4. \uCEE8\uD14D\uC2A4\uD2B8 \uBA54\uB274\uB97C \uC0AC\uC6A9\uD558\uC5EC \uBC88\uC5ED\uD558\uACE0 \uCD94\uAC00\uD558\uC138\uC694:)',
-    omni_add: '\uC774 \uC5B4\uD718\uB97C \uC6A9\uC5B4\uC9D1\uC5D0 \uCD94\uAC00'
+    omni_add: '\uC774 \uC5B4\uD718\uB97C \uC6A9\uC5B4\uC9D1\uC5D0 \uCD94\uAC00',
+    release_what_new: `What's new`
   },
   la: {
     name: 'Lat\u012Bna',
@@ -1297,6 +1422,8 @@ export const I18Ns = {
     cancel: 'Cancel',
     total: 'Totalis',
     version: 'Version',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Textum transferendum',
     stat_title: 'Statistics',
     stat_vocab_add_header: 'Statistics of addendo vocabularium novum',
@@ -1324,6 +1451,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Elementum triggers pecto',
     settings_ele_trigger_desp: 'CSS electrix elementi, chartae glossariae ostendit quando illud elementum deprimitur, e.g., logo sinistro superiori in YouTube: a#logo',
     settings_detect_lang: 'Deprehensio lingua navigatoris "{}", quaeso, duplicem reprehendo et rectam scopum linguae elige',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabulary',
     vocab_export_desp: 'Omnia vocabularia sicut file JSON exportare',
     vocab_import_desp: 'Inferre et renovare vocabularia e file JSON, Operam: hoc rescribe omnia Vocabula tua current',
@@ -1337,7 +1466,8 @@ export const I18Ns = {
     vocab_createdAt: 'Creatus est',
     newtab_title: 'Novus tab',
     newtab_no_vocab_msg: 'Quodlibet vocabulum non adiecisti, utere contextu sermonis ad ea transferenda et ad ea adde:)',
-    omni_add: 'Adde hoc vocabularium ad librum glossarium'
+    omni_add: 'Adde hoc vocabularium ad librum glossarium',
+    release_what_new: `What's new`
   },
   lt: {
     name: 'lietuvi\u0173 kalba',
@@ -1345,6 +1475,8 @@ export const I18Ns = {
     cancel: 'At\u0161aukti',
     total: 'I\u0161 viso',
     version: 'Version',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'I\u0161verskite tekst\u0105',
     stat_title: 'Statistika',
     stat_vocab_add_header: 'Naujo \u017Eodyno papildymo statistika',
@@ -1372,6 +1504,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Elementas paleid\u017Eia korteles',
     settings_ele_trigger_desp: 'Elemento CSS parinkiklis, \u017Eodyno kortel\u0117 rodo, kada elementas yra spustel\u0117j\u0119s, pvz., vir\u0161utiniame kairiajame \u201EYouTube\u201C logotipe: a#logo',
     settings_detect_lang: 'Aptikta nar\u0161ykl\u0117s kalba \u201E{}\u201C, dar kart\u0105 patikrinkite ir pasirinkite tinkam\u0105 tikslin\u0119 kalb\u0105',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u017Dodynas',
     vocab_export_desp: 'Eksportuokite visus \u017Eodynus kaip JSON fail\u0105',
     vocab_import_desp: 'Importuokite ir atnaujinkite \u017Eodynus i\u0161 JSON failo. D\u0117mesio: taip bus perra\u0161yti visi dabartiniai \u017Eodynai',
@@ -1385,7 +1519,8 @@ export const I18Ns = {
     vocab_createdAt: 'Sukurta adresu',
     newtab_title: 'Naujas skirtukas',
     newtab_no_vocab_msg: 'Neprid\u0117jote jokio \u017Eodyno, naudokite kontekstin\u012F meniu, kad i\u0161verstum\u0117te ir prid\u0117kite :)',
-    omni_add: 'Prid\u0117kite \u0161\u012F \u017Eodyn\u0105 prie \u017Eodyno knygos'
+    omni_add: 'Prid\u0117kite \u0161\u012F \u017Eodyn\u0105 prie \u017Eodyno knygos',
+    release_what_new: `What's new`
   },
   lv: {
     name: 'latvie\u0161u valoda',
@@ -1393,6 +1528,8 @@ export const I18Ns = {
     cancel: 'Atcelt',
     total: 'Kop\u0101',
     version: 'Version',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Tulko tekstu',
     stat_title: 'Statistika',
     stat_vocab_add_header: 'Statistika par jauna v\u0101rdu kr\u0101juma pievieno\u0161anu',
@@ -1420,6 +1557,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Elements iedarbina kartes',
     settings_ele_trigger_desp: 'Elementa CSS atlas\u012Bt\u0101js, glos\u0101rija kart\u012Bte par\u0101da, kad uz \u0161\u012B elementa tiek noklik\u0161\u0137in\u0101ts, piem\u0113ram, aug\u0161\u0113j\u0101 kreisaj\u0101 logotip\u0101 pakalpojum\u0101 YouTube: a#logo',
     settings_detect_lang: 'Konstat\u0113ta p\u0101rl\u016Bkprogrammas valoda "{}", l\u016Bdzu, v\u0113lreiz p\u0101rbaudiet un izv\u0113lieties pareizo m\u0113r\u0137a valodu',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'V\u0101rdu kr\u0101jums',
     vocab_export_desp: 'Eksport\u0113jiet visas v\u0101rdn\u012Bcas k\u0101 JSON failu',
     vocab_import_desp: 'Import\u0113jiet un atjauniniet v\u0101rdn\u012Bcas no JSON faila. Uzman\u012Bbu: tas p\u0101rrakst\u012Bs visas j\u016Bsu pa\u0161reiz\u0113j\u0101s v\u0101rdn\u012Bcas',
@@ -1433,7 +1572,8 @@ export const I18Ns = {
     vocab_createdAt: 'Izveidots plkst',
     newtab_title: 'Jauna cilne',
     newtab_no_vocab_msg: 'J\u016Bs neesat pievienojis v\u0101rdu kr\u0101jumu, izmantojiet kontekstizv\u0113lni, lai tos tulkotu un pievienotu:)',
-    omni_add: 'Pievienojiet \u0161o v\u0101rdu kr\u0101jumu glos\u0101riju gr\u0101matai'
+    omni_add: 'Pievienojiet \u0161o v\u0101rdu kr\u0101jumu glos\u0101riju gr\u0101matai',
+    release_what_new: `What's new`
   },
   ml: {
     name: '\u0D2E\u0D32\u0D2F\u0D3E\u0D33\u0D02',
@@ -1441,6 +1581,8 @@ export const I18Ns = {
     cancel: '\u0D31\u0D26\u0D4D\u0D26\u0D3E\u0D15\u0D4D\u0D15\u0D41\u0D15',
     total: '\u0D06\u0D15\u0D46',
     version: '\u0D2A\u0D24\u0D3F\u0D2A\u0D4D\u0D2A\u0D4D',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u0D35\u0D3E\u0D1A\u0D15\u0D02 \u0D35\u0D3F\u0D35\u0D7C\u0D24\u0D4D\u0D24\u0D28\u0D02 \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D41\u0D15',
     stat_title: '\u0D38\u0D4D\u0D25\u0D3F\u0D24\u0D3F\u0D35\u0D3F\u0D35\u0D30\u0D15\u0D4D\u0D15\u0D23\u0D15\u0D4D\u0D15\u0D41\u0D15\u0D7E',
     stat_vocab_add_header: '\u0D2A\u0D41\u0D24\u0D3F\u0D2F \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F \u0D1A\u0D47\u0D7C\u0D15\u0D4D\u0D15\u0D41\u0D28\u0D4D\u0D28\u0D24\u0D3F\u0D28\u0D4D\u0D31\u0D46 \u0D38\u0D4D\u0D25\u0D3F\u0D24\u0D3F\u0D35\u0D3F\u0D35\u0D30\u0D15\u0D4D\u0D15\u0D23\u0D15\u0D4D\u0D15\u0D41\u0D15\u0D7E',
@@ -1468,6 +1610,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0D0E\u0D32\u0D2E\u0D46\u0D28\u0D4D\u0D31\u0D4D \u0D15\u0D3E\u0D7C\u0D21\u0D41\u0D15\u0D7E \u0D1F\u0D4D\u0D30\u0D3F\u0D17\u0D7C \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D41\u0D28\u0D4D\u0D28\u0D41',
     settings_ele_trigger_desp: '\u0D12\u0D30\u0D41 \u0D0E\u0D32\u0D2E\u0D46\u0D28\u0D4D\u0D31\u0D3F\u0D28\u0D4D\u0D31\u0D46 CSS \u0D38\u0D46\u0D32\u0D15\u0D4D\u0D1F\u0D7C, \u0D17\u0D4D\u0D32\u0D4B\u0D38\u0D31\u0D3F \u0D15\u0D3E\u0D7C\u0D21\u0D4D \u0D06 \u0D18\u0D1F\u0D15\u0D02 \u0D15\u0D4D\u0D32\u0D3F\u0D15\u0D4D\u0D15\u0D4D \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D41\u0D2E\u0D4D\u0D2A\u0D4B\u0D7E \u0D15\u0D3E\u0D23\u0D3F\u0D15\u0D4D\u0D15\u0D41\u0D28\u0D4D\u0D28\u0D41, \u0D09\u0D26\u0D3E. YouTube-\u0D32\u0D46 \u0D2E\u0D41\u0D15\u0D33\u0D3F\u0D7D \u0D07\u0D1F\u0D24\u0D4D \u0D32\u0D4B\u0D17\u0D4B: a#logo',
     settings_detect_lang: '\u0D2C\u0D4D\u0D30\u0D57\u0D38\u0D7C \u0D2D\u0D3E\u0D37 "{}" \u0D15\u0D23\u0D4D\u0D1F\u0D46\u0D24\u0D4D\u0D24\u0D3F, \u0D26\u0D2F\u0D35\u0D3E\u0D2F\u0D3F \u0D30\u0D23\u0D4D\u0D1F\u0D41\u0D24\u0D35\u0D23 \u0D2A\u0D30\u0D3F\u0D36\u0D4B\u0D27\u0D3F\u0D1A\u0D4D\u0D1A\u0D4D \u0D36\u0D30\u0D3F\u0D2F\u0D3E\u0D2F \u0D1F\u0D3E\u0D7C\u0D17\u0D46\u0D31\u0D4D\u0D31\u0D4D \u0D2D\u0D3E\u0D37 \u0D24\u0D3F\u0D30\u0D1E\u0D4D\u0D1E\u0D46\u0D1F\u0D41\u0D15\u0D4D\u0D15\u0D41\u0D15',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F',
     vocab_export_desp: '\u0D0E\u0D32\u0D4D\u0D32\u0D3E \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F\u0D15\u0D33\u0D41\u0D02 \u0D12\u0D30\u0D41 JSON \u0D2B\u0D2F\u0D32\u0D3E\u0D2F\u0D3F \u0D0E\u0D15\u0D4D\u200C\u0D38\u0D4D\u200C\u0D2A\u0D4B\u0D7C\u0D1F\u0D4D\u0D1F\u0D41\u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D41\u0D15',
     vocab_import_desp: '\u0D12\u0D30\u0D41 JSON \u0D2B\u0D2F\u0D32\u0D3F\u0D7D \u0D28\u0D3F\u0D28\u0D4D\u0D28\u0D4D \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F \u0D07\u0D31\u0D15\u0D4D\u0D15\u0D41\u0D2E\u0D24\u0D3F \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D41\u0D15\u0D2F\u0D41\u0D02 \u0D05\u0D2A\u0D4D\u200C\u0D21\u0D47\u0D31\u0D4D\u0D31\u0D4D \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D41\u0D15\u0D2F\u0D41\u0D02 \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D41\u0D15, \u0D36\u0D4D\u0D30\u0D26\u0D4D\u0D27\u0D3F\u0D15\u0D4D\u0D15\u0D41\u0D15: \u0D07\u0D24\u0D4D \u0D28\u0D3F\u0D19\u0D4D\u0D19\u0D33\u0D41\u0D1F\u0D46 \u0D28\u0D3F\u0D32\u0D35\u0D3F\u0D32\u0D41\u0D33\u0D4D\u0D33 \u0D0E\u0D32\u0D4D\u0D32\u0D3E \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F\u0D15\u0D33\u0D46\u0D2F\u0D41\u0D02 \u0D24\u0D3F\u0D30\u0D41\u0D24\u0D4D\u0D24\u0D3F\u0D2F\u0D46\u0D34\u0D41\u0D24\u0D41\u0D02',
@@ -1481,7 +1625,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0D0E\u0D28\u0D4D\u0D28 \u0D38\u0D4D\u0D25\u0D32\u0D24\u0D4D\u0D24\u0D4D \u0D38\u0D43\u0D37\u0D4D\u0D1F\u0D3F\u0D1A\u0D4D\u0D1A\u0D41',
     newtab_title: '\u0D2A\u0D41\u0D24\u0D3F\u0D2F \u0D1F\u0D3E\u0D2C\u0D4D',
     newtab_no_vocab_msg: '\u0D28\u0D3F\u0D19\u0D4D\u0D19\u0D7E \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F\u0D15\u0D33\u0D4A\u0D28\u0D4D\u0D28\u0D41\u0D02 \u0D1A\u0D47\u0D7C\u0D24\u0D4D\u0D24\u0D3F\u0D1F\u0D4D\u0D1F\u0D3F\u0D32\u0D4D\u0D32, \u0D35\u0D3F\u0D35\u0D7C\u0D24\u0D4D\u0D24\u0D28\u0D02 \u0D1A\u0D46\u0D2F\u0D4D\u0D2F\u0D3E\u0D28\u0D41\u0D02 \u0D05\u0D35 \u0D1A\u0D47\u0D7C\u0D15\u0D4D\u0D15\u0D3E\u0D28\u0D41\u0D02 \u0D38\u0D28\u0D4D\u0D26\u0D7C\u0D2D \u0D2E\u0D46\u0D28\u0D41 \u0D09\u0D2A\u0D2F\u0D4B\u0D17\u0D3F\u0D15\u0D4D\u0D15\u0D41\u0D15 :)',
-    omni_add: '\u0D08 \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F \u0D17\u0D4D\u0D32\u0D4B\u0D38\u0D31\u0D3F \u0D2A\u0D41\u0D38\u0D4D\u0D24\u0D15\u0D24\u0D4D\u0D24\u0D3F\u0D32\u0D47\u0D15\u0D4D\u0D15\u0D4D \u0D1A\u0D47\u0D7C\u0D15\u0D4D\u0D15\u0D41\u0D15'
+    omni_add: '\u0D08 \u0D2A\u0D26\u0D3E\u0D35\u0D32\u0D3F \u0D17\u0D4D\u0D32\u0D4B\u0D38\u0D31\u0D3F \u0D2A\u0D41\u0D38\u0D4D\u0D24\u0D15\u0D24\u0D4D\u0D24\u0D3F\u0D32\u0D47\u0D15\u0D4D\u0D15\u0D4D \u0D1A\u0D47\u0D7C\u0D15\u0D4D\u0D15\u0D41\u0D15',
+    release_what_new: `What's new`
   },
   mr: {
     name: '\u092E\u0930\u093E\u0920\u0940',
@@ -1489,6 +1634,8 @@ export const I18Ns = {
     cancel: '\u0930\u0926\u094D\u0926 \u0915\u0930\u093E',
     total: '\u090F\u0915\u0942\u0923',
     version: '\u0906\u0935\u0943\u0924\u094D\u0924\u0940',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u092E\u091C\u0915\u0942\u0930 \u0905\u0928\u0941\u0935\u093E\u0926\u093F\u0924 \u0915\u0930\u093E',
     stat_title: '\u0906\u0915\u0921\u0947\u0935\u093E\u0930\u0940',
     stat_vocab_add_header: '\u0928\u0935\u0940\u0928 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u091C\u094B\u0921\u0923\u094D\u092F\u093E\u091A\u0940 \u0906\u0915\u0921\u0947\u0935\u093E\u0930\u0940',
@@ -1516,6 +1663,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0918\u091F\u0915 \u091F\u094D\u0930\u093F\u0917\u0930 \u0915\u093E\u0930\u094D\u0921',
     settings_ele_trigger_desp: '\u0918\u091F\u0915\u093E\u091A\u093E CSS \u0928\u093F\u0935\u0921\u0915\u0930\u094D\u0924\u093E, \u0924\u094B \u0918\u091F\u0915 \u0915\u094D\u0932\u093F\u0915 \u0915\u0947\u0932\u094D\u092F\u093E\u0935\u0930 \u0936\u092C\u094D\u0926\u0915\u094B\u0937 \u0915\u093E\u0930\u094D\u0921 \u0926\u093E\u0916\u0935\u0924\u0947, \u0909\u0926\u093E. YouTube \u0935\u0930 \u0921\u093E\u0935\u0940\u0915\u0921\u0947 \u0935\u0930\u091A\u093E \u0932\u094B\u0917\u094B: a#logo',
     settings_detect_lang: '\u092C\u094D\u0930\u093E\u0909\u091D\u0930\u091A\u0940 \u092D\u093E\u0937\u093E "{}" \u0906\u0922\u0933\u0932\u0940, \u0915\u0943\u092A\u092F\u093E \u0926\u094B\u0928\u0926\u093E \u0924\u092A\u093E\u0938\u093E \u0906\u0923\u093F \u092F\u094B\u0917\u094D\u092F \u0932\u0915\u094D\u0937\u094D\u092F \u092D\u093E\u0937\u093E \u0928\u093F\u0935\u0921\u093E',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939',
     vocab_export_desp: '\u0938\u0930\u094D\u0935 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 JSON \u092B\u093E\u0907\u0932 \u092E\u094D\u0939\u0923\u0942\u0928 \u0928\u093F\u0930\u094D\u092F\u093E\u0924 \u0915\u0930\u093E',
     vocab_import_desp: 'JSON \u092B\u093E\u0907\u0932\u092E\u0927\u0942\u0928 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u0906\u092F\u093E\u0924 \u0906\u0923\u093F \u0905\u0926\u094D\u092F\u0924\u0928\u093F\u0924 \u0915\u0930\u093E, \u0932\u0915\u094D\u0937 \u0926\u094D\u092F\u093E: \u0939\u0947 \u0924\u0941\u092E\u091A\u0947 \u0938\u0930\u094D\u0935 \u0935\u0930\u094D\u0924\u092E\u093E\u0928 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u0905\u0927\u093F\u0932\u093F\u0916\u093F\u0924 \u0915\u0930\u0947\u0932',
@@ -1529,7 +1678,8 @@ export const I18Ns = {
     vocab_createdAt: '\u092F\u0947\u0925\u0947 \u0924\u092F\u093E\u0930 \u0915\u0947\u0932\u0947',
     newtab_title: '\u0928\u0935\u0940\u0928 \u091F\u0945\u092C',
     newtab_no_vocab_msg: '\u0924\u0941\u092E\u094D\u0939\u0940 \u0915\u094B\u0923\u0924\u0940\u0939\u0940 \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u091C\u094B\u0921\u0932\u0947\u0932\u0940 \u0928\u093E\u0939\u0940, \u092D\u093E\u0937\u093E\u0902\u0924\u0930 \u0915\u0930\u0923\u094D\u092F\u093E\u0938\u093E\u0920\u0940 \u0938\u0902\u0926\u0930\u094D\u092D \u092E\u0947\u0928\u0942 \u0935\u093E\u092A\u0930\u093E \u0906\u0923\u093F \u091C\u094B\u0921\u093E :)',
-    omni_add: '\u0939\u093E \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u0936\u092C\u094D\u0926\u0915\u094B\u0937\u093E\u091A\u094D\u092F\u093E \u092A\u0941\u0938\u094D\u0924\u0915\u093E\u0924 \u091C\u094B\u0921\u093E'
+    omni_add: '\u0939\u093E \u0936\u092C\u094D\u0926\u0938\u0902\u0917\u094D\u0930\u0939 \u0936\u092C\u094D\u0926\u0915\u094B\u0937\u093E\u091A\u094D\u092F\u093E \u092A\u0941\u0938\u094D\u0924\u0915\u093E\u0924 \u091C\u094B\u0921\u093E',
+    release_what_new: `What's new`
   },
   ms: {
     name: 'Bahasa Melayu',
@@ -1537,6 +1687,8 @@ export const I18Ns = {
     cancel: 'Batal',
     total: 'Jumlah',
     version: 'Versi',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Terjemah teks',
     stat_title: 'Perangkaan',
     stat_vocab_add_header: 'Statistik menambah kosa kata baharu',
@@ -1564,6 +1716,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Elemen mencetuskan kad',
     settings_ele_trigger_desp: 'Pemilih CSS elemen, kad glosari ditunjukkan apabila elemen itu diklik, cth., logo kiri atas di YouTube: a#logo',
     settings_detect_lang: 'Bahasa penyemak imbas "{}" yang dikesan, sila semak semula dan pilih bahasa sasaran yang betul',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'perbendaharaan kata',
     vocab_export_desp: 'Eksport semua perbendaharaan kata sebagai fail JSON',
     vocab_import_desp: 'Import dan kemas kini perbendaharaan kata daripada fail JSON, Perhatian: ini akan menimpa semua perbendaharaan kata semasa anda',
@@ -1577,7 +1731,8 @@ export const I18Ns = {
     vocab_createdAt: 'Dicipta pada',
     newtab_title: 'Tab baru',
     newtab_no_vocab_msg: 'Anda belum menambah apa-apa perbendaharaan kata, gunakan menu konteks untuk menterjemah dan menambahnya :)',
-    omni_add: 'Tambahkan perbendaharaan kata ini pada buku glosari'
+    omni_add: 'Tambahkan perbendaharaan kata ini pada buku glosari',
+    release_what_new: `What's new`
   },
   nl: {
     name: 'Nederlands',
@@ -1585,6 +1740,8 @@ export const I18Ns = {
     cancel: 'Annuleren',
     total: 'Totaal',
     version: 'Versie',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Vertaal de tekst',
     stat_title: 'Statistieken',
     stat_vocab_add_header: 'Statistieken voor het toevoegen van nieuwe woordenschat',
@@ -1612,6 +1769,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element triggert kaarten',
     settings_ele_trigger_desp: 'CSS-kiezer van een element, woordenlijstkaart toont wanneer op dat element wordt geklikt, bijvoorbeeld het logo linksboven op YouTube: a#logo',
     settings_detect_lang: 'Gedetecteerde browsertaal "{}", dubbelcheck en kies de juiste doeltaal',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabulaire',
     vocab_export_desp: 'Exporteer alle vocabulaires als een JSON-bestand',
     vocab_import_desp: 'Importeer en update vocabulaires vanuit een JSON-bestand. Let op: dit zal al uw huidige vocabulaires overschrijven',
@@ -1625,7 +1784,8 @@ export const I18Ns = {
     vocab_createdAt: 'Gemaakt bij',
     newtab_title: 'Nieuw tabblad',
     newtab_no_vocab_msg: 'Je hebt geen woordenschat toegevoegd, gebruik het contextmenu om te vertalen en voeg ze toe :)',
-    omni_add: 'Voeg deze woordenschat toe aan het woordenlijstboek'
+    omni_add: 'Voeg deze woordenschat toe aan het woordenlijstboek',
+    release_what_new: `What's new`
   },
   no: {
     name: 'Norsk',
@@ -1633,6 +1793,8 @@ export const I18Ns = {
     cancel: 'Avbryt',
     total: 'Total',
     version: 'Versjon',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Oversett teksten',
     stat_title: 'Statistikk',
     stat_vocab_add_header: 'Statistikk for \xE5 legge til nytt ordforr\xE5d',
@@ -1660,6 +1822,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element utl\xF8ser kort',
     settings_ele_trigger_desp: 'CSS-velger for et element, ordlistekort viser n\xE5r elementet klikkes, f.eks. logoen \xF8verst til venstre p\xE5 YouTube: a#logo',
     settings_detect_lang: 'Oppdaget nettleserspr\xE5k "{}", dobbeltsjekk og velg riktig m\xE5lspr\xE5k',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Ordforr\xE5d',
     vocab_export_desp: 'Eksporter alle vokabularene som en JSON-fil',
     vocab_import_desp: 'Importer og oppdater vokabular fra en JSON-fil, NB: dette vil overskrive alle dine n\xE5v\xE6rende vokabularer',
@@ -1673,7 +1837,8 @@ export const I18Ns = {
     vocab_createdAt: 'Opprettet kl',
     newtab_title: 'Ny fane',
     newtab_no_vocab_msg: 'Du har ikke lagt til noe ordforr\xE5d, bruk kontekstmenyen for \xE5 oversette og legge dem til:)',
-    omni_add: 'Legg til dette ordforr\xE5det til ordlisteboken'
+    omni_add: 'Legg til dette ordforr\xE5det til ordlisteboken',
+    release_what_new: `What's new`
   },
   pl: {
     name: 'Polski',
@@ -1681,6 +1846,8 @@ export const I18Ns = {
     cancel: 'Anulowa\u0107',
     total: 'Ca\u0142kowity',
     version: 'Wersja',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Przet\u0142umacz tekst',
     stat_title: 'Statystyka',
     stat_vocab_add_header: 'Statystyki dodawania nowego s\u0142ownictwa',
@@ -1708,6 +1875,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element wyzwala karty',
     settings_ele_trigger_desp: 'Selektor CSS elementu, karta glosariusza pokazuje po klikni\u0119ciu tego elementu, np. logo w lewym g\xF3rnym rogu w YouTube: a#logo',
     settings_detect_lang: 'Wykryto j\u0119zyk przegl\u0105darki \u201E{}\u201D, sprawd\u017A dok\u0142adnie i wybierz poprawny j\u0119zyk docelowy',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'S\u0142ownictwo',
     vocab_export_desp: 'Eksportuj wszystkie s\u0142owniki jako plik JSON',
     vocab_import_desp: 'Importuj i aktualizuj s\u0142owniki z pliku JSON, Uwaga: spowoduje to nadpisanie wszystkich Twoich obecnych s\u0142ownik\xF3w',
@@ -1721,7 +1890,8 @@ export const I18Ns = {
     vocab_createdAt: 'Utworzono w',
     newtab_title: 'Nowa karta',
     newtab_no_vocab_msg: 'Nie doda\u0142e\u015B \u017Cadnego s\u0142ownictwa, u\u017Cyj menu kontekstowego, aby je przet\u0142umaczy\u0107 i doda\u0107 :)',
-    omni_add: 'Dodaj to s\u0142ownictwo do glosariusza'
+    omni_add: 'Dodaj to s\u0142ownictwo do glosariusza',
+    release_what_new: `What's new`
   },
   pt: {
     name: 'portugu\xEAs',
@@ -1729,6 +1899,8 @@ export const I18Ns = {
     cancel: 'Cancelar',
     total: 'Total',
     version: 'Vers\xE3o',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Traduza o texto',
     stat_title: 'Estatisticas',
     stat_vocab_add_header: 'Estat\xEDsticas de adi\xE7\xE3o de novo vocabul\xE1rio',
@@ -1756,6 +1928,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Elemento aciona cartas',
     settings_ele_trigger_desp: 'Seletor CSS de um elemento, o cart\xE3o do gloss\xE1rio mostra quando esse elemento \xE9 clicado, por exemplo, o logotipo superior esquerdo no YouTube: a#logo',
     settings_detect_lang: 'Idioma do navegador detectado "{}", verifique e escolha o idioma de destino correto',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabul\xE1rio',
     vocab_export_desp: 'Exporte todos os vocabul\xE1rios como um arquivo JSON',
     vocab_import_desp: 'Importe e atualize vocabul\xE1rios de um arquivo JSON, Aten\xE7\xE3o: isso substituir\xE1 todos os seus vocabul\xE1rios atuais',
@@ -1769,7 +1943,8 @@ export const I18Ns = {
     vocab_createdAt: 'Criado em',
     newtab_title: 'Nova aba',
     newtab_no_vocab_msg: 'Voc\xEA n\xE3o adicionou nenhum vocabul\xE1rio, use o menu de contexto para traduzir e adicion\xE1-los :)',
-    omni_add: 'Adicionar este vocabul\xE1rio ao livro gloss\xE1rio'
+    omni_add: 'Adicionar este vocabul\xE1rio ao livro gloss\xE1rio',
+    release_what_new: `What's new`
   },
   ro: {
     name: 'limba rom\xE2n\u0103',
@@ -1777,6 +1952,8 @@ export const I18Ns = {
     cancel: 'Anulare',
     total: 'Total',
     version: 'Versiune',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Tradu textul',
     stat_title: 'Statistici',
     stat_vocab_add_header: 'Statistici privind ad\u0103ugarea de vocabular nou',
@@ -1804,6 +1981,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Elementul declan\u0219eaz\u0103 c\u0103r\u021Bi',
     settings_ele_trigger_desp: 'Selectorul CSS al unui element, cardul de glosar arat\u0103 c\xE2nd se face clic pe acel element, de exemplu, sigla din st\xE2nga sus pe YouTube: a#logo',
     settings_detect_lang: 'S-a detectat limba browserului \u201E{}\u201D, v\u0103 rug\u0103m s\u0103 verifica\u021Bi \u0219i s\u0103 alege\u021Bi limba \u021Bint\u0103 corect\u0103',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Vocabular',
     vocab_export_desp: 'Exporta\u021Bi toate vocabularele ca fi\u0219ier JSON',
     vocab_import_desp: 'Importa\u021Bi \u0219i actualiza\u021Bi vocabulare dintr-un fi\u0219ier JSON, Aten\u021Bie: aceasta v\u0103 va suprascrie toate vocabularele curente',
@@ -1817,7 +1996,8 @@ export const I18Ns = {
     vocab_createdAt: 'Creat la',
     newtab_title: 'Fil\u0103 nou\u0103',
     newtab_no_vocab_msg: 'Nu ai ad\u0103ugat niciun vocabular, folose\u0219te meniul contextual pentru a le traduce \u0219i a le ad\u0103uga:)',
-    omni_add: 'Ad\u0103uga\u021Bi acest vocabular la cartea de glosar'
+    omni_add: 'Ad\u0103uga\u021Bi acest vocabular la cartea de glosar',
+    release_what_new: `What's new`
   },
   ru: {
     name: '\u0420\u0443\u0441\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A',
@@ -1825,6 +2005,8 @@ export const I18Ns = {
     cancel: '\u041E\u0442\u043C\u0435\u043D\u0430',
     total: '\u041E\u0431\u0449\u0438\u0439',
     version: '\u0412\u0435\u0440\u0441\u0438\u044F',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u041F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438 \u0442\u0435\u043A\u0441\u0442',
     stat_title: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430',
     stat_vocab_add_header: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430 \u0434\u043E\u0431\u0430\u0432\u043B\u0435\u043D\u0438\u044F \u043D\u043E\u0432\u043E\u0439 \u043B\u0435\u043A\u0441\u0438\u043A\u0438',
@@ -1852,6 +2034,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u042D\u043B\u0435\u043C\u0435\u043D\u0442 \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0435\u0442 \u043A\u0430\u0440\u0442\u044B',
     settings_ele_trigger_desp: 'CSS-\u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440 \u044D\u043B\u0435\u043C\u0435\u043D\u0442\u0430, \u043A\u0430\u0440\u0442\u043E\u0447\u043A\u0430 \u0433\u043B\u043E\u0441\u0441\u0430\u0440\u0438\u044F \u043E\u0442\u043E\u0431\u0440\u0430\u0436\u0430\u0435\u0442\u0441\u044F \u043F\u0440\u0438 \u043D\u0430\u0436\u0430\u0442\u0438\u0438 \u043D\u0430 \u044D\u0442\u043E\u0442 \u044D\u043B\u0435\u043C\u0435\u043D\u0442, \u043D\u0430\u043F\u0440\u0438\u043C\u0435\u0440, \u0432\u0435\u0440\u0445\u043D\u0438\u0439 \u043B\u0435\u0432\u044B\u0439 \u043B\u043E\u0433\u043E\u0442\u0438\u043F \u043D\u0430 YouTube: a#logo',
     settings_detect_lang: '\u041E\u0431\u043D\u0430\u0440\u0443\u0436\u0435\u043D \u044F\u0437\u044B\u043A \u0431\u0440\u0430\u0443\u0437\u0435\u0440\u0430 "{}", \u0434\u0432\u0430\u0436\u0434\u044B \u043F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u0438 \u0432\u044B\u0431\u0435\u0440\u0438\u0442\u0435 \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u044B\u0439 \u0446\u0435\u043B\u0435\u0432\u043E\u0439 \u044F\u0437\u044B\u043A.',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0417\u0430\u043F\u0430\u0441 \u0441\u043B\u043E\u0432',
     vocab_export_desp: '\u042D\u043A\u0441\u043F\u043E\u0440\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0432\u0441\u0435 \u0441\u043B\u043E\u0432\u0430\u0440\u0438 \u0432 \u0432\u0438\u0434\u0435 \u0444\u0430\u0439\u043B\u0430 JSON',
     vocab_import_desp: '\u0418\u043C\u043F\u043E\u0440\u0442\u0438\u0440\u0443\u0439\u0442\u0435 \u0438 \u043E\u0431\u043D\u043E\u0432\u043B\u044F\u0439\u0442\u0435 \u0441\u043B\u043E\u0432\u0430\u0440\u0438 \u0438\u0437 \u0444\u0430\u0439\u043B\u0430 JSON. \u0412\u043D\u0438\u043C\u0430\u043D\u0438\u0435: \u044D\u0442\u043E \u043F\u0435\u0440\u0435\u0437\u0430\u043F\u0438\u0448\u0435\u0442 \u0432\u0441\u0435 \u0432\u0430\u0448\u0438 \u0442\u0435\u043A\u0443\u0449\u0438\u0435 \u0441\u043B\u043E\u0432\u0430\u0440\u0438',
@@ -1865,7 +2049,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0421\u043E\u0437\u0434\u0430\u043D\u043E \u043D\u0430',
     newtab_title: '\u041D\u043E\u0432\u0430\u044F \u0432\u043A\u043B\u0430\u0434\u043A\u0430',
     newtab_no_vocab_msg: '\u0412\u044B \u043D\u0435 \u0434\u043E\u0431\u0430\u0432\u0438\u043B\u0438 \u0441\u043B\u043E\u0432\u0430\u0440\u043D\u044B\u0439 \u0437\u0430\u043F\u0430\u0441, \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u043E\u0435 \u043C\u0435\u043D\u044E, \u0447\u0442\u043E\u0431\u044B \u043F\u0435\u0440\u0435\u0432\u0435\u0441\u0442\u0438 \u0438 \u0434\u043E\u0431\u0430\u0432\u0438\u0442\u044C \u0438\u0445 :)',
-    omni_add: '\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u044D\u0442\u043E\u0442 \u0441\u043B\u043E\u0432\u0430\u0440\u044C \u0432 \u0433\u043B\u043E\u0441\u0441\u0430\u0440\u0438\u0439'
+    omni_add: '\u0414\u043E\u0431\u0430\u0432\u044C\u0442\u0435 \u044D\u0442\u043E\u0442 \u0441\u043B\u043E\u0432\u0430\u0440\u044C \u0432 \u0433\u043B\u043E\u0441\u0441\u0430\u0440\u0438\u0439',
+    release_what_new: `What's new`
   },
   sk: {
     name: 'sloven\u010Dina',
@@ -1873,6 +2058,8 @@ export const I18Ns = {
     cancel: 'Zru\u0161i\u0165',
     total: 'Celkom',
     version: 'Verzia',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Prelo\u017Ete text',
     stat_title: '\u0160tatistiky',
     stat_vocab_add_header: '\u0160tatistika prid\xE1vania novej slovnej z\xE1soby',
@@ -1900,6 +2087,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element sp\xFA\u0161\u0165a karty',
     settings_ele_trigger_desp: 'Selektor CSS prvku, karta glos\xE1ra sa zobraz\xED po kliknut\xED na prvok, napr. \u013Eav\xE9 horn\xE9 logo na YouTube: a#logo',
     settings_detect_lang: 'Zistil sa jazyk prehliada\u010Da "{}", pros\xEDm skontrolujte a vyberte spr\xE1vny cie\u013Eov\xFD jazyk',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Slovn\xE1 z\xE1soba',
     vocab_export_desp: 'Exportujte v\u0161etky slovn\xEDky ako s\xFAbor JSON',
     vocab_import_desp: 'Importujte a aktualizujte slovn\xEDky zo s\xFAboru JSON, Pozor: t\xFDmto sa prep\xED\u0161u v\u0161etky va\u0161e aktu\xE1lne slovn\xEDky',
@@ -1913,7 +2102,8 @@ export const I18Ns = {
     vocab_createdAt: 'Vytvoren\xE9 o',
     newtab_title: 'Nov\xE1 karta',
     newtab_no_vocab_msg: 'Nepridali ste \u017Eiadnu slovn\xFA z\xE1sobu, pou\u017Eite kontextov\xE9 menu na ich preklad a pridanie:)',
-    omni_add: 'Pridajte t\xFAto slovn\xFA z\xE1sobu do slovn\xEDka'
+    omni_add: 'Pridajte t\xFAto slovn\xFA z\xE1sobu do slovn\xEDka',
+    release_what_new: `What's new`
   },
   sl: {
     name: 'slovenski jezik',
@@ -1921,6 +2111,8 @@ export const I18Ns = {
     cancel: 'Prekli\u010Di',
     total: 'Skupaj',
     version: 'Verzija',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Prevedi besedilo',
     stat_title: 'Statistika',
     stat_vocab_add_header: 'Statistika dodajanja novega besedi\u0161\u010Da',
@@ -1948,6 +2140,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element spro\u017Ei kartice',
     settings_ele_trigger_desp: 'Izbirnik CSS elementa, kartica glosarja prikazuje, ko ta element kliknete, npr. zgornji levi logotip na YouTubu: a#logo',
     settings_detect_lang: 'Zaznan jezik brskalnika "{}", preverite \u0161e enkrat in izberite pravilen ciljni jezik',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Besednjak',
     vocab_export_desp: 'Izvozite vse besednjake kot datoteko JSON',
     vocab_import_desp: 'Uvozite in posodobite besednjake iz datoteke JSON, Pozor: to bo prepisalo vse va\u0161e trenutne besednjake',
@@ -1961,7 +2155,8 @@ export const I18Ns = {
     vocab_createdAt: 'Ustvarjeno ob',
     newtab_title: 'Nov zavihek',
     newtab_no_vocab_msg: 'Niste dodali nobenega besedi\u0161\u010Da, uporabite kontekstni meni za prevod in jih dodajte :)',
-    omni_add: 'Dodajte ta besednjak v glosar'
+    omni_add: 'Dodajte ta besednjak v glosar',
+    release_what_new: `What's new`
   },
   sr: {
     name: '\u0441\u0440\u043F\u0441\u043A\u0438 \u0458\u0435\u0437\u0438\u043A',
@@ -1969,6 +2164,8 @@ export const I18Ns = {
     cancel: '\u041E\u0442\u043A\u0430\u0437\u0430\u0442\u0438',
     total: '\u0423\u043A\u0443\u043F\u043D\u043E',
     version: '\u0412\u0435\u0440\u0437\u0438\u0458\u0430',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u041F\u0440\u0435\u0432\u0435\u0434\u0438 \u0442\u0435\u043A\u0441\u0442',
     stat_title: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430',
     stat_vocab_add_header: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430 \u0434\u043E\u0434\u0430\u0432\u0430\u045A\u0430 \u043D\u043E\u0432\u043E\u0433 \u0440\u0435\u0447\u043D\u0438\u043A\u0430',
@@ -1996,6 +2193,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0415\u043B\u0435\u043C\u0435\u043D\u0442 \u043F\u043E\u043A\u0440\u0435\u045B\u0435 \u043A\u0430\u0440\u0442\u0438\u0446\u0435',
     settings_ele_trigger_desp: '\u0426\u0421\u0421 \u0441\u0435\u043B\u0435\u043A\u0442\u043E\u0440 \u0435\u043B\u0435\u043C\u0435\u043D\u0442\u0430, \u043A\u0430\u0440\u0442\u0438\u0446\u0430 \u0440\u0435\u0447\u043D\u0438\u043A\u0430 \u043F\u043E\u043A\u0430\u0437\u0443\u0458\u0435 \u043A\u0430\u0434\u0430 \u0441\u0435 \u043A\u043B\u0438\u043A\u043D\u0435 \u043D\u0430 \u0442\u0430\u0458 \u0435\u043B\u0435\u043C\u0435\u043D\u0442, \u043D\u043F\u0440. \u0433\u043E\u0440\u045A\u0438 \u043B\u0435\u0432\u0438 \u043B\u043E\u0433\u043E \u043D\u0430 \u0418\u043E\u0443\u0422\u0443\u0431\u0435-\u0443: \u0430#\u043B\u043E\u0433\u043E',
     settings_detect_lang: '\u041E\u0442\u043A\u0440\u0438\u0432\u0435\u043D \u0458\u0435 \u0458\u0435\u0437\u0438\u043A \u043F\u0440\u0435\u0442\u0440\u0430\u0436\u0438\u0432\u0430\u0447\u0430 \u201E{}\u201C, \u043F\u0440\u043E\u0432\u0435\u0440\u0438\u0442\u0435 \u0458\u043E\u0448 \u0458\u0435\u0434\u043D\u043E\u043C \u0438 \u0438\u0437\u0430\u0431\u0435\u0440\u0438\u0442\u0435 \u0442\u0430\u0447\u0430\u043D \u0446\u0438\u0459\u043D\u0438 \u0458\u0435\u0437\u0438\u043A',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0420\u0435\u0447\u043D\u0438\u043A',
     vocab_export_desp: '\u0418\u0437\u0432\u0435\u0437\u0438\u0442\u0435 \u0441\u0432\u0435 \u0440\u0435\u0447\u043D\u0438\u043A\u0435 \u043A\u0430\u043E \u0408\u0421\u041E\u041D \u0434\u0430\u0442\u043E\u0442\u0435\u043A\u0443',
     vocab_import_desp: '\u0423\u0432\u0435\u0437\u0438\u0442\u0435 \u0438 \u0430\u0436\u0443\u0440\u0438\u0440\u0430\u0458\u0442\u0435 \u0440\u0435\u0447\u043D\u0438\u043A\u0435 \u0438\u0437 \u0408\u0421\u041E\u041D \u0434\u0430\u0442\u043E\u0442\u0435\u043A\u0435, \u041F\u0430\u0436\u045A\u0430: \u043E\u0432\u043E \u045B\u0435 \u043F\u0440\u0435\u043F\u0438\u0441\u0430\u0442\u0438 \u0441\u0432\u0435 \u0432\u0430\u0448\u0435 \u0442\u0440\u0435\u043D\u0443\u0442\u043D\u0435 \u0440\u0435\u0447\u043D\u0438\u043A\u0435',
@@ -2009,7 +2208,8 @@ export const I18Ns = {
     vocab_createdAt: '\u041A\u0440\u0435\u0438\u0440\u0430\u043D\u043E',
     newtab_title: '\u041D\u043E\u0432\u0438 \u043F\u0440\u043E\u0437\u043E\u0440',
     newtab_no_vocab_msg: '\u041D\u0438\u0441\u0442\u0435 \u0434\u043E\u0434\u0430\u043B\u0438 \u043D\u0438\u043A\u0430\u043A\u0430\u0432 \u0440\u0435\u0447\u043D\u0438\u043A, \u043A\u043E\u0440\u0438\u0441\u0442\u0438\u0442\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u0438 \u043C\u0435\u043D\u0438 \u0434\u0430 \u0438\u0445 \u043F\u0440\u0435\u0432\u0435\u0434\u0435\u0442\u0435 \u0438 \u0434\u043E\u0434\u0430\u0442\u0435 :)',
-    omni_add: '\u0414\u043E\u0434\u0430\u0458\u0442\u0435 \u043E\u0432\u0430\u0458 \u0440\u0435\u0447\u043D\u0438\u043A \u0443 \u043A\u045A\u0438\u0433\u0443 \u0440\u0435\u0447\u043D\u0438\u043A\u0430'
+    omni_add: '\u0414\u043E\u0434\u0430\u0458\u0442\u0435 \u043E\u0432\u0430\u0458 \u0440\u0435\u0447\u043D\u0438\u043A \u0443 \u043A\u045A\u0438\u0433\u0443 \u0440\u0435\u0447\u043D\u0438\u043A\u0430',
+    release_what_new: `What's new`
   },
   sv: {
     name: 'Svenska',
@@ -2017,6 +2217,8 @@ export const I18Ns = {
     cancel: 'Avbryt',
     total: 'Total',
     version: 'Version',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\xD6vers\xE4tt texten',
     stat_title: 'Statistik',
     stat_vocab_add_header: 'Statistik f\xF6r att l\xE4gga till nytt ordf\xF6rr\xE5d',
@@ -2044,6 +2246,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Element utl\xF6ser kort',
     settings_ele_trigger_desp: 'CSS-v\xE4ljare f\xF6r ett element, ordlista visar n\xE4r det elementet klickas, t.ex. logotypen uppe till v\xE4nster p\xE5 YouTube: a#logo',
     settings_detect_lang: 'Uppt\xE4ckt webbl\xE4sarspr\xE5k "{}", dubbelkolla och v\xE4lj r\xE4tt m\xE5lspr\xE5k',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Ordf\xF6rr\xE5d',
     vocab_export_desp: 'Exportera alla ordf\xF6rr\xE5d som en JSON-fil',
     vocab_import_desp: 'Importera och uppdatera vokabul\xE4r fr\xE5n en JSON-fil, Observera: detta kommer att skriva \xF6ver alla dina nuvarande vokabul\xE4rer',
@@ -2057,7 +2261,8 @@ export const I18Ns = {
     vocab_createdAt: 'Skapad vid',
     newtab_title: 'Ny flik',
     newtab_no_vocab_msg: 'Du har inte lagt till n\xE5got ordf\xF6rr\xE5d, anv\xE4nd snabbmenyn f\xF6r att \xF6vers\xE4tta och l\xE4gga till dem :)',
-    omni_add: 'L\xE4gg till detta ordf\xF6rr\xE5d till ordboken'
+    omni_add: 'L\xE4gg till detta ordf\xF6rr\xE5d till ordboken',
+    release_what_new: `What's new`
   },
   sw: {
     name: 'Kiswahili',
@@ -2065,6 +2270,8 @@ export const I18Ns = {
     cancel: 'Ghairi',
     total: 'Jumla',
     version: 'Toleo',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Tafsiri maandishi',
     stat_title: 'Takwimu',
     stat_vocab_add_header: 'Takwimu za kuongeza msamiati mpya',
@@ -2092,6 +2299,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Kipengele cha kuchochea kadi',
     settings_ele_trigger_desp: 'Kiteuzi cha CSS cha kipengele, kadi ya faharasa huonyesha kipengele hicho kinapobofya, k.m., nembo ya juu kushoto kwenye YouTube: a#logo',
     settings_detect_lang: 'Lugha ya kivinjari "{}" imetambuliwa, tafadhali angalia tena na uchague lugha lengwa sahihi',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Msamiati',
     vocab_export_desp: 'Hamisha msamiati wote kama faili ya JSON',
     vocab_import_desp: 'Ingiza na usasishe msamiati kutoka kwa faili ya JSON, Makini: hii itafuta misamiati yako yote ya sasa',
@@ -2105,7 +2314,8 @@ export const I18Ns = {
     vocab_createdAt: 'Imeundwa saa',
     newtab_title: 'Kichupo Kipya',
     newtab_no_vocab_msg: 'Hujaongeza msamiati wowote, tumia menyu ya muktadha kutafsiri na kuyaongeza:)',
-    omni_add: 'Ongeza msamiati huu kwenye kitabu cha faharasa'
+    omni_add: 'Ongeza msamiati huu kwenye kitabu cha faharasa',
+    release_what_new: `What's new`
   },
   ta: {
     name: '\u0BA4\u0BAE\u0BBF\u0BB4\u0BCD',
@@ -2113,6 +2323,8 @@ export const I18Ns = {
     cancel: '\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD',
     total: '\u0BAE\u0BC6\u0BBE\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD',
     version: '\u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u0B89\u0BB0\u0BC8\u0BAF\u0BC8 \u0BAE\u0BCA\u0BB4\u0BBF\u0BAA\u0BC6\u0BAF\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD',
     stat_title: '\u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD',
     stat_vocab_add_header: '\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0B9E\u0BCD\u0B9A\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0BAA\u0BCD\u0BAA\u0BA4\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD',
@@ -2140,6 +2352,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB0\u0BCD\u0B9F\u0BC1\u0B95\u0BB3\u0BC8\u0BA4\u0BCD \u0BA4\u0BC2\u0BA3\u0BCD\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1',
     settings_ele_trigger_desp: '\u0B92\u0BB0\u0BC1 \u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BCD CSS \u0BA4\u0BC7\u0BB0\u0BCD\u0BB5\u0BBF, \u0B85\u0BA8\u0BCD\u0BA4 \u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0B95\u0BCD \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0BAE\u0BCD \u0BAA\u0BCB\u0BA4\u0BC1, \u0B95\u0BCD\u0BB3\u0BCB\u0B9A\u0BB0\u0BBF \u0B95\u0BBE\u0BB0\u0BCD\u0B9F\u0BC1 \u0B95\u0BBE\u0BA3\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD, \u0B8E.\u0B95\u0BBE., YouTube \u0B87\u0BB2\u0BCD \u0BAE\u0BC7\u0BB2\u0BCD \u0B87\u0B9F\u0BA4\u0BC1 \u0BB2\u0BCB\u0B95\u0BCB: a#logo',
     settings_detect_lang: '\u0B89\u0BB2\u0BBE\u0BB5\u0BBF \u0BAE\u0BCA\u0BB4\u0BBF "{}" \u0B95\u0BA3\u0BCD\u0B9F\u0BB1\u0BBF\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1, \u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B87\u0BB0\u0BC1\u0BAE\u0BC1\u0BB1\u0BC8 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BCA\u0BB4\u0BBF\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0B95\u0BB0\u0BBE\u0BA4\u0BBF',
     vocab_export_desp: '\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0B9E\u0BCD\u0B9A\u0BBF\u0BAF\u0B99\u0BCD\u0B95\u0BB3\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD JSON \u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BBE\u0B95 \u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD',
     vocab_import_desp: 'JSON \u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0B95\u0BB0\u0BBE\u0BA4\u0BBF\u0B95\u0BB3\u0BC8 \u0B87\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD, \u0B95\u0BB5\u0BA9\u0BAE\u0BCD: \u0B87\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BBF\u0BA9\u0BCD \u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0B9E\u0BCD\u0B9A\u0BBF\u0BAF\u0B99\u0BCD\u0B95\u0BB3\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BAE\u0BC7\u0BB2\u0BC6\u0BB4\u0BC1\u0BA4\u0BC1\u0BAE\u0BCD',
@@ -2153,7 +2367,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0B87\u0BB2\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1',
     newtab_title: '\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA4\u0BBE\u0BB5\u0BB2\u0BBF\u0BB2\u0BCD',
     newtab_no_vocab_msg: '\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B8E\u0BA8\u0BCD\u0BA4 \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0B9E\u0BCD\u0B9A\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8, \u0B85\u0BB5\u0BB1\u0BCD\u0BB1\u0BC8 \u0BAE\u0BCA\u0BB4\u0BBF\u0BAA\u0BC6\u0BAF\u0BB0\u0BCD\u0B95\u0BCD\u0B95 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95 \u0B9A\u0BC2\u0BB4\u0BB2\u0BCD \u0BAE\u0BC6\u0BA9\u0BC1\u0BB5\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD :)',
-    omni_add: '\u0B87\u0BA8\u0BCD\u0BA4 \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0B9E\u0BCD\u0B9A\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8 \u0B95\u0BB2\u0BC8\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD \u0BAA\u0BC1\u0BA4\u0BCD\u0BA4\u0B95\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD'
+    omni_add: '\u0B87\u0BA8\u0BCD\u0BA4 \u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0B9E\u0BCD\u0B9A\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8 \u0B95\u0BB2\u0BC8\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD \u0BAA\u0BC1\u0BA4\u0BCD\u0BA4\u0B95\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD',
+    release_what_new: `What's new`
   },
   te: {
     name: '\u0C24\u0C46\u0C32\u0C41\u0C17\u0C41',
@@ -2161,6 +2376,8 @@ export const I18Ns = {
     cancel: '\u0C30\u0C26\u0C4D\u0C26\u0C41 \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
     total: '\u0C2E\u0C4A\u0C24\u0C4D\u0C24\u0C02',
     version: '\u0C35\u0C46\u0C30\u0C4D\u0C37\u0C28\u0C4D',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u0C35\u0C1A\u0C28\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C05\u0C28\u0C41\u0C35\u0C26\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
     stat_title: '\u0C17\u0C23\u0C3E\u0C02\u0C15\u0C3E\u0C32\u0C41',
     stat_vocab_add_header: '\u0C15\u0C4A\u0C24\u0C4D\u0C24 \u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C47 \u0C17\u0C23\u0C3E\u0C02\u0C15\u0C3E\u0C32\u0C41',
@@ -2188,6 +2405,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0C2E\u0C42\u0C32\u0C15\u0C02 \u0C15\u0C3E\u0C30\u0C4D\u0C21\u0C4D\u200C\u0C32\u0C28\u0C41 \u0C1F\u0C4D\u0C30\u0C3F\u0C17\u0C4D\u0C17\u0C30\u0C4D \u0C1A\u0C47\u0C38\u0C4D\u0C24\u0C41\u0C02\u0C26\u0C3F',
     settings_ele_trigger_desp: '\u0C2E\u0C42\u0C32\u0C15\u0C02 \u0C2F\u0C4A\u0C15\u0C4D\u0C15 CSS \u0C38\u0C46\u0C32\u0C46\u0C15\u0C4D\u0C1F\u0C30\u0C4D, \u0C17\u0C4D\u0C32\u0C3E\u0C38\u0C30\u0C40 \u0C15\u0C3E\u0C30\u0C4D\u0C21\u0C4D \u0C06 \u0C2E\u0C42\u0C32\u0C15\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C15\u0C4D\u0C32\u0C3F\u0C15\u0C4D \u0C1A\u0C47\u0C38\u0C3F\u0C28\u0C2A\u0C4D\u0C2A\u0C41\u0C21\u0C41 \u0C1A\u0C42\u0C2A\u0C3F\u0C38\u0C4D\u0C24\u0C41\u0C02\u0C26\u0C3F, \u0C09\u0C26\u0C3E. YouTube\u0C32\u0C4B \u0C0E\u0C17\u0C41\u0C35 \u0C0E\u0C21\u0C2E \u0C32\u0C4B\u0C17\u0C4B: a#logo',
     settings_detect_lang: '"{}" \u0C2C\u0C4D\u0C30\u0C4C\u0C1C\u0C30\u0C4D \u0C2D\u0C3E\u0C37 \u0C15\u0C28\u0C41\u0C17\u0C4A\u0C28\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F, \u0C26\u0C2F\u0C1A\u0C47\u0C38\u0C3F \u0C30\u0C46\u0C02\u0C21\u0C41\u0C38\u0C3E\u0C30\u0C4D\u0C32\u0C41 \u0C24\u0C28\u0C3F\u0C16\u0C40 \u0C1A\u0C47\u0C38\u0C3F, \u0C38\u0C30\u0C48\u0C28 \u0C32\u0C15\u0C4D\u0C37\u0C4D\u0C2F \u0C2D\u0C3E\u0C37\u0C28\u0C41 \u0C0E\u0C02\u0C1A\u0C41\u0C15\u0C4B\u0C02\u0C21\u0C3F',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C02',
     vocab_export_desp: '\u0C05\u0C28\u0C4D\u0C28\u0C3F \u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C3E\u0C32\u0C28\u0C41 JSON \u0C2B\u0C48\u0C32\u0C4D\u200C\u0C17\u0C3E \u0C0E\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F',
     vocab_import_desp: 'JSON \u0C2B\u0C48\u0C32\u0C4D \u0C28\u0C41\u0C02\u0C21\u0C3F \u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C26\u0C3F\u0C17\u0C41\u0C2E\u0C24\u0C3F \u0C1A\u0C47\u0C2F\u0C02\u0C21\u0C3F \u0C2E\u0C30\u0C3F\u0C2F\u0C41 \u0C28\u0C35\u0C40\u0C15\u0C30\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F, \u0C36\u0C4D\u0C30\u0C26\u0C4D\u0C27: \u0C07\u0C26\u0C3F \u0C2E\u0C40 \u0C2A\u0C4D\u0C30\u0C38\u0C4D\u0C24\u0C41\u0C24 \u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C02 \u0C2E\u0C4A\u0C24\u0C4D\u0C24\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C13\u0C35\u0C30\u0C4D\u200C\u0C30\u0C48\u0C1F\u0C4D \u0C1A\u0C47\u0C38\u0C4D\u0C24\u0C41\u0C02\u0C26\u0C3F',
@@ -2201,7 +2420,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0C35\u0C26\u0C4D\u0C26 \u0C38\u0C43\u0C37\u0C4D\u0C1F\u0C3F\u0C02\u0C1A\u0C2C\u0C21\u0C3F\u0C02\u0C26\u0C3F',
     newtab_title: '\u0C15\u0C4A\u0C24\u0C4D\u0C24 \u0C1F\u0C3E\u0C2C\u0C4D',
     newtab_no_vocab_msg: '\u0C2E\u0C40\u0C30\u0C41 \u0C0F \u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C02 \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C32\u0C47\u0C26\u0C41, \u0C35\u0C3E\u0C1F\u0C3F\u0C28\u0C3F \u0C05\u0C28\u0C41\u0C35\u0C26\u0C3F\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C2E\u0C30\u0C3F\u0C2F\u0C41 \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C21\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C38\u0C02\u0C26\u0C30\u0C4D\u0C2D \u0C2E\u0C46\u0C28\u0C41\u0C28\u0C3F \u0C09\u0C2A\u0C2F\u0C4B\u0C17\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F :)',
-    omni_add: '\u0C17\u0C4D\u0C32\u0C3E\u0C38\u0C30\u0C40 \u0C2A\u0C41\u0C38\u0C4D\u0C24\u0C15\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C08 \u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F'
+    omni_add: '\u0C17\u0C4D\u0C32\u0C3E\u0C38\u0C30\u0C40 \u0C2A\u0C41\u0C38\u0C4D\u0C24\u0C15\u0C3E\u0C28\u0C3F\u0C15\u0C3F \u0C08 \u0C2A\u0C26\u0C1C\u0C3E\u0C32\u0C3E\u0C28\u0C4D\u0C28\u0C3F \u0C1C\u0C4B\u0C21\u0C3F\u0C02\u0C1A\u0C02\u0C21\u0C3F',
+    release_what_new: `What's new`
   },
   th: {
     name: '\u0E20\u0E32\u0E29\u0E32\u0E44\u0E17\u0E22',
@@ -2209,6 +2429,8 @@ export const I18Ns = {
     cancel: '\u0E22\u0E01\u0E40\u0E25\u0E34\u0E01',
     total: '\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14',
     version: '\u0E40\u0E27\u0E2D\u0E23\u0E4C\u0E0A\u0E31\u0E48\u0E19',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u0E41\u0E1B\u0E25\u0E02\u0E49\u0E2D\u0E04\u0E27\u0E32\u0E21',
     stat_title: '\u0E2A\u0E16\u0E34\u0E15\u0E34',
     stat_vocab_add_header: '\u0E2A\u0E16\u0E34\u0E15\u0E34\u0E01\u0E32\u0E23\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E43\u0E2B\u0E21\u0E48',
@@ -2236,6 +2458,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0E01\u0E32\u0E23\u0E4C\u0E14\u0E17\u0E23\u0E34\u0E01\u0E40\u0E01\u0E2D\u0E23\u0E4C\u0E2D\u0E07\u0E04\u0E4C\u0E1B\u0E23\u0E30\u0E01\u0E2D\u0E1A',
     settings_ele_trigger_desp: '\u0E15\u0E31\u0E27\u0E40\u0E25\u0E37\u0E2D\u0E01 CSS \u0E02\u0E2D\u0E07\u0E2D\u0E07\u0E04\u0E4C\u0E1B\u0E23\u0E30\u0E01\u0E2D\u0E1A \u0E01\u0E32\u0E23\u0E4C\u0E14\u0E2D\u0E20\u0E34\u0E18\u0E32\u0E19\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E08\u0E30\u0E41\u0E2A\u0E14\u0E07\u0E40\u0E21\u0E37\u0E48\u0E2D\u0E21\u0E35\u0E01\u0E32\u0E23\u0E04\u0E25\u0E34\u0E01\u0E2D\u0E07\u0E04\u0E4C\u0E1B\u0E23\u0E30\u0E01\u0E2D\u0E1A\u0E19\u0E31\u0E49\u0E19 \u0E40\u0E0A\u0E48\u0E19 \u0E42\u0E25\u0E42\u0E01\u0E49\u0E14\u0E49\u0E32\u0E19\u0E1A\u0E19\u0E0B\u0E49\u0E32\u0E22\u0E1A\u0E19 YouTube: a#logo',
     settings_detect_lang: '\u0E15\u0E23\u0E27\u0E08\u0E1E\u0E1A\u0E20\u0E32\u0E29\u0E32\u0E40\u0E1A\u0E23\u0E32\u0E27\u0E4C\u0E40\u0E0B\u0E2D\u0E23\u0E4C "{}" \u0E42\u0E1B\u0E23\u0E14\u0E15\u0E23\u0E27\u0E08\u0E2A\u0E2D\u0E1A\u0E2D\u0E35\u0E01\u0E04\u0E23\u0E31\u0E49\u0E07\u0E41\u0E25\u0E30\u0E40\u0E25\u0E37\u0E2D\u0E01\u0E20\u0E32\u0E29\u0E32\u0E40\u0E1B\u0E49\u0E32\u0E2B\u0E21\u0E32\u0E22\u0E17\u0E35\u0E48\u0E16\u0E39\u0E01\u0E15\u0E49\u0E2D\u0E07',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C',
     vocab_export_desp: '\u0E2A\u0E48\u0E07\u0E2D\u0E2D\u0E01\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14\u0E40\u0E1B\u0E47\u0E19\u0E44\u0E1F\u0E25\u0E4C JSON',
     vocab_import_desp: '\u0E19\u0E33\u0E40\u0E02\u0E49\u0E32\u0E41\u0E25\u0E30\u0E2D\u0E31\u0E1B\u0E40\u0E14\u0E15\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E08\u0E32\u0E01\u0E44\u0E1F\u0E25\u0E4C JSON \u0E02\u0E49\u0E2D\u0E04\u0E27\u0E23\u0E2A\u0E19\u0E43\u0E08: \u0E01\u0E32\u0E23\u0E14\u0E33\u0E40\u0E19\u0E34\u0E19\u0E01\u0E32\u0E23\u0E19\u0E35\u0E49\u0E08\u0E30\u0E40\u0E02\u0E35\u0E22\u0E19\u0E17\u0E31\u0E1A\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E1B\u0E31\u0E08\u0E08\u0E38\u0E1A\u0E31\u0E19\u0E17\u0E31\u0E49\u0E07\u0E2B\u0E21\u0E14\u0E02\u0E2D\u0E07\u0E04\u0E38\u0E13',
@@ -2249,7 +2473,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0E2A\u0E23\u0E49\u0E32\u0E07\u0E40\u0E21\u0E37\u0E48\u0E2D',
     newtab_title: '\u0E41\u0E17\u0E47\u0E1A\u0E43\u0E2B\u0E21\u0E48',
     newtab_no_vocab_msg: '\u0E04\u0E38\u0E13\u0E22\u0E31\u0E07\u0E44\u0E21\u0E48\u0E44\u0E14\u0E49\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E43\u0E14 \u0E46 \u0E43\u0E0A\u0E49\u0E40\u0E21\u0E19\u0E39\u0E1A\u0E23\u0E34\u0E1A\u0E17\u0E40\u0E1E\u0E37\u0E48\u0E2D\u0E41\u0E1B\u0E25\u0E41\u0E25\u0E30\u0E40\u0E1E\u0E34\u0E48\u0E21 :)',
-    omni_add: '\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E19\u0E35\u0E49\u0E43\u0E19\u0E2A\u0E21\u0E38\u0E14\u0E2D\u0E20\u0E34\u0E18\u0E32\u0E19\u0E28\u0E31\u0E1E\u0E17\u0E4C'
+    omni_add: '\u0E40\u0E1E\u0E34\u0E48\u0E21\u0E04\u0E33\u0E28\u0E31\u0E1E\u0E17\u0E4C\u0E19\u0E35\u0E49\u0E43\u0E19\u0E2A\u0E21\u0E38\u0E14\u0E2D\u0E20\u0E34\u0E18\u0E32\u0E19\u0E28\u0E31\u0E1E\u0E17\u0E4C',
+    release_what_new: `What's new`
   },
   tr: {
     name: 'T\xFCrk\xE7e',
@@ -2257,6 +2482,8 @@ export const I18Ns = {
     cancel: '\u0130ptal',
     total: 'Toplam',
     version: 'S\xFCr\xFCm',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'Metni \xC7evir',
     stat_title: '\u0130statistik',
     stat_vocab_add_header: 'Yeni kelime bilgisi ekleme istatistikleri',
@@ -2284,6 +2511,8 @@ export const I18Ns = {
     settings_ele_trigger: '\xD6\u011Fe tetikler kartlar\u0131',
     settings_ele_trigger_desp: 'Bir \xF6\u011Fenin CSS se\xE7icisi, s\xF6zl\xFCk kart\u0131 o \xF6\u011Feye t\u0131kland\u0131\u011F\u0131nda g\xF6sterir, \xF6r. YouTube\'daki sol \xFCst logo: a#logo',
     settings_detect_lang: 'Alg\u0131lanan taray\u0131c\u0131 dili "{}", l\xFCtfen iki kez kontrol edin ve do\u011Fru hedef dili se\xE7in',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Kelime bilgisi',
     vocab_export_desp: 'T\xFCm s\xF6zl\xFCkleri bir JSON dosyas\u0131 olarak d\u0131\u015Fa aktar\u0131n',
     vocab_import_desp: 'S\xF6zl\xFCkleri bir JSON dosyas\u0131ndan i\xE7e aktar\u0131n ve g\xFCncelleyin, Dikkat: bu, mevcut t\xFCm s\xF6zl\xFCklerinizin \xFCzerine yazacakt\u0131r',
@@ -2297,7 +2526,8 @@ export const I18Ns = {
     vocab_createdAt: '\u015Eu saatte olu\u015Fturuldu',
     newtab_title: 'Yeni sekme',
     newtab_no_vocab_msg: 'Herhangi bir kelime eklemediniz, \xE7eviri yapmak i\xE7in i\xE7erik men\xFCs\xFCn\xFC kullan\u0131n ve ekleyin :)',
-    omni_add: 'Bu kelime da\u011Farc\u0131\u011F\u0131n\u0131 s\xF6zl\xFCk kitab\u0131na ekle'
+    omni_add: 'Bu kelime da\u011Farc\u0131\u011F\u0131n\u0131 s\xF6zl\xFCk kitab\u0131na ekle',
+    release_what_new: `What's new`
   },
   ug: {
     name: '\u0626\u06C7\u064A\u063A\u06C7\u0631 \u062A\u0649\u0644\u0649',
@@ -2305,6 +2535,8 @@ export const I18Ns = {
     cancel: '\u0628\u0649\u0643\u0627\u0631 \u0642\u0649\u0644\u0649\u0634',
     total: '\u062C\u06D5\u0645\u0626\u0649',
     version: '\u0646\u06C7\u0633\u062E\u0649\u0633\u0649',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u062A\u06D0\u0643\u0649\u0633\u062A\u0646\u0649 \u062A\u06D5\u0631\u062C\u0649\u0645\u06D5 \u0642\u0649\u0644\u0649\u06AD',
     stat_title: '\u0633\u062A\u0627\u062A\u0649\u0633\u062A\u0649\u0643\u0627',
     stat_vocab_add_header: '\u064A\u06D0\u06AD\u0649 \u0633\u06C6\u0632\u0644\u06C8\u0643 \u0642\u0648\u0634\u06C7\u0634 \u0633\u062A\u0627\u062A\u0649\u0633\u062A\u0649\u0643\u0649\u0633\u0649',
@@ -2332,6 +2564,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0626\u06D0\u0644\u06D0\u0645\u06D0\u0646\u062A \u0643\u0627\u0631\u062A\u0627 \u0642\u0648\u0632\u063A\u0649\u062A\u0649\u062F\u06C7',
     settings_ele_trigger_desp: '\u0626\u06D0\u0644\u06D0\u0645\u06D0\u0646\u062A\u0646\u0649\u06AD CSS \u062A\u0627\u0644\u0644\u0649\u063A\u06C7\u0686 \u060C \u0633\u06C6\u0632\u0644\u06C8\u0643 \u0643\u0627\u0631\u062A\u0649\u0633\u0649 \u0628\u06C7 \u0626\u06D0\u0644\u06D0\u0645\u06D0\u0646\u062A\u0646\u0649\u06AD \u0686\u06D5\u0643\u0643\u06D5\u0646\u062F\u06D5 \u0643\u06C6\u0631\u0633\u0649\u062A\u0649\u0644\u0649\u062F\u06C7 \u060C \u0645\u06D5\u0633\u0649\u0644\u06D5\u0646 \u060C YouTube \u062F\u0649\u0643\u0649 \u0633\u0648\u0644 \u0626\u06C8\u0633\u062A\u0649 \u0626\u06C8\u0633\u062A\u0649 \u0628\u06D5\u0644\u06AF\u06D5: a#logo',
     settings_detect_lang: '\u0628\u0627\u064A\u0642\u0627\u0644\u063A\u0627\u0646 \u062A\u0648\u0631\u0643\u06C6\u0631\u06AF\u06C8 \u062A\u0649\u0644\u0649 "{}" \u060C \u0642\u0627\u064A\u062A\u0627 \u062A\u06D5\u0643\u0634\u06C8\u0631\u06C8\u067E \u060C \u062A\u0648\u063A\u0631\u0627 \u0646\u0649\u0634\u0627\u0646 \u062A\u0649\u0644\u0649\u0646\u0649 \u062A\u0627\u0644\u0644\u0627\u06AD',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0633\u06C6\u0632\u0644\u06C8\u0643',
     vocab_export_desp: '\u0628\u0627\u0631\u0644\u0649\u0642 \u0633\u06C6\u0632\u0644\u06C8\u0643\u0644\u06D5\u0631\u0646\u0649 JSON \u06BE\u06C6\u062C\u062C\u0649\u062A\u0649 \u0642\u0649\u0644\u0649\u067E \u0686\u0649\u0642\u0649\u0631\u0649\u06AD',
     vocab_import_desp: 'JSON \u06BE\u06C6\u062C\u062C\u0649\u062A\u0649\u062F\u0649\u0646 \u0633\u06C6\u0632\u0644\u06C8\u0643\u0644\u06D5\u0631\u0646\u0649 \u0626\u06D5\u0643\u0649\u0631\u0649\u0634 \u06CB\u06D5 \u064A\u06D0\u06AD\u0649\u0644\u0627\u0634 \u060C \u062F\u0649\u0642\u0642\u06D5\u062A: \u0628\u06C7 \u0646\u06C6\u06CB\u06D5\u062A\u062A\u0649\u0643\u0649 \u0628\u0627\u0631\u0644\u0649\u0642 \u0633\u06C6\u0632\u0644\u06C8\u0643\u0644\u0649\u0631\u0649\u06AD\u0649\u0632\u0646\u0649 \u0642\u0627\u067E\u0644\u0649\u06CB\u0627\u0644\u0649\u062F\u06C7',
@@ -2345,7 +2579,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0642\u06C7\u0631\u06C7\u0644\u062F\u0649',
     newtab_title: '\u064A\u06D0\u06AD\u0649 \u0628\u06D5\u062A\u0643\u06C8\u0686',
     newtab_no_vocab_msg: '\u0633\u0649\u0632 \u06BE\u06D0\u0686\u0642\u0627\u0646\u062F\u0627\u0642 \u0633\u06C6\u0632\u0644\u06C8\u0643 \u0642\u0648\u0634\u0645\u0649\u062F\u0649\u06AD\u0649\u0632 \u060C \u0645\u06D5\u0632\u0645\u06C7\u0646 \u062A\u0649\u0632\u0649\u0645\u0644\u0649\u0643\u0649 \u0626\u0649\u0634\u0644\u0649\u062A\u0649\u067E \u062A\u06D5\u0631\u062C\u0649\u0645\u06D5 \u0642\u0649\u0644\u0649\u067E \u0642\u0648\u0634\u06C7\u06AD :)',
-    omni_add: '\u0628\u06C7 \u0633\u06C6\u0632\u0644\u06C8\u0643\u0646\u0649 \u0644\u06C7\u063A\u06D5\u062A \u0643\u0649\u062A\u0627\u0628\u0649\u063A\u0627 \u0642\u0648\u0634\u06C7\u06AD'
+    omni_add: '\u0628\u06C7 \u0633\u06C6\u0632\u0644\u06C8\u0643\u0646\u0649 \u0644\u06C7\u063A\u06D5\u062A \u0643\u0649\u062A\u0627\u0628\u0649\u063A\u0627 \u0642\u0648\u0634\u06C7\u06AD',
+    release_what_new: `What's new`
   },
   uk: {
     name: '\u0423\u043A\u0440\u0430\u0457\u043D\u0441\u044C\u043A\u0430 \u043C\u043E\u0432\u0430',
@@ -2353,6 +2588,8 @@ export const I18Ns = {
     cancel: '\u0421\u043A\u0430\u0441\u0443\u0432\u0430\u0442\u0438',
     total: '\u0412\u0441\u044C\u043E\u0433\u043E',
     version: '\u0412\u0435\u0440\u0441\u0456\u044F',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u041F\u0435\u0440\u0435\u043A\u043B\u0430\u0434\u0456\u0442\u044C \u0442\u0435\u043A\u0441\u0442',
     stat_title: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430',
     stat_vocab_add_header: '\u0421\u0442\u0430\u0442\u0438\u0441\u0442\u0438\u043A\u0430 \u0434\u043E\u0434\u0430\u0432\u0430\u043D\u043D\u044F \u043D\u043E\u0432\u0438\u0445 \u0441\u043B\u043E\u0432\u043D\u0438\u043A\u0456\u0432',
@@ -2380,6 +2617,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u0415\u043B\u0435\u043C\u0435\u043D\u0442 \u0437\u0430\u043F\u0443\u0441\u043A\u0430\u0454 \u043A\u0430\u0440\u0442\u0438',
     settings_ele_trigger_desp: '\u0421\u0435\u043B\u0435\u043A\u0442\u043E\u0440 CSS \u0435\u043B\u0435\u043C\u0435\u043D\u0442\u0430, \u043A\u0430\u0440\u0442\u043A\u0430 \u0433\u043B\u043E\u0441\u0430\u0440\u0456\u044E \u043F\u043E\u043A\u0430\u0437\u0443\u0454, \u043A\u043E\u043B\u0438 \u0446\u0435\u0439 \u0435\u043B\u0435\u043C\u0435\u043D\u0442 \u043A\u043B\u0430\u0446\u043D\u0443\u0442\u043E, \u043D\u0430\u043F\u0440\u0438\u043A\u043B\u0430\u0434, \u0432\u0435\u0440\u0445\u043D\u0456\u0439 \u043B\u0456\u0432\u0438\u0439 \u043B\u043E\u0433\u043E\u0442\u0438\u043F \u043D\u0430 YouTube: a#logo',
     settings_detect_lang: '\u0412\u0438\u044F\u0432\u043B\u0435\u043D\u043E \u043C\u043E\u0432\u0443 \u0432\u0435\u0431-\u043F\u0435\u0440\u0435\u0433\u043B\u044F\u0434\u0430\u0447\u0430 "{}", \u043F\u0435\u0440\u0435\u0432\u0456\u0440\u0442\u0435 \u0449\u0435 \u0440\u0430\u0437 \u0456 \u0432\u0438\u0431\u0435\u0440\u0456\u0442\u044C \u043F\u0440\u0430\u0432\u0438\u043B\u044C\u043D\u0443 \u0446\u0456\u043B\u044C\u043E\u0432\u0443 \u043C\u043E\u0432\u0443',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u0421\u043B\u043E\u0432\u043D\u0438\u043A\u043E\u0432\u0438\u0439 \u0437\u0430\u043F\u0430\u0441',
     vocab_export_desp: '\u0415\u043A\u0441\u043F\u043E\u0440\u0442\u0443\u0439\u0442\u0435 \u0432\u0441\u0456 \u0441\u043B\u043E\u0432\u043D\u0438\u043A\u0438 \u044F\u043A \u0444\u0430\u0439\u043B JSON',
     vocab_import_desp: '\u0406\u043C\u043F\u043E\u0440\u0442\u0443\u0439\u0442\u0435 \u0442\u0430 \u043E\u043D\u043E\u0432\u043B\u044E\u0439\u0442\u0435 \u0441\u043B\u043E\u0432\u043D\u0438\u043A\u0438 \u0437 \u0444\u0430\u0439\u043B\u0443 JSON. \u0423\u0432\u0430\u0433\u0430: \u0446\u0435 \u043F\u0435\u0440\u0435\u0437\u0430\u043F\u0438\u0448\u0435 \u0432\u0441\u0456 \u0432\u0430\u0448\u0456 \u043F\u043E\u0442\u043E\u0447\u043D\u0456 \u0441\u043B\u043E\u0432\u043D\u0438\u043A\u0438',
@@ -2393,7 +2632,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0421\u0442\u0432\u043E\u0440\u0435\u043D\u043E \u0432',
     newtab_title: '\u041D\u043E\u0432\u0430 \u0432\u043A\u043B\u0430\u0434\u043A\u0430',
     newtab_no_vocab_msg: '\u0412\u0438 \u043D\u0435 \u0434\u043E\u0434\u0430\u043B\u0438 \u0436\u043E\u0434\u043D\u043E\u0433\u043E \u0441\u043B\u043E\u0432\u043D\u0438\u043A\u0430, \u0432\u0438\u043A\u043E\u0440\u0438\u0441\u0442\u043E\u0432\u0443\u0439\u0442\u0435 \u043A\u043E\u043D\u0442\u0435\u043A\u0441\u0442\u043D\u0435 \u043C\u0435\u043D\u044E, \u0449\u043E\u0431 \u043F\u0435\u0440\u0435\u043A\u043B\u0430\u0441\u0442\u0438 \u0442\u0430 \u0434\u043E\u0434\u0430\u0442\u0438 \u0457\u0445:)',
-    omni_add: '\u0414\u043E\u0434\u0430\u0439\u0442\u0435 \u0446\u0435\u0439 \u0441\u043B\u043E\u0432\u043D\u0438\u043A\u043E\u0432\u0438\u0439 \u0437\u0430\u043F\u0430\u0441 \u0434\u043E \u0433\u043B\u043E\u0441\u0430\u0440\u0456\u044E'
+    omni_add: '\u0414\u043E\u0434\u0430\u0439\u0442\u0435 \u0446\u0435\u0439 \u0441\u043B\u043E\u0432\u043D\u0438\u043A\u043E\u0432\u0438\u0439 \u0437\u0430\u043F\u0430\u0441 \u0434\u043E \u0433\u043B\u043E\u0441\u0430\u0440\u0456\u044E',
+    release_what_new: `What's new`
   },
   vi: {
     name: 'Ti\u1EBFng Vi\u1EC7t',
@@ -2401,6 +2641,8 @@ export const I18Ns = {
     cancel: 'H\u1EE7y b\u1ECF',
     total: 'T\u1ED5ng c\u1ED9ng',
     version: 'Phi\xEAn b\u1EA3n',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: 'D\u1ECBch \u0111o\u1EA1n v\u0103n b\u1EA3n n\xE0y',
     stat_title: 'S\u1ED1 li\u1EC7u th\u1ED1ng k\xEA',
     stat_vocab_add_header: 'Th\u1ED1ng k\xEA th\xEAm t\u1EEB v\u1EF1ng m\u1EDBi',
@@ -2428,6 +2670,8 @@ export const I18Ns = {
     settings_ele_trigger: 'Th\u1EBB k\xEDch ho\u1EA1t ph\u1EA7n t\u1EED',
     settings_ele_trigger_desp: 'B\u1ED9 ch\u1ECDn CSS c\u1EE7a m\u1ED9t ph\u1EA7n t\u1EED, th\u1EBB thu\u1EADt ng\u1EEF hi\u1EC3n th\u1ECB khi ph\u1EA7n t\u1EED \u0111\xF3 \u0111\u01B0\u1EE3c nh\u1EA5p v\xE0o, v\xED d\u1EE5: bi\u1EC3u tr\u01B0ng ph\xEDa tr\xEAn b\xEAn tr\xE1i tr\xEAn YouTube: a#logo',
     settings_detect_lang: 'Ng\xF4n ng\u1EEF tr\xECnh duy\u1EC7t \u0111\u01B0\u1EE3c ph\xE1t hi\u1EC7n "{}", vui l\xF2ng ki\u1EC3m tra k\u1EF9 v\xE0 ch\u1ECDn \u0111\xFAng ng\xF4n ng\u1EEF \u0111\xEDch',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: 'Ng\u1EEF v\u1EF1ng',
     vocab_export_desp: 'Xu\u1EA5t t\u1EA5t c\u1EA3 c\xE1c t\u1EEB v\u1EF1ng d\u01B0\u1EDBi d\u1EA1ng t\u1EC7p JSON',
     vocab_import_desp: 'Nh\u1EADp v\xE0 c\u1EADp nh\u1EADt c\xE1c t\u1EEB v\u1EF1ng t\u1EEB t\u1EC7p JSON, Ch\xFA \xFD: \u0111i\u1EC1u n\xE0y s\u1EBD ghi \u0111\xE8 t\u1EA5t c\u1EA3 c\xE1c t\u1EEB v\u1EF1ng hi\u1EC7n t\u1EA1i c\u1EE7a b\u1EA1n',
@@ -2441,7 +2685,8 @@ export const I18Ns = {
     vocab_createdAt: '\u0110\u01B0\u1EE3c t\u1EA1o l\xFAc',
     newtab_title: 'Tab m\u1EDBi',
     newtab_no_vocab_msg: 'B\u1EA1n ch\u01B0a th\xEAm b\u1EA5t k\u1EF3 t\u1EEB v\u1EF1ng n\xE0o, h\xE3y s\u1EED d\u1EE5ng menu ng\u1EEF c\u1EA3nh \u0111\u1EC3 d\u1ECBch v\xE0 th\xEAm ch\xFAng :)',
-    omni_add: 'Th\xEAm t\u1EEB v\u1EF1ng n\xE0y v\xE0o s\xE1ch thu\u1EADt ng\u1EEF'
+    omni_add: 'Th\xEAm t\u1EEB v\u1EF1ng n\xE0y v\xE0o s\xE1ch thu\u1EADt ng\u1EEF',
+    release_what_new: `What's new`
   },
   zh: {
     name: '\u4E2D\u6587\u7B80\u4F53',
@@ -2449,6 +2694,8 @@ export const I18Ns = {
     cancel: '\u53D6\u6D88',
     total: '\u603B\u8BA1',
     version: '\u7248\u672C',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u7FFB\u8BD1\u6587\u672C',
     stat_title: '\u7EDF\u8BA1',
     stat_vocab_add_header: '\u65B0\u589E\u8BCD\u6C47\u7684\u7EDF\u8BA1\u56FE',
@@ -2476,6 +2723,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u751F\u8BCD\u5361\u89E6\u53D1',
     settings_ele_trigger_desp: 'CSS\u9009\u62E9\u5668, \u5F53\u70B9\u51FB\u8FD9\u4E2ACSS\u9009\u62E9\u7684\u5143\u7D20\u65F6, \u751F\u8BCD\u5361\u5C31\u4F1A\u663E\u793A, \u6BD4\u5982YouTube\u5DE6\u4E0A\u89D2\u7684\u56FE\u6807, CSS\u9009\u62E9\u5668\u662Fa#logo',
     settings_detect_lang: '\u68C0\u6D4B\u5230\u6D4F\u89C8\u5668\u8BED\u8A00 "{}", \u8BF7\u518D\u6B21\u68C0\u67E5\u5E76\u9009\u62E9\u6B63\u786E\u7684\u76EE\u6807\u8BED\u8A00\u9009\u9879',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u8BCD\u6C47\u8868',
     vocab_export_desp: '\u5C06\u6240\u6709\u7684\u8BCD\u6C47\u8868\u5BFC\u51FA\u4E3AJSON\u6587\u4EF6',
     vocab_import_desp: '\u4ECEJSON\u6587\u4EF6\u5BFC\u5165\u8BCD\u6C47\u8868, \u6CE8\u610F: \u8FD9\u5C06\u8986\u76D6\u4F60\u73B0\u6709\u7684\u6240\u6709\u8BCD\u6C47\u8868',
@@ -2489,7 +2738,8 @@ export const I18Ns = {
     vocab_createdAt: '\u521B\u5EFA\u4E8E',
     newtab_title: '\u7A7A\u767D\u9875',
     newtab_no_vocab_msg: '\u4F60\u8FD8\u6CA1\u6709\u6DFB\u52A0\u4EFB\u4F55\u8BCD\u6C47, \u8BF7\u7528\u53F3\u952E\u83DC\u5355\u6765\u7FFB\u8BD1\u5E76\u6DFB\u52A0\u5B83\u4EEC',
-    omni_add: '\u5C06\u6B64\u8BCD\u6C47\u6DFB\u52A0\u5230\u8BCD\u6C47\u8868'
+    omni_add: '\u5C06\u6B64\u8BCD\u6C47\u6DFB\u52A0\u5230\u8BCD\u6C47\u8868',
+    release_what_new: `What's new`
   },
   zh_tw: {
     name: '\u4E2D\u6587\u6B63\u9AD4',
@@ -2497,6 +2747,8 @@ export const I18Ns = {
     cancel: '\u53D6\u6D88',
     total: '\u7E3D\u8A08',
     version: '\u7248\u672C',
+    close: 'Close',
+    release_notes: 'Release notes',
     sw_context_translate: '\u7FFB\u8B6F\u6587\u672C',
     stat_title: '\u7D71\u8A08',
     stat_vocab_add_header: '\u65B0\u589E\u8A5E\u532F\u7684\u7D71\u8A08\u5716',
@@ -2524,6 +2776,8 @@ export const I18Ns = {
     settings_ele_trigger: '\u751F\u8A5E\u5361\u89F8\u767C',
     settings_ele_trigger_desp: 'CSS\u9078\u64C7\u5668, \u7576\u9EDE\u64CA\u9019\u500BCSS\u9078\u64C7\u7684\u5143\u7D20\u6642, \u751F\u8A5E\u5361\u5C31\u6703\u986F\u793A, \u6BD4\u5982YouTube\u5DE6\u4E0A\u89D2\u7684\u5716\u6A19, CSS\u9078\u64C7\u5668\u662Fa#logo',
     settings_detect_lang: '\u6AA2\u6E2C\u5230\u6D4F\u89BD\u5668\u8A9E\u8A00 "{}", \u8ACB\u518D\u6B21\u6AA2\u67E5\u4E26\u9078\u64C7\u6B63\u78BA\u7684\u76EE\u6A19\u8A9E\u8A00\u9078\u9805',
+    settings_side_bar: 'Translation side bar',
+    settings_side_bar_desp: 'Show translation in side bar when texts are highlighted',
     vocab_title: '\u8A5E\u5F59\u8868',
     vocab_export_desp: '\u5C07\u6240\u6709\u7684\u8A5E\u5F59\u8868\u5C0E\u51FA\u70BAJSON\u6587\u4EF6',
     vocab_import_desp: '\u5F9EJSON\u6587\u4EF6\u5C0E\u5165\u8A5E\u5F59\u8868, \u6CE8\u610F: \u9019\u5C07\u8986\u84CB\u4F60\u73FE\u6709\u7684\u6240\u6709\u8A5E\u5F59\u8868',
@@ -2537,7 +2791,8 @@ export const I18Ns = {
     vocab_createdAt: '\u5275\u5EFA\u4E8E',
     newtab_title: '\u7A7A\u767D\u9801',
     newtab_no_vocab_msg: '\u4F60\u9084\u6C92\u6709\u6DFB\u52A0\u4EFB\u4F55\u8A5E\u5F59, \u8ACB\u7528\u53F3\u9375\u83DC\u55AE\u4F86\u7FFB\u8B6F\u4E26\u6DFB\u52A0\u5B83\u5011',
-    omni_add: '\u5C07\u6B64\u8A5E\u5F59\u6DFB\u52A0\u5230\u8A5E\u5F59\u8868'
+    omni_add: '\u5C07\u6B64\u8A5E\u5F59\u6DFB\u52A0\u5230\u8A5E\u5F59\u8868',
+    release_what_new: `What's new`
   }
 };
 
