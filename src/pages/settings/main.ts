@@ -130,9 +130,9 @@ const render = settings => {
   cardTriggerE.placeholder = getI18NMessage(I18Ns, UI_LANG, 'settings_ele_trigger_desp');
   cardTriggerE.title = getI18NMessage(I18Ns, UI_LANG, 'settings_ele_trigger_desp');
   toasterOKBtn.textContent = getI18NMessage(I18Ns, UI_LANG, 'ok');
-  enableSideBarLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_side_bar');
+  enableSideBarLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_side_panel');
   enableSideBarE.checked = ENABLE_SIDEBAR;
-  enableSideBarCheckLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_side_bar_desp');
+  enableSideBarCheckLabelE.textContent = getI18NMessage(I18Ns, UI_LANG, 'settings_side_panel_desp');
   document.title = getI18NMessage(I18Ns, UI_LANG, 'settings_title');
 };
 
