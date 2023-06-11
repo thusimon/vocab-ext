@@ -1,7 +1,7 @@
 import {
   STORAGE_AREA, DEFAULT_SETTING, DEFAULT_USAGE
-} from '../common/constants';
-import { storageGetP, getI18NMessage, compareVersion } from '../common/utils';
+} from '../../common/constants';
+import { storageGetP, getI18NMessage, compareVersion } from '../../common/utils';
 
 
 (async () => {

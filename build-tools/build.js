@@ -43,7 +43,7 @@ const webpackConfig = {
   entry: {
     'service-worker': './src/service-worker.ts',
     'content/content': './src/content/content.ts',
-    'popover/main': './src/popover/main.ts',
+    'pages/popover/main': './src/pages/popover/main.ts',
     'pages/view-vocabulary/main': './src/pages/view-vocabulary/main.ts',
     'pages/statistics/main': './src/pages/statistics/main.ts',
     'pages/settings/main': './src/pages/settings/main.ts',

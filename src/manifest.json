@@ -30,7 +30,7 @@
   "omnibox": { "keyword" : "vb" },
   "action": {
     "default_title": "Vocab",
-    "default_popup": "popover/popover.html",
+    "default_popup": "pages/popover/index.html",
     "default_icon": {
       "16": "assets/icons/icon-16.png",
       "48": "assets/icons/icon-48.png",
