@@ -24,7 +24,7 @@ const { VERSION_SEEN } = usage;
 const currentVersion = chrome.runtime.getManifest().version;
 if (compareVersion(VERSION_SEEN as string, currentVersion) < 0) {
   // set badge
-  setBadge('🟌', '#068DA9', '#FFD95A');
+  setBadge('\u2736', '#068DA9', '#FFD95A');
 }
 
 chrome.contextMenus.create({
@@ -268,7 +268,7 @@ chrome.runtime.onInstalled.addListener(details => {
       const currentVersion = chrome.runtime.getManifest().version;
       if (compareVersion(VERSION_SEEN as string, currentVersion) < 0) {
         // set badge
-        setBadge('🟌', '#068DA9', '#FFD95A');
+        setBadge('\u2736', '#068DA9', '#FFD95A');
       }
     });
   }
