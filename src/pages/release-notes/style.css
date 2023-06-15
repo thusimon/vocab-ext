@@ -49,23 +49,27 @@ table, th, td {
   border: 1px solid black;
 }
 
-th:first-child, td:first-child {
+th:nth-child(n+1):nth-child(-n+2), td:nth-child(n+1):nth-child(-n+2) {
   width: 120px;
 }
 
-td:first-child {
+td:nth-child(n+1):nth-child(-n+2) {
   text-align: center;
   vertical-align: top;
-  font-weight: bold;
 }
 
-th:not(:first-child), td:not(:first-child) {
+th:not(:nth-child(n+1):nth-child(-n+2)), td:not(:nth-child(n+1):nth-child(-n+2)) {
   width: auto;
 }
 
-td .version {
+td .small-cell {
   margin: 1rem 0rem;
 }
+
+td .version {
+  font-weight: bold;
+}
+
 td ul {
   margin: 1rem 0rem;
 }

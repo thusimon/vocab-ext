@@ -65,7 +65,7 @@ const releaseNotesText = getI18NMessage(I18Ns, uiLang, 'release_notes');
 
 titleE.textContent = releaseNotesText;
 tableHeadsE[0].textContent = getI18NMessage(I18Ns, uiLang, 'version');
-tableHeadsE[1].textContent = getI18NMessage(I18Ns, uiLang, 'release_what_new');
+tableHeadsE[2].textContent = getI18NMessage(I18Ns, uiLang, 'release_what_new');
 closeE.title = getI18NMessage(I18Ns, uiLang, 'close');
 document.title = releaseNotesText;
 
