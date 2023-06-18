@@ -239,6 +239,26 @@ uitarLangSameE.addEventListener('change', evt => {
   isModified = true;
   if (target.checked) {
     uiLangOpts.classList.add('no-display');
+    const TARGET_LANG = targetLangOpts.value;
+    const UI_LANG = uiLangOpts.value;
+    if (TARGET_LANG != UI_LANG) {
+      // need to rerender
+      const SOURCE_LANG = sourceLangOpts.value;
+      const ENABLE_CARD = enableCardE.checked;
+      const CARD_TIME = cardTimeE.value;
+      const CARD_TRIGGER_CSS = cardTriggerE.value;
+      const ENABLE_SIDEBAR = enableSideBarE.checked;
+      render({
+        SOURCE_LANG,
+        TARGET_LANG,
+        UI_LANG: TARGET_LANG,
+        UI_TAREGT_LANG_SAME: true,
+        ENABLE_CARD,
+        CARD_TIME,
+        CARD_TRIGGER_CSS,
+        ENABLE_SIDEBAR
+      });
+    }
   } else {
     uiLangOpts.classList.remove('no-display');
   }
