@@ -94,10 +94,10 @@ export const parseVersionString = (versionStr: string): VersionNumberType => {
   ];
 };
 
-export const compareVersion = (v1Str: string, v2Str: string): number => {
+export const compareVersion = (v1Str: string, v2Str: string, digits: number = 2): number => {
   const v1 = parseVersionString(v1Str);
   const v2 = parseVersionString(v2Str);
-  for(let i = 0; i < v1.length; i++) {
+  for(let i = 0; i < v1.length && i < digits; i++) {
     if (v1[i] === v2[i]) {
       continue;
     }
