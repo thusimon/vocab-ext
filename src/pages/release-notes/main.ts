@@ -12,12 +12,8 @@ const clickHereE = document.getElementsByClassName('click-here');
 const exampleContainerE = document.getElementById('example-container');
 const imageE = document.getElementById('example-img') as HTMLImageElement;
 const closeE = document.getElementById('example-close');
-const tableE = document.getElementById('release-table');
 const versionsE = document.getElementsByClassName('version');
 const tableHeadsE = document.querySelectorAll('table tr th');
-const tableCellE = document.querySelector('table tr td');
-const tableCellEPos = tableCellE.getBoundingClientRect();
-const tableCellHeight = tableCellEPos.height;
 
 const clickHereHander = (evt: MouseEvent) => {
   const target = evt.target as HTMLElement;
@@ -29,14 +25,27 @@ const clickHereHander = (evt: MouseEvent) => {
   exampleContainerE.className = 'show';
 }
 
+let versionSeen = '0.0.0';
 const getLastVersionInView = async () => {
-  const tableRect = tableE.getBoundingClientRect();
-  const tableY = tableRect.y;
-  const firstVersionY = tableY + 42;
-  const windowBottom = window.innerHeight + window.scrollY
-  const currentMaxVersionIndex = Math.max(0, Math.round((windowBottom - firstVersionY) / tableCellHeight) - 1);
-  const currentVersionIndex = Math.min(versionsE.length - 1, currentMaxVersionIndex);
-  const versionSeen = versionsE[currentVersionIndex].textContent;
+  const windowHeight = window.innerHeight;
+  // loop through all the versionsE to check if the element's td's bottom is less than window innerHeight
+  // if true, then the element is visible
+  let lastVersionInView = '0.0.0';
+  for (const versionE of versionsE) {
+    const td = versionE.parentNode as HTMLTableCellElement;
+    const tdBottom = td.getBoundingClientRect().bottom;
+    if (tdBottom < windowHeight) {
+      lastVersionInView = versionE.textContent;
+    } else {
+      break;
+    }
+  }
+  if (compareVersion(versionSeen, lastVersionInView, 3) >= 0) {
+    // the version at the view bottom is not greater than versionSeen
+    // should not update
+    return;
+  }
+  versionSeen = lastVersionInView;
   await saveTheSeenVersion(versionSeen);
 }
 
@@ -45,7 +54,7 @@ const saveTheSeenVersion = async (version: string) => {
   const usage = await storageGetP(STORAGE_AREA.USAGE, DEFAULT_USAGE);
   let { VERSION_SEEN } = usage;
   const currentVersion = chrome.runtime.getManifest().version;
-  if (compareVersion(VERSION_SEEN as string, version) < 0) {
+  if (compareVersion(VERSION_SEEN as string, version, 3) < 0) {
     // user has seen a higher or equal version, need to update the version seen
     VERSION_SEEN = version;
     usage.VERSION_SEEN = version;
