@@ -195,6 +195,9 @@ const omniboxInputChangeHandler = async (text, suggest) => {
     if (translateRes.dictResult && translateRes.dictResult.length > 0) {
       const dictResults = translateRes.dictResult.slice(0, 3); // use 3 dict at most
       dictResults.forEach(dict => {
+        if (!dict.pos || !dict.terms || dict.terms.length === 0) {
+          return;
+        }
         suggestions.push({
           content: `${dict.pos}: ${dict.terms.join(', ')}`,
           deletable: false,

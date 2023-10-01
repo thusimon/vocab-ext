@@ -67,7 +67,8 @@ const createTableRow = (vocab, idx) => {
   
   if (dict && dict.length > 0) {
     const details = dict.reduce((prev, current) => {
-      const currentDetail = `${current.pos}:${current.terms.join(',')}`;
+      const {pos, terms} = current;
+      const currentDetail = (pos && terms && terms.length > 0) ? `${pos}:${terms.join(',')}` : '';
       return prev ? `${prev}|${currentDetail}` : currentDetail;
     }, '');
     td2.title = details;

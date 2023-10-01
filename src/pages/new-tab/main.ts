@@ -72,7 +72,7 @@ const constructNewTabVocab = (vocab) => {
       typeE.textContent = `[${d.pos}]`;
       const dictContentE = document.createElement('span');
       dictContentE.className = 'dict-content';
-      dictContentE.textContent = d.terms.join(', ');
+      dictContentE.textContent = (d.terms || []).join(', ');
       oneDictE.append(typeE, dictContentE);
       dictE.append(oneDictE);
     })
