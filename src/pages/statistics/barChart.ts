@@ -3,7 +3,7 @@ class BarChart {
   parentElement: any;
   config: any;
   data: any;
-  customization: any;
+  format: any;
   svg: any;
   chart: any;
   scaleX: any;
@@ -17,12 +17,13 @@ class BarChart {
   chartBgLine: any;
   tooltip: any;
   rects: any;
+  customization: any;
   t: any;
-  constructor(parentElement, config, data, customization) {
+  constructor(parentElement, config, data, format) {
     this.parentElement = parentElement;
     this.config = config;
     this.data = data;
-    this.customization = customization;
+    this.format = format;
     this.initVis();
   }
 
@@ -36,7 +37,7 @@ class BarChart {
   initVis() {
     const vis = this;
     this.updateSize();
-    const {width, height, chartWidth, chartHeight, chartMargin, title, transition, chartBg, tooltipColor} = this.config;
+    const {width, height, chartWidth, chartHeight, chartMargin, title, transitionTime, chartBg, tooltipColor} = this.config;
 
     // create svg canvas
     vis.svg = d3.select(this.parentElement)
@@ -57,8 +58,8 @@ class BarChart {
     
     vis.axisXCall = d3.axisBottom(vis.scaleX)
     .tickFormat(d => {
-      if (this.customization && this.customization.xTickFormat) {
-        return this.customization.xTickFormat(d);
+      if (vis.customization && vis.customization.xTickFormat) {
+        return vis.customization.xTickFormat(d);
       } else {
         return d;
       }
@@ -66,8 +67,8 @@ class BarChart {
 
     vis.axisYCall = d3.axisLeft(vis.scaleY)
     .tickFormat(d => {
-      if (this.customization && this.customization.yTickFormat) {
-        return this.customization.yTickFormat(d);
+      if (vis.customization && vis.customization.yTickFormat) {
+        return vis.customization.yTickFormat(d);
       } else {
         return d;
       }
@@ -78,15 +79,39 @@ class BarChart {
     
     vis.axisY = vis.chart.append('g')
 
-    vis.title = vis.svg.append('text')
+    if(title) {
+      vis.title = vis.svg.append('text')
       .attr('x', width / 2)           
       .attr('y', chartMargin[0]/2)
       .attr('text-anchor', 'middle')  
       .style('font-size', '30px') 
       .style('font-weight', '600')  
       .text(title);
+    }
+    
+    vis.t = d3.transition().duration(transitionTime || 500);
 
-    vis.t = d3.transition().duration(transition || 500);
+    vis.customization = {
+      xTickFormat: (d) => {
+        const date = new Date(d);
+        return vis.format === 'year' ? date.toLocaleString('en-US', { month: 'short' })
+          : date.getDate();
+      },
+      xTickValue: (d, i) => d > 0,
+      yTickFormat: d => {
+        if (d%5 == 0) {
+          return d;
+        } else {
+          return null;
+        }
+      },
+      tooltipMsg: (d) => {
+        const date = new Date(d.key);
+        const dateStr = vis.format === 'year' ? date.toLocaleString('en-US', { month: 'numeric', year: 'numeric'})
+          : date.toLocaleString('en-US', { month: 'numeric', year: 'numeric', day: 'numeric'});
+        return `${dateStr}: ${d.value}`
+      }
+    };
   }
 
   updateVis(data) {
@@ -103,8 +128,8 @@ class BarChart {
 
     // update axises
     vis.axisXCall.scale(vis.scaleX);
-    if (this.customization && this.customization.xTickValue) {
-      vis.axisXCall.tickValues(vis.scaleX.domain().filter(this.customization.xTickValue))
+    if (vis.customization && vis.customization.xTickValue) {
+      vis.axisXCall.tickValues(vis.scaleX.domain().filter(vis.customization.xTickValue))
     }
     vis.axisX.transition(vis.t).call(vis.axisXCall);
     vis.axisYCall.scale(vis.scaleY);
@@ -133,17 +158,6 @@ class BarChart {
       .attr('x2', d=>d[1][0])
       .attr('y2', d=>vis.scaleY(d[1][1]));
 
-    if (!vis.tooltip) {
-      vis.tooltip = vis.chart.append("text")
-        .attr('id', 'tooltip')
-        .style('opacity', 0)
-        .style('font-weight', 600)
-        .style('fill', tooltipColor)
-        .text("");
-      vis.tooltip.transition()
-      .duration(200);
-    }
-
     vis.rects = vis.chart.selectAll('.charBar')
       .data(this.data, (d: any)=>d)
       .join(
@@ -155,15 +169,13 @@ class BarChart {
           .attr('width', vis.scaleX.bandwidth())
           .attr('height', 0)
           .on('mouseover', function (evt, d: any) {
-            const date = new Date(d.key);
-            const msg = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}: ${d.value}`;
-            const x = vis.scaleX(d.key)!-40;
+            const x = vis.scaleX(d.key)! + vis.scaleX.bandwidth() / 2 -20;
             const y = vis.scaleY(d.value) - 10;
             d3.select(this).transition()
               .duration(200)
               .style('cursor', 'pointer')
               .attr('fill', barHoverColor);
-            vis.tooltip.text(msg);
+            vis.tooltip.text(vis.customization.tooltipMsg(d));
             vis.tooltip.transition()
               .duration(200)
               .attr('x', x)
@@ -199,6 +211,17 @@ class BarChart {
           .style('fill-opacity', '0')
           .remove())
     );
+
+    if (!vis.tooltip) {
+      vis.tooltip = vis.chart.append("text")
+        .attr('id', 'tooltip')
+        .style('opacity', 0)
+        .style('font-weight', 600)
+        .style('fill', tooltipColor)
+        .text('');
+      vis.tooltip.transition()
+      .duration(200);
+    }
   }
 }
 

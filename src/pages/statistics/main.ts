@@ -19,38 +19,32 @@ try {
   I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
 }
 
+const titleE = document.getElementById('statistics-title');
 const controllerE = document.getElementById('statistics-controller');
 const chartE = document.getElementById('statistics-charts');
+const yearSelectE = document.getElementById('data-source-year');
+const monthSelectE = document.getElementById('data-source-month');
+const emptyMessageE = document.getElementById('statistics-empty');
 
-const chartTitle = getI18NMessage(I18Ns, uiLang, 'stat_vocab_add_header')!;
-const dataOptionWeekE = document.getElementById('data-source-option-week')!;
-const dataOptionMonthE = document.getElementById('data-source-option-month')!;
-const dataOptionQuarterE = document.getElementById('data-source-option-quarter')!;
-const dataOptionYearE = document.getElementById('data-source-option-year')!;
-const dataOptionAllE = document.getElementById('data-source-option-all')!;
-
-
-dataOptionWeekE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_this_week');
-dataOptionMonthE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_this_month');
-dataOptionQuarterE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_this_quarter');
-dataOptionYearE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_this_year');
-dataOptionAllE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_all_data');
+titleE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_vocab_add_header');
+emptyMessageE.textContent = getI18NMessage(I18Ns, uiLang, 'newtab_no_vocab_msg');
 document.title = getI18NMessage(I18Ns, uiLang, 'stat_title');
-
-const ONE_DAY_MS = 24*3600*1000;
 
 const getDayTime = (ms) => {
   const date = new Date(ms);
   date.setHours(0,0,0,0);
   return date.getTime();
-}
+};
 
 const getCountTimeStat = (vocab) => {
   const stat = {};
   for (let key in vocab) {
-    const vocabDay = getDayTime(vocab[key].createdTime);
-    stat[vocabDay] = (stat[vocabDay] || 0) + 1;
+    if (vocab[key].createdTime) {
+      const vocabDay = getDayTime(vocab[key].createdTime);
+      stat[vocabDay] = (stat[vocabDay] || 0) + 1;
+    }
   }
+
   // add other days if there no record
   const today = getDayTime(Date.now());
 
@@ -68,97 +62,129 @@ const getCountTimeStat = (vocab) => {
     return {key: +dayTime, value: stat[dayTime]}
   });
 
+  statArr.sort((v1, v2) => v1.key - v2.key);
+
   return statArr;
-}
+};
 
-const getWeekData = (data) => {
-  const currentDay = new Date();
-  const currWeekDay = currentDay.getDay() + 1;
-  const weekData = data.slice(-currWeekDay);
-  const emptyDataToAppend = new Array(7-currWeekDay).map((d, i) => {
-    const nextDay = new Date(currentDay);
-    nextDay.setHours(0,0,0,0);
-    const currentDate = currentDay.getDate();
-    nextDay.setDate(currentDate + i);
-    return {day: nextDay.getTime(), count: 0}
+const getYearData = (data, year) => {
+  const yearStart = new Date(year, 0, 1, 0, 0, 0, 0).getTime();
+  const yearEnd = new Date(year + 1, 0, 1, 0, 0, 0, 0).getTime();
+  const yearData = data.filter(d => {
+    const date = +d.key;
+    return date > yearStart && date < yearEnd;
   });
-  return weekData.concat(emptyDataToAppend);
-}
+  // group yearData to months
+  const yearDataObj = {};
+  yearData.forEach(d => {
+    const date = new Date(+d.key)
+    const monthStart = new Date(year, date.getMonth(), 1, 0, 0, 0, 0).getTime();
+    if (!yearDataObj[monthStart]) {
+      yearDataObj[monthStart] = 0;
+    }
+    yearDataObj[monthStart]++
+  });
+  // convert stat to array
+  return Object.keys(yearDataObj).map((dayTime) => {
+    return {key: +dayTime, value: yearDataObj[dayTime]}
+  });
+};
 
-const getMonthData = (data) => {
-  return data;
-}
+const getYearMonthData = (data, year, month) => {
+  const yearMonthStart = new Date(year, month, 1, 0, 0, 0, 0).getTime();
+  const yearMonthEnd = new Date(year, month + 1, 1, 0, 0, 0, 0).getTime();
+  return data.filter(d => {
+    const date = +d.key;
+    return date > yearMonthStart && date < yearMonthEnd;
+  });
+};
 
-const getQuarterData = (data) => {
-  return data;
-}
-
-const getYearData = (data) => {
-  return data;
-}
-
-const getDataByTimeRange = (timeRange) => {
-  const countTimeStat = getCountTimeStat(vocab);
-  countTimeStat.sort((v1, v2) => v1.key - v2.key);
-  switch (timeRange) {
-    case 'week':
-      return getWeekData(countTimeStat)
-    case 'month':
-      return getMonthData(countTimeStat)
-    case 'quarter':
-      return getQuarterData(countTimeStat)
-    case 'year':
-      return getYearData(countTimeStat)
-    case 'all':
-    default:
-      return countTimeStat;
+const updateDataTimeRange = () => {
+  const year = parseInt((yearSelectE as HTMLSelectElement).value);
+  const month = parseInt((monthSelectE as HTMLSelectElement).value);
+  let dataToDraw = [];
+  let format = 'year';
+  if (!Number.isInteger(year) || year <= 0) {
+    dataToDraw = []
+  } else {
+    if (!Number.isInteger(month) || month < 0) {
+      // get data for all year
+      dataToDraw = getYearData(countTimeStat, year);
+    } else {
+      // get data for year + month
+      dataToDraw = getYearMonthData(countTimeStat, year, month);
+      format = 'month';
+    }
   }
+
+  drawChart(dataToDraw, format); 
 }
-const dataSelectionE = document.getElementById('data-source-select')! as HTMLSelectElement;
-dataSelectionE.addEventListener('change', (evt) => {
-  const target = evt.target as HTMLSelectElement;
-  if (!target || !target.value) {
-    return;
+
+const createDataSourceOptions = (allData) => {
+  // get the earliest date
+  const firstEntry = allData[0];
+  const firstYear = new Date(firstEntry.key).getFullYear();
+  const todayYear = new Date().getFullYear();
+  for (let year = firstYear; year <= todayYear; year++) {
+    const option = document.createElement('option');
+    option.value = `${year}`;
+    option.textContent = `${year}`;
+    option.selected = year === todayYear;
+    yearSelectE.append(option)
   }
-  const dataToDraw = getDataByTimeRange(target);
-})
+  yearSelectE.addEventListener('change', (evt) => {
+    const target = evt.target as HTMLSelectElement;
+    if (!target || !target.value) {
+      return;
+    }
+    updateDataTimeRange();
+  });
+  monthSelectE.addEventListener('change', (evt) => {
+    const target = evt.target as HTMLSelectElement;
+    if (!target || !target.value) {
+      return;
+    }
+    updateDataTimeRange();
+  })
+};
+
+const drawChart = (data, format) => {
+  while (chartE.lastChild) {
+    chartE.removeChild(chartE.lastChild);
+  }
+
+  const config = {
+    width: 1000,
+    height: 850,
+    chartMargin: [0, 30, 30, 30],
+    chartBg: 'lightyellow',
+    chartWidth: 1000,
+    chartHeight: 850,
+    barColor: '#1034a6',
+    barHoverColor: '#0080ff',
+    transitionTime: 250,
+    tooltipColor: 'green',
+    title: null
+  }
+
+  const barChart = new BarChart('#statistics-charts', config, [], format);
+  barChart.updateVis(data);
+}
 
 const setting = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
 const vocabAll = await storageGetP(STORAGE_AREA.VOCAB, {});
 const langKeySetting = `${setting.SOURCE_LANG}-${setting.TARGET_LANG}`;
 const vocab = vocabAll[langKeySetting] || {};
+const countTimeStat = getCountTimeStat(vocab);
 
-const config = {
-  width: 1000,
-  height: 850,
-  chartMargin: [50, 30, 30, 30],
-  chartBg: 'lightyellow',
-  chartWidth: 1000,
-  chartHeight: 850,
-  barColor: '#1034a6',
-  barHoverColor: '#0080ff',
-  tooltipColor: 'green',
-  title: chartTitle
+if (countTimeStat && countTimeStat.length > 0) {
+  emptyMessageE.style.display = 'none';
+  controllerE.style.display = 'block';
+  createDataSourceOptions(countTimeStat);
+  updateDataTimeRange();
+} else {
+  emptyMessageE.style.display = 'block';
+  controllerE.style.display = 'none';
 }
-
-const dataToDraw = getDataByTimeRange('all');
-
-const customization = {
-  xTickFormat: (d) => {
-    const date = new Date(d);
-    return `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
-  },
-  xTickValue: (d, i) => !(i%7),
-  yTickFormat: d => {
-    if (d%5 == 0) {
-      return d;
-    } else {
-      return null;
-    }
-  }
-}
-
-const barChart = new BarChart('#statistics-charts', config, [], customization);
-barChart.updateVis(dataToDraw);
 
 })();
