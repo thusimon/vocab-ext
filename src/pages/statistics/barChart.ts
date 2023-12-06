@@ -169,11 +169,11 @@ class BarChart {
           .attr('width', vis.scaleX.bandwidth())
           .attr('height', 0)
           .on('mouseover', function (evt, d: any) {
-            const x = vis.scaleX(d.key)! + vis.scaleX.bandwidth() / 2 -20;
+            const x = vis.scaleX(d.key)! + vis.scaleX.bandwidth() / 2 - 30;
             const y = vis.scaleY(d.value) - 10;
             d3.select(this).transition()
               .duration(200)
-              .style('cursor', 'pointer')
+              .style('cursor', 'default')
               .attr('fill', barHoverColor);
             vis.tooltip.text(vis.customization.tooltipMsg(d));
             vis.tooltip.transition()

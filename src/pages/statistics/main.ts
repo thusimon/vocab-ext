@@ -76,13 +76,14 @@ const getYearData = (data, year) => {
   });
   // group yearData to months
   const yearDataObj = {};
+  for(let m = 0; m < 12; m++) {
+    const mDate = new Date(year, m, 1, 0, 0, 0, 0).getTime();
+    yearDataObj[mDate] = 0;
+  }
   yearData.forEach(d => {
     const date = new Date(+d.key)
-    const monthStart = new Date(year, date.getMonth(), 1, 0, 0, 0, 0).getTime();
-    if (!yearDataObj[monthStart]) {
-      yearDataObj[monthStart] = 0;
-    }
-    yearDataObj[monthStart]++
+    const mDate = new Date(year, date.getMonth(), 1, 0, 0, 0, 0).getTime();
+    yearDataObj[mDate] += d.value
   });
   // convert stat to array
   return Object.keys(yearDataObj).map((dayTime) => {
@@ -163,7 +164,7 @@ const drawChart = (data, format) => {
     barColor: '#1034a6',
     barHoverColor: '#0080ff',
     transitionTime: 250,
-    tooltipColor: 'green',
+    tooltipColor: '#ff7b25',
     title: null
   }
 
