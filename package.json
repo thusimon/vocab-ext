@@ -1,6 +1,9 @@
 {
   "name": "vocab-ext",
   "version": "1.0.0",
+  "engines": {
+    "node": ">=20.10.0"
+  },
   "scripts": {
     "build": "node ./build-tools/build prod",
     "build:dev": "node ./build-tools/build dev"
@@ -8,14 +11,14 @@
   "author": "Lu",
   "license": "ISC",
   "devDependencies": {
-    "@types/chrome": "^0.0.235",
-    "@types/d3": "^7.4.0",
-    "ts-loader": "^9.4.4",
-    "typescript": "^4.8.3",
-    "webpack": "^5.76.0"
+    "@types/chrome": "^0.0.254",
+    "@types/d3": "^7.4.3",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0"
   },
   "dependencies": {
-    "@webcomponents/custom-elements": "^1.5.0",
-    "d3": "7.6.1"
+    "@webcomponents/custom-elements": "^1.6.0",
+    "d3": "^7.8.5"
   }
 }
