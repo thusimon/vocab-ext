@@ -16,6 +16,7 @@ class BarChart {
   chartBgArea: any;
   chartBgLine: any;
   tooltip: any;
+  totalLabel: any;
   rects: any;
   customization: any;
   t: any;
@@ -220,6 +221,23 @@ class BarChart {
         .style('fill', tooltipColor)
         .text('');
       vis.tooltip.transition()
+      .duration(200);
+    }
+
+    if (!vis.totalLabel) {
+      const total = vis.data.reduce((accu, curr) => {
+        return accu + curr.value;
+      }, 0);
+      vis.totalLabel = vis.chart.append("text")
+        .attr('id', 'total-label')
+        .attr('x', chartWidth - 100)
+        .attr('y', 30)
+        .style('opacity', 1)
+        .style('font-weight', 600)
+        .style('font-size', '1.5rem')
+        .style('fill', tooltipColor)
+        .text(`#: ${total}`);
+      vis.totalLabel.transition()
       .duration(200);
     }
   }
