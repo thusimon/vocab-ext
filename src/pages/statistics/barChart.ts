@@ -95,8 +95,7 @@ class BarChart {
     vis.customization = {
       xTickFormat: (d) => {
         const date = new Date(d);
-        return vis.format === 'year' ? date.toLocaleString('en-US', { month: 'short' })
-          : date.getDate();
+        return vis.format === 'year' ? date.getMonth() + 1 : date.getDate();
       },
       xTickValue: (d, i) => d > 0,
       yTickFormat: d => {
