@@ -22,11 +22,15 @@ try {
 const titleE = document.getElementById('statistics-title');
 const controllerE = document.getElementById('statistics-controller');
 const chartE = document.getElementById('statistics-charts');
+const yearLabelE = document.getElementById('data-source-year-label');
 const yearSelectE = document.getElementById('data-source-year');
+const monthLabelE = document.getElementById('data-source-month-label')
 const monthSelectE = document.getElementById('data-source-month');
 const emptyMessageE = document.getElementById('statistics-empty');
 
 titleE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_vocab_add_header');
+yearLabelE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_year');
+monthLabelE.textContent = getI18NMessage(I18Ns, uiLang, 'stat_month');
 emptyMessageE.textContent = getI18NMessage(I18Ns, uiLang, 'newtab_no_vocab_msg');
 document.title = getI18NMessage(I18Ns, uiLang, 'stat_title');
 
