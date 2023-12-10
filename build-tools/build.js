@@ -82,18 +82,23 @@ const webpackProdConfig = Object.assign({}, webpackConfig, {
 const bundle = async mode => {
   const config = mode === 'prod' ? webpackProdConfig : webpackDevConfig;
   const compiler = webpack(config);
-  
-  compiler.run((err, stats) => {
-    if (err) {
-      console.log(err);
-    }
-    compiler.close((closeErr) => {
+  return new Promise((resolve, rejects) => {
+    compiler.run((err, stats) => {
+      if (err) {
+        console.log(err);
+        rejects(err);
+        return;
+      }
+      compiler.close((closeErr) => {
+      });
+      resolve(stats);
     });
   });
 }
 
 (async () => {
   const dir = __dirname;
+  const startTime = new Date();
   const zipExtPath = path.join(buildPath, 'vocab-ext.zip');
   // delete entire build folder
   await fsp.rm(buildPath, { recursive: true });
@@ -104,4 +109,6 @@ const bundle = async mode => {
   await fsp.rename(path.join(buildPath, 'src'), buildExtPath);
   
   await bundle(buildMode);
+  const endTime = new Date();
+  console.log(`Done in ${(endTime.getTime() - startTime.getTime())/1000}s`);
 })()
