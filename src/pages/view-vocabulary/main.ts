@@ -39,9 +39,12 @@ const saveBtn = document.getElementById('save-vocab')!;
 const searchField = document.getElementById('vocab-search')! as HTMLInputElement;
 const countLabelE = document.getElementById('total-vocab-label')!;
 const countE = document.getElementById('total-vocab-count')!;
+const mainE = document.getElementById('cards-main');
+const BATCH_NUM = 200;
 
 let editedItems = {};
 let deletedItems = {};
+let shownItems = [];
 let isModified = false;
 let readingGenerator;
 let isPaused = true;
@@ -130,11 +133,21 @@ const showVocabs = async (sortCriteria, ascending) => {
   countE.textContent = `${sortedVocabs.length}`;
 }
 
+
+let batchIdx = 0;
+let candidateVocabs = [];
 const setVocabs = vocabs => {
   while(tbody.firstChild){
     tbody.removeChild(tbody.firstChild);
   }
-  vocabs.forEach(createTableRow);
+  candidateVocabs = vocabs;
+  addVocabs(candidateVocabs);
+}
+
+const addVocabs = (vocabs) => {
+  const batchVocabs = vocabs.slice(batchIdx * BATCH_NUM, (batchIdx + 1) * BATCH_NUM);
+  shownItems = shownItems.concat(batchVocabs);
+  batchVocabs.forEach(createTableRow);
 }
 
 const showToaster = (msg, type='info', needConsent=false) => {
@@ -428,6 +441,15 @@ window.addEventListener('beforeunload', (evt) => {
     evt.returnValue = 'Are you sure to leave without saving?';
   }
 })
+
+mainE.addEventListener('scroll', debounce((evt) => {
+  const endOfPage = mainE.scrollTop + mainE.clientHeight >= mainE.scrollHeight - 200;
+  console.log(endOfPage)
+  if (endOfPage) {
+    batchIdx++;
+    addVocabs(candidateVocabs);
+  }
+}));
 
 await showVocabs('src-lang', srcLangAscending);
 
