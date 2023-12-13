@@ -19,32 +19,32 @@ try {
   I18Ns = await chrome.runtime.sendMessage({type: 'getI18NStrings'});
 }
 
-const toaster = document.getElementById('toaster')!;
-const toasterMsg = document.getElementById('toaster-msg')!;
-const toasterBtns = document.getElementById('toaster-buttons')!;
-const toasterOKBtn = document.getElementById('toaster-ok')!;
-const toasterCancelBtn = document.getElementById('toaster-cancel')!;
-const tbody = document.getElementById('vocab-tbody')!;
-const srcLangE = document.getElementById('src-lang')!;
-const tarLangE = document.getElementById('tar-lang')!;
-const createdAtE = document.getElementById('created-at')!;
-const exportBtn = document.getElementById('export-vocab')!;
-const importBtn = document.getElementById('import-vocab')!;
-const editBtn = document.getElementById('edit-vocab')!;
-const deleteBtn = document.getElementById('delete-vocab')!;
-const importFile = document.getElementById('import-file')!;
-const readBtn = document.getElementById('read-vocab')!;
-const pauseReadBtn = document.getElementById('pause-read-vocab')!;
-const saveBtn = document.getElementById('save-vocab')!;
-const searchField = document.getElementById('vocab-search')! as HTMLInputElement;
-const countLabelE = document.getElementById('total-vocab-label')!;
-const countE = document.getElementById('total-vocab-count')!;
-const mainE = document.getElementById('cards-main');
+const toaster = document.getElementById('toaster');
+const toasterMsg = document.getElementById('toaster-msg');
+const toasterBtns = document.getElementById('toaster-buttons');
+const toasterOKBtn = document.getElementById('toaster-ok');
+const toasterCancelBtn = document.getElementById('toaster-cancel');
+const tbody = document.getElementById('vocab-tbody');
+const srcLangE = document.getElementById('src-lang');
+const tarLangE = document.getElementById('tar-lang');
+const createdAtE = document.getElementById('created-at');
+const exportBtn = document.getElementById('export-vocab');
+const importBtn = document.getElementById('import-vocab');
+const editBtn = document.getElementById('edit-vocab');
+const deleteBtn = document.getElementById('delete-vocab');
+const importFile = document.getElementById('import-file');
+const readBtn = document.getElementById('read-vocab');
+const pauseReadBtn = document.getElementById('pause-read-vocab');
+const saveBtn = document.getElementById('save-vocab');
+const searchField = document.getElementById('vocab-search') as HTMLInputElement;
+const countLabelE = document.getElementById('total-vocab-label');
+const countE = document.getElementById('total-vocab-count');
+const pageIdxE = document.getElementById('vocab-page') as HTMLInputElement;
+const pageTotalE = document.getElementById('vocab-page-total');
 const BATCH_NUM = 200;
 
 let editedItems = {};
 let deletedItems = {};
-let shownItems = [];
 let isModified = false;
 let readingGenerator;
 let isPaused = true;
@@ -53,6 +53,24 @@ let selectedVocabTr: HTMLElement | null = null;
 let sortedVocabs: any[] = [];
 
 const synth = window.speechSynthesis;
+
+const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
+const vocabsWithSetting = vocabs[`${SOURCE_LANG}-${TARGET_LANG}`] || {};
+const vocabsArr = Object.keys(vocabsWithSetting).map(key => ({
+  original: key,
+  ...vocabsWithSetting[key]
+}));
+const totalPage = Math.ceil(vocabsArr.length / BATCH_NUM);
+pageTotalE.textContent = totalPage + '';
+pageIdxE.max = totalPage + '';
+
+let pageIdx = parseInt(pageIdxE.value);
+let sortCriteria = 'src-lang:1';
+
+pageIdxE.addEventListener('change', (evt) => {
+  pageIdx = parseInt(pageIdxE.value);
+  showVocabs(sortCriteria);
+});
 
 const createTableRow = (vocab, idx) => {
   const {original, translation, createdTime, dict} = vocab;
@@ -104,12 +122,7 @@ pauseReadBtn.title = getI18NMessage(I18Ns, uiLang, 'vocab_pause_pronounce_desp')
 searchField.placeholder = getI18NMessage(I18Ns, uiLang, 'vocab_search_desp');
 countLabelE.textContent = getI18NMessage(I18Ns, uiLang, 'total');
 
-const sortVocabs = (vocabs, criteria, ascending) => {
-  const keys = Object.keys(vocabs);
-  const vocabsArr = keys.map(key => ({
-    original: key,
-    ...vocabs[key]
-  }));
+const sortVocabs = (vocabsArr, criteria, ascending) => {
   return vocabsArr.sort((vocabA, vocabB) => {
     if (criteria === 'tar-lang') {
       return vocabA.translation.localeCompare(vocabB.translation) * ascending;
@@ -119,36 +132,28 @@ const sortVocabs = (vocabs, criteria, ascending) => {
       return vocabA.original.localeCompare(vocabB.original) * ascending;
     }
   });
+};
 
-}
-const showVocabs = async (sortCriteria, ascending) => {
-  const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
-  const vocabsWithSetting = vocabs[`${SOURCE_LANG}-${TARGET_LANG}`] || {};
+const showVocabs = async (sortCriteria) => {
   srcLangE.classList.remove('high-light');
   tarLangE.classList.remove('high-light');
   createdAtE.classList.remove('high-light');
-  document.getElementById(sortCriteria)!.classList.add('high-light');
-  sortedVocabs = sortVocabs(vocabsWithSetting, sortCriteria, ascending);
+  const sortParts = sortCriteria.split(':');
+  const sortCategory = sortParts[0];
+  const ascending = parseInt(sortParts[1]);
+  document.getElementById(sortCategory).classList.add('high-light');
+  sortedVocabs = sortVocabs(vocabsArr, sortCategory, ascending);
   setVocabs(sortedVocabs);
   countE.textContent = `${sortedVocabs.length}`;
-}
+};
 
-
-let batchIdx = 0;
-let candidateVocabs = [];
-const setVocabs = vocabs => {
+const setVocabs = (vocabs) => {
   while(tbody.firstChild){
     tbody.removeChild(tbody.firstChild);
   }
-  candidateVocabs = vocabs;
-  addVocabs(candidateVocabs);
-}
-
-const addVocabs = (vocabs) => {
-  const batchVocabs = vocabs.slice(batchIdx * BATCH_NUM, (batchIdx + 1) * BATCH_NUM);
-  shownItems = shownItems.concat(batchVocabs);
-  batchVocabs.forEach(createTableRow);
-}
+  const pagedVocabs = vocabs.slice((pageIdx - 1) * BATCH_NUM, pageIdx * BATCH_NUM);
+  pagedVocabs.forEach(createTableRow);
+};
 
 const showToaster = (msg, type='info', needConsent=false) => {
   toasterMsg.textContent = msg;
@@ -259,7 +264,7 @@ const onFileLoaded = async (evt) => {
       vocabs[langKey] = vocabsInLangKeys;
     }
     await storageSetP(STORAGE_AREA.VOCAB, vocabs);
-    await showVocabs('src-lang', srcLangAscending);
+    await showVocabs(sortCriteria);
   } catch (e) {
     showToaster(e.message, 'error');
   }
@@ -276,19 +281,22 @@ const getVocabItem = (trE) => {
 
 let srcLangAscending = 1;
 srcLangE.addEventListener('click', () => {
-  showVocabs('src-lang', srcLangAscending);
+  sortCriteria = `src-lang:${srcLangAscending}`;
+  showVocabs(sortCriteria);
   srcLangAscending *= -1;
 });
 
 let tarLangAscending = 1;
 tarLangE.addEventListener('click', () => {
-  showVocabs('tar-lang', tarLangAscending);
+  sortCriteria = `tar-lang:${tarLangAscending}`;
+  showVocabs(sortCriteria);
   tarLangAscending *= -1;
 });
 
 let createdAtAscending = 1;
 createdAtE.addEventListener('click', () => {
-  showVocabs('created-at', createdAtAscending);
+  sortCriteria = `created-at:${createdAtAscending}`;
+  showVocabs(sortCriteria);
   createdAtAscending *= -1;
 });
 
@@ -389,7 +397,7 @@ saveBtn.addEventListener('click', async () => {
   isModified = false;
   editedItems = {};
   deletedItems = {};
-  await showVocabs('src-lang', srcLangAscending);
+  await showVocabs(sortCriteria);
 });
 
 searchField.addEventListener('input', debounce(evt => {
@@ -440,17 +448,8 @@ window.addEventListener('beforeunload', (evt) => {
     evt.preventDefault();
     evt.returnValue = 'Are you sure to leave without saving?';
   }
-})
+});
 
-mainE.addEventListener('scroll', debounce((evt) => {
-  const endOfPage = mainE.scrollTop + mainE.clientHeight >= mainE.scrollHeight - 200;
-  console.log(endOfPage)
-  if (endOfPage) {
-    batchIdx++;
-    addVocabs(candidateVocabs);
-  }
-}));
-
-await showVocabs('src-lang', srcLangAscending);
+await showVocabs(sortCriteria);
 
 })();

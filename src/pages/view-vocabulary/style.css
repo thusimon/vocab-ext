@@ -18,26 +18,49 @@ body {
   margin: 0px 15px
 }
 
-.header-search {
+.header-input {
   display: flex;
-  width: 35%;
   align-items: center;
   position: relative;
 }
 
-.header-search .search-input {
-  width: 100%;
+.header-search {
+  width: 35%;
+}
+
+.header-input input {
   height: 80%;
   border-radius: 10px;
   font-size: 20px;
+}
+
+.header-input .search-input {
+  width: 100%;
   padding: 10px 45px 10px 10px;
 }
 
-.header-search .search-icon {
+
+.header-input .search-icon {
   width: 30px;
   fill: #b0b0b0;
   position: absolute;
   right: 10px;
+}
+
+.header-page {
+  width: 160px;
+  line-height: 60px;
+  font-size: 20px;
+  color: #F0F0F0;
+}
+
+.header-page .page-input {
+  width: 60%;
+  padding: 10px;
+}
+
+.header-page .page-total {
+  margin: 0px 0px 0px 5px;
 }
 
 .btn-header {
