@@ -55,17 +55,26 @@ let sortedVocabs: any[] = [];
 const synth = window.speechSynthesis;
 
 const vocabs = await storageGetP(STORAGE_AREA.VOCAB, {});
-const vocabsWithSetting = vocabs[`${SOURCE_LANG}-${TARGET_LANG}`] || {};
-const vocabsArr = Object.keys(vocabsWithSetting).map(key => ({
-  original: key,
-  ...vocabsWithSetting[key]
-}));
-const totalPage = Math.ceil(vocabsArr.length / BATCH_NUM);
-pageTotalE.textContent = totalPage + '';
-pageIdxE.max = totalPage + '';
+const langSettingsKey = `${SOURCE_LANG}-${TARGET_LANG}`;
 
 let pageIdx = parseInt(pageIdxE.value);
 let sortCriteria = 'src-lang:1';
+
+let vocabsWithSetting = {};
+let vocabsArr = [];
+
+const buildVocabs = () => {
+  vocabsWithSetting = vocabs[langSettingsKey] || {};
+  vocabsArr = Object.keys(vocabsWithSetting).map(key => ({
+    original: key,
+    ...vocabsWithSetting[key]
+  }));
+  const totalPage = Math.ceil(vocabsArr.length / BATCH_NUM);
+  pageTotalE.textContent = totalPage + '';
+  pageIdxE.max = totalPage + '';
+};
+
+buildVocabs();
 
 pageIdxE.addEventListener('change', (evt) => {
   pageIdx = parseInt(pageIdxE.value);
@@ -376,27 +385,23 @@ saveBtn.addEventListener('click', async () => {
   if (Object.keys(deletedItems).length == 0 && Object.keys(editedItems).length == 0) {
     return;
   }
-  // get a copy of the current vocab
-  const setting = await storageGetP(STORAGE_AREA.SETTINGS, DEFAULT_SETTING);
-  const vocab = await storageGetP(STORAGE_AREA.VOCAB, {});
-  const langKeySetting = `${setting.SOURCE_LANG}-${setting.TARGET_LANG}`;
-  const vocabByLangKeySetting = vocab[langKeySetting] || {};
   // process the edited
   for (let key in editedItems) {
-    if (vocabByLangKeySetting[key]) {
-      vocabByLangKeySetting[key].translation = editedItems[key].value;
+    if (vocabsWithSetting[key]) {
+      vocabsWithSetting[key].translation = editedItems[key].value;
     }
   }
   // process the deleted
   for (let key in deletedItems) {
-    delete vocabByLangKeySetting[key];
+    delete vocabsWithSetting[key];
   }
   // save vocabs
-  vocab[langKeySetting] = vocabByLangKeySetting;
-  await storageSetP(STORAGE_AREA.VOCAB, vocab);
+  vocabs[langSettingsKey] = vocabsWithSetting;
+  await storageSetP(STORAGE_AREA.VOCAB, vocabs);
   isModified = false;
   editedItems = {};
   deletedItems = {};
+  buildVocabs();
   await showVocabs(sortCriteria);
 });
 
