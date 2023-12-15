@@ -494,6 +494,54 @@ class TranslateModal extends HTMLElement {
     });
   }
 
+  addDnDListeners(draggableElem) {
+    var initialX = 0, initialY = 0;
+    var moveInProgress = false;
+    var mouseOverHeader = false;
+   
+    try {
+      draggableElem.find('.okta-header').on('mouseover', function() {
+        mouseOverHeader = true;
+      });
+   
+      draggableElem.find('.okta-header').on('mouseout', function() {
+        mouseOverHeader = false;
+      });
+   
+      draggableElem.on('mousedown', function (e) {
+        if (!mouseOverHeader) {
+          return;
+        }
+        var fixedWidth = draggableElem.width() + 2 + 'px';
+        draggableElem.css({'min-width' : fixedWidth, 'max-width' : fixedWidth});
+        initialX = e.clientX;
+        initialY = e.clientY;
+        moveInProgress = true;
+      });
+   
+      draggableElem.on('mousemove', function (e) {
+        if (moveInProgress) {
+          var newX = e.clientX;
+          var newY = e.clientY;
+          var offset = draggableElem.offset();
+          var dY = newY - initialY;
+          var dX = newX - initialX;
+          draggableElem.offset({ top: offset.top + dY, left: offset.left + dX});
+          initialX = newX;
+          initialY = newY;
+        }
+      });
+   
+      var stopMovement = function () {
+        moveInProgress = false;
+      };
+      draggableElem.on('mouseup', stopMovement);
+      draggableElem.on('mouseleave', stopMovement);
+    } catch (e) {
+      console.warn('Controller::addDnDListeners: Could not set up dnd for modal');
+    }
+  }
+
   setLoadingView() {
     this.loadingView.style.display = 'block';
     this.translateView.style.display = 'none';
