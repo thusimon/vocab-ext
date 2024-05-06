@@ -33,7 +33,11 @@ const getContainer = () => {
   containerE.id = DOM_ID.CONTAINER;
   setDomStyles(containerE, 'width', '0px');
   setDomStyles(containerE, 'height', '0px');
+  setDomStyles(containerE, 'padding', '0px');
+  setDomStyles(containerE, 'margin', '0px');
   setDomStyles(containerE, 'position', 'relative');
+  setDomStyles(containerE, 'display', 'block');
+  setDomStyles(containerE, 'border', 0);
   document.body.append(containerE);
   return containerE;
 };

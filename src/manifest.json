@@ -37,6 +37,10 @@
       "128": "assets/icons/icon-128.png"
     }
   },
+  "options_ui": {
+    "page": "pages/settings/index.html",
+    "open_in_tab": true
+  },
   "content_security_policy": {
     "extension_pages": "script-src 'self';object-src 'self';"
   }
