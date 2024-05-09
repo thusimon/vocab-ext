@@ -6,7 +6,17 @@ import {
 } from '../common/utils';
 
 class TranslateModal extends HTMLElement {
+  /**
+   * setting all='initial' is important, shadowDom encapsulate the styling
+   * it does not leak OUT the styling
+   * however, for those inheritable styling, if not specified by shadowDom,
+   * the outside style may leak IN
+   * Or use some style reset library, like Normalize.css
+   **/
   static styleText = `
+  :host {
+    all: initial;
+  }
   #translate-container {
     font-family: Serif;
     overflow: hidden;
@@ -391,13 +401,6 @@ class TranslateModal extends HTMLElement {
   }
 
   connectedCallback() {
-    /**
-     * setting all='initial' is important, shadowDom encapsulate the styling
-     * it does not leak OUT the styling
-     * however, for those inheritable styling, if not specified by shadowDom,
-     * the outside style may leak IN 
-     **/
-    this.style.all = 'initial';
     setDomStyles(this, 'position', 'absolute');
     setDomStyles(this, 'z-index', '2147483647');
     setDomStyles(this, 'top', '0px');
