@@ -5,8 +5,9 @@
     "node": ">=20.10.0"
   },
   "scripts": {
-    "build": "node ./build-tools/build prod",
-    "build:dev": "node ./build-tools/build dev"
+    "build": "node ./build-tools/build -prod",
+    "build:dev": "node ./build-tools/build -dev",
+    "build:devK": "node ./build-tools/build -dev -k"
   },
   "author": "Lu",
   "license": "ISC",

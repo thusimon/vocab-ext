@@ -1,6 +1,12 @@
-const fsp = require('fs').promises;
+const fs = require('fs');
+const fsp = fs.promises;
 const path = require('path');
 const webpack = require('webpack');
+
+const CHROME_PUBLIC_KEY = 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmY+yefR/8tJag8E50AWA38Oa6A3btZw+bYFZ1WAhHdEUzq5mUIE6bQktx1jaaQg/c9xxcgcbt/3H0Z2P8VTXcU3ZzrJVHpQqMuu9LOMhlPijwzQqEXA2iHlX2Acue5t2zvOk1Zadw5nmIBkmxh0IyLM4ZuixfbcB2Fg1zKiuEMpzqHSFo7LP4haDqjdMeA0py+f6W+T6Nuuts/Xpt9qCPthr9qkK+/Zn3qMnVARKZGD1hxS+z3aqjk0zywM54B688OZ4O2OsISVnYaTvZliexZw+W9R6qLwMV352A9Q1wTHjvB6Oq/ezT2P+Rxz++0+eejXYKlqlqLWkZvbp368FvQIDAQAB';
+
+const buildArg = process.argv[2] || '-prod';
+const keyArg = process.argv[3];
 
 const itemExists = async (src) => {
   try {
@@ -9,6 +15,27 @@ const itemExists = async (src) => {
   } catch (err) {
     return false;
   }
+}
+
+const parseArg = (arg) => {
+  if (!arg) {
+    return arg;
+  }
+  return arg.replace(/^-+/, '');
+}
+
+const appendManifestKey = async (keyMode, dest) => {
+  if (keyMode != 'k') {
+    return;
+  }
+  const manifestPath = path.resolve(dest, './manifest.json');
+  const manifestExists = fs.existsSync(manifestPath);
+  if (!manifestExists) {
+    return;
+  }
+  const manifest = require(manifestPath);
+  manifest.key = CHROME_PUBLIC_KEY;
+  await fsp.writeFile(manifestPath, JSON.stringify(manifest, null, 2)); 
 }
 
 const copyFiles = async (src, dest, excludes = []) => {
@@ -33,8 +60,6 @@ const copyFiles = async (src, dest, excludes = []) => {
     return Promise.resolve();
   }
 };
-
-const buildMode = process.argv[2] || 'prod';
 
 const buildPath = path.join(__dirname, '../build');
 const buildExtPath = path.join(buildPath, 'vocab-ext');
@@ -106,9 +131,10 @@ const bundle = async mode => {
 
   // copy the existing non script files:
   await copyFiles(path.join(dir, '../src'), buildPath, ['.js', '.ts']);
+  await appendManifestKey(parseArg(keyArg), path.join(buildPath, './src'));
   await fsp.rename(path.join(buildPath, 'src'), buildExtPath);
   
-  await bundle(buildMode);
+  await bundle(parseArg(buildArg));
   const endTime = new Date();
   console.log(`Done in ${(endTime.getTime() - startTime.getTime())/1000}s`);
 })()
