@@ -1222,6 +1222,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lz-string@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "lz-string@npm:1.5.0"
+  bin:
+    lz-string: bin/bin.js
+  checksum: 36128e4de34791838abe979b19927c26e67201ca5acf00880377af7d765b38d1c60847e01c5ec61b1a260c48029084ab3893a3925fd6e48a04011364b089991b
+  languageName: node
+  linkType: hard
+
 "merge-stream@npm:^2.0.0":
   version: 2.0.0
   resolution: "merge-stream@npm:2.0.0"
@@ -1526,6 +1535,7 @@ __metadata:
     "@types/d3": "npm:^7.4.3"
     "@webcomponents/custom-elements": "npm:^1.6.0"
     d3: "npm:^7.8.5"
+    lz-string: "npm:^1.5.0"
     ts-loader: "npm:^9.5.1"
     typescript: "npm:^5.3.3"
     webpack: "npm:^5.89.0"

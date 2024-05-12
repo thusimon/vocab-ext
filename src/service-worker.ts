@@ -7,6 +7,7 @@ import {
   storageGetP, storageSetP, getTranslateUri, getI18NMessage, debounce, compareVersion, setBadge
 } from './common/utils';
 import { SettingsType } from './types';
+import {compress, decompress} from 'lz-string';
 
 (async () => {
 
@@ -249,6 +250,14 @@ chrome.omnibox.onInputEntered.addListener(omniboxInputEnterHandler);
   enabled: true,
   path: 'pages/side-panel/index.html'
 });
+
+
+const allData = await chrome.storage.local.get();
+const allDataStr = JSON.stringify(allData);
+
+const compressed = compress(allDataStr);
+console.log(allDataStr.length, compressed.length);
+
 })();
 
 // onInstalled event only triggered when the registeration is called sync in the first place.
