@@ -409,6 +409,7 @@ class TranslateModal extends HTMLElement {
     setDomStyles(this, 'transition-duration', '0.5s');
     setDomStyles(this, 'transition-timing-function', 'ease-in-out');
     setDomStyles(this, 'display', 'none');
+    setDomStyles(this, 'visibility', 'visible');
 
     this.showAnimate = false;
     this.setLoadingView();
